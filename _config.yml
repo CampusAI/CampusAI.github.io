@@ -17,3 +17,5 @@ author:
 
 #Others
 markdown: kramdown
+
+include: ['_papers']

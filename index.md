@@ -2,6 +2,6 @@
 layout: default
 ---
 
-# Why this website?
+# Bla bla
 
-Good question
+bla nla bla bla
