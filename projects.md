@@ -29,11 +29,11 @@ permalink: /projects/
 
 
 <ul>
-  {% for post in site.categories.projects %}
+  {% for item in site.projects %}
       <div class="card">
-           <h3><b> {{ post.title }} </b></h3>
-           <div class="card_excerpt"> {{post.excerpt}} </div>
-           <div class="card_video"> <iframe src="{{post.video}}"/> </div>
+           <h3><b> {{ item.title }} </b></h3>
+           <div class="card_excerpt"> {{item.excerpt}} </div>
+           <div class="card_video"> <iframe src="{{item.video}}"/> </div>
       </div>
   {% endfor %}
 </ul>

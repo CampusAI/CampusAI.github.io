@@ -4,5 +4,6 @@ title: Papers
 permalink: /papers/
 ---
 
-# Papers
-[Neural Net Surgery with Sets](/papers/NN_surgery_sets)
+{% for item in site.papers %}
+[{{item.title}}]({{item.permalink}})
+{% endfor %}

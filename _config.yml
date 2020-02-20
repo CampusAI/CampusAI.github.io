@@ -19,3 +19,8 @@ author:
 markdown: kramdown
 
 include: ['_papers']
+
+# Collections
+collections:
+        - papers
+        - projects
