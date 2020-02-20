@@ -24,3 +24,9 @@ include: ['_papers']
 collections:
         - papers
         - projects
+
+defaults:
+        - scope:
+                path: "assets/images/"
+          values:
+                image: true
