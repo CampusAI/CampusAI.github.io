@@ -1,7 +1,7 @@
 ---
 layout: paper
 title: Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition
-permalink: /papers/HRL_with_MAXQ_decomposition
+permalink: /papers/HRL-with-MAXQ-decomposition
 paper-author: Thomas G. Dietterich
 paper-year: 2000
 paper-link: https://www.jair.org/index.php/jair/article/download/10266/24463/
