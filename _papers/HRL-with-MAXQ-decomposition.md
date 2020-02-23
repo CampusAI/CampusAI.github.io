@@ -4,7 +4,7 @@ title: Hierarchical Reinforcement Learning with the MAXQ Value Function Decompos
 permalink: /papers/HRL-with-MAXQ-decomposition
 paper-author: Thomas G. Dietterich
 paper-year: 2000
-paper-link: https://www.jair.org/index.php/jair/article/download/10266/24463/
+paper-link: https://arxiv.org/abs/cs/9905014
 ---
 
 A hierarchical policy is a policy in which actions can represent sub-tasks with their own policy.
