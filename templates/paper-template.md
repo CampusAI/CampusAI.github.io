@@ -18,10 +18,15 @@ KEEP IT SHORT
 Write here about the paper main idea. Bullet points are preferrable but also paragraphs can be used
 Don't go into complicated formulas or concepts if not necessary, but make the key points clear. Ideally,
 one should get a good idea of what the paper does by only reading this.
+
+TO INSERT AN IMAGE, use	
+{% include figure.html url="/assets/images/[PATH]" description="[DESCRIPTION]" %}
+
 #### Paragraph 1 title
  ... text ...
 #### Paragraph 2 title
  ... text
+
 
 ## Contribution
  - **Short bold sentence that sums up the point**: Start a bullet point with a short sentence in **bold**
