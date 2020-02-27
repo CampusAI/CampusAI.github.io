@@ -14,7 +14,7 @@ After a changing input features and architectures, the network parameters have t
 - This allows to **continously train** the model while adding modifications.
 
 ## Idea
-Given a model $F_{old}$ with parameters $\Theta_{old}$, and a result of a modification $F_{new}$ with parameters $Theta_{new}$ we wish to find a **mapping**:
+Given a model $F_{old}$ with parameters $\Theta_{old}$, and a result of a modification $F_{new}$ with parameters $\Theta_{new}$ we wish to find a **mapping**:
 
 \begin{equation}
 M : \Theta_{old} \rightarrow \Theta_{new}
