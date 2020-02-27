@@ -5,7 +5,7 @@ permalink: /papers/NN_surgery_sets
 paper-author: Jonathan Raiman, Susan Zhang, Christy Dennison
 post-author: Oleguer Canal
 paper-year: 2019
-paper-link: LINK
+paper-link: https://arxiv.org/abs/1912.06719
 ---
 
 - Performing exploration on **input features** and **architecutres** for Neural Networks is a highly time-consuming task (often prohibiting).
