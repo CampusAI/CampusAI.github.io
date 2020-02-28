@@ -9,12 +9,12 @@ paper-link: https://arxiv.org/abs/1912.06719
 ---
 
 - Performing exploration on **input features** and **architecutres** for Neural Networks is a highly time-consuming task (often prohibiting).
-After a changing input features and architectures, the network parameters have to be fully re-trained from scratch.
+After changing input features or architecture, the network parameters have to be fully re-trained from scratch.
 - This paper introduces a solution which enables the **transfer** of learned parameters from a model to a modification of it.
 - This allows to **continously train** the model while adding modifications.
 
 ## Idea
-Given a model $F_{old}$ with parameters $\Theta_{old}$, and a result of a modification $F_{new}$ with parameters $\Theta_{new}$ we wish to find a **mapping**:
+Given a model $F_{old}$ with parameters $\Theta_{old}$, and another model, result of a modification $F_{new}$ with parameters $\Theta_{new}$ we wish to find a **mapping**:
 
 \begin{equation}
 M : \Theta_{old} \rightarrow \Theta_{new}
@@ -22,14 +22,14 @@ M : \Theta_{old} \rightarrow \Theta_{new}
 
 This can be achieved in 2 steps:
 
-1. Compute $\phi_{old}$ and $\phi_{new}$: Map input features of both models: $x_{model}^{in}$ to all the parameters that relate.
-This takes a shape of a **lookup table** with:
+1. Map input features ($x_{model}^{in}$) to all model parameters that relate ($[\theta_{0}, \theta_{1}, ...]$), for both models.
+These functions are refered as $\phi_{old}$ and $\phi_{new}$, and take the shape of a **lookup table** with:
 - **keys**: each $x_{model}^{in}(i)$
-- **values**: list of parameters $[\theta_{i_0}, \theta_{i_1}, ...]$ which are dependent on input $x^{in}(i)$.
+- **values**: list of parameters $[\theta_{i_0}, \theta_{i_1}, ...]$ which are dependent on input feature $x^{in}(i)$.
 
 2. Compare $\phi_{old}$ and $\phi_{new}$ and use it to compute how to initialize parameters in the new model:
 - Newly introduced features will not share keys in lookup tables $\phi_{old}$ and $\phi_{new}$. We can use this mismatch to detect which parameters to re-initialize.
-- Additionally, we can detect keys shifts to know whcih old parameters should be copied to the new model.
+- Additionally, we can detect keys shifts to know which old parameters should be copied to the new model.
 
 
 <!-- {% include figure.html url="/assets/images/[PATH]" description="[DESCRIPTION]" %} -->
@@ -47,3 +47,6 @@ Results show that Boolean Logic Mapping outperforms both in computation time and
 
 ## Weaknesses
  - **Need to scramble through all weights** to detect input-parameter relationships. Is there a better way to robustly continue training a model without doing so?
+
+## Additional Information
+- Two Minute Papers reviews this approach on a great [video](https://www.youtube.com/watch?v=62Q1NL4k8cI&t=355s)
