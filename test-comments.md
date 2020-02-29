@@ -1,3 +1,5 @@
 ---
-layout: test-comments
+layout: default
 ---
+
+{% include test-comments.html %}
