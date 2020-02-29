@@ -2,4 +2,4 @@
 layout: default
 ---
 
-{% include test-comments.html %}
+{% include comment-form.html %}
