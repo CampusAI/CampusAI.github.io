@@ -49,4 +49,4 @@ Results show that Boolean Logic Mapping outperforms both in computation time and
  - **Need to scramble through all weights** to detect input-parameter relationships. Is there a better way to robustly continue training a model without doing so?
 
 ## Additional Information
-- Two Minute Papers reviews this approach on a great [video](https://www.youtube.com/watch?v=62Q1NL4k8cI&t=355s)
+- Two Minute Papers reviews this approach on a great [video](https://www.youtube.com/watch?v=62Q1NL4k8cI&t=0s)
