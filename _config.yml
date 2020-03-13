@@ -30,3 +30,6 @@ defaults:
                 path: "assets/images/"
           values:
                 image: true
+
+# Google analytics
+google_analytics: UA-160601102-1
