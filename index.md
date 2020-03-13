@@ -3,7 +3,7 @@ layout: page
 title: Welcome to CampusAI!
 ---
 
-Get __inspired__ by, __comment__ on and __ask__ about latest RL research insights.
+Get __inspired__ by, __comment__ on, and __ask__ about latest RL research insights.
 
 # Paper of the week:
 
