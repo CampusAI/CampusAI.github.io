@@ -1,6 +1,7 @@
 ---
 layout: paper
 title: The Option Critic Architecture
+category: hierarchical
 permalink: /papers/the-option-critic-architecture
 paper-author: Pierre-Luc Bacon, Jean Harb, Doina Precup
 post-author: Federico Taschin

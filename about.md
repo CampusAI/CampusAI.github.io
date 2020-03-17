@@ -23,7 +23,7 @@ Ultimately (in fact, mainly) this website is also for us, to ensure we keep read
 # Who are we?
 
 We are two [Machine Learning MSc](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
-In an attempt to deepen our understnding on this field, we decided to start this website.
+We decided to start this website in an attempt to deepen our understnding on this field, .
 It is a way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
 
 In particular, we are:

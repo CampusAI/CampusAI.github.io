@@ -1,6 +1,7 @@
 ---
 layout: paper
 title: Neural Network Surgery with Sets
+category: other
 permalink: /papers/NN_surgery_sets
 paper-author: Jonathan Raiman, Susan Zhang, Christy Dennison
 post-author: Oleguer Canal
