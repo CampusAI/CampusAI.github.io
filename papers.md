@@ -4,10 +4,9 @@ title: Papers
 permalink: /papers/
 ---
 
-# Algorithms
+# RL Algorithms
 
 # Hierarchical RL
-
 {% for item in site.papers %}
 {% if item.category != "hierarchical" %}
     {% continue %}
