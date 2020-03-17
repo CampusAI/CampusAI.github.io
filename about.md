@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+# title: About
 permalink: /about/
 ---
 
@@ -16,14 +16,15 @@ You can check out the summaries [here](papers.md), and our projects [here](proje
 Have you ever wanted to keep up with latest RL research but don't have the time to go through complete papers?
 Then you are in luck because this website is exacly what you want!
 
-We select interesting papers and try to provide a summary which will give you a good understanding of them (deeper than what you get by just reading the abstract) in a much compressed way (by ommiting previous work, technical details and reiterations).
+We select interesting papers and try to provide a summary which will give you a good understanding of them (deeper than what you get by just reading the abstract) in a much compressed way (by ommiting technical details, previous work, and reiterations).
 
-Ultimately this website is also for us, to ensure we keep learning.
+Ultimately (in fact, mainly) this website is also for us, to ensure we keep reading and learning.
 
 # Who are we?
 
-We are two [Machine Learning Masters](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
-In an attempt to deepen our understnding on this field we decided to start this website, forcing ourselves be up to date with most recent developments.
+We are two [Machine Learning MSc](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
+In an attempt to deepen our understnding on this field, we decided to start this website.
+It is a way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
 
 In particular, we are:
 

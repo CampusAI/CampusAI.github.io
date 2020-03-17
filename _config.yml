@@ -4,7 +4,7 @@ gems:
 
 # Setup
 title:        CampusAI
-tagline:      Review and implementation of interesting AI papers
+tagline:      Comment, Ask, and get inspired by latest RL research.
 baseurl:      ""
 paginate:     1
 locale:       "en"
@@ -12,7 +12,7 @@ locale:       "en"
 # About/contact
 author:
   name:       CampusAI
-  url:        http://yourhomepage.com 
+  url:        https://campusai.github.io/
 
 
 #Others

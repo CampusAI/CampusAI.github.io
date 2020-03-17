@@ -11,7 +11,7 @@ paper-link: https://arxiv.org/abs/1912.06719
 - Performing exploration on **input features** and **architecutres** for Neural Networks is a highly time-consuming task (often prohibiting).
 After changing input features or architecture, the network parameters have to be fully re-trained from scratch.
 - This paper introduces a solution which enables the **transfer** of learned parameters from a model to a modification of it.
-- This allows to **continously train** the model while adding modifications.
+- This allows to **continously train** the model while performing architecture modifications.
 
 ## Idea
 Given a model $F_{old}$ with parameters $\Theta_{old}$, and another model, result of a modification $F_{new}$ with parameters $\Theta_{new}$ we wish to find a **mapping**:
