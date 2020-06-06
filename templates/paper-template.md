@@ -1,8 +1,10 @@
 ---
 layout: paper
 title: [TITLE OF PAPER]
+category: [Paper category (hirearchical, algorithm, other...)]
 permalink: /papers/[NAME OF FILE (not including .md extension)]
 paper-author: [AUTHOR OF PAPER]
+paper-institutions: [Author's Company/University (DeepMind, OpenAI...)]
 post-author: [AUTHOR OF THIS POST]
 paper-year: [YEAR OF PAPER]
 paper-link: [LINK TO PAPER (possibly to the official pubblication)]

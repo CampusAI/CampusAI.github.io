@@ -5,6 +5,12 @@ permalink: /papers/
 ---
 
 # RL Algorithms
+{% for item in site.papers %}
+{% if item.category != "algorithm" %}
+    {% continue %}
+{% endif %}
+[{{item.title}}]({{item.permalink}})
+{% endfor %}
 
 # Hierarchical RL
 {% for item in site.papers %}

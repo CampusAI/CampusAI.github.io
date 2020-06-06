@@ -4,7 +4,7 @@ gems:
 
 # Setup
 title:        CampusAI
-tagline:      Comment, Ask, and get Inspired by latest RL Research.
+tagline:      Get Inspired by latest RL Research.
 baseurl:      ""
 paginate:     1
 locale:       "en"

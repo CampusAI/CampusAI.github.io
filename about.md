@@ -6,7 +6,7 @@ permalink: /about/
 
 # What is this?
 
-This website contains summaries of "recent" RL papers we found interesting as well as some of our RL projects.
+This website contains summaries of "recent"/"famous" RL papers we found interesting as well as some of our RL projects.
 In addition, we provide a comment section below each summary page for readers to review/discuss/ask paper-related content.
 
 You can check out the summaries [here](papers.md), and our projects [here](projects.md)!
@@ -23,7 +23,7 @@ Ultimately (in fact, mainly) this website is also for us, to ensure we keep read
 # Who are we?
 
 We are two [Machine Learning MSc](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
-We decided to start this website in an attempt to deepen our understnding on this field, .
+We decided to start this website in an attempt to deepen our understnding on this field.
 It is a way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
 
 In particular, we are:
