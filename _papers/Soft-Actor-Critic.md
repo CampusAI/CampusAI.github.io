@@ -37,7 +37,7 @@ J(\pi) = \sum_t E_{(s_t, a_t) \sim \rho_{\pi}} \left[ r(s_t, a_t) + \alpha H(\pi
 
 Where $\alpha$ is a "temperature" meta-parameter, which can be fixed or learned ($\alpha$ = 0 for standard RL).
 
-**THIS SITE IS UNFINISHED**
+**THIS POST IS UNFINISHED**
 <!-- ## Contribution
  - __Stable Learning:__ Results show similar performance accross different seeds, in contrast to other off-policy methods.
 
