@@ -62,7 +62,7 @@ Inventory management:
     - **Problems:**
         - Still might be convenient to *hard-code* some bits
     - **Doubts:**
-        - Should we still split the problem into sub-domains and apply different learning algorithms to each one (e.g. one for perception, one for locomotion...) or se a single learning algorithm which acquires the functionality of these subdomains? There is some evidence supporting a single learning method:
+        - Should we still split the problem into sub-domains and apply different learning algorithms to each one (e.g. one for perception, one for locomotion...) or use a single learning algorithm which acquires the functionality of these subdomains? There is some evidence supporting a single learning method:
             - Resemblance between features extracted by Deep Neural Nets (DNN) and primary cortical receptive fields. [Andrew Saxe et al.](https://papers.nips.cc/paper/4331-unsupervised-learning-models-of-primary-cortical-receptive-fields-and-receptive-field-plasticity)
             - [Re-wiring optical nerve to auditory cortex](http://web.mit.edu/surlab/publications/Newton_Sur04.pdf). This experiment shows how a mammal can re-learn to process its eyes information using its auditory cortex. 
             - With [BrainPort device](https://www.youtube.com/watch?v=xNkw28fz9u0) you can "see through your tongue". It converts images into electric signals perceived by the tongue.
