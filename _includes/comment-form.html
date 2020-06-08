@@ -31,7 +31,7 @@
 #contact {
   background: #FFFFFF;
   padding: 20px;
-  margin: 150px 0;
+  margin: 10px 0;
 }
 
 #contact h3 {
@@ -132,16 +132,24 @@ fieldset {
 </style>
 
 <div class="container">
-  <form id="contact" action="" method="post">
-    <fieldset>
-      <input placeholder="Your name" type="text" tabindex="1" required autofocus style="width: 49.5%; margin: 0 1% 0 0">
-      <input placeholder="Your Email Address" type="email" tabindex="2" style="width: 49.5%; margin: 0 0 0 0 px;">
-    </fieldset>
-    <fieldset>
-      <textarea placeholder="Type your message here...." tabindex="3" required></textarea>
-    </fieldset>
-    <fieldset>
-      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Leave a comment</button>
-    </fieldset>
-  </form>
-</div>
+<form id="contact" method="POST" action="https://campusai-staticman.herokuapp.com/v2/entry/campusai/campusai.github.io/master/comments">
+  <fieldset>
+  <input name="options[slug]" type="hidden" value="{{ page.name }}">
+  <label><input name="fields[name]" type="text" placeholder="Your name" tabindex="1"
+	  required autofocus style="width: 49.5%; margin: 0 1% 0 0"></label>
+  <label><input name="fields[email]" type="email" placeholder="Your email" tabindex="2"
+	  style="width: 49.5%; margin: 0 0 0 0 px;"></label>
+  </fieldset>
+ 
+  <fieldset>
+  <label><textarea name="fields[message]" placeholder="Leave a message here" tabindex="3"
+         required>
+	 </textarea>
+  </label>
+  </fieldset>
+ 
+  <fieldset>
+  <button name="submit" type="submit" id="contact-submit">Leave a comment</button>
+  </fieldset>
+</form>
+<div class="container">

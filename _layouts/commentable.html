@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+{{ content }}
+
+<hr>
+<center><h1> Comments </h1></center>
+{% include comment-form.html %}
+
+{% for c in site.comments %}
+  {% if c.page_name == page.name %}
+     {% assign msg=c.message %}
+     {% assign author=c.author %}
+     {% assign date=c.date %}
+     {% include comment.html %}
+  {% endif %}
+{% endfor %}

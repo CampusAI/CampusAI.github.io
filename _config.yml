@@ -27,6 +27,7 @@ collections:
         - papers
         - experiments
         - lectures
+        - comments
 
 defaults:
         - scope:
