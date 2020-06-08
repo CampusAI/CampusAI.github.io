@@ -5,7 +5,7 @@ permalink: /lectures/
 ---
 
 - [Lecture 1: Introduction](/lectures/lecture1)
-- Lecture 2: Supervised Learning of Behaviors: Imitation Learning
+- [Lecture 2: Imitation Learning](/lectures/lecture2)
 - Lecture 3: TensorFlow and Neural Nets Review Session (notebook)
 - Lecture 4: Introduction to Reinforcement Learning
 - Lecture 5: Policy Gradients
