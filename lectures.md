@@ -7,7 +7,7 @@ permalink: /lectures/
 - [Lecture 1: Introduction](/lectures/lecture1)
 - Lecture 2: Supervised Learning of Behaviors: Imitation Learning
 - Lecture 3: TensorFlow and Neural Nets Review Session (notebook)
-- Lecture 4: Introduction to Reinforcement Learning
+- [Lecture 4: Introduction to Reinforcement Learning](/lectures/lecture4)
 - Lecture 5: Policy Gradients
 - Lecture 6: Actor-Critic Algorithms
 - Lecture 7: Value Function Methods
