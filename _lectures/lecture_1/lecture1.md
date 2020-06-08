@@ -56,13 +56,13 @@ Inventory management:
         - Sub-problems in intelligent systems can already be too complex.
         - Wiring of non-intentional abstracted blocks may rise issues.
 
-- **Learning-based approach**: Use learning as a base for intelligence:
+- **Learning-based approach**: Use learning as a base for intelligence.
     - **Motivations:** 
         - While some human behaviors may be innate (walking), others can only be learned (driving a car is clearly not programed into us by evolution) $\Rightarrow$ humans have learning mechanisms powerful enough to perform everything associated with intelligence
     - **Problems:**
         - Still might be convenient to *hard-code* some bits
     - **Doubts:**
-        - Should we still split the problem into sub-domains and apply different learning algorithms to each one (e.g. one for perception, one for locomotion...) or se a single learning algorithm which acquires the functionality of these subdomains? There is some evidence supporting a single learning method:
+        - Should we still split the problem into sub-domains and apply different learning algorithms to each one (e.g. one for perception, one for locomotion...) or use a single learning algorithm which acquires the functionality of these subdomains? There is some evidence supporting a single learning method:
             - Resemblance between features extracted by Deep Neural Nets (DNN) and primary cortical receptive fields. [Andrew Saxe et al.](https://papers.nips.cc/paper/4331-unsupervised-learning-models-of-primary-cortical-receptive-fields-and-receptive-field-plasticity)
             - [Re-wiring optical nerve to auditory cortex](http://web.mit.edu/surlab/publications/Newton_Sur04.pdf). This experiment shows how a mammal can re-learn to process its eyes information using its auditory cortex. 
             - With [BrainPort device](https://www.youtube.com/watch?v=xNkw28fz9u0) you can "see through your tongue". It converts images into electric signals perceived by the tongue.
@@ -76,6 +76,6 @@ Inventory management:
 - Learn by **imitating** enough human expert behavior
 
 ### What are main DRL challenges?
-- DRL methods are very **slow** to train: They require a lot of experience samples before they work well.
+- DRL methods are very **slow**: They require a lot of experience samples before they work well.
 - Humans re-use a lot of knowledge but **transfer** learning in DRL is still an open problem.
 - How should the **reward** function be? What is the role of **predictions**?
