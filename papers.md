@@ -4,7 +4,7 @@ title: Papers
 permalink: /papers/
 ---
 
-# RL Algorithms
+## RL Algorithms
 {% for item in site.papers %}
 {% if item.category != "algorithm" %}
     {% continue %}
@@ -12,7 +12,7 @@ permalink: /papers/
 [{{item.title}}]({{item.permalink}})
 {% endfor %}
 
-# Hierarchical RL
+## Hierarchical RL
 {% for item in site.papers %}
 {% if item.category != "hierarchical" %}
     {% continue %}
@@ -20,7 +20,7 @@ permalink: /papers/
 [{{item.title}}]({{item.permalink}})
 {% endfor %}
 
-# Other
+## Other
 {% for item in site.papers %}
 {% if item.category != "other" %}
     {% continue %}

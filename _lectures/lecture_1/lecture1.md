@@ -58,9 +58,9 @@ Inventory management:
 
 - **Learning-based approach**: Use learning as a base for intelligence.
     - **Motivations:** 
-        - While some human behaviors may be innate (walking), others can only be learned (driving a car is clearly not programed into us by evolution) $\Rightarrow$ humans have learning mechanisms powerful enough to perform everything associated with intelligence
+        - While some human behaviors may be innate (walking), others can only be learned (driving a car is clearly not programed into us by evolution) $\Rightarrow$ humans have learning mechanisms powerful enough to perform everything associated with intelligence.
     - **Problems:**
-        - Still might be convenient to *hard-code* some bits
+        - Still might be convenient to *hard-code* some bits.
     - **Doubts:**
         - Should we still split the problem into sub-domains and apply different learning algorithms to each one (e.g. one for perception, one for locomotion...) or use a single learning algorithm which acquires the functionality of these subdomains? There is some evidence supporting a single learning method:
             - Resemblance between features extracted by Deep Neural Nets (DNN) and primary cortical receptive fields. [Andrew Saxe et al.](https://papers.nips.cc/paper/4331-unsupervised-learning-models-of-primary-cortical-receptive-fields-and-receptive-field-plasticity)

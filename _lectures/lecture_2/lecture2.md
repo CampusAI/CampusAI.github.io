@@ -8,56 +8,31 @@ slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-2.pdf
 video-link: https://www.youtube.com/watch?v=TUBBIgtQL_k&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=3&t=3206s
 ---
 
-# Sequential decision problems definitions
-
-## Basics
-
-- $s_t$: **State** at time t.
-- $o_t$: **Observation** at time t.
-- $a_t$: **Action** at time t.
-- $r_t$: **Reward** associated for taking action $a_t$ at state $s_t$.
-- $\pi_{\theta} (a_t \mid o_t)$: Probability of taking action $a$  given the observation $o$ at time t according to the set of parameters $\theta$. The **Policy** essentially maps observations to actions.
-    - Can either be stochastic or deterministic (1 action with prob 1, all others with prob 0).
-    - Can either be from a partially observable or fully observable regime.
-
-{% include figure.html url="/_lectures/lecture_2/basics.png" description="Example of decision process elements" %}
-
-**Observation vs State**: Observation is what the agent perceives. State are the underlying circumstances which give that observation, depends on the level of abstraction desired. States fully describe the world, observations only partly (not bijective) but a lot of times they are used indistinctly. 
-
-## Markov Decision Processes (MDP)
-**MDP:** It is a discrete-time stochastic control process which certifies the **Markov property**: the conditional probability distribution of future states of the process (conditional on both past and present states) depends only upon the present state, not on the sequence of events that preceded it.
-
-{% include figure.html url="/_lectures/lecture_2/markov.png" description="Graphical model of a Markov decision process" %}
-
-**OBS:** If the environment transitions are known, the optimal policy can be found using **Dynamic Programming (DP)** approaches.
-
-**OBS:** Observations do NOT necessarily satisfy Markov property but states do.
-
-# Imitation learning approach
-
-## Behavioral cloning (BC)
+# Behavioral cloning (BC)
 
 **IDEA:** Record a lot of "expert" demonstrations and apply classic supervised learning to obtain a model to map observations to actions (policy).
 
 {% include figure.html url="/_lectures/lecture_2/bc.png" description="Self-driving vehicle behavioral cloning workflow example." %}
 
-<!-- **OBS:** Behavioral cloning is just a fancy way to say "supervised learning". -->
+**OBS:** Behavioral cloning is a type of Imitation Learning -a general term to say "learn from expert demonstrations".
 
-## Why doesn't this work?
+**OBS:** Behavioral cloning is just a fancy way to say "supervised learning".
 
-### 1. Distributional shift
+# Why doesn't this work?
+
+## 1. Distributional shift
 
 **Wrong actions change the data distribution:** A small mistake at the beginning makes the observations distribution to be different from the training data. This makes the policy to be more prone to error: it has not been trained on this  new distribution. This snowball effect keeps rising the error between trajectories over time.
 
 {% include figure.html url="/_lectures/lecture_2/bc_problem.png" description="Representation of the distributional shift problem." %}
 
-#### Improvements:
-- Using some application-specific "hacks": [link](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)
+### Improvements:
+- Using some application-specific "hacks": [Self-driving car](https://devblogs.nvidia.com/) and [Drone](https://idsia-robotics.github.io/files/publications/RAL16_Giusti.pdf) trained with BC.
 - Adding noise to training trajectory so its more robust against errors.
 - Adding a penalty for deviating (inverse RL idea)
 - **DAgger** algorithm (**D**ataset **Aggre**gation)
 
-##### DAgger algorithm
+#### DAgger algorithm
 
 **Idea:** Collect training data from policy distribution instead of human distribution, using the following algorithm:
 
@@ -69,26 +44,25 @@ video-link: https://www.youtube.com/watch?v=TUBBIgtQL_k&list=PLkFD6_40KJIwhWJpGa
 
 **Problem:** While it addresses the distributional shift problem, it is and unnatural way for humans to provide labels (we expect temporal coherence) $\Rightarrow$ Bad labels.
 
-### 2. Non-Markovian behavior
-If we see the same thing twice we won't act exactly the same. What happened in previous time-steps affects our current actions. Most decision we take are in a non-Markovian setup.
+## 2. Non-Markovian behavior
+If we see the same thing twice we won't act exactly the same. What happened in previous time-steps affects our current actions. Most decision we take are in a non-Markovian setup. This makes the training much harder.
 
-#### Improvements:
+### Improvements:
 - We could feed the whole history to the model but the input would be too large to train robustly.
 - We can use a RNN approach to account for the time dependency.
 
-#### Problems:
+### Problems:
 - [Causal Confusion](https://arxiv.org/abs/1905.11979): Training models with history may exacerbate wrong causal relationships.
 
-### 3. Multimodal behavior
+## 3. Multimodal behavior
 
 In a continuous action space, if the parametric distribution chosen for our policy is not multimodal (e.g. a single Gaussian) the Maximum Likelihood Estimation (MLE) of the actions may be a problem:
 
-{% include figure.html url="/_lectures/lecture_2/tree.png" description="While both -go left- and -go right- actions are ok, the averages action is bad." %}
+{% include figure.html url="/_lectures/lecture_2/tree.png" description="While both 'go left' and 'go right' actions are ok, the average action is bad." %}
 
 
-#### Improvements:
-- **Output a mixture of Gaussians**: Encode the action space as:
-    - $\pi (a \mid o) = \sum_i w_i \mathcal{N} (\mu_i, \Sigma_i)$
+### Improvements:
+- **Output a mixture of Gaussians**: $\pi (a \mid o) = \sum_i w_i \mathcal{N} (\mu_i, \Sigma_i)$
 - **Latent variable models**: Can be as expressive as we want: We can feed to the network a prior variable sampled from a known distribution. In this case, the policy training is harder but can be done using a technique like:
     - Conditional variational autoencoder
     - Normalizing flow/realNVP
@@ -99,6 +73,24 @@ In a continuous action space, if the parametric distribution chosen for our poli
     3. Feed-forward this sampled value into a new small NN with inputs the $n-1$ other actions and outputs the $n-1$ other actions again.
     4. Repeat from 2. until all actions are discretized.
 
-# Theory
+# Quantitative analysis
 
-[Drone](https://idsia-robotics.github.io/files/publications/RAL16_Giusti.pdf) example.
+Defining the cost function: $c(s, a) = \delta_{a \neq \pi^*(s)}$ (1 when the action is different from the expert).
+
+And assuming that the probability of making a mistake on a state sampled from the training distribution is bounded by $\epsilon$: $\space \space \pi_\theta (a \neq \pi^* (s) \mid s) \leq \epsilon \space\space \forall s \sim p_{train}(s)$ 
+
+### Case: $p_{train}(s) \simeq p_{\theta}(s)$
+- $E \left[ \sum_t c(s_t, a_t) \right] \leq \epsilon T$
+
+**OBS:** This would be the case if DAgger algorithm correctly applied, where the training data distribution converges to the trained policy one.
+
+### Case: $p_{train}(s) \neq p_{\theta}(s)$
+
+We have that: $p_\theta (s_t) = (1-\epsilon)^t p_{train} (s_t) + (1 - (1 - \epsilon)^t) p_{mistake} (s_t)$
+
+Where $p_{mistake} (s_t)$ is a state probability distribution different from $p_{train} (s_t)$. In the worst case, the total variation divergence: $\mid p_{mistake} (s_t) - p_{train} (s_t) \mid = 2$
+
+Therefore:
+- $\sum_t E_{p_\theta (s_t)} [c_t] = O(\epsilon T^2)$
+
+**OBS:** The error expectation grows quadratically over time!! More details on: [A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning](https://arxiv.org/abs/1011.0686)
