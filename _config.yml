@@ -4,7 +4,7 @@ gems:
 
 # Setup
 title:        CampusAI
-tagline:      Get Inspired by latest RL Research.
+tagline:      Get inspired by latest RL research
 baseurl:      ""
 paginate:     1
 locale:       "en"
