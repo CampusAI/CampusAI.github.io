@@ -9,8 +9,8 @@ video-link: https://www.youtube.com/watch?v=w_IIP-swuVo&list=PLkFD6_40KJIwhWJpGa
 ---
 
 ## The Reinforcement Learning Framework
-Reinforcement Learning deals with **agents** interacting in a certain **environment**, observing
-its **state**, performing **actions** and obtaining **rewards**, with the goal of learning an
+Reinforcement Learning deals with **agents** interacting within a certain **environment**, observing
+its **state**, performing **actions** and obtaining **rewards**. The goal is to learn an
 optimal **policy**, i.e. a mapping from observations to actions, that maximizes the total reward.
 
 ### Markov Decision Process
@@ -19,7 +19,7 @@ The elements of this MDP are the **state space** $S$, the **action space** $A$, 
 **reward function** $r$, the **transition operator** $\mathcal{T}$ and the **policy** $\pi$. For a
 more detailed explanation, see our [Annex 1: MDP Basics](/lectures/basic_concepts)
 
-Note that, for a given policy $\pi_{\theta}$, the probability of a
+Note that under a policy $\pi_{\theta}$, the probability of a
 **trajectory** $$\tau = (s_1, a_1, s_2, a_2, \:...)$$ is given by the induced Markov chain on
 the joint space $S$ x $A$
 
@@ -45,7 +45,7 @@ $$\mu = \mathcal{T}\mu$$.
 
 
 ### The goal of Reinforcement Learning
-The goal of RL is to find a set of parameters $\theta$ for our policy $\pi_\theta$ which optimize an **objective function**. This objective function depends on the situation but an easy to understand one is the **reward expectation** from running an agent following $\pi_\theta$ on the given environment. For an extended expectation interpretation see
+The goal of RL is to find a set of parameters $\theta^*$ for our policy $\pi_\theta$ which optimize an **objective function**. This objective function may differ on the situation but an easy one is the **reward expectation** from running an agent following $\pi_\theta$ on the given environment. For an extended expectation interpretation see
 [Annex 2: Policy Expectations, Explained](/lectures/policy_expectations).
 
 #### Finite Horizon
