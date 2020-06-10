@@ -80,7 +80,9 @@ Defining the cost function: $c(s, a) = \delta_{a \neq \pi^*(s)}$ (1 when the act
 And assuming that the probability of making a mistake on a state sampled from the training distribution is bounded by $\epsilon$: $\space \space \pi_\theta (a \neq \pi^* (s) \mid s) \leq \epsilon \space\space \forall s \sim p_{train}(s)$ 
 
 ### Case: $p_{train}(s) \simeq p_{\theta}(s)$
-- $E \left[ \sum_t c(s_t, a_t) \right] \leq \epsilon T$
+\begin{equation}
+E \left[ \sum_t c(s_t, a_t) \right] = O(\epsilon T)
+\end{equation}
 
 **OBS:** This would be the case if DAgger algorithm correctly applied, where the training data distribution converges to the trained policy one.
 
@@ -91,6 +93,9 @@ We have that: $p_\theta (s_t) = (1-\epsilon)^t p_{train} (s_t) + (1 - (1 - \epsi
 Where $p_{mistake} (s_t)$ is a state probability distribution different from $p_{train} (s_t)$. In the worst case, the total variation divergence: $\mid p_{mistake} (s_t) - p_{train} (s_t) \mid = 2$
 
 Therefore:
-- $\sum_t E_{p_\theta (s_t)} [c_t] = O(\epsilon T^2)$
+
+\begin{equation}
+\sum_t E_{p_\theta (s_t)} [c_t] = O(\epsilon T^2)
+\end{equation}
 
 **OBS:** The error expectation grows quadratically over time!! More details on: [A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning](https://arxiv.org/abs/1011.0686)
