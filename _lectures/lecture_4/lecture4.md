@@ -26,9 +26,9 @@ The elements of this MDP are:
     rewards. Rewards represent how good or bad are the given state-action pairs.
 - **Transition operator $\mathcal{T}$**: the operator that encodes the transition probabilities
     given state and action, i.e. $$\mathcal{T}_{s', s, a} = p(s_{t+1} = s' | s_t = s, a_t = a)$$.
-- **Policy $$\pi_{\theta}(a, s)$$**: a distribution over the actions taken by the agent.
-    $$\pi_{\theta}(a, s)$$ represents the probability of chosing action $a$ given that the
-    current state is $s$.
+- **Policy $$\pi(a, s)$$**: a distribution over the actions taken by the agent.
+    $$\pi(a, s)$$ represents the probability of choosing action $a$ given that the
+    current state is $s$. This policy is usually dependent on some set of parameters $\theta$ (e.g. weights in a ANN). We therefore refer to the policy as: $\pi_{\theta}(a, s)$.
 
 Note that, for a given policy
 $\pi_{\theta}$, the probability of a **trajectory** $$\tau = (s_1, a_1, s_2, a_2, \:...)$$
@@ -91,8 +91,7 @@ We define the **Q function** as
 Q^{\pi}(s_t, a_t) = \sum_{t'=t}^T E_{\pi_{\theta}}[ r(s_{t'}, a_{t'}) | s_t, a_t]
 \end{equation}
 i.e. $$Q^{\pi}(s_t, a_t)$$ is the expected total reward obtained by starting in state $s_t$ and doing
-action $a_t$.
-
+action $a_t$ while following policy $\pi$.
 
 Similarly, we define the **Value Function** as
 \begin{equation}
@@ -108,7 +107,7 @@ $\pi$. Note that $$V^{\pi}(s_1)$$ is our RL objective.
 
 
 Given the objective of Eq. \ref{eq:finite_hor} or \ref{eq:inf_hor}, or some other variants such as
-**discounted total reward**, we can exploit different algorithms to optimize a policy
+**discounted total reward**, we can exploit different algorithms to optimize a policy:
 - **Policy Gradients**: directly differentiate the objective function
 - **Value Based**: estimate the value function or the $Q$ function of the optimal policy
 - **Actor-Critic**: estimate the value or $Q$ function of the current policy, and use it to improve
@@ -118,7 +117,7 @@ improving the policy, and more.
 
 
 An important distinction to make is the one between **on-policy** and **off-policy** algorithms:
-- **Off-Policy**: able to improve the policy using samples collected from older policies.
+- **Off-Policy**: able to improve the policy using samples collected from different policies.
     These algorithms are more **sample efficient** because they need less samples from the environment.
 - **On-Policy**: need to generate new samples every time the policy is changed, therefore require more
     samples.

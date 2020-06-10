@@ -32,3 +32,7 @@ video-link: https://www.youtube.com/watch?v=SinprXg2hUA&list=PLkFD6_40KJIwhWJpGa
 **OBS:** If the environment transitions are known, the optimal policy can be found using **Dynamic Programming (DP)** approaches.
 
 **OBS:** Observations do NOT necessarily satisfy Markov property but states do.
+
+## Policy Reward Interpretation
+
+Given any policy: $\pi_\theta$, we know that each possible trajectory $\tau$ we can get from our environment has an associated probability of happening $p_{\pi_\theta} (\tau) \iff  $

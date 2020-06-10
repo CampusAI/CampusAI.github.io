@@ -35,8 +35,8 @@ Inventory management:
 ## Ways to learn:
 
 - From expert demonstrations:
-    - **Behavioral Cloning**: Copying observed behavior (demonstration)
-    - **Inverse RL**: Inferring rewards from observed behavior (demonstration)
+    - **Behavioral Cloning**: Copying observed behavior. [Lecture 2](/lectures/lecture2)
+    - **Inverse RL**: Inferring rewards from observed behavior.
 
 
 - From environment observations:
