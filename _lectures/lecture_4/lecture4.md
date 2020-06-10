@@ -123,6 +123,8 @@ An important distinction to make is the one between **on-policy** and **off-poli
 - **On-Policy**: need to generate new samples every time the policy is changed, therefore require more
     samples.
 
-#### Algorithm Tradeoffs
-{% include figure.html url="/_lectures/lecture_4/comparison_sample_efficiency.png" description="" %}
-
+It is important to note that better sample efficiency does not imply a better model. In some cases,
+generating new samples may be way faster than updating the policy (for example, when using big neural
+networks). Different algorithms make different assumptions on the state and action spaces as well as
+the nature of the task (episodic vs continuous). Moreover, **convergence is not always guaranteed** in
+many cases! One should always chose the algorithm by taking all this and much more factors into account.
