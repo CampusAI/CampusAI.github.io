@@ -9,16 +9,22 @@ video-link: https://www.youtube.com/watch?v=SinprXg2hUA&list=PLkFD6_40KJIwhWJpGa
 ---
 
 # Sequential decision problems definitions
-
 ## Basics
 
-- $s_t$: **State** at time t.
-- $o_t$: **Observation** at time t.
-- $a_t$: **Action** at time t.
-- $r_t$: **Reward** associated for taking action $a_t$ at state $s_t$.
-- $\pi_{\theta} (a_t \mid o_t)$: Probability of taking action $a$  given the observation $o$ at time t according to the set of parameters $\theta$. The **Policy** essentially maps observations to actions.
-    - Can either be stochastic or deterministic (1 action with prob 1, all others with prob 0).
-    - Can either be from a partially observable or fully observable regime.
+- **State space** $$S$$: the set of possible states $s_i \in S$ of the environment. It is
+    important to keep in mind that often what the agent sees is not the actual state of the
+    environment, but rather a -possibly noisy- **observation** of it, which is often written
+    $o \in O$.
+- **Action space** $$A$$: the set of possible actions $a_i \in A$.
+- **Reward $r(s, a)$**: reward function that maps state-action pairs to the correspondent scalar
+    rewards. Rewards represent how good or bad are the given state-action pairs.
+- **Transition operator $$\mathcal{T}$$**: the operator that encodes the transition probabilities
+    given state and action, i.e. $$\mathcal{T}_{s', s, a} = p(s_{t+1} = s' | s_t = s, a_t = a)$$.
+- **Policy $$\pi_{\theta}(a, s)$$**: a distribution over the actions taken by the agent.
+    $$\pi_{\theta}(a, s)$$ represents the probability of chosing action $a$ given that the
+    current state is $s$. The $\theta$ subscript means that the policy is parametrized by $\theta$.
+    A policy can be **stochastic** or **deterministic**, and can operate on a fully or partially
+    observable environment.
 
 {% include figure.html url="/_lectures/annex/basics.png" description="Example of decision process elements" %}
 
