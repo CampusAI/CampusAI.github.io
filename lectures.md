@@ -4,9 +4,11 @@ title: Lectures
 permalink: /lectures/
 ---
 
+## Notes from Sergey Levine UC Berkeley CS-285
+
 - [Lecture 1: Introduction](/lectures/lecture1)
-- Lecture 2: Supervised Learning of Behaviors: Imitation Learning
-- Lecture 3: TensorFlow and Neural Nets Review Session (notebook)
+- [Lecture 2: Imitation Learning](/lectures/lecture2)
+<!-- - Lecture 3: TensorFlow Review -->
 - [Lecture 4: Introduction to Reinforcement Learning](/lectures/lecture4)
 - Lecture 5: Policy Gradients
 - Lecture 6: Actor-Critic Algorithms
@@ -25,3 +27,6 @@ permalink: /lectures/
 - Lecture 19: Exploration (Part 2)
 - Lecture 20: Meta-learning
 - Lecture 21: Information Theory, Open Problems
+
+## Annex
+- [Annex 1: Notation and Basic Concepts](/lectures/basic_concepts)
