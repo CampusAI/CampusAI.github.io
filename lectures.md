@@ -7,9 +7,18 @@ permalink: /lectures/
 ## Notes from Sergey Levine UC Berkeley CS-285
 
 - [Lecture 1: Introduction](/lectures/lecture1)
+    - RL vs Supervised Learning
+    - Ways to learn
+    - How to build intelligent machines
+    - State of the art
 - [Lecture 2: Imitation Learning](/lectures/lecture2)
+    - Behavioral Cloning
+    - Why doesn't it work?
 <!-- - Lecture 3: TensorFlow Review -->
 - [Lecture 4: Introduction to Reinforcement Learning](/lectures/lecture4)
+    - Markov Decision Processes
+    - The goal of RL
+    - RL algorithms
 - Lecture 5: Policy Gradients
 - Lecture 6: Actor-Critic Algorithms
 - Lecture 7: Value Function Methods
