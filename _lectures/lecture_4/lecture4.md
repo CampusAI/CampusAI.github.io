@@ -15,24 +15,13 @@ optimal **policy**, i.e. a mapping from observations to actions, that maximizes 
 
 ### Markov Decision Process
 The interaction of the agent with the environment is defined as a Markov Decision Process.
-The elements of this MDP are:
+The elements of this MDP are the **state space** $S$, the **action space** $A$, the
+**reward function** $r$, the **transition operator** $\mathcal{T}$ and the **policy** $\pi$. For a
+more detailed explanation, see our [Annex 1: Notations and Basic Concepts](/lectures/basic_concepts)
 
-- **State space $S$**: the set of possible states $s_i \in S$ of the environment. It is
-    important to keep in mind that often what the agent sees is not the actual state of the
-    environment, but rather a -possibly noisy- observation of it, which is often written
-    $o \in O$.
-- **Action space $A$**: the set of possible actions $a_i \in A$.
-- **Reward $r(s, a)$**: reward function that maps state-action pairs to the correspondent scalar
-    rewards. Rewards represent how good or bad are the given state-action pairs.
-- **Transition operator $\mathcal{T}$**: the operator that encodes the transition probabilities
-    given state and action, i.e. $$\mathcal{T}_{s', s, a} = p(s_{t+1} = s' | s_t = s, a_t = a)$$.
-- **Policy $$\pi_{\theta}(a, s)$$**: a distribution over the actions taken by the agent.
-    $$\pi_{\theta}(a, s)$$ represents the probability of chosing action $a$ given that the
-    current state is $s$.
-
-Note that, for a given policy
-$\pi_{\theta}$, the probability of a **trajectory** $$\tau = (s_1, a_1, s_2, a_2, \:...)$$
-is given by the induced Markov chain on the joint space $S$ x $A$
+Note that, for a given policy $\pi_{\theta}$, the probability of a
+**trajectory** $$\tau = (s_1, a_1, s_2, a_2, \:...)$$ is given by the induced Markov chain on
+the joint space $S$ x $A$
 
 \begin{equation}
 p_{\theta}(\tau) = p(s_1, a_1, r_1, s_2, a_2, \:...) =
@@ -65,24 +54,33 @@ cumulative reward in expectation over the distribution $p(\tau)$:
 \label{eq:finite_hor}
 \theta^* = \arg \max_{\theta} E_{\tau \sim p_{\theta}(\tau)}
 \left [ \sum_{t=1}^T r(s_t, a_t) \right ]
-= \arg \max_{\theta} E_{(s_t, a_t) \sim p_{\theta}(s_t, a_t)}\left[ r(s_t, a_t) \right]
+= \arg \max_{\theta} \sum_{t=1}^T E_{(s_t, a_t) \sim p_{\theta}(s_t, a_t)}\left[ r(s_t, a_t) \right]
 \end{equation}
 where $p_{\theta}(s_t, a_t)$ is the **state-action marginal** distribution that we obtain by applying
 the $\mathcal{T}$ operator $t$ times.
 
 
 #### Infinite Horizon
-We now deal for the case where the horizon $T$ of Eq. \ref{eq:finite_hor} is infinite. As we said, for
-$$t\rightarrow \infty$$, the distribution of states and actions $$p_{\theta}(s_t, a_t)$$ converges to
-a stationary distribution $$p_{\theta}(s, a)$$. We then re-write Eq.\ref{eq:finite_hor} as
+We now deal for the case where the horizon $T$ is infinite. We start with a slightly different
+formulation of the objective function of Eq.\ref{eq:finite_hor}, known as the 
+**undiscounted average return** formulation of RL.
+
 \begin{equation}
 \label{eq:inf_hor}
-\theta^* = \arg \max_{\theta} \frac{1}{T} \sum_{t=1}^{\infty}
-E_{(s_t, a_t) \sim p_{\theta}(s_t, a_t)} [r(s_t, a_t)] \rightarrow
-E_{(s, a) \sim p_{\theta}(s, a)}[r(s, a)]
+\theta^* = \arg \max_{\theta} \frac{1}{T} \sum_{t=1}^{T}
+E_{(s_t, a_t) \sim p_{\theta}(s_t, a_t)} [r(s_t, a_t)]
 \end{equation}
 
-where we divide by 1/T to make the sum finite. This is called the **undiscounted average return** formulation of RL.
+As we said, for $$T\rightarrow \infty$$, the distribution of states and actions $$p_{\theta}(s_t, a_t)$$
+converges to a stationary distribution $$p_{\theta}(s, a)$$. Then, taking the limit for
+$T \rightarrow \infty$, the sum becomes dominated by terms from the stationary distribution and
+
+\begin{equation}
+\label{eq:inf_hor_limit}
+\lim_{T \to \infty} \frac{1}{T} \sum_{t=1}^{T}
+E_{(s_t, a_t) \sim p_{\theta}(s_t, a_t)} [r(s_t, a_t)] 
+= E_{(s, a) \sim p_{\theta}(s,a)[r(s, a)]}
+\end{equation}
 
 
 #### The Q and V functions
