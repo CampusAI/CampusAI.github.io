@@ -42,9 +42,60 @@ the gradient is zero for all the terms not depending on $\theta$, we obtain
 
 \begin{equation}
 \label{eq:policy_gradient}
-\nabla_{\theta}(\theta) = E_{\tau \sim \pi_{\theta}(\tau)}
+\nabla_{\theta}J(\theta) = E_{\tau \sim \pi_{\theta}(\tau)}
 \left [\left (\sum_{t=1}^T \nabla_{\theta}\log \pi_{\theta}(a_t \vert s_t) \right ) r(\tau) \right]
 \end{equation}
 
 A more detailed explanation of the steps that bring to this result can be found in the
-[ANNEX TODO]()
+[ANNEX TODO](). We are now left with the problem of computing this gradient, that is defined
+as an expectation over the trajectory distribution. Since we assume to not know the dynamics of
+the environment, we cannot directly compute this distribution and its expected value. Instead,
+we use Monte Carlo sampling to obtain an unbiased estimate of the gradient. We sample $N$
+trajectories $\tau^{(i)}$, $i = 1$ ... $N$, by running the policy in the environment, and we
+compute the gradient $\nabla_{\theta}J(\theta)$
+
+\begin{equation}
+\label{eq:gradient_sample}
+\nabla_{\theta}J(\theta) = \frac{1}{N} \sum_{i=1}^N \left(\sum_{t=1}^T
+\nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \right) r(\tau^{(i)})
+\end{equation}
+
+where $r(\tau^{(i)})$ is the total reward of the $i$-th trajectory. 
+
+## REINFORCE
+We now have everything we need to introduce the basic **REINFORCE** algorithm.
+1. Initialize $\theta$ at random
+2. While not converged
+    1. Run policy $$\pi_{\theta}$$ in the environment and collect trajectories $$\{\tau^{(i)}\}$$
+    2. Compute $\nabla_{\theta}J(\theta) \approx \sum_{i=1}^N \left( \sum_{t=1}^T
+       \nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \right) r(\tau^{(i)})$ 
+    3. $\theta = \theta + \alpha \nabla_{\theta}J(\theta)$ 
+
+The equation of the gradient does not contain the term $\frac{1}{N}$ because the magnitude of
+the gradient is already determined by the learning rate $\alpha$. 
+
+### Interpretation
+We now reason about what does Eq. \ref{eq:policy_gradient} do. When we take a gradient step
+given by $$E_{\tau \sim \pi_{\theta}(\tau)} [\nabla_{\theta}\log \pi_{\theta}(\tau)]$$ we are
+making the trajectory $\tau$ more probale. If we multiply the term inside the gradient by
+$r(\tau)$ as in Eq. \ref{eq:policy_gradient}, we increase/decrease the likelihood of the
+trajectory in consideration depending on the sign of $r(\tau)$. Thus, if the total reward
+$r(\tau)$ is negative, the likelihood of the trajectory $\tau$ is decreased, while if it is
+positive it is increased. Increasing or decreasing the likelihood of a trajectory $\tau$ means
+that the gradient step is increasing/decreasing the likelihood of the actions $a_t$
+correspondent to the states $s_t$ for $a_t, s_t \in \tau$. This, however, poses some serious
+issues that in practice make the Policy Gradient technique as we stated it not working.
+
+## How to make Policy Gradient work
+As formulated above, the Policy Gradient methods do not really work well. In this section we
+analyze their main issues and the tricks necessary to make Policy Gradient algorithms work.
+
+### The causality issue
+The term $r(\tau)$ in Eq.\ref{eq:gradient_sample} is the total reward of a trajectory $\tau$:
+\begin{equation}
+r(\tau) = \sum_{t=1}^T r(s_t, a_t)
+\end{equation}
+with $s_t$, $a_t$ being the state and action at time-step $t$ in the trajectory $\tau$.
+If we develop Eq. \ref{eq:policy_gradient} by expliciting $r(\tau)$ and moving it inside the
+summation we obtain 
+
