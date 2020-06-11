@@ -10,7 +10,7 @@ permalink: /lectures/
 - [Lecture 2: Imitation Learning](/lectures/lecture2)
 <!-- - Lecture 3: TensorFlow Review -->
 - [Lecture 4: Introduction to Reinforcement Learning](/lectures/lecture4)
-- Lecture 5: Policy Gradients
+- [Lecture 5: Policy Gradients](/lectures/lecture5)
 - Lecture 6: Actor-Critic Algorithms
 - Lecture 7: Value Function Methods
 - Lecture 8: Deep RL with Q-functions
