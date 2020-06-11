@@ -44,7 +44,7 @@ Encodes the behavior of an agent in an environment. Can be understood as a distr
 
 Usually policies are dependent on a set of parameters $\theta$ (e.g. weights in a ANN). In this case, we refer to it as: $$\pi_{\theta}(a, s)$$.
 
-**OBS:** A policy can be **stochastic** or **deterministic**. We can use the same notation: in the deterministic case the probability of the chosen action is 1 and the others are 0.
+**OBS:** A policy can be **stochastic** or **deterministic**. We can use the same notation: in the deterministic case the probability of the chosen action is 1 and the others are 0. Why would you want a stochastic policy? Imagine you are playing rock-paper-scissors, if you behave deterministically, your opponent can take advantage of it.
 
 **OBS:** We sometimes write $\pi_\theta(s) = a$. We refer to the action chosen by the policy in state $s$.
 

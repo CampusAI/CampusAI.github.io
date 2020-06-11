@@ -7,7 +7,7 @@ permalink: /lectures/
 ## Notes from Sergey Levine UC Berkeley CS-285
 
 - [Lecture 1: Introduction](/lectures/lecture1)
-    - RL vs Supervised Learning
+    - Supervised Learning vs RL
     - Ways to learn
     - How to build intelligent machines
     - State of the art
@@ -20,7 +20,7 @@ permalink: /lectures/
     - The goal of RL
     - RL algorithms
 - Lecture 5: Policy Gradients
-- Lecture 6: Actor-Critic Algorithms
+- [Lecture 6: Actor-Critic Algorithms](/lectures/lecture6)
 - Lecture 7: Value Function Methods
 - Lecture 8: Deep RL with Q-functions
 - Lecture 9: Advanced Policy Gradients
