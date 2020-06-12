@@ -20,6 +20,11 @@ permalink: /lectures/
     - The goal of RL
     - RL algorithms
 - [Lecture 5: Policy Gradients](/lectures/lecture5)
+    - Policy differentiation
+    - The REINFORCE algorithm
+    - Solving the causality issue
+    - Baselines
+    - Off-policy Policy Gradient
 - Lecture 6: Actor-Critic Algorithms
 - Lecture 7: Value Function Methods
 - Lecture 8: Deep RL with Q-functions
