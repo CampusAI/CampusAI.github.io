@@ -19,7 +19,7 @@ permalink: /lectures/
     - Markov Decision Processes
     - The goal of RL
     - RL algorithms
-- Lecture 5: Policy Gradients
+- [Lecture 5: Policy Gradients](/lectures/lecture5)
 - Lecture 6: Actor-Critic Algorithms
 - Lecture 7: Value Function Methods
 - Lecture 8: Deep RL with Q-functions
