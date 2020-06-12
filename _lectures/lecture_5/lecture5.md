@@ -170,11 +170,76 @@ This is exactly what we need, since we want to compute the gradient of Eq.
 under the old policy $$\pi_{\theta}$$. The objective function now becomes
 \begin{equation}
 J(\theta) = E_{\tau \sim \pi_{\theta}(\tau)}
-\left [ \frac{\pi_{\theta'}}{\pi_{\theta}} r(\tau) \right ]
+\left [ \frac{\pi_{\theta'}(\tau)}{\pi_{\theta}(\tau)} r(\tau) \right ]
 \end{equation}
 
 and we observe that the state transition probabilities cancel out in the ratio
 \begin{equation}
-\frac{\pi_{\theta'}}{\pi_{\theta}} = 
-\frac{p(s_1) \prod_{t=1}^T}
+\frac{\pi_{\theta'}(\tau)}{\pi_{\theta}(\tau)} = 
+\frac{p(s_1) \prod_{t=1}^T \pi_{\theta'}(a_t \vert s_t) p(s_{t+1} \vert s_t, a_t)}
+{p(s_1) \prod_{t=1}^T \pi_{\theta}(a_t \vert s_t) p(s_{t+1} \vert s_t, a_t)} = 
+\prod_{t=1}^T \frac{\pi_{\theta'}(a_t \vert s_t)}
+{\pi_{\theta}(a_t \vert s_t)}
 \end{equation}
+
+obtaining the gradient for **off-policy Policy Gradient**
+
+\begin{equation}
+\nabla_{\theta'}J(\theta') = E_{\tau \sim \pi_{\theta}(\tau)} \left [
+\left ( \prod_{t=1}^T \frac{\pi_{\theta'}(a_t \vert s_t)}{\pi_{\theta}(a_t \vert s_t)} \right )
+\left ( \sum_{t=1}^T \nabla_{\theta'} \log \pi_{\theta'}(a_t \vert s_t) \right)
+r(\tau)
+\right ]
+\end{equation}
+
+we can employ the causality fix that we described above by using the **reward to go**
+and by doing the same for the importance weights
+
+\begin{equation}
+\label{eq:off_policy}
+\nabla_{\theta'}J(\theta') = E_{\tau \sim \pi_{\theta}} \left [
+\sum_{t=1}^T \nabla_{\theta'}\log \pi_{\theta'}(a_t \vert s_t)
+\left( \prod_{t'=1}^t \frac{\pi_{\theta'}(a_{t'}\vert s_{t'})}{\pi_{\theta}(a_{t'} \vert s_{t'})}
+\right)
+\left( \sum_{t'=t}^T r(s_{t'}, a_{t'})
+\prod_{t^{\prime\prime}=t}^{t'} \frac{\pi_{\theta'}(a_{t^{\prime\prime}}\vert s_{t^{\prime\prime}})}
+{\pi_{\theta}(a_{t^{\prime\prime}} \vert s_{t^{\prime\prime}})}
+\right)
+\right ]
+\end{equation}
+
+If we try to implement this function, we will likely incur into **underflow** issues, due to the
+multiplication of many small numbers together. We can remove second product of importance
+weights (the right-most one). This simplifies the equation and, for reasons that will be
+explained later in the lectures, still leaves us with a gradient that improves the policy.
+
+{% include figure.html url="/_lectures/lecture_5/is_pg.png"%}
+
+However, the issue remains with the left-most product of importance weights. We resort to a
+first order approximation by substituting the product of the importance weights with the
+correspondent **state-action marginal distributions** $$\pi_{\theta'}(s_t, a_t)$$ and
+$$\pi_{\theta}(s_t, a_t)$$. We can factorize them by applying the chain rule
+$$\pi(s_t, a_t) = \pi(s_t) \pi(a_t \vert s_t)$$ where the term $$\pi(s_t)$$ is the 
+**state marginal distribution** that we do not know. However, it can be shown that we can
+remove this term as long as the new policy $$\theta'$$ is close enough to the old $$\theta$$.
+The resulting **off-policy Policy Gradient** will then be
+
+\begin{equation}
+\label{eq:off_policy_approx}
+\nabla_{\theta'}J(\theta') = \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T
+\frac{\pi_{\theta'}(a_t^{(i)} \vert s_t^{(i)})}{\pi_{\theta}(a_t^{(i)} \vert s_t^{(i)})}
+\nabla_{\theta'}\log\pi_{\theta'}(a_t^{(i)} \vert s_t^{(i)}) \hat{Q}_{i, t}
+\end{equation}
+in which we used the reward to go $$\hat{Q}_{i, t}$$, i.e. the total reward of the $i$-th
+trajectory from time-step $t$ onwards.
+
+#### Which off-policy setting should I implement?
+The goal of off-policy algorithms is to reuse experience collected with elder versions of the
+policy as much as possible. The formulation of Eq. \ref{eq:off_policy} allows us to use samples
+obtained from any distribution $$\pi_{\theta}$$, but has the issue that for big values of $T$
+it can lead to numerical instabilities. On the other hand, the formulation of Eq. 
+\ref{eq:off_policy_approx} requires the old policy $$\pi_{\theta}$$ to be *close enough* to
+the new policy $$\pi_{\theta'}$$, preventing us to exploit samples from policies that are too
+different, but solves the numerical issues. Therefore, if the time horizon $T$ is not too big,
+the formulation of Eq. \ref{eq:off_policy} is preferrable, otherwise one should go for
+Eq. \ref{eq:off_policy_approx}.
