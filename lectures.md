@@ -32,7 +32,10 @@ permalink: /lectures/
 - Lecture 7: Value Function Methods
 - Lecture 8: Deep RL with Q-functions
 - Lecture 9: Advanced Policy Gradients
-- Lecture 10: Model-based Planning
+- [Lecture 10: Model-based Planning](/lectures/lecture10)
+    - Stochastic optimization methods
+    - Monte Carlo tree search (MCTS)
+    - Trajectory optimization 
 - Lecture 11: Model-based Reinforcement Learning
 - Lecture 12: Model-based Policy Learning
 - Lecture 13: Variational Inference and Generative Models
