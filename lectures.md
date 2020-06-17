@@ -29,7 +29,6 @@ permalink: /lectures/
     - Reducing Variance on Policy Gradients
     - Policy evaluation (MC vs Bootstrapping)
     - AC algorithm
-- Lecture 6: Actor-Critic Algorithms
 - Lecture 7: Value Function Methods
 - Lecture 8: Deep RL with Q-functions
 - Lecture 9: Advanced Policy Gradients
