@@ -11,12 +11,12 @@ video-link: https://www.youtube.com/watch?v=SinprXg2hUA&list=PLkFD6_40KJIwhWJpGa
 # Sequential decision problems definitions
 
 ### State space $$S$$:
-Set of possible states $s_i \in S$ of an environment. 
+Set of possible states $s_i \in S$ of an environment. Also referred as $x_i \in X$ in control formulation.
 
 **Observation vs State**: It is important to keep in mind that often what the agent perceives is not the actual state of the environment, but rather a -possibly noisy- **observation** of it, which is often written $o \in O$. State are the underlying circumstances which give that observation, depends on the level of abstraction desired. States fully describe the environment, observations only partly (its not bijective since multiple states can give the same observation) but a lot of times they are used indistinctly. 
 
 ### Action space $$A$$:
-Set of possible actions $a_i \in A$ an agent can take in the given environment.
+Set of possible actions $a_i \in A$ an agent can take in the given environment. Also referred as $u_i \in U$ in control formulation.
 
 **OBS:** If an action cannot be taken in a given state, this is usually encoded by the transition operator $\mathcal{T}$.
 
