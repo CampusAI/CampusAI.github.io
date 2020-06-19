@@ -29,4 +29,6 @@ permalink: /lectures/
 - Lecture 21: Information Theory, Open Problems
 
 ## Annex
-- [Annex 1: Notation and Basic Concepts](/lectures/basic_concepts)
+- [Annex 1: MDP Basics](/lectures/basic_concepts)
+- [Annex 2: Policy Expectations, Explained](/lectures/policy_expectations)
+- [Annex 5: Policy Gradients](/lectures/policy_gradients_annex)

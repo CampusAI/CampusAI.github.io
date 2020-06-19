@@ -47,12 +47,13 @@ the gradient is zero for all the terms not depending on $\theta$, we obtain
 \end{equation}
 
 A more detailed explanation of the steps that bring to this result can be found in the
-[ANNEX TODO](). We are now left with the problem of computing this gradient, that is defined
-as an expectation over the trajectory distribution. Since we assume to not know the dynamics of
-the environment, we cannot directly compute this distribution and its expected value. Instead,
-we use Monte Carlo sampling to obtain an unbiased estimate of the gradient. We sample $N$
-trajectories $\tau^{(i)}$, $i = 1$ ... $N$, by running the policy in the environment, and we
-compute the gradient $\nabla_{\theta}J(\theta)$
+[Annex 5: Policy Gradients](/lectures/policy_gradients_annex). We are now left with the
+problem of computing this gradient, that is defined as an expectation over the trajectory
+distribution. Since we assume to not know the dynamics of the environment, we cannot directly
+compute this distribution and its expected value. Instead, we use Monte Carlo sampling to
+obtain an unbiased estimate of the gradient. We sample $N$ trajectories $\tau^{(i)}$,
+$i = 1$ ... $N$, by running the policy in the environment, and we compute the gradient
+$\nabla_{\theta}J(\theta)$
 
 \begin{equation}
 \label{eq:gradient_sample}
@@ -139,8 +140,8 @@ step is also increasing their likelihood.
 {% include figure.html url="/_lectures/lecture_5/PG_variance.png" description="Example of rewards with same relative scale but different offsets." %} 
 
 A solution to this issue is to use a **baseline**. As we explain more in detail in the
-[ANNEX TODO](), we can subtract any term $b$ that does not depend on the trajectory $\tau$ from
-Eq. \ref{eq:gradient_sample}, obtaining
+[Annex 5: Policy Gradients](/lectures/policy_gradients_annex), we can subtract any term
+$b$ that does not depend on the trajectory $\tau$ from Eq. \ref{eq:gradient_sample}, obtaining
 \begin{equation}
 \nabla_{\theta}J(\theta) = \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T
 \nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \left( r(\tau^{(i)}) - b \right) 
