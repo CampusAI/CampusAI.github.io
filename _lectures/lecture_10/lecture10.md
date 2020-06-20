@@ -81,7 +81,7 @@ Black-box optimization techniques.
 
 If frame the MDP as a tree (nodes are states and edges are actions), we could traverse it to find the value of each state and get an optimal policy.
 Nevertheless, the complete traversal of these trees is computationally prohibiting.
-Therefore, MCTS proposes taking only few steps from the root and approximating the value of the last visited states by running a simple policy from them (e.g. for small action spaces random policies work decently ok).
+Therefore, MCTS proposes taking only few steps from the root and approximating the value of the last visited states by running a simple policy from them (for small action spaces random policies work decently ok).
 
 {% include figure.html url="/_lectures/lecture_10/mcts.png" description="Monte Carlo shallow tree search traversal combined with simple policy to approximate state values." %}
 
@@ -96,11 +96,11 @@ Common TreePolicy: **UCT** (Upper Confidence bounds applied to Trees):
 Score(s_t) = \frac{Q(s_t)}{N(s_t)} + 2C\sqrt{\frac{2\log N(s_{t-1})}{N(s_{t-1})}}
 \end{equation}
 
-Where $$Q(s_t)$$ is the "Quality" of a state (sum of all trajectory rewards which passed through it) and $$N(s_t)$$ the number of times is has been visited. $$C$$ controls how much we favour less nodes.
+Where $$Q(s_t)$$ is the "Quality" of a state (sum of all trajectory rewards which passed through it) and $$N(s_t)$$ the number of times the state has been visited. $$C$$ controls how much we favour less visited nodes.
 
 Handles better the stochastic case compared to Stochastic optimization methods.
 More on MCTS [here](http://www.incompleteideas.net/609%20dropbox/other%20readings%20and%20resources/MCTS-survey.pdf).
-It can also substitute the human data hand-labeling in DAgger algorithm: [paper](https://papers.nips.cc/paper/5421-deep-learning-for-real-time-atari-game-play-using-offline-monte-carlo-tree-search-planning)
+It can also substitute the human data hand-labeling in [DAgger](/lectures/lecture2) algorithm: [paper](https://papers.nips.cc/paper/5421-deep-learning-for-real-time-atari-game-play-using-offline-monte-carlo-tree-search-planning)
 
 **OBS:** MCTS takes advantage of the model of the environment by repeatedly resetting it to the studied state.
 
@@ -135,7 +135,7 @@ c(x_1, u_1) + c(f(x_1, u_1), u_2) + ... + c(f(f(...)), u_T)
 If we had $$df, dc$$, could we just do Gradient Descent (GD) at this point?\\
 Not always.
 These problems are very ill-conditioned: first actions have a huge impact on final states.
-This makes simple 1st order methods like GD get stuck, 2nd derivatives methods can help:
+This makes easy for 1st order methods like GD get stuck, 2nd derivatives methods can help:
 
 #### If open-loop, deterministic env, linear $$f$$, quadratic $$c$$:
 
@@ -163,3 +163,4 @@ The idea is to estimate local linear approximation of the dynamics and quadratic
 
 **OBS:** This is equivalent to Newton's minimization method (but applied to trajectory optimization). More on it in this [paper](https://homes.cs.washington.edu/~todorov/papers/TassaIROS12.pdf).
 
+<!-- TODO(oleguer): Add videos and comment it is very good -->
