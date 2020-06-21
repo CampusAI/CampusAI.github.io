@@ -20,7 +20,7 @@ Given a first state $$s_1$$, you can build a plan $$\{a_1, ..., a_T\}$$ defined 
 \begin{equation}
 a_1, ..., a_T = argmax_{a_1, ..., a_T} \sum_t r(s_t, a_t)
 \space \space \space \space s.t. \space 
-a_{t+1} = \mathcal{T} (s_t, a_t)
+s_{t+1} = \mathcal{T} (s_t, a_t)
 \end{equation}
 
 To then simply blindly execute the actions.
