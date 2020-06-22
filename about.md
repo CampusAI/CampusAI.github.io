@@ -49,7 +49,7 @@ In particular, we are:
 
 <div style="clear: both;">
   <div style="float: left; margin-right 1em;">
-    <img src="/assets/images/about/placeholder.png" height="150" width="125" margin-right="10" margin-left="10">
+    <img src="/assets/images/about/federico.jpg" height="175" width="175" margin-right="10" margin-left="10">
   </div>
   <div>
       <style>
@@ -58,11 +58,12 @@ In particular, we are:
         margin-left: 10px;
         }
     </style>
-    <h2>Some title text</h2>
-    <p>paragraph</p>
-    <p>paragraph</p>
-    <p>paragraph</p>
-    <p>paragraph</p>
+    <!-- <h2>Some title text</h2> -->
+    <p>Studied Computer Engineering at the <a href="https://www.unipd.it/">Università degli Studi di Padova</a> and currently studying Machine Learning at <a href="https://www.kth.se/en">KTH Royal Institute of Technology</a></p>
+    <p>Working as Driverless Engineer and Technical Integrator at <a href="https://www.kthformulastudent.se/">KTH Formula Student</a>, developing the SLAM module for the autonomous car and integrating tho other modules into the car system.</p>
+    <p>Aiming of pursuing a PhD in Reinforcement Learning</p>
+    <a href="https://www.linkedin.com/in/federico-taschin/">LinkedIn</a>, 
+    <a href="https://github.com/fedetask">GitHub</a>, 
   </div>
 </div>
 
@@ -70,4 +71,4 @@ In particular, we are:
 # How can I get in contact?
 
 Feel free to write us through LinkedIn!
-For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com)
+For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com) or directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io).
