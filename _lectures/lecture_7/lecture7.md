@@ -42,6 +42,7 @@ Following Eq. \ref{eq:advantage} we decide to evaluate $$A^{\pi}$$ by evaluating
 
 We can store the whole $$V^{\pi}(\pmb{s})$$ and perform a **bootstrapped update**
 \begin{equation}
+\label{eq:v_update}
 V^{\pi}(\pmb{s}) \leftarrow r(\pmb{s}, \pi(\pmb{s})) + \gamma
 E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \left[ V^{\pi}(\pmb{s}_{t+1}) \right]
 \end{equation}
@@ -53,7 +54,7 @@ probabilities, the expected value can be computed analytically. This leads us to
 #### Policy Iteration
 
 Repeat:
-1. Evaluate $$V^{\pi}(\pmb{s})$$
+1. Evaluate $$V^{\pi}(\pmb{s})$$ (iterate Eq. \ref{eq:v_update} until convergence)
 2. Set $$\pi(\pmb{s}) = \arg\max_aA^{\pi}(s_t, a)$$ (from Eq. \ref{eq:advantage})
 
 The policy $$\pi$$ is now **deterministic** as it is an $$\arg\max$$ policy. The policy $$\pi$$
