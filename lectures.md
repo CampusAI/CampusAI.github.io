@@ -29,7 +29,12 @@ permalink: /lectures/
     - Reducing Variance on Policy Gradients
     - Policy evaluation (MC vs Bootstrapping)
     - AC algorithm
-- Lecture 7: Value Function Methods
+- [Lecture 7: Value Function Methods](/lectures/lecture7)
+    - Policy Iteration
+    - Value Iteration
+    - Q iteration with Deep Learning
+    - Q Learning
+    - Exploration
 - Lecture 8: Deep RL with Q-functions
 - Lecture 9: Advanced Policy Gradients
 - [Lecture 10: Model-based Planning](/lectures/lecture10)
