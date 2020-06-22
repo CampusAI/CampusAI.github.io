@@ -8,9 +8,9 @@ slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-11.pdf
 video-link: https://www.youtube.com/watch?v=pE0GUFs-EHI&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=12&
 ---
 
-**Idea:** If we learn $$f(s_t, a_t) = s_{t+1}$$ (or $$p(s_{t+1} \mid s_t, a_t)$$ in stochastic envs.) we can apply [last lecture](/lectures/lecture10) techniques.
+**Idea:** If we learn $$f(s_t, a_t) = s_{t+1}$$ (or $$p(s_{t+1} \mid s_t, a_t)$$ in stochastic envs.) we can apply [last lecture](/lectures/lecture10) techniques to get a policy.
 
-# Naive approaches
+# Basic approaches
 
 ### System identification in classical robotics:
 {% include figure.html url="/_lectures/lecture_11/si_1.png"%}
@@ -68,9 +68,9 @@ Later, to get an estimation of $$p(\theta \mid \mathcal{D})$$ we can just averag
 
 **OBS:** Bootstrap sampling is not very needed since SGD and random initialization is usually sufficient to make models independent enough. 
 
-**Problem:** Training NNs is expensive so usually the number of fitted models is very small (< 10), this makes the approximation to be very crude.
+**Problem:** Training ANNs is expensive so usually the number of fitted models is very small (< 10), this makes the approximation to be very crude.
 
-**Solution:** In later lectures we will present better methods such as the use of **Bayesian NN (BNN)**, **Mean Field approximations** and **variational inference** in general.
+**Solution:** In later lectures we will present better methods such as the use of **Bayesian NN (BNN)**, **Mean Field approximations** and **variational inference**.
 
 ### Planning with uncertainty
 
@@ -84,14 +84,14 @@ J(a_1,...,a_T) = \sum_t r(s_t, a_t)
 s_{t+1} = f(s_t, a_t)
 \end{equation}
 
+#### Stochastic environments:
+
 Now, the next states are predicted by an average of multiple models:
 \begin{equation}
 J(a_1,...,a_T) = \frac{1}{N} \sum_i \sum_t r(s_{t, i}, a_t)
 \space \space \space \space s.t. \space 
 s_{t+1, i} = f_i (s_{t, i}, a_t)
 \end{equation}
-
-#### Stochastic environments:
 
 In case of a stochastic environment, the algorithm becomes:
 
@@ -110,10 +110,75 @@ In case of a stochastic environment, the algorithm becomes:
 Remember that states are the underlying structure which fully describe an instance of the environment, while observations are only what the agent perceives.\\
 **Example:** in an Atari game, the observation is the screen output, and the state can be summarized in less dimensions by the position of the key elements.
 
-**Idea:** Can we learn separately $$p(o_t \mid s_t )$$ and $$p(s_{t+1} \mid s_t, a_t)$$
-- **$$p(o_t \mid s_t )$$**: Is high-dimensional but static.
-- **$$p(s_{t+1} \mid s_t, a_t)$$**: Is low-dimensional but dynamic.
+**Idea:** Can we learn separately $$p(o_t \mid s_t )$$ and $$p(s_{t+1} \mid s_t, a_t)$$?
+- $$p(o_t \mid s_t )$$ is **high-dimensional** but **static**: given a state you can get its observation independent of the environment evolution.
+- $$p(s_{t+1} \mid s_t, a_t)$$: Is low-**dimensional** but **dynamic**: It models the environment transitions.
 
 ### Latent space models
+We need to learn models for:
+- **Observation model:** $$p(o_t \mid s_t )$$: To convert from states to observations.
+<!-- - $$p(s_t \mid o_t )$$: To convert from observations to states. -->
+- **Dynamics model:** $$p(s_{t+1} \mid s_t, a_t )$$: To know how the transitions work.
+- **Reward model:** $$p(r_t \mid s_t, a_t )$$: To plan for maximum reward.
+
+**OBS:** The state structure is not given to us, they are latent variables (helper random variables which are not observed but rather inferred from the observed variables).
+
+#### Training Latent space models
+Given a dataset of trajectories: $$\mathcal{D} = \{(s_{t+1} \mid s_t, a_t)_i\}$$ we can train a **fully observed** ($$s_t = o_t$$) model maximizing over its parameters:
+
+\begin{equation}
+max_{\phi} \frac{1}{N} \sum_i \sum_t \log p_{\phi} (s_{t+1, i} \mid s_{t, i}, a_{t, i})
+\end{equation}
+
+For a **latent space models**, we do not know what $$s_t$$ is, so we need to take an expectation of it given the observed trajectory. Moreover, we also need to learn our observation model:
+
+\begin{equation}
+\label{eq:latent_learning}
+max_{\phi} \frac{1}{N} \sum_i \sum_t 
+E_{(s, s_{t+1})\sim p(s_t, s_{t+1} \mid o_{1:T}, a_{1:T})} \left[
+\log p_{\phi} (s_{t+1, i} \mid s_{t, i}, a_{t, i}) + \log p_{\phi} (o_{t, i} \mid s_{t, i})
+\right]
+\end{equation}
+
+<!-- I dont understand why the expectation is over (s_t and s_{t+1}), isnt that what we are also trying to learn? shouldnt it be over only s_t?? -->
+
+We can learn this approximation of the posterior in different ways:
+- **Encoder**: $$q_\psi (s_t \mid o_{1:t}, a_{1:t})$$: The most often used as leverages both next approximations.
+- **Full smoothing operator**: $$q_\psi (s_t, s{t+1} \mid o_{1:T}, a_{1:T})$$ Which considers the whole trajectory. It is the most accurate but the most complicated to implement.
+- **Single-step encoder**: $$q_\psi (s_t \mid o_t)$$: Its the simplest but the least accurate.
+
+In this lecture we will focus on **single-step encoders**:\\
+We can compute the expectation in Eq. \ref{eq:latent_learning} by doing:
+$$s_t \sim q_\psi (s_t \mid o_t), s_{t+1} \sim q_\psi(s_{t+1} \mid o_{t+1})$$.\\
+In the special case where $$q_\psi (s_t \mid o_t)$$ is **deterministic** we can encode it with an ANN which given an observation returns the single most probable state: $$s_t = g_\psi (o_t)$$. Since it is deterministic, the expectation in Eq. \ref{eq:latent_learning} can be re-written substituting the random variable by its value:
+
+\begin{equation}
+\label{eq:latent_learning_det}
+max_{\phi, \psi} \frac{1}{N} \sum_i \sum_t 
+\log p_{\phi} (g_\psi (o_{t+1, i}) \mid g_\psi (o_{t, i}), a_{t, i}) + \log p_{\phi} (o_{t, i} \mid g_\psi (o_{t, i}))
+\end{equation}
+
+Everything is differentiable so this can be trained using backprop. In addition, we can append our reward model as:
+
+\begin{equation}
+\label{eq:latent_learning_det_reward}
+max_{\phi, \psi} \frac{1}{N} \sum_i \sum_t 
+\log p_{\phi} (g_\psi (o_{t+1, i}) \mid g_\psi (o_{t, i}), a_{t, i}) + \log p_{\phi} (o_{t, i} \mid g_\psi (o_{t, i)}) + \log p_\phi (r_{t,i} \mid g_\psi (o_{t,i}))
+\end{equation}
+
+In this order, we have the **latent space dinamics**, the **obesrvation reconstruction** and the **reward model**. The previous model-based algorithm can be adapted as:
+
+{% include figure.html url="/_lectures/lecture_11/latent_space.png"%}
+
+**OBS**: How is this related to Hidden Markov Models (HMM) and Kalman filters (or Linear Quadratic Estimation, LQE)?
+- All three rely on the same structure of learning a latent space given observations.
+- **HMM** has states and observations which are all discrete (ususally uses tabular representations).
+- **Kalman Filters** has states and observations which are all continuous and uses linear Gaussian representations for everything.
+- **Latent space RL models**: Can deal with much bigger spaces such as images thanks to ANNs. 
+
+<!-- TODO(Oleguer): Maybe I'll move this into an annex and talk about HMM and Kalman filters -->
 
 ### Observations model
+
+Do we really need to learn an embedding to get the underlying states?\\
+**Observations model** directly learn $$p(o_{t+1} \mid o_t, a_t)$$. Usually combining CNNs with RNNs in a kind of video-prediction model achieves good results.
