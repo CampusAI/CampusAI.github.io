@@ -143,7 +143,7 @@ There are a few observations that we can make to better understand what this alg
   not true anymore when we leave the tabular representation and use a Neural Network.
 
 We can derive an **online** version of the algorithm that we call **Online Q-Iteration** or
-**Q-Learning**:
+**Q-Learning** ([Watkins, 1992](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.466.7149)):
 {% include figure.html url="/_lectures/lecture_7/online_q_learning.png" %}
 
 
