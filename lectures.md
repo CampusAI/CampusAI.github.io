@@ -35,7 +35,13 @@ permalink: /lectures/
     - Q iteration with Deep Learning
     - Q Learning
     - Exploration
-- Lecture 8: Deep RL with Q-functions
+- [Lecture 8: Deep RL with Q-functions](/lectures/lecture8)
+    - Replay buffer and target network
+    - DQN (Double Q Networks)
+    - Double Q-Learning
+    - Multi-step returns
+    - Continuous actions
+    - DDPG (Deep Deterministic Policy Gradient)
 - Lecture 9: Advanced Policy Gradients
 - [Lecture 10: Model-based Planning](/lectures/lecture10)
     - Stochastic optimization methods
