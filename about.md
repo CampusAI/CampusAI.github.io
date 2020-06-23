@@ -22,7 +22,7 @@ Creating notes for [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) 
 # Who are we?
 
 We are two [Machine Learning M.Sc.](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
-We decided to start this website in an attempt to deepen our understnding on this field.
+We decided to start this website in an attempt to deepen our understanding on this field.
 It is a nice way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
 
 To be more precise, we are:
