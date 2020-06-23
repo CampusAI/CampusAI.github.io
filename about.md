@@ -21,7 +21,7 @@ Creating notes for [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) 
 
 # Who are we?
 
-We are two [Machine Learning MSc](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
+We are two [Machine Learning M.Sc.](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
 We decided to start this website in an attempt to deepen our understnding on this field.
 It is a nice way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
 
@@ -40,14 +40,14 @@ To be more precise, we are:
         }
     </style>
     <!-- <h2>Oleguer Canal</h2> -->
-    <p>Simultaneously studied a <a href="https://fme.upc.edu/en">BSc. in Mathematics</a> and a <a href="https://etseib.upc.edu/en">B.Sc. in Industrial Engineering</a> through <a href="https://cfis.upc.edu/en">CFIS</a> center at the <a href="https://www.upc.edu/en">Polytechnic University of Catalonia (UPC)</a>.</p>
-    <p>Researched on the application of modern computer vision techniques to robotic tactile feedback from the <a href="https://fme.upc.edu/en">MCube Lab</a> at the <a href="https://www.mit.edu/">Massachusetts Institute of Technology (MIT)</a>.
+    <p>Simultaneously studied a <a href="https://fme.upc.edu/en">B.Sc. in Mathematics</a> and a <a href="https://etseib.upc.edu/en">B.Sc. in Industrial Engineering</a> through <a href="https://cfis.upc.edu/en">CFIS</a> center at the <a href="https://www.upc.edu/en">Polytechnic University of Catalonia (UPC)</a>.</p>
+    <p>Researched on the application of modern computer vision techniques to robotic tactile feedback at the <a href="https://fme.upc.edu/en">MCube Lab</a> in the <a href="https://www.mit.edu/">Massachusetts Institute of Technology (MIT)</a>.
     </p>
     <p>Worked as a robotics perception engineer at <a href="http://en.xyzrobotics.ai/">XYZ Robotics (Shanghai)</a>, and now doing research at the division of 
     <a href="https://www.kth.se/rpl/division-of-robotics-perception-and-learning-1.779439">Robotics Perception and Learning (RPL)</a> of <a href="https://www.kth.se/en">KTH Royal Institute of Technology</a>.
     </p>
     <p>
-    <a href="https://www.linkedin.com/in/oleguer-canal-aa0599122/">LinkedIn</a>, 
+    <a href="https://www.linkedin.com/in/OleguerCanal/">LinkedIn</a>, 
     <a href="https://github.com/OleguerCanal">GitHub</a>, 
     <a href="https://scholar.google.com/citations?user=9cJOtv0AAAAJ&hl">Scholar</a>
     </p>
@@ -73,25 +73,6 @@ To be more precise, we are:
     <p>paragraph</p>
   </div>
 </div>
-
-<!-- 
-<table class="center" style="border:1px solid white">
-  <tr>
-    <td style="text-align:center"> <img src="/assets/images/about/placeholder.png"  alt="1" width = 72px height = 128px ></td>
-
-    <td style="text-align:center"> <img src="/assets/images/about/placeholder.png" alt="2" width = 72px height = 128px></td>
-   </tr> 
-   <tr>
-      <td style="text-align:center">Oleguer Canal</td>
-
-      <td style="text-align:center">Federico Taschin</td>
-  </tr>
-  <tr>
-      <td style="text-align:center">fdjjfdjdffffffffffffffffffffffffff ffddffd</td>
-
-      <td>fdjdfdfvffvfddkjd</td>
-  </tr>
-</table> -->
 
 
 # How can I get in contact/collaborate?
