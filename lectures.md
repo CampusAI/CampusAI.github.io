@@ -45,7 +45,9 @@ permalink: /lectures/
     - Naive Model-Based RL
     - Uncertainty in model-based RL
     - Model-based RL with complex observations
-- Lecture 12: Model-based Policy Learning
+- [Lecture 12: Model-based Policy Learning](/lectures/lecture12)
+    - How to use models to learn policies
+    - Global vs Local policies
 - Lecture 13: Variational Inference and Generative Models
 - Lecture 14: Control as Inference
 - Lecture 15: Inverse Reinforcement Learning
