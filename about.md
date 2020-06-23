@@ -57,7 +57,7 @@ To be more precise, we are:
 ### Federico Taschin
 <div style="clear: both;">
   <div style="float: left; margin-right 1em;">
-    <img src="/assets/images/about/placeholder.png" height="175" width="175" margin-right="10" margin-left="10">
+    <img src="/assets/images/about/federico.jpg" height="175" width="175" margin-right="10" margin-left="10">
   </div>
   <div>
       <style>
@@ -67,10 +67,11 @@ To be more precise, we are:
         }
     </style>
     <!-- <h2>Some title text</h2> -->
-    <p>paragraph</p>
-    <p>paragraph</p>
-    <p>paragraph</p>
-    <p>paragraph</p>
+    <p>Studied Computer Engineering at the <a href="https://www.unipd.it/">Università degli Studi di Padova</a> and currently studying Machine Learning at <a href="https://www.kth.se/en">KTH Royal Institute of Technology</a></p>
+    <p>Working as Driverless Engineer and Technical Integrator at <a href="https://www.kthformulastudent.se/">KTH Formula Student</a>, developing the SLAM module for the autonomous car and integrating tho other modules into the car system.</p>
+    <p>Aiming of pursuing a PhD in Reinforcement Learning</p>
+    <a href="https://www.linkedin.com/in/federico-taschin/">LinkedIn</a>, 
+    <a href="https://github.com/fedetask">GitHub</a>, 
   </div>
 </div>
 
