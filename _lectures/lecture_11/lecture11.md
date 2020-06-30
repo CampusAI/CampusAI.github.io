@@ -5,7 +5,7 @@ permalink: /lectures/lecture11
 lecture-author: Sergey Levine
 lecture-date: 2019
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-11.pdf
-video-link: https://www.youtube.com/watch?v=pE0GUFs-EHI&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=12&
+video-link: https://www.youtube.com/watch?v=6JDfrPRhexQ&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=11
 ---
 
 **Idea:** If we learn $$f(s_t, a_t) = s_{t+1}$$ (or $$p(s_{t+1} \mid s_t, a_t)$$ in stochastic envs.) we can apply [last lecture](/lectures/lecture10) techniques to get a policy.
@@ -25,6 +25,8 @@ Yes, if we design a good base policy and we hand hand-engineer a dynamics repres
 {% include figure.html url="/_lectures/lecture_11/si_2.png"%}
 
 **Problem:** Blindly planning on top of an imperfect learned env. model might still result into ending up taking actions in states we did not plan to be. To improve this, we can update the plan after each step:
+
+### Model Predictive Controller (MPC)
 
 {% include figure.html url="/_lectures/lecture_11/si_3.png"%}
 
@@ -172,7 +174,7 @@ In this order, we have the **latent space dinamics**, the **obesrvation reconstr
 
 **OBS**: How is this related to Hidden Markov Models (HMM) and Kalman filters (or Linear Quadratic Estimation, LQE)?
 - All three rely on the same structure of learning a latent space given observations.
-- **HMM** has states and observations which are all discrete (ususally uses tabular representations).
+- **HMM** has states and observations which are all discrete (usually uses tabular representations).
 - **Kalman Filters** has states and observations which are all continuous and uses linear Gaussian representations for everything.
 - **Latent space RL models**: Can deal with much bigger spaces such as images thanks to ANNs. 
 

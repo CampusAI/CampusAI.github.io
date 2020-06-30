@@ -2,6 +2,8 @@
 gems:
   - jekyll-paginate
 
+plugins: [jekyll-paginate]
+
 # Setup
 title:        CampusAI
 tagline:      Get inspired by latest RL research
