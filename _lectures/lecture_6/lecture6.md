@@ -69,7 +69,7 @@ So, what should we fit, $Q^\pi$, $V^\pi$ or $A^\pi$?
       - $A^\pi (s_t, a_t) \simeq r(s_t, a_t) + V^{\pi} (s_{t+1}) - V^{\pi} (s_t)$
 
 **OBS:** If we don't want to fit something that takes both states and actions we can just fit $V^{\pi}$ at the cost of using a single-sample estimate for $s_{t+1}$.
-We will do this for now, to fit $Q^\pi$ look into [Q-learning](todo_add_link) methods.
+We will do this for now, to fit $Q^\pi$ look into [Q-learning](/lectures/lecture7) methods.
 
 ## Policy Evaluation
 
