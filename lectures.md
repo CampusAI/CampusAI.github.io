@@ -42,7 +42,12 @@ permalink: /lectures/
     - Multi-step returns
     - Continuous actions
     - DDPG (Deep Deterministic Policy Gradient)
-- Lecture 9: Advanced Policy Gradients
+- [Lecture 9: Advanced Policy Gradients](/lectures/lecture9)
+    - Policy Gradient as Policy Iteration
+    - The KL Divergence constraint
+    - Dual Gradient Descent
+    - Natural Gradients and Trust Region Policy Optimization
+    - Proximal Policy Optimization
 - [Lecture 10: Model-based Planning](/lectures/lecture10)
     - Stochastic optimization methods
     - Monte Carlo tree search (MCTS)
