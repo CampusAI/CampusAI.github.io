@@ -60,7 +60,9 @@ permalink: /lectures/
 - [Lecture 15: Inverse Reinforcement Learning](/lectures/lecture15)
     - Feature matching IRL
     - Maximum Entropy IRL
-- Lecture 16: Transfer and Multi-task Learning
+- [Lecture 16: Transfer and Multi-task Learning](/lectures/lecture16)
+    - Forward Transfer
+    - Multi-task Transfer
 - Lecture 17: Distributed RL
 - Lecture 18: Exploration (Part 1)
 - Lecture 19: Exploration (Part 2)
