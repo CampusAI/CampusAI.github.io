@@ -1,10 +1,12 @@
 ---
 layout: page
-title: Lectures
-permalink: /lectures/
+title: Theory
+permalink: /theory/
 ---
 
-## Notes from Sergey Levine UC Berkeley CS-285
+## Lecture notes from Sergey Levine UC Berkeley CS-285 (2019)
+
+In this section you can find our summaries from [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) (Google, UC Berkeley): UC Berkeley CS-285 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/).
 
 - [Lecture 1: Introduction](/lectures/lecture1)
     - Supervised Learning vs RL
@@ -75,19 +77,23 @@ permalink: /lectures/
 - Lecture 21: Information Theory, Open Problems
 
 ## Annex
+
+This section contains both basic RL knowledge assumed to be known in the previous course and some demonstrations which we found interesting to add as an annex.
+In addition we added our own interpretations of some concepts hoping they can ease their understanding.
+
 - [Annex 1: MDP Basics](/lectures/basic_concepts)
 - [Annex 2: Policy Expectations, Explained](/lectures/policy_expectations)
 - [Annex 5: Policy Gradients](/lectures/policy_gradients_annex)
 
 
-## Other courses and resources
+## Other great resources
 
-This website summarizes:
-- [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) (Google, UC Berkeley): UC Berkeley CS-285 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/).
-
-Nevertheless, we also recommend these excellent resources:
 - [David Silver](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Home.html) (DeepMind, UCL): UCL COMPM050 [Reinforcement Learning course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html).
 
 - [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/bookdraft2017nov5.pdf), Sutton & Barto, 2017. (Arguably the most complete RL book out there)
 
-This RL [dictionary](https://towardsdatascience.com/the-complete-reinforcement-learning-dictionary-e16230b7d24e) can also be useful to keep track of all field-specific terms.
+- [Lil'Log](https://lilianweng.github.io/lil-log/) blog does and outstanding job at explaining algorithms and recent developments in both RL and SL.
+
+- This RL [dictionary](https://towardsdatascience.com/the-complete-reinforcement-learning-dictionary-e16230b7d24e) can also be useful to keep track of all field-specific terms.
+
+- If looking for some motivation to learn about DRL don't miss this truly inspiring [documentary](https://www.youtube.com/watch?v=WXuK6gekU1Y) on DeepMind's AlphaGo algorithm. 
