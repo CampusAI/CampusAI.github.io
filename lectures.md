@@ -82,15 +82,17 @@ This section contains both basic RL knowledge assumed to be known in the previou
 In addition we added our own interpretations of some concepts hoping they can ease their understanding.
 
 - [Annex 1: MDP Basics](/lectures/basic_concepts)
+  
 - [Annex 2: Policy Expectations, Explained](/lectures/policy_expectations)
+
 - [Annex 5: Policy Gradients](/lectures/policy_gradients_annex)
 
 
 ## Other great resources
 
-- [David Silver](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Home.html) (DeepMind, UCL): UCL COMPM050 [Reinforcement Learning course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html).
-
 - [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/bookdraft2017nov5.pdf), Sutton & Barto, 2017. (Arguably the most complete RL book out there)
+
+- [David Silver](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Home.html) (DeepMind, UCL): UCL COMPM050 [Reinforcement Learning course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html).
 
 - [Lil'Log](https://lilianweng.github.io/lil-log/) blog does and outstanding job at explaining algorithms and recent developments in both RL and SL.
 
