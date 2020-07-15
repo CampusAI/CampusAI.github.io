@@ -3,7 +3,7 @@ layout: page
 title: Welcome to CampusAI!
 ---
 
-CampusAI is a Reinforcement Learning content website with [annotations](/lectures/) and personal interpretations of [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) UC Berkeley CS-285 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/).\\
+CampusAI is a Reinforcement Learning content website with [annotations](/theory/) and personal interpretations of [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) UC Berkeley CS-285 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/).\\
 In addition to this course, we also review and summarize interesting or influential RL-related [papers](/papers/).\\
 Soon we'll include a section with our own RL projects with thoughts on the used algorithms and their meta-parameters.
 

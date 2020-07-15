@@ -6,7 +6,7 @@ permalink: /about/
 
 # What is this?
 
-This is a RL content website: It includes [annotations](/lectures/) on a DeepRL course and summaries of "recent"/"famous" RL [papers](/papers/) we found interesting and soon some of our own projects.
+This is a RL content website: It includes [annotations](/theory/) on a DeepRL course and summaries of "recent"/"famous" RL [papers](/papers/) we found interesting and soon some of our own projects.
 
 In addition, we also provide a comment section below each content page for readers to review/discuss/ask content-related matters.
 
