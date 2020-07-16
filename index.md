@@ -14,7 +14,7 @@ Stay tunned for a (coming soon) projects section with our own experiments!
 # Who is this for?
 
 This is for RL enthusiasts such as ourselves!
-We hope you get a clearer idea about what is being done in the field.
+We hope you get a clearer idea on how the field is evolving.
 <!-- To promote exchange of ideas, we provide a comment section below each content page for readers to review/discuss/ask content-related matters. -->
 
 Ultimately (in fact, mainly) this website is also for us, to ensure we keep reading and learning.
@@ -22,7 +22,7 @@ Creating theoretical articles has helped us to sort the main ideas while summari
 
 # Who are we?
 
-We are two [Machine Learning M.Sc.](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH](https://www.kth.se/en) very interested in Reinforcement Learning Research.
+We are two [Machine Learning M.Sc.](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH Royal Institute of Technology](https://www.kth.se/en) very interested in Reinforcement Learning research.
 We decided to start this website in an attempt to deepen our understanding on this field.
 It is a nice way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
 
@@ -79,6 +79,6 @@ To be more precise, we are:
 
 # How can I get in contact/collaborate?
 
-Feel free to write us through LinkedIn!\\
-For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com) or directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io).\\
-Please do not hesitate in providing feedback! We want to know what you think :)
+For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com) or directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io). Please do not hesitate in providing feedback! We want to know what you think :)
+
+We are also looking for RL-related internships/research opportunities, if you know anyone interested in hiring please let us know though LinkedIn.
