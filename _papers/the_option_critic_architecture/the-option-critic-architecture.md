@@ -54,7 +54,7 @@ this architecture. Note that values should be updated at a higher rate, while po
 functions should be updated less frequently. In this example, the $Q_U$ function is updated in a tabular
 way with Q-Learning.
 
-{% include figure.html url="/assets/images/the-option-critic-architecture/algo1optioncritic.png"
+{% include figure.html url="/_papers/the_option_critic_architecture/algo1optioncritic.png"
 description="Learning intra-option policies and termination functions with the Option Critic Architecture" %}
 
 It is important to note that Algorithm 1 provides only an example implementation of the Option-Critic

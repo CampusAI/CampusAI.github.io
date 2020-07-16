@@ -28,7 +28,7 @@ to a Recursively Optimal Policy.
 The programmer must decompose the target MDP into smaller MDPs (sub-tasks) with different levels
 of abstraction. One example is the Taxi Navigation problem in Figure 1. Each sub-task defines a sub-goal.
 
-{% include figure.html url="/assets/images/HRL_with_MAXQ_decomposition/taxi_navigation.png" description="Figure 1: Taxi navigation problem decomposed into smaller sub-problems" %}
+{% include figure.html url="/_papers/HRL_with_MAXQ_decomposition/taxi_navigation.png" description="Figure 1: Taxi navigation problem decomposed into smaller sub-problems" %}
 
 Such subtasks represent smaller MDPs and can have a smaller state and action space. Each subtask
 defines its:
