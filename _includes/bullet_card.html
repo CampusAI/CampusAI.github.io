@@ -5,6 +5,7 @@
   transition: 0.3s;
   padding: 20px;
   width: 100%;
+  margin-bottom: 15px;
 }
 
 .card_inner {
@@ -18,7 +19,7 @@
 }
 
 .card_excerpt {
-  // float: right; // no need
+  padding-left: 20px;
   width: 60%;
 }
 
@@ -28,10 +29,12 @@
 }
 </style>
 
+<div>
+<a href="{{include.url}}" style="text-decoration:none;color:inherit;">
 <div class="card">
     <h3><b>{{include.title}}</b></h3>
     <div class="card_inner">
-        <div class="card_image"> <img src="{{include.img}}" /> </div>
+        <div class="card_image"> <img src="{{include.img}}"/> </div>
         <div class="card_excerpt">
         <ul>
             {% assign bullets = include.brief | split: ";" %}
@@ -39,6 +42,8 @@
 	        <li> {{bullet}} </li>
 	    {% endfor %}
         </ul>
+        </div>
     </div>
-  </div>
+</div>
+</a>
 </div>
