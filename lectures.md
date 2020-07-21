@@ -49,18 +49,18 @@ url:    The url of the lecture post
 
 {% include bullet_card.html title="Lecture 12: Model-based Policy Learning" brief="How to use env. models to learn policies;Local vs Global policies;Guided policy search;Policy Distillation;Divide & conquer RL" img="/_lectures/lecture_12/icon.png" url="/lectures/lecture12" %}
 
-{% include bullet_card.html title="Lecture 13: Variational Inference and Generative Models" brief="" img="" url="" %}
+<!-- {% include bullet_card.html title="Lecture 13: Variational Inference and Generative Models" brief="" img="" url="" %} -->
 
-{% include bullet_card.html title="Lecture 14: Control as inference" brief="" img="" url="" %}
+<!-- {% include bullet_card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
 
 {% include bullet_card.html title="Lecture 15: Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_lectures/lecture_15/icon.png" url="/lectures/lecture15" %}
 
 {% include bullet_card.html title="Lecture 16: Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_lectures/lecture_16/icon.png" url="/lectures/lecture16" %}
-{% include bullet_card.html title="Lecture 17: Distributed RL" brief="" img="" url="" %}
-{% include bullet_card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %}
-{% include bullet_card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %}
-{% include bullet_card.html title="Lecture 20: Meta-learning" brief="" img="" url="" %}
-{% include bullet_card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %}
+<!-- {% include bullet_card.html title="Lecture 17: Distributed RL" brief="" img="" url="" %} -->
+<!-- {% include bullet_card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
+<!-- {% include bullet_card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
+<!-- {% include bullet_card.html title="Lecture 20: Meta-learning" brief="" img="" url="" %} -->
+<!-- {% include bullet_card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
 ## Annex
 
