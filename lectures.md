@@ -20,42 +20,42 @@ url:    The url of the lecture post
 
 -->
 
-{% include bullet_card.html title="Lecture 1: Introduction" brief="Supervised Learning vs RL;Ways to learn;How to build intelligent machines;State of the art" img="/_lectures/lecture_1/idea.jpg" url="/lectures/lecture1" %}
+{% include bullet_card.html title="Lecture 1: Introduction" brief="SL vs RL;Ways to learn;How to build intelligent machines;State of the art" img="/_lectures/lecture_1/icon.jpg" url="/lectures/lecture1" %}
 
 
-{% include bullet_card.html title="Lecture 2: Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_lectures/lecture_2/bc.png" url="/lectures/lecture2" %}
+{% include bullet_card.html title="Lecture 2: Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_lectures/lecture_2/icon.png" url="/lectures/lecture2" %}
 
 
-{% include bullet_card.html title="Lecture 4: Introduction to Reinforcement Learning" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_lectures/lecture_4/MDP.png" url="/lectures/lecture4" %}
+{% include bullet_card.html title="Lecture 4: Introduction to Reinforcement Learning" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_lectures/lecture_4/icon.png" url="/lectures/lecture4" %}
 
 
-{% include bullet_card.html title="Lecture 5: Policy Gradients" brief="Policy differentiation;The REINFORCE algorithm;Solving the causality issue;Baselines;Off-policy Policy Gradient" img="/_lectures/lecture_5/NN_policy.png" url="/lectures/lecture5" %}
+{% include bullet_card.html title="Lecture 5: Policy Gradients" brief="Policy differentiation;The REINFORCE algorithm;Solving the causality issue;Baselines;Off-policy Policy Gradient" img="/_lectures/lecture_5/icon.png" url="/lectures/lecture5" %}
 
 
-{% include bullet_card.html title="Lecture 6: Actor-Critic (AC) Algorithms" brief="Reducing Variance on Policy Gradients;Policy Evaluation (Monte Carlo vs Bootstrapping);AC algorithm" img="/_lectures/lecture_6/ac_algorithm_online.png" url="/lectures/lecture6" %}
+{% include bullet_card.html title="Lecture 6: Actor-Critic (AC) Algorithms" brief="Policy Gradients variance reduction;Policy Evaluation (Monte Carlo vs Bootstrapping);Infinite horizon problems;Batch AC algorithm;Online AC algorithm" img="/_lectures/lecture_6/icon.png" url="/lectures/lecture6" %}
 
 
-{% include bullet_card.html title="Lecture 7: Value Function Methods" brief="Policy Iteration;Value Iteration;Q iteration with Deep Learning;Q Learning;Exploration" img="/_lectures/lecture_7/online_q_learning.png" url="/lectures/lecture7" %}
+{% include bullet_card.html title="Lecture 7: Value Function Methods" brief="Policy Iteration;Value Iteration;Q iteration with Deep Learning;Q Learning;Exploration" img="/_lectures/lecture_7/icon.png" url="/lectures/lecture7" %}
 
 
-{% include bullet_card.html title="Lecture 8 Deep RL with Q-functions" brief="Replay buffer and target network;DQN (Deep Q Networks);Double Q-Learning;Multi-step returns;Continuous actions;DDPG (Deep Deterministic Policy Gradient)" img="/_lectures/lecture_8/dqn.png" url="/lectures/lecture8" %}
+{% include bullet_card.html title="Lecture 8 Deep RL with Q-functions" brief="Replay buffer and target network;DQN (Deep Q Networks);Double Q-Learning;Multi-step returns;Continuous actions;DDPG (Deep Deterministic Policy Gradient)" img="/_lectures/lecture_8/icon.png" url="/lectures/lecture8" %}
 
 
-{% include bullet_card.html title="Lecture 9: Advanced Policy Gradients" brief="Policy Gradient as Policy Iteration;The KL Divergence constraint;Dual Gradient Descent;Natural Gradients and Trust Region Policy Optimization;Proximal Policy Optimization" img="/_lectures/lecture_9/gradient_ascent.png" url="/lectures/lecture9" %}
+{% include bullet_card.html title="Lecture 9: Advanced Policy Gradients" brief="Policy Gradient as Policy Iteration;The KL Divergence constraint;Dual Gradient Descent;Natural Gradients and Trust Region Policy Optimization;Proximal Policy Optimization" img="/_lectures/lecture_9/icon.png" url="/lectures/lecture9" %}
 
-{% include bullet_card.html title="Lecture 10: Model-based Planning" brief="Stochastic optimization methods;Monte Carlo Tree Search (MCTS);Trajectory optimization" img="/_lectures/lecture_10/ilqr.png" url="/lectures/lecture10" %}
+{% include bullet_card.html title="Lecture 10: Model-based Planning" brief="Deterministic vs Stochastic environments;Stochastic optimization methods;Monte Carlo Tree Search (MCTS);Collocation trajectory optimization;Shooting trajectory optimization" img="/_lectures/lecture_10/icon.png" url="/lectures/lecture10" %}
 
-{% include bullet_card.html title="Lecture 11: Model-based Reinforcement Learning" brief="Naive Model-Based RL;Uncertainty in model-based RL;Model-based RL with complex observations" img="/_lectures/lecture_11/stoc_bootstrap.png" url="/lectures/lecture11" %}
+{% include bullet_card.html title="Lecture 11: Model-based Reinforcement Learning" brief="Naive Model-Based RL;Uncertainty in model-based RL;Model-based RL with complex observations" img="/_lectures/lecture_11/icon.png" url="/lectures/lecture11" %}
 
-{% include bullet_card.html title="Lecture 12: Model-based Policy Learning" brief="How to use env. models to learn policies;Local vs Global policies;Guided policy search;Policy Distillation;Divide & conquer RL" img="/_lectures/lecture_12/gen_dyna_idea.png" url="/lectures/lecture12" %}
+{% include bullet_card.html title="Lecture 12: Model-based Policy Learning" brief="How to use env. models to learn policies;Local vs Global policies;Guided policy search;Policy Distillation;Divide & conquer RL" img="/_lectures/lecture_12/icon.png" url="/lectures/lecture12" %}
 
 {% include bullet_card.html title="Lecture 13: Variational Inference and Generative Models" brief="" img="" url="" %}
 
 {% include bullet_card.html title="Lecture 14: Control as inference" brief="" img="" url="" %}
 
-{% include bullet_card.html title="Lecture 15: Inverse Reinforcement Learning" brief="Feature Matching IRL;Maximum Entropy IRL" img="/_lectures/lecture_15/gcl.png" url="/lectures/lecture15" %}
+{% include bullet_card.html title="Lecture 15: Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_lectures/lecture_15/icon.png" url="/lectures/lecture15" %}
 
-{% include bullet_card.html title="Lecture 16: Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_lectures/lecture_16/feature_extraction_keeping.png" url="/lectures/lecture16" %}
+{% include bullet_card.html title="Lecture 16: Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_lectures/lecture_16/icon.png" url="/lectures/lecture16" %}
 {% include bullet_card.html title="Lecture 17: Distributed RL" brief="" img="" url="" %}
 {% include bullet_card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %}
 {% include bullet_card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %}

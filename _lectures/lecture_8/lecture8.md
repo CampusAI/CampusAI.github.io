@@ -219,4 +219,8 @@ We obtain the **DDPG** algorithm:
 {% include figure.html url="/_lectures/lecture_8/ddpg.png" %}
 
 
+## PG vs DQN:
 
+At this point we can understand this meme:
+
+{% include figure.html url="/_lectures/lecture_8/PG_vs_DQN.png" %}
