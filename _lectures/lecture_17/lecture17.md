@@ -66,6 +66,9 @@ Additionally, this allows us to set different exploration policies to each worke
 This architecture also easied the parallelisation of policy gradient techniques and not only Q-learning which was dominating at that point.
 Performance-wise it achieves 3 times better results than DQN in less time and machines (see [paper](https://arxiv.org/pdf/1602.01783.pdf) for full analysis).
 
+**Problem**: It does not scale well on the number of actors due to **Policy Lag**.
+If you have say 400 actors sequentially updating the global NN, the samples from the last one are going to be so out of date that its parameter update does not make sense any more.
+
 ## 2017. Importance Weighted Actor-Learner Architectures ([IMPALA](https://arxiv.org/abs/1802.01561))
 
 IMPALA marges the learnings acquired from distributed Deep Learning and RL.
@@ -85,8 +88,8 @@ This means they produce samples from a different distribution (policy) than the 
 ## 2018. [Ape-X](https://arxiv.org/abs/1803.00933) / [R2D2](https://openreview.net/pdf?id=r1lyTjAqYX)
 
 This method takes a step back into GORILA and uses again the replay buffer mechanism.
-Again, the actors are separated from the learning process and generate data asynchronously feeding the data points into the replay buffer.
-This approach is very scalable, you can have multiple actors sampling independently filling the buffer.
+Similarly, the actors are separated from the learning process and generate data asynchronously feeding the data points into the replay buffer.
+This approach is very scalable, you can have multiple actors sampling independently feeding the buffer.
 
 The main novelty of this work is the sorting of the data in the replay buffer using **distributed prioritization**.
 This technique works by setting a priority to each data point fed into the buffer.
@@ -94,7 +97,47 @@ This allows the learner to sample from this scoring distribution which should be
 For instance you can assign a higher priority to new samples.
 Once the learner evaluates a point assigns a lower priority so chances it gets re-sampled are lower.
 
+**Problem**: You end up sampling too much recent data and becomes a bit myopic.
+
+**Solution**: The same actor ANN assigns priorities avoiding the recency bias.
+
 {% include figure.html url="/_lectures/lecture_17/apex.png" description="Ape-X architecture."%}
 
+Performance-wise greatly outperformed all other SOTA algorithms by that time.
 
-## 2019. [R2D3](https://arxiv.org/abs/1909.01387)
+**OBS**: R2D2 (Recurrent Ape-X algorithm) is essentially the same with an LSTM.
+
+## 2019. Using expert demonstrations [R2D3](https://arxiv.org/abs/1909.01387)
+
+This algorithm uses both expert demonstrations and agent's trajectories.
+It sets some sampling probability to each datapoint depending on its origin.
+
+{% include figure.html url="/_lectures/lecture_17/r2d3.png" description="R2D3 architecture."%}
+
+## Others:
+
+### [QT-Opt](https://arxiv.org/pdf/1806.10293.pdf)
+
+This distributed architecture main feature is that it interfaces with the real world.
+Moreover, its weight update happens asynchronously.
+Meaning it can be easily heavily parallelized into multiple cores (can be **independently scaled**).
+It was designed for robotic grasping, using a setup of 7 robots creating samples.
+
+{% include figure.html url="/_lectures/lecture_17/qt_opt.png" description="QT-Opt architecture."%}
+
+
+### [Evolution Strategies](https://arxiv.org/abs/1703.03864)
+
+Gradient-free approach by OpenAI.
+Essentially uses an evolutionary algorithm on the ANN weights.
+It works by having  multiple instances of the network where it applies some random noise.
+The idea is then to run the policies and perform a weighted average parameter update based on the performance of each policy.
+
+{% include figure.html url="/_lectures/lecture_17/evolution.png" description="Evolution architecture."%}
+
+### [Population-based Training](https://deepmind.com/blog/article/population-based-training-neural-networks)
+
+Technique for hyperparameter optimization.
+Merges the idea of a grid search but instead of the networks training independently, it uses information from the rest of the population to refine the hyperparameters and direct computational resources to models which show promise.
+
+Using this technique one can improve the performance of any hyperparam-dependent algorithm.
