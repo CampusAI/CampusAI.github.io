@@ -89,25 +89,75 @@ The integral makes the computation intractable, therefore we need to resort to o
 computing the log likelihood.
 
 
-# Estimating the log likelihood
+## Estimating the log likelihood
 
 Eq. \ref{eq:ml_lvm} requires us to compute $$p_{\theta}(x)$$, which involves integrating the
 latent variables and is therefore intractable. One important technique for finding Maximum
-Likelihood solutions to latent variable models is **Expectation Maximization**. 
+Likelihood solutions to latent variable models is **Expectation Maximization**
+(see chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
+/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)).
 
 Expectation Maximization consists of iteratively alternating between the following steps:
 
-1. **E step**: Compute the posterior $$p_{\theta^{old}}(z \vert x)$$
-2. **M step**: Use $$p_{\theta^{old}}(z \vert x)$$ to maximize the expected value of the 
+1. **E step**: Compute the posterior $$p_{\theta^{old}}(z \vert x_i)$$
+2. **M step**: Use $$p_{\theta^{old}}(z \vert x_i)$$ to maximize the expected value of the 
    log joint likelihood 
-   $$E_{z \sim p_{\theta^{old}}(z\vert x)} \left[ \ln p_{\theta^{new}}(x, z) \right]$$
+   $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \ln p_{\theta^{new}}(x_i, z) \Big]$$
 
 
 Eq. \ref{eq:ml_lvm} then becomes
 \begin{equation}
 \label{eq:ml_lvm_em}
 \theta \leftarrow \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N
-E_{z \sim p(z\vert x)} \left[ \ln p_{\theta}(x_i, z) \right]
+E_{z \sim p(z\vert x_i)} \Big[ \ln p_{\theta}(x_i, z) \Big]
 \end{equation}
 
-but we now have the issue of computing $$p(z \vert x)$$, which is likely to be intractable.
+but we now have the issue of computing $$p(z \vert x_i)$$, which is likely to be intractable.
+Instead, we **approximate** $$p(z \vert x_i)$$ with $$q_i(z)$$ using **Variational Inference**.
+
+
+### Variational Inference
+
+*For a deeper explanation of this very useful tool, see Chapter 10.1 of
+[C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
+/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)*
+
+We are interested in the maximization of Eq. \ref{eq:ml_lvm_em}, but we need to
+perform it by approximating $$p(z\vert x_i)$$ that is intractable with a distribution
+$$q_i(z)$$ that we choose to be tractable. $$q_i(z)$$ can be any analytically parametrized
+distribution. As we show in
+[Annex 13: Variational Inference](/lectures/annex/variational_inference),
+the log of $$p(x)$$ is bounded by:
+
+\begin{align}
+\label{eq:elbo}
+\begin{split}
+\ln p(x_i) \ge &  E_{z \sim q_i(z)} \Big[\ln p_{\theta}(x_i\vert z)+\ln p(z)\Big] +
+\mathcal{H}(q_i) \\\\\\
+= & \mathcal{L}_i(p, q_i)
+\end{split}
+\end{align}
+
+
+where $$\mathcal{H}(q_i)$$ is the **entropy** of $$q_i$$ and $$\mathcal{L}_i(p, q_i)$$ is called
+the **Evidence Lower Bound**. Moreover, if we develop on the definition of KL Divergence,
+we obtain that
+\begin{equation}
+\label{eq:dkl}
+\ln p(x_i) = D_{KL}(q_i(z) \vert\vert p(z \vert x_i)) + \mathcal{L}_i(p, q_i)
+\end{equation}
+*see the [Annex](/lectures/annex/variational_inference) for more details.*
+
+The two results together give us a way to approximate $$p(x_i)$$: 
+
+1. **Maximize $$p(x_i)$$ w.r.t. $$\theta$$**: As Eq. \ref{eq:elbo} shows, we can maximize
+   $$p(x_i)$$ with respect to $$\theta$$ by maximizing the Evidence Lower Bound
+   $$\mathcal{L}_i(p, q_i)$$.
+2. **Maximize $$p(x_i)$$ w.r.t. $$q_i$$**: Since the KL Divergence is always greater than zero,
+   we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings
+   the equation closer to the equality, i.e. $$\ln p(x_i) \approx \mathcal{L}_i(p, q_i)$$. 
+   Minimizing the $$D_{KL}$$ term corresponds to maximizing the Evidence Lower Bound
+   $$\mathcal{L}_i(p, q_i)$$.
+
+We obtained an important result: in order to maximize $$p(x_i)$$, we need to maximize the
+**Evidence Lower Bound** of Eq. \ref{eq:elbo} both with respece to $$\theta$$ and $$q_i$$.
