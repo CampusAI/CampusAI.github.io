@@ -48,14 +48,15 @@ $$
 
 ## Latent Variable Models
 
-The general formula of a Latent Variable Model with a latent variable $$z$$ is
+The general formula of a Latent Variable Model with a latent variable $$z$$ is obtained by
+marginalization:
 
 \begin{equation}
 \label{eq:lvm}
 p(x) = \int p(x \vert  z) p(z) dz
 \end{equation}
 
-and for a **conditioned** latent variable model we have
+and for a **conditioned** latent variable model we have:
 
 \begin{equation}
 \label{eq:lvm_cond}
@@ -65,15 +66,14 @@ p(y \vert  x) = \int p(y \vert  x, z)p(z)
 Dealing with these integrals in practice is not easy at all, as for many complex distributions they
 can be hard or impossible to compute. In this lecture we will learn how to approximate them.
 
-If we want to represent a really complex distribution, we can represent $$p(x \vert  z)$$ with a **Neural
-Network**:
+If we want to represent a really complex distribution, we can represent $$p(x \vert  z)$$ with a **Neural Network** that, given $$z$$, will output the mean and variance of a Gaussian
+distribution for $$x$$:
 
 {% include figure.html url="/_lectures/lecture_13/nn_transform.png" description="Neural Network mapping $z$ to $p(x\vert z)$" %}
 
-Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gaussian are given by the
-non-linear function of the Neural Network, and therefore it can approximate any distribution.
-
-Given a dataset
+Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gaussian are given
+by the non-linear function of the Neural Network, and therefore it can approximate any
+distribution. Given a dataset
 
 $$
 \mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}
@@ -100,9 +100,9 @@ Likelihood solutions to latent variable models is **Expectation Maximization**
 Expectation Maximization consists of iteratively alternating between the following steps:
 
 1. **E step**: Compute the posterior $$p_{\theta^{old}}(z \vert x_i)$$
-2. **M step**: Use $$p_{\theta^{old}}(z \vert x_i)$$ to maximize the expected value of the 
-   log joint likelihood 
-   $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \ln p_{\theta^{new}}(x_i, z) \Big]$$
+2. **M step**: Maximize the expected value of the log joint likelihood 
+   $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \ln p_{\theta}(x_i, z) \Big]$$
+   over the parameters $$\theta$$
 
 
 Eq. \ref{eq:ml_lvm} then becomes
@@ -132,7 +132,8 @@ the log of $$p(x)$$ is bounded by:
 \begin{align}
 \label{eq:elbo}
 \begin{split}
-\ln p(x_i) \ge &  E_{z \sim q_i(z)} \Big[\ln p_{\theta}(x_i\vert z)+\ln p(z)\Big] +
+\ln p(x_i) \ge &  E_{z \sim q_i(z)} \Big[\overbrace{\ln p_{\theta}(x_i\vert z)+\ln p(z)}
+^{\ln p(x_i, z)}\Big]+
 \mathcal{H}(q_i) \\\\\\
 = & \mathcal{L}_i(p, q_i)
 \end{split}
@@ -140,8 +141,8 @@ the log of $$p(x)$$ is bounded by:
 
 
 where $$\mathcal{H}(q_i)$$ is the **entropy** of $$q_i$$ and $$\mathcal{L}_i(p, q_i)$$ is called
-the **Evidence Lower Bound**. Moreover, if we develop on the definition of KL Divergence,
-we obtain that
+the **Evidence Lower Bound**, shortened in ELBO. Moreover, if we develop on the definition of
+KL Divergence, we obtain that
 \begin{equation}
 \label{eq:dkl}
 \ln p(x_i) = D_{KL}(q_i(z) \vert\vert p(z \vert x_i)) + \mathcal{L}_i(p, q_i)
@@ -151,8 +152,7 @@ we obtain that
 The two results together give us a way to approximate $$p(x_i)$$: 
 
 1. **Maximize $$p(x_i)$$ w.r.t. $$\theta$$**: As Eq. \ref{eq:elbo} shows, we can maximize
-   $$p(x_i)$$ with respect to $$\theta$$ by maximizing the Evidence Lower Bound
-   $$\mathcal{L}_i(p, q_i)$$.
+   $$p(x_i)$$ with respect to $$\theta$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$.
 2. **Maximize $$p(x_i)$$ w.r.t. $$q_i$$**: Since the KL Divergence is always greater than zero,
    we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings
    the equation closer to the equality, i.e. $$\ln p(x_i) \approx \mathcal{L}_i(p, q_i)$$. 
@@ -161,3 +161,60 @@ The two results together give us a way to approximate $$p(x_i)$$:
 
 We obtained an important result: in order to maximize $$p(x_i)$$, we need to maximize the
 **Evidence Lower Bound** of Eq. \ref{eq:elbo} both with respece to $$\theta$$ and $$q_i$$.
+Our goal is therefore to find $$\theta^*$$ such that:
+\begin{equation}
+\theta^* = \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N \mathcal{L}_i(p, q_i)
+\end{equation}
+that we optimize with the following algorithm:
+
+1. For each $$x_i$$ (or minibatch):
+2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample $$z \sim q_i(z)$$
+3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compute $$\nabla_{\theta}\mathcal{L}_i(p, q_i) \approx
+   \nabla_{\theta}\ln p_{\theta}(x_i \vert z)$$ 
+4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\theta \leftarrow \theta + \alpha
+   \nabla_{\theta}\mathcal{L}_i(p, q_i)$$
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Update $$q_i$$ to maximize $$\mathcal{L}_i(p, q_i)$$
+
+There are many things to notice about what we just did. First, when we update $$\theta$$ in line
+4 we are performing the EM maximization of Eq. \ref{eq:ml_lvm_em} with $$p(z \vert x_i)$$
+approximated by $$q_i(z)$$. In fact, the gradient w.r.t. $$\theta$$ acts only on the first
+expectation of Eq. \ref{eq:elbo} since the entropy does not depend on $$\theta$$. The sampling
+step of line 2 is required because we are optimizing an expectation over $$q_i(z)$$ which we
+are not able to compute, and we therefore estimate its gradient by sampling. Finally, we
+update $$q_i$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$, which in Eq. \ref{eq:dkl} we
+showed being equivalent to minimizing the KL Divergence between $$q_i(z)$$ and
+$$p(z \vert x_i)$$ and thus pushing $$q_i(z)$$ closer to $$p(z\vert x_i)$$.
+
+#### What is the issue?
+We said that $$q_i(z)$$ approximates $$p(z\vert x_i)$$. This means that if our dataset has $$N$$
+datapoints, we would need to maximize $$N$$ approximate distributions $$q_i$$. For any large
+dataset, such as those generated in Reinforcement Learning, we would end up having more
+parameters for the approximate distributions than in our Neural Network!
+
+
+### Amortized Variational Inference
+As we said, having a distribution $$q_i$$ for each datapoint can lead us with an extreme number
+of parameters. We therefore employ another **Neural Network** to approximate $$p(z \vert x_i)$$
+with a contained number of parameters. We denote with $$\phi$$ the set of parameters of this
+new network. The ELBO $$\mathcal{L}_i(p, q)$$ is now:
+
+$$
+\mathcal{L}_{i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)} \Big[\ln p_{\theta}(x_i \vert z)
++ \ln p(z) \Big] + \mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
+$$
+
+and the algorithm now looks like this:
+
+1. For each $$x_i$$ (or minibatch):
+2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample $$z \sim q_{\phi}(z \vert x_i)$$
+3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compute $$\nabla_{\theta}\mathcal{L}_i(p, q) \approx
+   \nabla_{\theta}\ln p_{\theta}(x_i \vert z)$$ 
+4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\theta \leftarrow \theta + \alpha
+   \nabla_{\theta}\mathcal{L}_i(p, q)$$
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\phi \leftarrow \phi + \alpha
+   \nabla_{\phi}\mathcal{L}_i(p, q)$$
+
+## Conclusions
+In the paragraphs above we learned how to approximate any distribution by introducing some
+latent variables and a neural network. We then derived an algorithm to approximate the
+distribution of a dataset $$D$$ 
