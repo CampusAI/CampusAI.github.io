@@ -16,7 +16,6 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
-
 In [Lecture 2: Imitation Learning](/lectures/lecture2) we noticed an issue with learning from
 demonstrations when the data has a **multi-modal behavior**. In the example below, the human
 demonstrator sometimes decides to avoid the obstacle by turning left, and sometimes by turning
@@ -196,14 +195,22 @@ parameters for the approximate distributions than in our Neural Network!
 As we said, having a distribution $$q_i$$ for each datapoint can lead us with an extreme number
 of parameters. We therefore employ another **Neural Network** to approximate $$p(z \vert x_i)$$
 with a contained number of parameters. We denote with $$\phi$$ the set of parameters of this
-new network. The ELBO $$\mathcal{L}_i(p, q)$$ is now:
+new network. This network $$q_{\phi}(z \vert x)$$ will output the parameters of the distribution,
+for example the mean and the variance of a Gaussian:
+$$q_{\phi}(z \vert x) = \mathcal{N}(\mu_{\phi}(x), \sigma_{\phi}(x))$$. Since mean and variance
+are given by the Neural Network, $$q_{\phi}$$ can approximate any distribution.
 
-$$
-\mathcal{L}_{i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)} \Big[\ln p_{\theta}(x_i \vert z)
-+ \ln p(z) \Big] + \mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
-$$
+The ELBO $$\mathcal{L}_i(p, q)$$ is the same as before, with $$q_{\phi}$$ instead
+of $$q_i$$:
 
-and the algorithm now looks like this:
+\begin{equation}
+\label{eq:amortized_elbo}
+\mathcal{L_i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)}\Big[\ln p_{\theta}(x_i \vert z)
++\ln p(z) \Big] + \mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
+\end{equation}
+
+We now have two networks: $$p_{\theta}$$ that learns $$p(x \vert z)$$, and $$q_{\phi}$$, that
+approximates $$p(z \vert x)$$. We then modify the algorithm like this:
 
 1. For each $$x_i$$ (or minibatch):
 2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample $$z \sim q_{\phi}(z \vert x_i)$$
@@ -214,7 +221,135 @@ and the algorithm now looks like this:
 5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\phi \leftarrow \phi + \alpha
    \nabla_{\phi}\mathcal{L}_i(p, q)$$
 
-## Conclusions
-In the paragraphs above we learned how to approximate any distribution by introducing some
-latent variables and a neural network. We then derived an algorithm to approximate the
-distribution of a dataset $$D$$ 
+We now need to compute the gradient of Eq. \ref{eq:amortized_elbo} with respect to $$\phi$$:
+
+\begin{equation}
+\nabla_{\phi}\mathcal{L_i}(p, q) = \nabla_{\phi}E_{z \sim q_{\phi}(z \vert x_i)}\Big[
+\overbrace{\ln p_{\theta}(x_i \vert z)+\ln p(z)}^{r(x_i, z)\text{, constant in } \phi} \Big] +
+\nabla_{\phi}\mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
+\end{equation}
+
+While the gradient of the entropy $$\mathcal{H}$$ can be computed straightforward by looking at
+the formula in a textbook, the gradient of the expectation is somewhat trickier, since we need
+to take the gradient of the parameters of the distribution under which the expectation is taken.
+This is however exactly the same thing we do in **Policy Gradient**!
+(see [Lecture 5: Policy Gradients](/lectures/lecture5)). Collecting the terms that do not depend
+on $$\phi$$ under $$r(x_i, z) = \ln p_{\theta}(x_i \vert z) + \ln p(z)$$ we obtain the policy
+gradient:
+
+\begin{equation}
+\nabla_{\phi}E_{z \sim q_{\phi}(z\vert x_i)} \left[r(x_i, z)\right]
+= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}\ln q_{\phi}(z_j \vert x_i)r(x_i, z_j)
+\end{equation}
+
+where we estimate the gradient by averaging over $$M$$ samples
+$$z_j \sim q_{\phi}(z \vert x_i)$$. We therefore obtain the gradient of $$\mathcal{L}_i(p, q)$$
+of Eq. \ref{eq:amortized_elbo}:
+
+\begin{equation}
+\label{eq:elbo_pgradient}
+\boxed{
+\nabla_{\phi}\mathcal{L_i}(p, q)
+= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}\ln q_{\phi}(z_j \vert x_i)r(x_i, z_j)
++\nabla_{\phi}\mathcal{H}\Big[q_{\phi}(z \vert x_i)\Big]
+}
+\end{equation}
+
+#### Reducing variance: The reparametrization trick
+The formula for the ELBO gradient we found suffers from the same problem of simple Policy
+Gradient: the high variance. Assuming the network $$q_{\phi}$$ outputs a Gaussian distribution
+$$z \sim \mathcal{N}(\mu_{\phi}(x), \sigma_{\phi}(x))$$, then $$z$$ can be written as
+
+\begin{equation}
+\label{eq:z_rep_trick}
+z = \mu_{\phi}(x) + \epsilon \sigma_{\phi}(x)
+\end{equation}
+where $$\epsilon \sim \mathcal{N}(0, 1)$$. Now, the first term of Eq. \ref{eq:amortized_elbo}
+can be written as an expectation over the standard gaussian, and $$z$$ substituted with Eq.
+\ref{eq:z_rep_trick}.
+\begin{equation}
+E_{z \sim q_{\phi}(z \vert x_i)}\Big[r(x_i, z)\Big] =
+E_{\epsilon \sim \mathcal{N(0, 1)}}\Big[r(x_i, \mu_{\phi}(x_i)+\epsilon\sigma_{\phi}(x_i))\Big]
+\end{equation}
+
+Now, the parameter $$\phi$$ does not appear anymore in the distribution, but rather in the
+optimization objective. We can therefore take the gradient by sampling $$M$$ values of
+$$\epsilon$$:
+
+\begin{equation}
+\nabla_{\phi} E_{\epsilon \sim \mathcal{N(0, 1)}}
+\Big[r(x_i, \mu_{\phi}(x_i)+\epsilon\sigma_{\phi}(x_i))\Big] = 
+\frac{1}{M} \sum_{j=1}^M \nabla_{\phi}r(x_i, \mu_{\phi}(x_i)+\epsilon_j\sigma_{\phi}(x_i))
+\end{equation}
+
+Note that now gradient flows directly into $$r$$. This improves the gradient estimation, but
+requires the $$q_{\phi}$$ network to output a distribution that allows us to use this trick.
+In practice, this gradient has low variance, and **a single sample of $$\epsilon$$ is sufficient
+to estimate it**. Using the reparametrization trick, the full gradient becomes:
+
+\begin{equation}
+\label{eq:elbo_trick_gradient}
+\boxed{
+\nabla_{\phi}\mathcal{L_i}(p, q)
+= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}r(x_i, \mu_{\phi}(x_i)+\epsilon_j\sigma_{\phi}(x_i))
++\nabla_{\phi}\mathcal{H}\Big[q_{\phi}(z \vert x_i)\Big]
+}
+\end{equation}
+
+The difference between this gradient and that of Eq. \ref{eq:elbo_pgradient} is that while here
+we are able to use the gradient of $$r$$ directly, in Eq. \ref{eq:elbo_pgradient} we rely
+on the gradient of $$q_{\phi}$$ in order to increase the likelihood of $$x_i$$ that make $$r$$
+large. This is the same we did in [Lecture 5: Policy Gradients](/lectures/lecture5), where we
+discussed why doing this leads to an high variance estimator. The figure below shows the
+process that from $$x_i$$ gives us $$q_{\phi}(z \vert x_i)$$ and $$p_{\theta}(x_i \vert z)$$:
+{% include figure.html url="/_lectures/lecture_13/icon.png" description="" %}
+
+
+#### A more practical form of $$\mathcal{L_i}(p, q)$$
+
+If we look at Eq. \ref{eq:amortized_elbo}, we observe that it can be written in terms of the
+KL Divergence between $$q_{\phi}$$ and $$p(z)$$:
+
+\begin{equation}
+\mathcal{L_i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)}\Big[\ln p_{\theta}(x_i \vert z)\Big]+
+\overbrace{
+E_{z \sim q_{\phi}(z \vert x_i)}\Big[\ln p(z) \Big]
++\mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
+}^{-D_{KL}\Big(q_{\phi}(z \vert x_i) \vert\vert p(z) \Big)}
+\end{equation}
+In practical implementations is often better to group the last two terms under the KL DIvergence
+since we can compute it analytically -e.g.
+[D. Kingma, M. Welling, Auto Encoding Variational Bayes](https://arxiv.org/pdf/1312.6114.pdf)-,
+and we can use the reparametrization trick only on the first term.
+
+The **Policy Gradient** for $$\mathcal{L_i}(p, q)$$ with respect to $$\phi$$ then becomes:
+\begin{equation}
+\label{eq:elbo_pgradient_dkl}
+\boxed{
+\nabla_{\phi} \mathcal{L_i}(p, q) =
+\frac{1}{M} \sum_{j=1}^M \nabla_{\phi}q_{\phi}(z_j \vert x_i)\ln p_{\theta}(x_i \vert z_j)
+-\nabla_{\phi}D_{KL}\Big(q_{\phi}(z \vert x_i) \vert \vert p(z)\Big)
+}
+\end{equation}
+
+The **Reparametrized Gradient** then becomes (single sample estimate):
+\begin{equation}
+\label{eq:elbo_trick_gradient_dkl}
+\boxed{
+\nabla_{\phi} \mathcal{L_i}(p, q) = 
+\nabla_{\phi} \ln p_{\theta}(x_i \vert \mu_{\phi}(x_i) + \epsilon \sigma_{\phi}(x_i)) -
+\nabla_{\theta} D_{KL}\Big(q_{\phi}(z \vert x_i) \vert\vert p(z)\Big)
+}
+\end{equation}
+
+### Policy Gradient or Reparametrization Trick?
+
+**Policy Gradient** (Eq. \ref{eq:elbo_pgradient_dkl}):
++ <span style="color:green">Can handle both discrete and continuous latent variables</span>.
++ <span style="color:red">High variance, requires multiple samples and smaller
+learning rates</span>.
+
+**Reparametrized Gradient** (Eq. \ref{eq:elbo_trick_gradient_dkl}):
++ <span style="color:green">Low variance (one sample is often enough)</span>.
++ <span style="color:green">Simple to implement</span>.
++ <span style="color:red">Can handle only continuous latent variables</span>.

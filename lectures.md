@@ -49,7 +49,7 @@ url:    The url of the lecture post
 
 {% include bullet_card.html title="Lecture 12: Model-based Policy Learning" brief="How to use env. models to learn policies;Local vs Global policies;Guided policy search;Policy Distillation;Divide & conquer RL" img="/_lectures/lecture_12/icon.png" url="/lectures/lecture12" %}
 
-<!-- {% include bullet_card.html title="Lecture 13: Variational Inference and Generative Models" brief="" img="" url="" %} -->
+{% include bullet_card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_lectures/lecture_13/icon.png" url="/lectures/lecture13" %}
 
 <!-- {% include bullet_card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
 
