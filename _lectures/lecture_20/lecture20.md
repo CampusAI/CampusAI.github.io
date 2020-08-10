@@ -79,8 +79,8 @@ Then the basic algorithm becomes:
 {% include figure.html url="/_lectures/lecture_20/recurrent_alg.png" description="Recurrent algorithm pseudocode." %}
 
 **Pros/Cons**:
-+ <span style="color:green">It is **general** and **expressive**: There exists and RNN that can compute any function.</span>.
-+ <span style="color:red">It is **NOT consistent**: There is no guarantee it will converge to the optimal policy</span>.
++ <span style="color:green">It is **general** and **expressive**: There exists and RNN that can compute any function.</span>
++ <span style="color:red">It is **NOT consistent**: There is no guarantee it will converge to the optimal policy.</span>
 
 More on: [Benchmarking Deep Reinforcement Learning for Continuous Control](https://arxiv.org/abs/1604.06778) and [Learning to reinforcement learn](https://arxiv.org/abs/1611.05763).
 
@@ -94,4 +94,14 @@ The algorithm can be written as:
 
 {% include figure.html url="/_lectures/lecture_20/optimization_alg.png" description="Optimization algorithm idea" %}
 
-More on: [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks](https://arxiv.org/abs/1703.03400)
+**Notice**: $$\theta$$ receives credit for providing good exploration policies.
+
+**Pros/Cons**:
++ <span style="color:green">It is **consistent**: It is just gradient descent.</span>
++ <span style="color:red">It is **NOT as expressive**: If no rewards are collected adaptation wil not change the policy, even when this data gives information about states to avoid.</span>
+
+More on: [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks](https://arxiv.org/abs/1703.03400) and [ProMP: Proximal Meta-Policy Search](https://arxiv.org/abs/1810.06784).
+
+## Meta-imitation learning
+
+Robot RL example
