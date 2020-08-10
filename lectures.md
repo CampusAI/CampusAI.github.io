@@ -56,7 +56,11 @@ url:    The url of the lecture post
 {% include bullet_card.html title="Lecture 15: Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_lectures/lecture_15/icon.png" url="/lectures/lecture15" %}
 
 {% include bullet_card.html title="Lecture 16: Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_lectures/lecture_16/icon.png" url="/lectures/lecture16" %}
-<!-- {% include bullet_card.html title="Lecture 17: Distributed RL" brief="" img="" url="" %} -->
+
+{% include bullet_card.html title="Lecture 17: Distributed RL"
+brief="Original DQN;GORILA;A3C;IMPALA;Ape-X;R2D3;QT-Opt;Evolution Strategies;Population-based Training"
+img="/_lectures/lecture_17/icon.png" url="/lectures/lecture17" %}
+
 <!-- {% include bullet_card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
 <!-- {% include bullet_card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
 <!-- {% include bullet_card.html title="Lecture 20: Meta-learning" brief="" img="" url="" %} -->
