@@ -261,7 +261,7 @@ advantage.
 
 {% include figure.html url="/_lectures/lecture_9/ppo_objective.png" %}
 
-However, recent papers such as (Engstrom et al., Implementation Matters in Deep Policy Gradients)[https://openreview.net/pdf?id=r1etN1rtPB]
+However, recent papers such as [Engstrom et al., Implementation Matters in Deep Policy Gradients](https://openreview.net/pdf?id=r1etN1rtPB)
 show how this clipping mechanism does not prevent the gradient steps to violate the KL
 constraint. Furthermore, they claim that the effectiveness that made PPO famous comes from its
 **code-level optimizations**, and TRPO above may actually be better if these are implemented.
