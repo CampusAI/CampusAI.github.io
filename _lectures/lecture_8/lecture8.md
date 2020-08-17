@@ -204,13 +204,8 @@ and
 
 #### DDPG (Deep Deterministic Policy Gradient)
 Another option to perform the $$\max$$ operation is to exploit the formulation of Eq.
-<<<<<<< HEAD
 \ref{eq:max} and train another network $$\mu_{\theta}(s)$$ to approximate the $$\arg\max_a Q_{\phi}(s, a). We therefore need to find $$\theta$$ such that:
 
-=======
-\ref{eq:max} and train another network $$\mu_{\theta}(s)$$ to approximate the $$\arg\max_a
-Q_{\phi}(s, a)$$. We therefore need to find $$\theta$$ such that
->>>>>>> cdd103ba100bde16d34e32dde682fee60427ee0e
 \begin{equation}
 \theta \leftarrow \arg\max_{\theta} Q_{\phi}(s, \mu_{\theta}(s))
 \end{equation}
