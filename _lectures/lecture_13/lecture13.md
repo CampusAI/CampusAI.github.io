@@ -125,7 +125,7 @@ We are interested in the maximization of Eq. \ref{eq:ml_lvm_em}, but we need to
 perform it by approximating $$p(z\vert x_i)$$ that is intractable with a distribution
 $$q_i(z)$$ that we choose to be tractable. $$q_i(z)$$ can be any analytically parametrized
 distribution. As we show in
-[Annex 13: Variational Inference](/lectures/annex/variational_inference),
+[Annex 13: Variational Inference](/lectures/variational_inference_annex),
 the log of $$p(x)$$ is bounded by:
 
 \begin{align}
@@ -146,7 +146,7 @@ KL Divergence, we obtain that
 \label{eq:dkl}
 \ln p(x_i) = D_{KL}(q_i(z) \vert\vert p(z \vert x_i)) + \mathcal{L}_i(p, q_i)
 \end{equation}
-*see the [Annex](/lectures/annex/variational_inference) for more details.*
+*see the [Annex](/lectures/variational_inference_annex) for more details.*
 
 The two results together give us a way to approximate $$p(x_i)$$: 
 
