@@ -73,6 +73,7 @@ In addition we added our own interpretations of some concepts hoping they can ea
 
 - [Annex 5: Policy Gradients](/lectures/policy_gradients_annex)
 
+- [Annex 13: Variational Inference](/lectures/variational_inference_annex)
 
 ## Other great resources
 
