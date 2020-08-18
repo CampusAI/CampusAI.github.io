@@ -23,7 +23,7 @@
   width: 60%;
 }
 
-.card_media {
+.card_image {
   width: 40%;
   clear:both;
 }
@@ -34,19 +34,23 @@
 <div class="card">
     <h3><b>{{include.title}}</b></h3>
     <div class="card_inner">
-        <div class="card_media">
-	{% if include.video == "" or include.video == nil %}
-            <img src="{{include.img}}"/>
-	{% else %}
-	     <iframe src="{{include.video}}"/>
-	{% endif %}
-	</div>
+        <div class="card_image"> <img src="{{include.img}}"/> </div>
         <div class="card_excerpt">
-		{{include.brief}}
-            {% assign lines = include.brief | split: ";" %}
+        {% if include.type == "bulletlist" %}
+            <ul>
+                {% assign bullets = include.brief | split: ";" %}
+	        {% for bullet in bullets %}
+	            <li> {{bullet}} </li>
+	        {% endfor %}
+            </ul>
+	{% elsif include.type == "description" %}
+	    {% assign lines = include.brief | split: ";" %}
 	    {% for line in lines %}
 	     {{line}} <br>
 	    {% endfor %}
+	{% else %}
+	    ERROR: CARD IS MISSING THE type ATTRIBUTE (use "bulletlist" or "description")
+	{% endif %}
         </div>
     </div>
 </div>
