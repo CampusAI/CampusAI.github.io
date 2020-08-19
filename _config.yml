@@ -25,7 +25,7 @@ include: ['_papers', '_lectures', '_experiments']
 # Collections
 collections:
         - papers
-        - projects
+        - experiments
         - lectures
 
 defaults:
