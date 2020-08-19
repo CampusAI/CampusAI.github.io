@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<style>
+.text-justify {
+  text-align: justify;
+}
+.opaque {
+  opacity: 0.8
+}
+</style>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160601102-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-160601102-1');
+</script>
+
+<h1>{{ page.title }}</h1>
+<div class="opaque"> 
+	{% if page.experiment_author contains "and" %}
+	Authors: {{page.experiment_author}}
+	{% else %}
+	Author: {{page.experiment_author}}
+	{% endif %}
+</div>
+
+<br>
+<div class="text-justify">{{ content }}</div>
