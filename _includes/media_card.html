@@ -36,12 +36,21 @@
     <div class="card_inner">
         <div class="card_image"> <img src="{{include.img}}"/> </div>
         <div class="card_excerpt">
-        <ul>
-            {% assign bullets = include.brief | split: ";" %}
-	    {% for bullet in bullets %}
-	        <li> {{bullet}} </li>
+        {% if include.type == "bulletlist" %}
+            <ul>
+                {% assign bullets = include.brief | split: ";" %}
+	        {% for bullet in bullets %}
+	            <li> {{bullet}} </li>
+	        {% endfor %}
+            </ul>
+	{% elsif include.type == "description" %}
+	    {% assign lines = include.brief | split: ";" %}
+	    {% for line in lines %}
+	     {{line}} <br>
 	    {% endfor %}
-        </ul>
+	{% else %}
+	    ERROR: CARD IS MISSING THE type ATTRIBUTE (use "bulletlist" or "description")
+	{% endif %}
         </div>
     </div>
 </div>
