@@ -41,20 +41,19 @@ Inventory management:
 
 ## Ways to learn:
 
-- From expert demonstrations:
-    - **Behavioral Cloning**: Copying observed behavior. [Lecture 2](/lectures/lecture2)
-    - **Inverse RL**: Inferring rewards from observed behavior. [Lecture 15](/lectures/lecture15)
+#### From expert demonstrations:
+- **Behavioral Cloning**: Copying observed behavior. [Lecture 2](/lectures/lecture2)
+- **Inverse RL**: Inferring rewards from observed behavior. [Lecture 15](/lectures/lecture15)
 
+#### From environment observations:
+- **Standard DRL**: Learn best action for each state by interacting with the environment. [Lecture 5](/lectures/lecture5), [6](/lectures/lecture6), [7](/lectures/lecture7), [8](/lectures/lecture8), [9](/lectures/lecture9)
+- **Model Learning**: Learn a model of the environment to then find an optimal policy. [Lecture 10](/lectures/lecture10), [11](/lectures/lecture10), [12](/lectures/lecture10)
+<!-- "Learning to predict" -->
+- **Unsupervised Learning**: Observe the environment and extract features.
 
-- From environment observations:
-    - **Standard DRL**: Learn best action for each state by interacting with the environment. [Lecture 5](/lectures/lecture5), [6](/lectures/lecture6), [7](/lectures/lecture7), [8](/lectures/lecture8), [9](/lectures/lecture9)
-    - **Model Learning**: Learn a model of the environment to then find an optimal policy. [Lecture 10](/lectures/lecture10), [11](/lectures/lecture10), [12](/lectures/lecture10)
-    <!-- "Learning to predict" -->
-    - **Unsupervised Learning**: Observe the environment and extract features.
-
-- From other tasks:
-    - **Transfer Learning**: Share knowledge between different tasks [Lecture 16](/lectures/lecture16)
-    - **Meta-learning**: Learning to learn: Use past learned tasks to optimize the learning process. [Lecture 20](/lectures/lecture20)
+#### From other tasks:
+- **Transfer Learning**: Share knowledge between different tasks [Lecture 16](/lectures/lecture16)
+- **Meta-learning**: Learning to learn: Use past learned tasks to optimize the learning process. [Lecture 20](/lectures/lecture20)
 
 ## How to build intelligent machines:
 

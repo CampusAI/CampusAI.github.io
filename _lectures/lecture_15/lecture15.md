@@ -191,7 +191,7 @@ Which could be done as :
 \begin{equation}
 \nabla_\psi \mathcal{L} \simeq
 \frac{1}{N} \sum_i \nabla_\psi r_\psi (\tau_i) -
-\frac{1}{M} \sum_j \nabla_\psi r_\psi (\tau_j) -
+\frac{1}{M} \sum_j \nabla_\psi r_\psi (\tau_j)
 \end{equation}
 
 Where the first term are expert demonstrations and the second one policy samples.
@@ -204,7 +204,7 @@ Where the first term are expert demonstrations and the second one policy samples
 \begin{equation}
 \nabla_\psi \mathcal{L} \simeq
 \frac{1}{N} \sum_i \nabla_\psi r_\psi (\tau_i) -
-\frac{1}{\sum_j w_j} \sum_j  w_j \nabla_\psi r_\psi (\tau_j) -
+\frac{1}{\sum_j w_j} \sum_j  w_j \nabla_\psi r_\psi (\tau_j)
 \end{equation}
 
 Where: $$w_j = \frac{p(\tau) exp ( r_\psi (\tau_j) ) }{\pi(\tau_j)}$$, which if we expand using trajectory probabilities a lot gets cancelled out:

@@ -59,7 +59,7 @@ and for a **conditioned** latent variable model we have:
 
 \begin{equation}
 \label{eq:lvm_cond}
-p(y \vert  x) = \int p(y \vert  x, z)p(z)
+p(y \vert  x) = \int p(y \vert  x, z)p(z) dz
 \end{equation}
 
 Dealing with these integrals in practice is not easy at all, as for many complex distributions they
@@ -78,7 +78,7 @@ $$
 \mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}
 $$
 
-the Maximum Likelyhood fit to train the latent variable model $$p_{\theta}(x)$$ is
+the Maximum Likelihood fit to train the latent variable model $$p_{\theta}(x)$$ finds the parameters which better explain the data:
 \begin{equation}
 \label{eq:ml_lvm}
 \theta \leftarrow \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N \log p_{\theta}(x_i) =
