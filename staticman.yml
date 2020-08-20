@@ -13,7 +13,7 @@ comments:
   #
   # Name of the branch being used. Must match the one sent in the URL of the
   # request.
-  branch: "master"
+  branch: "comments"
 
   # Text to use as the commit message or pull request title. Accepts placeholders.
   commitMessage: "Add comment from staticman"
@@ -76,3 +76,4 @@ comments:
   # List of transformations to apply to any of the fields supplied. Keys are
   # the name of the field and values are possible transformation types.
   transforms:
+      email: "md5" # The email field will be MD5-hashed
