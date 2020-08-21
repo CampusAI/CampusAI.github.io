@@ -1,0 +1,9 @@
+<hr>
+{% include comment-form.html %}
+
+{% assign reversedcomments = site.comments | reverse %}
+{% for item in reversedcomments %}
+{% if item.refpage == include.pagename %}
+    {% include comment-msg.html author=item.name date=item.date message=item.message %}
+{% endif %}
+{% endfor %}
