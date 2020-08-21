@@ -1,0 +1,7 @@
+{% include comment-form.html %}
+
+{% for item in site.comments %}
+{% if item.refpage == include.pagename %}
+    {% include comment-msg.html author=item.name date=item.date message=item.message %}
+{% endif %}
+{% endfor %}
