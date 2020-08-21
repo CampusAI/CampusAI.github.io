@@ -187,6 +187,7 @@ which computing the one that maximizes the Q value is straight-forward.
 In the **NAF** architecture (Normalized Advantage Functions) the Q values are given by a
 combination of the Neural Network outputs that is quadratic in the action:
 \begin{equation}
+\label{eq:max}
 Q_{\phi}(s, a) = -\frac{1}{2}(a - \mu_{\phi}(s))^T P_{\phi}(s)(a - \mu_{\phi}(s)) + V_{\phi}(s)
 \end{equation}
 {% include figure.html url="/_lectures/lecture_8/NAF.png" %}
@@ -203,8 +204,8 @@ and
 
 #### DDPG (Deep Deterministic Policy Gradient)
 Another option to perform the $$\max$$ operation is to exploit the formulation of Eq.
-\ref{eq:max} and train another network $$\mu_{\theta}(s)$$ to approximate the $$\arg\max_a
-Q_{\phi}(s, a). We therefore need to find $$\theta$$ such that
+\ref{eq:max} and train another network $$\mu_{\theta}(s)$$ to approximate the $$\arg\max_a Q_{\phi}(s, a). We therefore need to find $$\theta$$ such that:
+
 \begin{equation}
 \theta \leftarrow \arg\max_{\theta} Q_{\phi}(s, \mu_{\theta}(s))
 \end{equation}
