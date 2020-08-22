@@ -3,6 +3,7 @@ layout: experiment
 title: "Self-learned vehicle control using PPO"
 permalink: /experiments/autonomous_driving
 experiment-author: Oleguer Canal, Federico Taschin
+experiment-date: February 2020
 code-link: https://github.com/OleguerCanal/KTH_MA-autonomous-driving
 report-link: /pdf/autonomous_driving.pdf
 ---
@@ -19,21 +20,82 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 ## Context
 This project was done as part of a contest in [DD2438 Artificial Intelligence and Multi Agent Systems](https://www.kth.se/student/kurser/kurs/DD2438?l=en) course at [KTH](https://www.kth.se/en).
 
+We were given a [Unity](https://unity.com/) [environment](/assets/code/Assignment_1.zip) with 4 3D mazes and "realistic" car and drone models.
+The task consisted in creating an AI capable of navigating from start to finish of any maze as fast as possible.
 
-## Abstract
+We where the only team to address the challenge using a data-driven approach (RL) and achieved fastest accumulated times over all test (previously unseen) tracks.
 
-This work tackles the completion of an obstacle maze by a self-driving vehicle.
+## Approach
+
 We solve it combining two main ideas:
-- First, we plan an approximate path running Dijkstra on the environment's Visibility Graph.
-- Second, a fully self-trained agent using PPO (Proximal Policy Optimization) controls the vehicle making it follow the pre-computed path the fastest way possible.
-
-Results show a high degree of environment generalization achieved by training on randomized maps of increasing difficulty (Curriculum Learning).
-Furthermore, our data-driven control approach usually outperforms any of the other heuristic-based methods attempted in both maze completion time and natural driving feel, making us the team with lowest summed time added over all test tracks.
+1. Plan an approximate path running [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) on the environment's [Visibility Graph](https://en.wikipedia.org/wiki/Visibility_graph). This returns a list of 3D points (**checkpoints**) which is then feeded to the controller.
+2. Use [PPO (Proximal Policy Optimization)](https://openai.com/blog/openai-baselines-ppo/) to learn a policy to follow this pre-computed path as fast as possible without crashing into walls.
 
 ## Environment
+A picture is worth a thousand words:
 
-## Path planning
+{% include figure.html url="/_experiments/autonomous_driving/environment.png" description="In pink the best path found by Dijkstra.
+The circled checkpoints are passed to the controller.
+The controller reads the relative position of the upcoming 4 (yellow lines from car to checkpoints). The red lines are the lidar ray-casts which inform the controller of the walls position."%}
+
+### Car action-space
+- **Throttle**: Continuous value between -1 and 1. 1 translates into going forward at full speed and -1 braking or going backwards.
+- **Steering**: Continuous value between -1 and 1 where -1 is turning left and 1 turning right.
+
+### State-space
+- **Next n checkpoints relative position**: For the agent to learn what
+direction to go it is essential that it knows where the next n checkpoints
+are located w.r.t. itself. Latest trained models use n = 4. In order to
+efficiently drive through the maze it is critical to not only know the
+next checkpoint but also be able to anticipate and adapt the trajectory
+considering future movements.
+- **Relative velocity**: To capture the current dynamic state of the vehicle,
+the agent needs to know its velocity, both in the forward direction and
+in the lateral –to understand when its drifting.
+- **”Lidar”**: These values represent the distance to closest obstacles for
+fixed directions in vehicle frame, simulating a lidar sensor without noise.
+Our tests show that an agent aware of its obstacle surroundings
+outperforms a blind one. Latest trained model for the car uses 12 rays
+(9 in front and 3 in the back). Similarly, we used 24 rays evenly spaced
+for the drone.
+
+### Reward system
+
+- **Reaching checkpoint**: Latest trained models reward the agent with 1
+point for passing through one of the checkpoints in its state checkpoint
+window. If it passed through a checkpoint more advance than the
+closest one, the reward also adds the sum of checkpoints in between.
+This is to enhance the agent to find optimal trajectories between checkpoint
+windows.
+- **Time**: To guarantee that the agent learns to complete tracks as fast as
+possible we also add a negative reward for each time-step the agent is
+running in a given environment.
 
 ## Control learning
 
 ## Results
+Results show a high degree of environment generalization achieved by training on randomized maps of increasing difficulty (Curriculum Learning).
+
+## Future work
+
+
+## Takeaways
+
+- **RL is hard**. Current RL algorithms are far from being "plug and play".
+This was our first approach on a (relatively) more complex problem and we were surprised by how much the state-action space, algorithm and meta-parameter choices affect the performance.
+
+- **Work in relative coordinates w.r.t the agent**. Otherwise the state-space can become too confusing. Including rotations also rise its dimensionality.
+
+- **Do NOT over-engineer rewards!** Its a huge temptation but defeats the whole purpose of RL.
+At a certain point you might as well just write an heuristic to solve the problem and save headaches.
+
+- **[Curriculum learning](https://arxiv.org/abs/2003.04960) helps a lot**.
+Specially with limited computing resources. Attempting to directly drive on complex mazes proved to be too slow to learn. Start with a very simplified problem and once it works, evolve from there.
+
+- **Formal experiment design & tracking is super important** (such as [fractional factorial
+design](https://en.wikipedia.org/wiki/Fractional_factorial_design)).
+We spent around a week by intuitively (or randomly) trying things without getting it to work.
+It wasn't until we stopped to think the best experiments to perform and formalized them in a spreadsheet that we started to consistently see good results.
+In later projects we automated these searches using [Bayesian optimization](https://en.wikipedia.org/wiki/Bayesian_optimization).
+
+Design choice justifications, experimental results, further detailed explanations and drone state-action space adaptations in the [full report](/pdf/autonomous_driving.pdf).
