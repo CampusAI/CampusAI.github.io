@@ -11,13 +11,15 @@ In this section you can find our summaries from [Sergey Levine](https://people.e
 <!--
 To add a lecture one must add a line with the following code:
 
-{% include card.html title="" brief="" img="" url="" %}
+{% include card.html title="" brief="" img="" url="" type="" %}
 
 title:  The title of the lecture 
-brief:  A string of ; separated sentences that will be put in a bullet list
-img:    An image that represents the lecture
+img:    An image that represents the lecture, or leave "" for no image
 url:    The url of the lecture post
-
+type:   "bulletlist" or "description".
+brief:  The text conten of the card. If type is "bulletlist",
+        semicolons are used to split the text into bullet points.
+        If type is "description", semicolons are parsed as newlines.
 -->
 
 {% include card.html title="Lecture 1: Introduction" brief="SL vs RL;Ways to learn;How to build intelligent machines;State of the art" img="/_lectures/lecture_1/icon.jpg" url="/lectures/lecture1" type="bulletlist" %}

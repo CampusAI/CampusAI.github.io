@@ -4,6 +4,20 @@ title: Papers
 permalink: /papers/
 ---
 
+<!--
+To add a paper one must add a line with the following code:
+
+{% include card.html title="" brief="" img="" url="" type="" %}
+
+title:  The title of the paper
+img:    An image that represents the paper, or leave "" for no image
+url:    The url of the paper post
+type:   "bulletlist" or "description".
+brief:  The text conten of the card. If type is "bulletlist",
+        semicolons are used to split the text into bullet points.
+        If type is "description", semicolons are parsed as newlines.
+-->
+
 ## RL Algorithms
 
 {% include card.html title="Soft Actor-Critic (SAC)"
