@@ -9,16 +9,15 @@ CampusAI is a Reinforcement Learning content website with (currently) 20+ articl
 
 - A [papers page](/papers/) with summaries on latest/influential developments in the RL world. We select interesting papers and try to provide a summary which will give you a good understanding of them (deeper than what you get by just reading the abstract) in a much compressed way (by omitting technical details, previous work, and reiterations).
 
-Stay tunned for a (coming soon) projects section with our own experiments!
+- An [experiments area](/experiments/) where we briefly explain some of our RL-related projects and their takeaways. We also point to the full project reports and the code for their reproducibility. 
 
-# Who is this for?
+<!-- # Who is this for?
 
 This is for RL enthusiasts such as ourselves!
 We hope you get a clearer idea on how the field is evolving.
-<!-- To promote exchange of ideas, we provide a comment section below each content page for readers to review/discuss/ask content-related matters. -->
 
 Ultimately (in fact, mainly) this website is also for us, to ensure we keep reading and learning.
-Creating theoretical articles has helped us to sort the main ideas while summarizing recent papers allows us to understand the experiments being attempted by most famous researchers.
+Creating theoretical articles has helped us to sort the main ideas while summarizing recent papers allows us to understand the experiments being attempted by most famous researchers. -->
 
 # Who are we?
 
@@ -44,7 +43,7 @@ To be more precise, we are:
     <p>Simultaneously studied a <a href="https://fme.upc.edu/en">B.Sc. in Mathematics</a> and a <a href="https://etseib.upc.edu/en">B.Sc. in Industrial Engineering</a> through <a href="https://cfis.upc.edu/en">CFIS</a> center at the <a href="https://www.upc.edu/en">Polytechnic University of Catalonia (UPC)</a>.</p>
     <p>Researched on the application of modern computer vision techniques to robotic tactile feedback at the <a href="https://fme.upc.edu/en">MCube Lab</a> in the <a href="https://www.mit.edu/">Massachusetts Institute of Technology (MIT)</a>.
     </p>
-    <p>Worked as a robotics perception engineer at <a href="http://en.xyzrobotics.ai/">XYZ Robotics (Shanghai)</a>, and now doing research at the division of 
+    <p>Worked as a robotics perception engineer at <a href="http://en.xyzrobotics.ai/">XYZ Robotics (Shanghai)</a>, and now contributing at the division of 
     <a href="https://www.kth.se/rpl/division-of-robotics-perception-and-learning-1.779439">Robotics Perception and Learning (RPL)</a> of <a href="https://www.kth.se/en">KTH Royal Institute of Technology</a>.
     </p>
     <p>
