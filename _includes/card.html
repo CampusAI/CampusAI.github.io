@@ -34,14 +34,26 @@
 <div class="card">
     <h3><b>{{include.title}}</b></h3>
     <div class="card_inner">
+	{% if include.img != "" %}
         <div class="card_image"> <img src="{{include.img}}"/> </div>
+	{% endif %}
         <div class="card_excerpt">
-        <ul>
-            {% assign bullets = include.brief | split: ";" %}
-	    {% for bullet in bullets %}
-	        <li> {{bullet}} </li>
+        
+	{% if include.type == "bulletlist" %}
+            <ul>
+                {% assign bullets = include.brief | split: ";" %}
+	        {% for bullet in bullets %}
+	            <li> {{bullet}} </li>
+	        {% endfor %}
+            </ul>
+	{% elsif include.type == "description" %}
+            {% assign lines = include.brief | split: ";" %}
+	    {% for line in lines %}
+	        {{line}}<br>
 	    {% endfor %}
-        </ul>
+	{% else %}
+	    ERROR: card type attribute is not set
+	{% endif %}
         </div>
     </div>
 </div>
