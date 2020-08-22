@@ -34,10 +34,12 @@
 <div class="card">
     <h3><b>{{include.title}}</b></h3>
     <div class="card_inner">
-	{% if include.img != "" %}
+	{% if include.img != "" or include.img == blank %}
         <div class="card_image"> <img src="{{include.img}}"/> </div>
-	{% endif %}
-        <div class="card_excerpt">
+        <div style="padding-left:20px;width:60%">
+	{% else %}
+        <div style="padding-left:20px;width:100%;padding-right:20px">
+        {% endif %}
         
 	{% if include.type == "bulletlist" %}
             <ul>
