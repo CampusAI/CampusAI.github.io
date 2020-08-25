@@ -17,22 +17,24 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+***[video coming soon]***
+
 ## Context
 This project was done as part of a contest in [DD2438 Artificial Intelligence and Multi Agent Systems](https://www.kth.se/student/kurser/kurs/DD2438?l=en) course at [KTH](https://www.kth.se/en).
 
 We were given a [Unity](https://unity.com/) [environment](/assets/code/Assignment_1.zip) with 4 3D mazes and "realistic" car and drone models.
 The task consisted in creating an AI capable of navigating from start to finish of any maze as fast as possible.
 
-We where the only team to address the challenge using a data-driven approach (RL) and achieved fastest accumulated times over all test (previously unseen) tracks.
+We were the only team to address the challenge using a data-driven approach (RL) and achieved fastest accumulated times over all test (previously unseen) tracks.
 
 ## Approach
 
 We solve it combining two main ideas:
-1. Plan an approximate path running [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) on the environment's [Visibility Graph](https://en.wikipedia.org/wiki/Visibility_graph). This returns a list of 3D points (**checkpoints**) which is then feeded to the controller.
+1. Plan an approximate path running [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) on the environment's [Visibility Graph](https://en.wikipedia.org/wiki/Visibility_graph). This returns a list of 3D points (checkpoints) which is then feeded to the controller.
 2. Use [PPO (Proximal Policy Optimization)](https://openai.com/blog/openai-baselines-ppo/) to learn a policy to follow this pre-computed path as fast as possible without crashing into walls.
 
 ## Environment
-A picture is worth a thousand words:
+In a nutshell:
 
 {% include figure.html url="/_experiments/autonomous_driving/environment.png" description="In pink the best path found by Dijkstra.
 The circled checkpoints are passed to the controller.
@@ -45,19 +47,15 @@ The controller reads the relative position of the upcoming 4 (yellow lines from 
 ### State-space
 - **Next n checkpoints relative position**: For the agent to learn what
 direction to go it is essential that it knows where the next n checkpoints
-are located w.r.t. itself. Latest trained models use n = 4. In order to
-efficiently drive through the maze it is critical to not only know the
-next checkpoint but also be able to anticipate and adapt the trajectory
+are located w.r.t. itself. In order to efficiently drive through the maze it is critical to not only know the next checkpoint but also be able to anticipate and adapt the trajectory
 considering future movements.
 - **Relative velocity**: To capture the current dynamic state of the vehicle,
 the agent needs to know its velocity, both in the forward direction and
-in the lateral –to understand when its drifting.
+in the lateral(to understand when its drifting).
 - **”Lidar”**: These values represent the distance to closest obstacles for
 fixed directions in vehicle frame, simulating a lidar sensor without noise.
-Our tests show that an agent aware of its obstacle surroundings
-outperforms a blind one. Latest trained model for the car uses 12 rays
-(9 in front and 3 in the back). Similarly, we used 24 rays evenly spaced
-for the drone.
+Our [tests](/pdf/autonomous_driving.pdf) show that an agent aware of its obstacle surroundings
+outperforms a blind one.
 
 ### Reward system
 
@@ -71,13 +69,21 @@ windows.
 possible we also add a negative reward for each time-step the agent is
 running in a given environment.
 
-## Control learning
+## Learning process
+We use [curriculum learning](https://arxiv.org/abs/2003.04960) in order to speed the training process.
+To do so, we sequentially generate random mazes of increasing driving difficulty (number of blocks).
+Once the agent is able to master a certain difficulty, it advances to the next level.
+The first levels do not have any walls and are completed simply by driving in a straight line.
+
+The algorithm we used to train the policy is [PPO (Proximal Policy Optimization)](https://openai.com/blog/openai-baselines-ppo/): A [policy gradient](/lectures/lecture5) algorithm "simple" to implement and tune. More on it on this [video](https://www.youtube.com/watch?v=5P7I-xPq8u8).
 
 ## Results
 Results show a high degree of environment generalization achieved by training on randomized maps of increasing difficulty (Curriculum Learning).
 
 ## Future work
+A possible future line of work 
 
+Experiment with RNN architectures to remember 
 
 ## Takeaways
 
@@ -89,7 +95,7 @@ This was our first approach on a (relatively) more complex problem and we were s
 - **Do NOT over-engineer rewards!** Its a huge temptation but defeats the whole purpose of RL.
 At a certain point you might as well just write an heuristic to solve the problem and save headaches.
 
-- **[Curriculum learning](https://arxiv.org/abs/2003.04960) helps a lot**.
+- **Curriculum learning helps a lot**.
 Specially with limited computing resources. Attempting to directly drive on complex mazes proved to be too slow to learn. Start with a very simplified problem and once it works, evolve from there.
 
 - **Formal experiment design & tracking is super important** (such as [fractional factorial
