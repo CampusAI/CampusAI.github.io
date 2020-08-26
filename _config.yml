@@ -21,7 +21,6 @@ author:
 markdown: kramdown
 
 include: ['_papers', '_lectures', '_experiments', '_comments']
-include: ['_papers', '_lectures', '_comments']
 
 # Collections
 collections:
