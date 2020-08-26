@@ -20,13 +20,14 @@ author:
 #Others
 markdown: kramdown
 
-include: ['_papers', '_lectures', '_comments']
+include: ['_papers', '_lectures', '_experiments', '_comments']
 
 # Collections
 collections:
         - papers
         - projects
         - lectures
+        - experiments
         - comments
 
 defaults:
