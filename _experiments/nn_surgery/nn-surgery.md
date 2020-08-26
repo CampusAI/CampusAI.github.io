@@ -38,8 +38,8 @@ faster and better training** if compared with training the new network from scra
 
 
 ## Change the paradigm!
-The situation in which many Reinforcement Learning researchers or practitioners may find themselves
-into falls in the pattern:
+The situation in which many Deep Reinforcement Learning researchers or practitioners may
+find themselves into falls in the pattern:
 
 1. Choose the observation space for the given problem, the action space, the network size and
    parameters
@@ -109,4 +109,109 @@ First, we train a model to classify only MNIST images that contain numbers from 
 Convolutional Neural Network has 4 outputs. Then, we transplant the weights into a new network that
 has 10 outputs, and we train it on the full MNIST dataset.
 
-{% include figure.html url="/_experiments/nn_surgery/mnist.png" %}
+{% include figure.html url="/_experiments/nn_surgery/mnist.png" 
+description="Red lines represent the old architecture, with 4 output classes. Blue lines
+represent the new architecture with 10 classes, trained from scratch, while green lines
+represent the new architecture trained starting from the transplanted weights." %}
+
+Notice how the accuracy achieved by the model with transplanted weights (green) quickly rises and
+results in a $$\sim$$ 20% improvement with respect to the same model trained from scratch (blue)
+in the same number of training steps.
+
+### Deep Reinforcement Learning: Cartpole environment
+In the [Gym Cartpole environment](https://gym.openai.com/envs/CartPole-v0/) the goal is to
+balance a pole by controlling the cart on which it is attached. The observation space is
+$$O = (x, \dot{x}, \theta, \dot{\theta})$$, i.e. position and velocity of the cart, angle and
+angular velocity of the pole. The cart can be controlled by, at each step, applying a force
+from the left or from the right. In all these experiments we use the DQN algorithm (we 
+explained it in [Lecture 8](/lectures/lecture8)) and we perform transplants on its Q network.
+
+#### Increasing the observation space
+As first experiment, we train the DQN agent by pretending that the environment produced only
+$$\dot{x}$$ and $$\theta$$ as observations. The Q network has therefore 2 input units, and two
+output units (for the two possible actions). Then we transplant the weights into a new
+architecture that takes 4 inputs, and we train it on the environment with full observation space.
+The figure below shows the results.
+
+{% include figure.html url="/_experiments/nn_surgery/cartpole_add_obs.png"
+description="Results are averaged over 20 runs." %}
+
+Notice how the Q network that received the weight transplant (green) dramatically outperforms
+the same architecture if initialized from scratch (blue).
+
+**NOTE:** This experiment is important as it resembles a situation that happens often when
+working with custom environments, as one can realize that the agent is not learning because
+the observation space does not provide all the information needed. Then, modifying it -and 
+therefore modifying the network input space-, transplanting the weights and train again is the
+correct course of action. 
+
+#### Adding hidden units and layers
+Another reason why an agent is not learning enough could be that the network is too small.
+In this experiment we train a DQN agent on the Cartpole environment on two small networks, 
+and we apply the transplant to move the weights to two bigger networks.
+
+1. In the first figure, the Q network had two layers of 4 hidden units, and the weights are
+   transplanted into a bigger network of 2 layers of 16 units.
+2. In the second figure, the Q network had a single layer of 8 units, and the weights are
+   transplanted into a bigger network of 2 layers of 8 units.
+Both figures show the average of 20 DQN runs.
+
+{% include figure.html url="/_experiments/nn_surgery/cartpole_add_units.png"
+description="1. Adding hidden units to the Q network. In green the reward after
+transplanting weights, in blue the reward of the same network trained from scratch.
+In red the old Q network." %}
+
+{% include figure.html url="/_experiments/nn_surgery/cartpole_add_layer.png" 
+description="2. Adding a layer to the Q network. In green the reward after
+transplanting weights, in blue the reward of the same network trained from scratch.
+In red the old Q network." %}
+
+Notice how in both cases the network that received weights with the transplant outperforms
+the same network trained from scratch with default initialization.
+
+### Deep Reinforcement Learning: Acrobot environment
+The [Acrobot environment](https://gym.openai.com/envs/Acrobot-v1/) is similar to Cartpole. The
+goal is to make a two joints system reach the highest possible point. The observation space is
+a 6-dimensional vector made of the $$\sin$$ and $$\cos$$ of the two angles of the two joints,
+and the two angular velocities. We can control it by applying a force clockwise or counter 
+clockwise to the first joint, or do nothing.
+#### Adding one action
+The possible actions are 3, but in this experiment we first train the DQN agent by only allowing
+it to exert a force clockwise and do nothing. The Q network has therefore 2 output units. Then,
+we transplant the weights into a new network with the same architecture but with 3 output units,
+and we train it allowing it to perform all the three possible actions.
+
+{% include figure.html url="/_experiments/nn_surgery/acrobot_add_action.png"
+description="Adding an output to the Q network. Green line shows the reward for the network
+that received weights with transplant. The blue line is the same architecture but trained 
+from scratch. Red line is the old architecture." %}
+
+Notice that the network that received the weights with transplant starts already at high rewards,
+meaning that the transplant didn't make the network forget what it learned in the old model. The
+network that was trained from scratch with default initialization instead takes several thousands
+steps to achieve the same rewards.
+
+### Deep Reinforcement Learning: Lunar Lander environmet
+In the [Lunar Lander environment ](https://gym.openai.com/envs/LunarLander-v2/) the goal is to
+make the lander to land in the defined areas. Observation space is made of $$x$$ and $$y$$
+position and velocity, angle and angular velocity of the lander. The possible actions are firing
+from one of the three engines or do nothing.
+
+#### Adding two actions 
+Similar to the experiment before, we train the Q network to only perform two actions,
+corresponding to firing the left and right engines. Then, we transplant the weights into a new
+network with four outputs, corresponding to the full action space, and we train it.
+
+{% include figure.html url="/_experiments/nn_surgery/lander_add_2_act.png" %}
+
+Once again, the transplant technique proved superior to training from scratch.
+
+## Takeaways
+- Our experiments suggest that weight transplant could **become the standard technique** for
+  Deep RL practitioners and researcher when exploring **state and action space definitions**,
+  or **neural network architectures**.
+- **Weight initialization** must be done carefully in Deep Reinforcement Learning. For example,
+  when rewards are negative, initializing an outpu unit with a zero weight will make it almost
+  always be chosen by the DQN algorithm.
+- Transfering weights even into different network architecture still gives an advantage! 
+- The Deep Reinforcement Learning community may need RL libraries to implement this!
