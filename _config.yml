@@ -20,7 +20,8 @@ author:
 #Others
 markdown: kramdown
 
-include: ['_papers', '_lectures', '_experiments']
+include: ['_papers', '_lectures', '_experiments', '_comments']
+include: ['_papers', '_lectures', '_comments']
 
 # Collections
 collections:
@@ -28,6 +29,7 @@ collections:
         - projects
         - lectures
         - experiments
+        - comments
 
 defaults:
         - scope:
