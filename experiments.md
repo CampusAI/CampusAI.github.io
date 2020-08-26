@@ -26,3 +26,13 @@ We tested the adaptability of our algorithm by training both a car and a drone.;
 "
 type="description" %}
 
+{% include card.html
+title="Neural Network Surgery in Deep Reinforcement Learning"
+img="/_experiments/nn_surgery/lunar_lander.gif"
+url="/experiments/nn_surgery"
+brief="In this work we experiment transplanting weights when modifying Neural Networks.
+Networks can be modified by increasing or reducing the observation and action space as
+well as the number of hidden layers and units. Results show that when modifying the
+network structure, weight transplant achieves faster and better result than training
+from scratch."
+type="description" %}
