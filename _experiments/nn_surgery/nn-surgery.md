@@ -105,18 +105,20 @@ the following structure:
 6. Compare results of 1, 4 and 5.
 
 ### Increasing the outputs in MNIST classification
-First, we train a model to classify only MNIST images that contain numbers from 0 to 3, therefore the
+First, we train a model to classify only MNIST images that contain digits from 0 to 3, therefore the
 Convolutional Neural Network has 4 outputs. Then, we transplant the weights into a new network that
-has 10 outputs, and we train it on the full MNIST dataset.
+will classify digits from 4 to 9, and will therefore have 6 outputs. The figure below shows the 
+training results.
 
 {% include figure.html url="/_experiments/nn_surgery/mnist.png" 
 description="Red lines represent the old architecture, with 4 output classes. Blue lines
-represent the new architecture with 10 classes, trained from scratch, while green lines
+represent the new architecture with 6 classes, trained from scratch, while green lines
 represent the new architecture trained starting from the transplanted weights." %}
 
 Notice how the accuracy achieved by the model with transplanted weights (green) quickly rises and
 results in a $$\sim$$ 20% improvement with respect to the same model trained from scratch (blue)
-in the same number of training steps.
+in the same number of training steps. This is really interesting as the new network received weights
+from one that classified completely different digits.
 
 ### Deep Reinforcement Learning: Cartpole environment
 In the [Gym Cartpole environment](https://gym.openai.com/envs/CartPole-v0/) the goal is to
