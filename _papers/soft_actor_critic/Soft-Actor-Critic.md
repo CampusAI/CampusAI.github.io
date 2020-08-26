@@ -79,6 +79,7 @@ Since the algorithm lies in the [Actor-Critic](/lectures/lecture6) framework the
 $$V_\psi$$ is fitted to minimize the [RSS](https://en.wikipedia.org/wiki/Residual_sum_of_squares) with function \ref{eq:value}:
 
 \begin{equation}
+\label{eq:v}
 J_V (\psi) = E_{s_t \sim \mathcal{D}} \left[ \frac{1}{2} \left(V_\psi (s_t) - E_{a_t \sim \pi_\phi} \left[ Q_\theta (s_t, a_t) - \log \pi_\phi (a_t | s_t) \right] \right)^2 \right]
 \end{equation}
 
@@ -103,10 +104,14 @@ Notice that in general it is intractable but since it does not contribute to the
 {% include figure.html url="/_papers/soft_actor_critic/projection.png" description="Interpretation of eq \ref{eq:pi}. We take the closest policy to SOFTMAX(Q) from our parametrized space by the KL divergence projection."%}
 
 The algorithm then becomes:
-{% include figure.html url="/_papers/soft_actor_critic/algorithm.png" description="SAC algorithm"%}
+{% include figure.html url="/_papers/soft_actor_critic/algorithm.png" description="SAC algorithm."%}
+
+**Notice**: They use 2 Q-function approximators to mitigate positive bias in policy improvement adn speed training. Eq \ref{eq:v} uses the minimum value of the 2 Q-functions.
+
 
 ## Contribution
  - __Stable Learning:__ Results show similar performance across different seeds, in contrast to other off-policy methods.
 
 ## Weaknesses
-
+- It presents a high variability when using deterministic policies (cannot take advantage of entropy)
+- Sensitive to reward scaling. Since it affects the temperature parameter controlling the entropy. Larger reward means lower entropy.
