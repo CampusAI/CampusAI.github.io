@@ -140,10 +140,9 @@ Notice how the Q network that received the weight transplant (green) dramaticall
 the same architecture if initialized from scratch (blue).
 
 **NOTE:** This experiment is important as it resembles a situation that happens often when
-working with custom environments, as one can realize that the agent is not learning because
-the observation space does not provide all the information needed. Then, modifying it -and 
-therefore modifying the network input space-, transplanting the weights and train again is the
-correct course of action. 
+working with custom environments. Often, one realizes that the agent is not learning because
+the observation space does not provide all the information needed. Then, modifying it,
+transplanting the weights and train again may be really beneficial.
 
 #### Adding hidden units and layers
 Another reason why an agent is not learning enough could be that the network is too small.
@@ -207,11 +206,25 @@ network with four outputs, corresponding to the full action space, and we train 
 Once again, the transplant technique proved superior to training from scratch.
 
 ## Takeaways
-- Our experiments suggest that weight transplant could **become the standard technique** for
-  Deep RL practitioners and researcher when exploring **state and action space definitions**,
-  or **neural network architectures**.
+- Our experiments suggest that weight transplant could be really useful or Deep RL practitioners
+  and researcher when exploring state and action space definitions, or neural network
+  architectures.
+
 - **Weight initialization** must be done carefully in Deep Reinforcement Learning. For example,
-  when rewards are negative, initializing an outpu unit with a zero weight will make it almost
+  when rewards are negative, initializing an output unit with a zero weight will make it almost
   always be chosen by the DQN algorithm.
-- Transfering weights even into different network architecture still gives an advantage! 
-- The Deep Reinforcement Learning community may need RL libraries to implement this!
+
+- The Deep Reinforcement Learning community may need RL libraries to implement this! 
+
+
+## Future work
+- Develop a library that performs weight transplant from one network to another in different
+  Deep Learning frameworks (Tensorflow, Pythorch) as well as for several Deep Reinforcement
+  Learning libraries (baselines, stable-baselines, Keras-RL, etc).
+
+- Do more research on the initialization of new weights. Is "close-to-identity"
+  initialization for new layers the better way? How do we initialize new output layers for
+  Deep Reinforcement Learning value networks without destroying the policy?
+
+- Perform more and more complex experiments. Is the transplant always beneficial? In what cases
+  does it fail?
