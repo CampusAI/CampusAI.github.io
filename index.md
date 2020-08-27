@@ -9,7 +9,7 @@ CampusAI is a Reinforcement Learning content website with (currently) 20+ articl
 
 - A [papers page](/papers/) with summaries on latest/influential developments in the RL world. We select interesting papers and try to provide a summary which will give you a good understanding of them (deeper than what you get by just reading the abstract) in a much compressed way (by omitting technical details, previous work, and reiterations).
 
-- An [experiments area](/experiments/) where we briefly explain some of our RL-related projects and their takeaways. We also point to the full project reports and the code for their reproducibility. 
+- An [experiments area](/experiments) where we briefly explain some of our RL-related projects and their takeaways. We also point to the full project reports and the code for their reproducibility. 
 
 <!-- # Who is this for?
 
