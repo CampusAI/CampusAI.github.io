@@ -77,13 +77,11 @@ The first levels do not have any walls and are completed simply by driving in a 
 
 The algorithm we used to train the policy is [PPO (Proximal Policy Optimization)](https://openai.com/blog/openai-baselines-ppo/): A [policy gradient](/lectures/lecture5) algorithm "simple" to implement and tune. More on it on this [video](https://www.youtube.com/watch?v=5P7I-xPq8u8).
 
-## Results
-Results show a high degree of environment generalization achieved by training on randomized maps of increasing difficulty (Curriculum Learning).
-
 ## Future work
-A possible future line of work 
 
-Experiment with RNN architectures to remember 
+Once the control is learned, it would be interesting to **learn** also the **path planning**.
+Following the curriculum learning approach, we could start by stretching the distance between key points until we only provide the goal.
+This could require of an **RNN architecture** so that the agent somehow remembers the traversed maze.
 
 ## Takeaways
 

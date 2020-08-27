@@ -21,8 +21,10 @@ We mainly test algorithms on new environments and re-implement papers code.
 title="Self-learned vehicle control using PPO"
 img="/_experiments/autonomous_driving/icon.gif"
 url="/experiments/autonomous_driving"
-brief="This work tackles the completion of an obstacle maze by a self-driving vehicle in a realistic physics environment.;
-We tested the adaptability of our algorithm by training both a car and a drone.;
+brief="This work tackles the completion of an obstacle maze by a self-driving vehicle in a realistic physics environment.
+We tested the adaptability of our algorithm by learning both the controls of a car and a drone.
+The agents are trained using the PPO (policy gradient) algorithm and using curriculum learning for faster training.;
+This project was part of a contest and we achieved the faster maze completion times against heuristic approaches.
 "
 type="description" %}
 
@@ -36,3 +38,5 @@ well as the number of hidden layers and units. Results show that when modifying 
 network structure, weight transplant achieves faster and better result than training
 from scratch."
 type="description" %}
+
+Stay tunned for new experiments such as a RL-trained [**RocketLeague**](https://en.wikipedia.org/wiki/Rocket_League) bot and a **Terrarium** where its animals where trained to survive while following a simple food chain.

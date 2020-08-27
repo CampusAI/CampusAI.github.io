@@ -111,7 +111,8 @@ The algorithm then becomes:
 
 ## Contribution
  - __Stable Learning:__ Results show similar performance across different seeds, in contrast to other off-policy methods.
+ - Better than other SOTA algorithms (DDPG, PPO, TD3) in **complex environments**: Maximum entropy framework improves performance in those cases.
 
 ## Weaknesses
-- It presents a high variability when using deterministic policies (cannot take advantage of entropy)
-- Sensitive to reward scaling. Since it affects the temperature parameter controlling the entropy. Larger reward means lower entropy.
+- It presents a high variability when using **deterministic policies** (cannot take advantage of entropy). Since SAC converges to stochastic policies, it is often beneficial to make the final one deterministic. 
+- Sensitive to **reward scaling**. Since it affects the temperature parameter controlling the entropy. Larger reward means lower entropy.

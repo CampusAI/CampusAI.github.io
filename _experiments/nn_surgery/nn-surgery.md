@@ -23,18 +23,17 @@ allowfullscreen></iframe>
 </div>
 
 ## Context
-As we learned in many of our [experiments](/experiments), training Deep Reinforcement Learning agents
-can be an extremely time consuming task. Moreover, it is often the case that one needs to change the
-setup. As an example, in our [Autonomous Driving](/experiments/autonomous_driving), we often made
-changes to the observation space, such as changing the number of lidar rays and next visible path
-points. In other cases one may want to add a new action to an agent that was previously trained, or
-to modify the size and shape of the neural network. All these changes to the network architecture
-require the agent to be trained again. In this work, taking inspiration from
-[Neural Network Surgery with Sets](https://arxiv.org/abs/1912.06719), we implement a simple weight
-transplanting functionality that allows us to move weights from a trained network to a new network 
-with a different architecture, transfering the old weights in the appropriate place and initializing
-the new ones. With our extensive experiments we show that this simple weight transplant **achieves 
-faster and better training** if compared with training the new network from scratch.
+As we learned in many of our [experiments](/experiments), training DRL agents can be an extremely time consuming task.
+Specially when performing changes in the environment:
+As an example, in our [Autonomous Driving](/experiments/autonomous_driving), we often made
+changes to the **observation space**, such as changing the number of lidar rays and next visible path points.
+In other cases, one may want to add a **new action** to an agent that was previously trained.
+Similarly, one may want to experiment with the number of layers and nodes of the ANNs.
+All these changes to the network architecture require the agent to be re-trained from scratch..
+
+In this work, taking inspiration from
+[Neural Network Surgery with Sets](/papers/NN_surgery_sets), we implement a simple weight transplanting functionality that allows us to move weights from a trained network to a new network with a different architecture.
+We show that this simple weight transplant **achieves faster and better training** than re-training the new network from scratch.
 
 
 ## Change the paradigm!
@@ -63,22 +62,17 @@ Our project **aims to change this paradigm** into
 
 ### Labeling layers and units
 Transplanting the weights is pretty straightforward. We use IDs to identify layers and input/output
-units. Therefore, for the **old network**, the input layer units will have ids
-$$I^{old} = (i_1, i_2, \: ...\: i_n)$$, the output layer units will have ids
-$$O^{old} = (o1, o2, \: ... \: o_m)$$, and layers are identified by
-$$L^{old} = (l_1, l_2, \: ... \: l_k)$$. When we create a new architecture and we want to transplant
-into it the weights of the old one, we assign IDs to the new architecture such that the layers,
-input, and output units that didn't change have the same ID as before, while any additional layer,
-input or output unit will have a new ID. Layers of which we change size will not have a new ID as we
-want to keep their weights, and it is easy to automatically detect this change.
+units.
+We then pair the ids from the old network to the new one and transfer the weights in such a way that the relations are kept as similar as possible.
 
 ### Transplant
 We implemented the transplant for Dense and Convolutional layers.
-- For Dense layers, a change (addition,removal or permutation) in input features’ IDs is
+- For **Dense layers**, a change (addition,removal or permutation) in input features’ IDs is
   translated into the columns of the weight matrix. Similarly, a change of output IDs is translated
   into the rows of weight and biases matrices. When adding new inputs or outputs, weights are left
-  untouched from the untrained initialization. 
-- For Convolutional layers, we use the same technique but inputs’ IDs refer to 
+  untouched from the untrained initialization.
+
+- For **Convolutional layers**, we use the same technique but inputs’ IDs refer to 
   input channels and output IDs to the layer filters. A change (addition, removal or
   permutation) between the trained layer and new layer of input IDs is applied into each
   filter’s channel. A change of output ids is translated into the same change in the filters
@@ -87,10 +81,11 @@ We implemented the transplant for Dense and Convolutional layers.
 
 ### Initialize the new layers
 The goal is that the new architecture before starting the training behaves as close as possible to the
-old one. Dense layers matrices are initialized as close as possible to identities, with zero biases.
-For Convolutional layers, we set the filters to be all zero but a one in top-right positions for all
-channels. This ensures the input and output are similar enough so the weights previously learned in
-posterior dense layers are not compromised.
+old one.
+- **Dense layers** matrices are initialized as close as possible to identities, with zero biases.
+
+- In **Convolutional layers** we set the filters to be all zero but a one in top-right positions for all channels.
+This ensures the input and output are similar enough so the weights previously learned in posterior dense layers are not compromised.
 
 
 ## Experiments
@@ -104,7 +99,7 @@ the following structure:
 5. Train the new architecture initialized from scratch
 6. Compare results of 1, 4 and 5.
 
-### Increasing the outputs in MNIST classification
+### Different outputs in MNIST classification
 First, we train a model to classify only MNIST images that contain digits from 0 to 3, therefore the
 Convolutional Neural Network has 4 outputs. Then, we transplant the weights into a new network that
 will classify digits from 4 to 9, and will therefore have 6 outputs. The figure below shows the 
@@ -225,8 +220,8 @@ Once again, the transplant technique proved superior to training from scratch.
   and researcher when exploring state and action space definitions, or neural network
   architectures.
 
-- **Weight initialization** must be done carefully in Deep Reinforcement Learning. For example,
+- **Weight initialization** must be done carefully in Deep Reinforcement Learning. For instance,
   when rewards are negative, initializing an output unit with a zero weight will make it almost
   always be chosen by the DQN algorithm.
 
-- The Deep Reinforcement Learning community may need RL libraries to implement this! 
+- There does not seem to be any library implementing this transfer for DRL algorithms.
