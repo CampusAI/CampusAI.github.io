@@ -3,7 +3,7 @@ layout: page
 title: Welcome to CampusAI!
 ---
 
-CampusAI is a Reinforcement Learning content website with (currently) 20+ articles distributed across:
+CampusAI is a Reinforcement Learning content website with (currently) 25+ articles distributed across:
 
 - A [theory section](/theory/) with insights on the main research fields. It contains our annotations and personal interpretations of [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) UC Berkeley CS-285 2019 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/). As well as pointers to other great RL resources.
 

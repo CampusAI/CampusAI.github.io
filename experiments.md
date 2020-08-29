@@ -32,11 +32,9 @@ type="description" %}
 title="Neural Network Surgery in Deep Reinforcement Learning"
 img="/_experiments/nn_surgery/lunar_lander.gif"
 url="/experiments/nn_surgery"
-brief="In this work we experiment transplanting weights when modifying Neural Networks.
-Networks can be modified by increasing or reducing the observation and action space as
-well as the number of hidden layers and units. Results show that when modifying the
-network structure, weight transplant achieves faster and better result than training
-from scratch."
+brief="In this work we experiment on weight transplantation after slight ANN modifications.
+Networks can be modified by increasing or reducing the number of input/outputs as well as the number of hidden layers and units.
+We show that when modifying the network structure, weight transplant achieves faster and better results than training from scratch."
 type="description" %}
 
-Stay tunned for new experiments such as a RL-trained [**RocketLeague**](https://en.wikipedia.org/wiki/Rocket_League) bot and a **Terrarium** where its animals where trained to survive while following a simple food chain.
+Stay tunned for new experiments such as a RL-trained [**RocketLeague**](https://en.wikipedia.org/wiki/Rocket_League) bot and a **Terrarium** where animals were trained to survive while following a simple food chain.

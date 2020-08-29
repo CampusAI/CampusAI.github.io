@@ -13,7 +13,7 @@ title:      The title of the paper
 img:        An image that represents the paper, or leave "" for no image
 url:        The url of the paper post
 type:       "bulletlist" or "description".
-brief:      The text conten of the card. If type is "bulletlist",
+brief:      The text content of the card. If type is "bulletlist",
             semicolons are used to split the text into bullet points.
             If type is "description", semicolons are parsed as newlines.
 subtitle:   Put here the paper authors and year
