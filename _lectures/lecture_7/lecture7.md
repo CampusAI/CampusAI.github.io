@@ -23,8 +23,8 @@ $$A^{\pi}(s_t, a_t)$$ that tells us *how much better* is action $$a_t$$ than the
 in state $$s_t$$ according to the policy $$\pi$$. We defined the Advantage Function as
 \begin{equation}
 \label{eq:advantage}
-A^{\pi}(s_t, a_t) = r(s_t, a_t) + E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \left [
-\gamma V^{\pi}(s_{t+1}) \right] - V^{\pi}(s_t)
+A^{\pi}(s_t, a_t) = r(s_t, a_t) + E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \Big [
+\gamma V^{\pi}(s_{t+1}) \Big] - V^{\pi}(s_t)
 \end{equation}
 
 ### What if we could omit the Policy Gradient?
@@ -53,7 +53,7 @@ We can store the whole $$V^{\pi}(\pmb{s})$$ and perform a **bootstrapped update*
 \begin{equation}
 \label{eq:v_update}
 V^{\pi}(\pmb{s}) \leftarrow r(\pmb{s}, \pi(\pmb{s})) + \gamma
-E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \left[ V^{\pi}(\pmb{s}_{t+1}) \right]
+E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \Big[ V^{\pi}(\pmb{s}_{t+1}) \Big]
 \end{equation}
 Note that we are using the current estimate of $$V^{\pi}$$ when computing the expectation
 for the next states $$\pmb{s}_{t+1}$$. Since we are assuming to know the transition
