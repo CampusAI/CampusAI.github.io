@@ -27,6 +27,10 @@ The **Q-Learning** algorithm we previously described is the following
 {% include figure.html url="/_lectures/lecture_8/q_learning_naive.png" description="Q-Learning" %}
 which is an online version of the **Fitted Q Iteration** algorithm
 {% include figure.html url="/_lectures/lecture_8/fitted_q_naive.png" description="Fitted Q Iteration" %}
+**NOTE:** there is a fundamental difference between the Q-Learning and the Fitted Q Iteration
+algorithms. While in Q-Learning we learn while the agent collects experience, in Fitted Q
+Iteration we collect **the whole experience dataset first**, and then we perform a full
+regression on it. Then, we use the learned policy to collect a new dataset, and we repeat.
 
 #### Q-Learning is NOT gradient descent
 The step 3 of Q-Learning looks very similar to the Gradient Descent algorithm, which we know
