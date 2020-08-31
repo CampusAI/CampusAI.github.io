@@ -19,18 +19,22 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 In this lecture we go over again the two algorithms we studied in
 [Lecture 7: Value Function Methods](/lectures/lecture7), **Fitted Q iteration** and
-**Q-Learning**, we point out their main issues and discuss how to actually make them work with
-Neural Networks. Then, we discuss how to make Q Learning work in a continuous actions setting.
+**Q Learning**, we point out their main issues and discuss how to actually make them
+work with Neural Networks. Then, we discuss how to make Q Learning work in a continuous actions
+setting.
 
-## Q-Learning Issues
+## Q Learning Issues
 The **Q-Learning** algorithm we previously described is the following
-{% include figure.html url="/_lectures/lecture_8/q_learning_naive.png" description="Q-Learning" %}
+{% include figure.html url="/_lectures/lecture_8/q_learning_naive.png"
+description="Q Learning algorithm" %}
 which is an online version of the **Fitted Q Iteration** algorithm
 {% include figure.html url="/_lectures/lecture_8/fitted_q_naive.png" description="Fitted Q Iteration" %}
-**NOTE:** there is a fundamental difference between the Q-Learning and the Fitted Q Iteration
-algorithms. While in Q-Learning we learn while the agent collects experience, in Fitted Q
-Iteration we collect **the whole experience dataset first**, and then we perform a full
-regression on it. Then, we use the learned policy to collect a new dataset, and we repeat.
+**NOTE:** there is a fundamental difference between the Q Learning and the Fitted Q
+Iteration algorithms. While in Q-Learning we learn while the agent collects experience, in
+Fitted Q Iteration we collect **the whole experience dataset first**, and then we perform a full
+regression on it. Then, we use the learned policy to collect a new dataset, and we repeat. This
+is however not optimal for large networks, as it becomes too expensive to train on the whole
+dataset at each iteration.
 
 #### Q-Learning is NOT gradient descent
 The step 3 of Q-Learning looks very similar to the Gradient Descent algorithm, which we know
