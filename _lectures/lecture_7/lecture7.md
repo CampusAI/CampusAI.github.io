@@ -23,8 +23,8 @@ $$A^{\pi}(s_t, a_t)$$ that tells us *how much better* is action $$a_t$$ than the
 in state $$s_t$$ according to the policy $$\pi$$. We defined the Advantage Function as
 \begin{equation}
 \label{eq:advantage}
-A^{\pi}(s_t, a_t) = r(s_t, a_t) + E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \left [
-\gamma V^{\pi}(s_{t+1}) \right] - V^{\pi}(s_t)
+A^{\pi}(s_t, a_t) = r(s_t, a_t) + E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \Big [
+\gamma V^{\pi}(s_{t+1}) \Big] - V^{\pi}(s_t)
 \end{equation}
 
 ### What if we could omit the Policy Gradient?
@@ -53,7 +53,7 @@ We can store the whole $$V^{\pi}(\pmb{s})$$ and perform a **bootstrapped update*
 \begin{equation}
 \label{eq:v_update}
 V^{\pi}(\pmb{s}) \leftarrow r(\pmb{s}, \pi(\pmb{s})) + \gamma
-E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \left[ V^{\pi}(\pmb{s}_{t+1}) \right]
+E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \Big[ V^{\pi}(\pmb{s}_{t+1}) \Big]
 \end{equation}
 Note that we are using the current estimate of $$V^{\pi}$$ when computing the expectation
 for the next states $$\pmb{s}_{t+1}$$. Since we are assuming to know the transition
@@ -151,21 +151,30 @@ There are a few observations that we can make to better understand what this alg
 - **Does it converge?** The tabular policy iteration was ensured to converge, but this is
   not true anymore when we leave the tabular representation and use a Neural Network.
 
-We can derive an **online** version of the algorithm that we call **Online Q-Iteration** or
-**Q-Learning** ([Watkins, 1992](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.466.7149)):
+We can derive an **online** version of the algorithm that we can call **Q Learning**
+in which we optimize $$Q_{\phi}$$ at every step.
 {% include figure.html url="/_lectures/lecture_7/online_q_learning.png" %}
 
+**NOTE:** Here we use the same name as the well-known
+[Watson's Q Learning](https://link.springer.com/article/10.1007/BF00992698#article-info)
+algorithm which was designed for discrete tasks with no function approximation and contains some
+additional concepts that we will use in the next
+[Lecture 8: Deep RL with Q functions](/lectures/lecture8). As we will see, using function
+approximation has serious implications, most importantly that **convergence is no more
+guaranteed**. Therefore, keep in mind that this algorithm is not the same as Watkin's, and we
+are using is only as an intermediate step until the next lecture.
 
-### Exploration with Q Learning
-In step 1 of the **Fitted Q Iteration** and **Q-Learning** we collect one or more transitions.
-This step is really important as it is the step in which we collect the data that will be used
-when fitting the $$Q_{\phi}$$ network. We cannot directly use the $$\arg\max$$ policy because it
-lacks of **exploration**: it always choses the action for which the estimated value is higher,
-preventing the exploration of all actions. We therefore need some kind of **stochastic
-exploration policies** that allow us to explore while still taking, on average, good actions
-that allow us to reach new important states. In a videogame, for example, we need to explore
-multiple actions in order to learn, but we also need to take good actions in order to reach
-new levels and thus observe new interesting states.
+
+### Exploration with Q iteration
+In step 1 of the **Fitted Q Iteration** and **Q Learning** we collect one or more
+transitions. This step is really important as it is the step in which we collect the data that
+will be used when fitting the $$Q_{\phi}$$ network. We cannot directly use the $$\arg\max$$
+policy because it lacks of **exploration**: it always choses the action for which the estimated
+value is higher, preventing the exploration of all actions. We therefore need some kind of
+**stochastic exploration policies** that allow us to explore while still taking, on average,
+good actions that allow us to reach new important states. In a videogame, for example, we need
+to explore multiple actions in order to learn, but we also need to take good actions in order to
+reach new levels and thus observe new interesting states.
 
 #### $$\epsilon$$-Greedy policies
 In $$\epsilon$$-greedy policies we take a random action with probability $$\epsilon$$, and the

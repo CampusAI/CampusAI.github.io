@@ -140,8 +140,15 @@ the log of $$p(x)$$ is bounded by:
 
 
 where $$\mathcal{H}(q_i)$$ is the **entropy** of $$q_i$$ and $$\mathcal{L}_i(p, q_i)$$ is called
-the **Evidence Lower Bound**, shortened in ELBO. Moreover, if we develop on the definition of
-KL Divergence, we obtain that
+the **Evidence Lower Bound**, shortened in ELBO. A useful mathematical tool to measure the
+distance between two distributions is the
+[KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence),
+which is defined as
+\begin{equation}
+D_{KL}\Big(q_i(z) \vert\vert p(z \vert x_i)\Big) =
+\int p(z \vert x_i) \ln \frac{p(z \vert x_i)}{q_i(z)}
+\end{equation}
+If we develop on this definition we obtain that
 \begin{equation}
 \label{eq:dkl}
 \ln p(x_i) = D_{KL}(q_i(z) \vert\vert p(z \vert x_i)) + \mathcal{L}_i(p, q_i)
