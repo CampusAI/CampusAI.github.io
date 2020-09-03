@@ -83,9 +83,19 @@ The algorithm would look like this:
 4. Let $$f(w, \theta) = \log q(w \mid \theta) - \log P(w) P(\mathcal{D} \mid w)$$.
 5. Compute gradients wrt to each parameter: $$\Delta_\mu = \frac{\partial f}{\partial w} + \frac{\partial f}{\partial \mu}$$, $$\Delta_\sigma = \frac{\partial f}{\partial w} \frac{\epsilon}{\sigma} + \frac{\partial f}{\partial \sigma}$$.
 6. Update variational parameters: $$\mu \leftarrow \mu - \alpha \Delta_\mu$$, $$\sigma \leftarrow \sigma - \alpha \Delta_\sigma$$.
-7. Go to 1. until convergence.
+7. Go to $$1.$$ until convergence.
 
 **Notice:** $$\frac{\partial f}{\partial w}$$ is shared between both optimizations and is the Network gradient as computed by the usual BackProp Algorithm.
+
+The paper proposes the $$P(w)$$ prior to be a combination of 2 [scale mixture of normals](https://stats.stackexchange.com/questions/174502/what-are-gaussian-scale-mixtures-and-how-to-generate-samples-of-gaussian-scale) with 0 mean.
+It combines one with small variance and one with a large one to make the prior more amenable during optimization.
+
+## Results
+- Performance on a simple 2-Dense layer NN is **similar** to the one achieved by a network of same size fitted with **SGD + Dropout** in the MNIST classification task.
+
+- Model performs well after strong ($$95\%$$) **weight pruning**: The scale mixture prior encourages a wide spread of the weight, translating onto a less impactful pruning.
+
+- Uncertainty is better estimated in **regression tasks** far from dataset points, where ANNs tend to be overconfident.
 
 ## Contribution
 
@@ -94,3 +104,7 @@ The algorithm would look like this:
 - Weight uncertainty can be used to drive the **exploration-exploitation trade-off in reinforcement learning** (more systematic exploration rather than $$\epsilon$$-greedy). Weights with greater uncertainty introduce more variability into the decisions made by the network, leading naturally to exploration, as the environment is understood they become more deterministic.
 
 ## Weaknesses
+
+- Having to **optimize twice as many parameters** and seeing that the results are not significantly better one could argue whether just having a network twice as big would be simpler.
+
+- Seems very **dependent on the priors** one chooses for the parameters: $$P(w)$$
