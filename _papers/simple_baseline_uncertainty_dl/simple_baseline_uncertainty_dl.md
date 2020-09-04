@@ -101,9 +101,10 @@ the covariance matrix is approximated by
 \end{equation}
 
 where $$\overline{\theta_i}$$ is the running average of the first $$i$$ samples, and $$D$$ is
-the Deviation Matrix containing $$(\theta_i - \overline{\theta_i})$$ in the columns. The rank of
-$$D$$ is then limited by using only the last $$K$$ models, obtaining $$\hat{D}$$. The low-rank
-approximation is therefore given by
+the Deviation Matrix containing $$(\theta_i - \overline{\theta_i})$$ in the columns. A full-rank
+covariance matrix would scale quadratically with the model parameters, therefore the paper
+proposes to limit the rank of  $$D$$ by using only the last $$K$$ models, obtaining $$\hat{D}$$.
+The low-rank approximation is therefore given by
 \begin{equation}
 \Sigma_{low-rank} = \frac{1}{K - 1} \hat{D}\hat{D}^T
 \end{equation}
