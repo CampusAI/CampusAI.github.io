@@ -19,13 +19,13 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 In the previous lecture: [Model-based RL](/lectures/lecture11), we where planning trajectories (**stochastic open-loop**), by maximizing the expected reward over a sequence of actions: 
 \begin{equation}
-a_1,...,a_T = argmax_{a_1,...,a_T} E \left[ \sum_t r(s_t, a_t) \mid a_1,..., a_T \right]
+a_1,...,a_T = \arg \max_{a_1,...,a_T} E \left[ \sum_t r(s_t, a_t) \mid a_1,..., a_T \right]
 \end{equation}
 
 Now we will build a policies capable of adapting to the situation (**stochastic closed-loop**), by maximizing a reward expectation:
 
 \begin{equation}
-\pi =  argmax_{\pi} E_{\tau \sim p(\tau)} \left[ \sum_t r(s_t, a_t) \right]
+\pi =  \arg \max_{\pi} E_{\tau \sim p(\tau)} \left[ \sum_t r(s_t, a_t) \right]
 \end{equation}
 
 ## Naive approach

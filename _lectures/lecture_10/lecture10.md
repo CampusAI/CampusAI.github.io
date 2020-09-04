@@ -27,7 +27,7 @@ How should we approach the problem in those cases?
 Given a first state $$s_1$$, you can build a plan $$\{a_1, ..., a_T\}$$ defined by:
 
 \begin{equation}
-a_1, ..., a_T = argmax_{a_1, ..., a_T} \sum_t r(s_t, a_t)
+a_1, ..., a_T = \arg \max_{a_1, ..., a_T} \sum_t r(s_t, a_t)
 \space \space \space \space s.t. \space 
 s_{t+1} = \mathcal{T} (s_t, a_t)
 \end{equation}
@@ -46,7 +46,7 @@ p(s_1) \prod_t p(s_{t+1} \mid s_t, a_t)
 In this case, we want to maximize the expected reward:
 
 \begin{equation}
-a_1, ..., a_T = argmax_{a_1, ..., a_T}
+a_1, ..., a_T = \arg \max_{a_1, ..., a_T}
 E \left[ \sum_t r(s_t, a_t) \mid a_1, ..., a_T \right]
 \end{equation}
 
@@ -56,7 +56,7 @@ E \left[ \sum_t r(s_t, a_t) \mid a_1, ..., a_T \right]
 You define a policy $$\pi$$ instead of a plan:
 
 \begin{equation}
-\pi = argmax_{\pi} E_{\tau \sim p(\tau)} \left[ \sum_t r(s_t, a_t) \right]
+\pi = \arg \max_{\pi} E_{\tau \sim p(\tau)} \left[ \sum_t r(s_t, a_t) \right]
 \end{equation}
 
 # Open-Loop planning
@@ -64,7 +64,7 @@ You define a policy $$\pi$$ instead of a plan:
 We can frame the planning as a simple optimization problem. If we write the plan $${a_1, ..., a_T}$$ as a matrix $$A$$, and the reward function as $$J$$, we just need to solve:
 
 \begin{equation}
-A = argmax_A J(A)
+A = \arg \max_A J(A)
 \end{equation}
 
 
@@ -74,7 +74,7 @@ Black-box optimization techniques.
 ### Guess & Check (Random Search)
 **Algorithm:**
 1. Sample $$A_1,..., A_N$$ from some distribution $$p(A)$$ (e.g. uniform)
-2. Choose $$A_i$$ based on $$argmax_i J(A_i)$$
+2. Choose $$A_i$$ based on $$\arg \max_i J(A_i)$$
 
 ### Cross-Entropy Method (CEM)
 **Algorithm:**

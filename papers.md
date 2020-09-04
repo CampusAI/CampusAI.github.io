@@ -36,6 +36,14 @@ brief="The Options framework provides theoretical grounds for temporal abstracti
 url="/papers/the-option-critic-architecture"
 subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016" img="" type="description" %}
 
+## Uncertainty Estimation
+{% include card.html
+title="Weight Uncertainty in Neural Networks"
+brief=""
+url="/papers/weight-uncertainty"
+subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016" img="" type="description" %}
+
+
 ## Other
 
 {% include card.html title="Neural Network Surgery with Sets"
