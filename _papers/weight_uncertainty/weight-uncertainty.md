@@ -34,13 +34,13 @@ This work proposes replacing the usage of fixed weights by **probability distrib
 Usually ANNs weights are optimized by Maximum Likelihood Estimation (**MLE**): 
 
 \begin{equation}
-w^{MLE} = argmax_w \log P \left( \mathcal{D} | w \right)
+w^{MLE} = \arg \max_w \log P \left( \mathcal{D} | w \right)
 \end{equation}
 
 Nevertheless, regularization can be introduced by using the Maximum A Posteriori (**MAP**) framework:
 
 \begin{equation}
-w^{MAP} = argmax_w \log P \left( w | \mathcal{D} \right) = argmax_w \log P \left( \mathcal{D} | w \right) + \log P(w)
+w^{MAP} = \arg \max_w \log P \left( w | \mathcal{D} \right) = \arg \max_w \log P \left( \mathcal{D} | w \right) + \log P(w)
 \end{equation}
 
 **Bayesian by Backpropagation** learns the MAP weights given some prior distribution.
@@ -53,8 +53,8 @@ I.e. minimizing KL divergence between this $$q(w \mid \theta)$$ and the true Bay
 
 \begin{equation}
 \label{eq:vi_opt}
-\theta^\star = argmin_\theta KL \left[ q(w | \theta) \mid \mid P (w | \mathcal{D})\right] =
-argmin_\theta KL \left[ q(w | \theta) \mid \mid P (w) \right] - E_{q(w | \theta)} \left[ \log P(\mathcal{D} | w) \right]
+\theta^\star = \arg \min_\theta KL \left[ q(w | \theta) \mid \mid P (w | \mathcal{D})\right] =
+\arg \min_\theta KL \left[ q(w | \theta) \mid \mid P (w) \right] - E_{q(w | \theta)} \left[ \log P(\mathcal{D} | w) \right]
 \end{equation}
 
 **Notice:** The trade-off between satisfying the simplicity of $$P(w)$$ vs satisfying the complexity of $$\mathcal{D}$$.
@@ -64,7 +64,7 @@ Which means to approximate the expectations in eq. \ref{eq:vi_opt} using Monte C
 
 \begin{equation}
 \label{eq:vi_opt_approx}
-\theta^\star \simeq argmin_\theta
+\theta^\star \simeq \arg \min_\theta
 \sum_i \log q(w^i | \theta) - \log p(w^i) - P(\mathcal{D} | w^i)
 \end{equation}
 

@@ -22,7 +22,7 @@ Learn an optimal policy (optimal action given a state) for a single task. I.e.
 fit network parameters for a given MDP:
 
 \begin{equation}
-\theta^\star = argmax_\theta E_{\pi_\theta (\tau)} \[ R( \tau ) \]
+\theta^\star = \arg \max_\theta E_{\pi_\theta (\tau)} \[ R( \tau ) \]
 \end{equation}
 
 ### Meta-RL
@@ -31,7 +31,7 @@ If we have a set of $$MDPs = \{ MDP_1, ... MDP_n \}$$ that share some common str
 This algorithm step is known as **Meta-training** or **Outer loop**:
 
 \begin{equation}
-\theta^\star = argmax_\theta \sum_i E_{\pi_{\phi_i} (\tau)} \[ R( \tau ) \]
+\theta^\star = \arg \max_\theta \sum_i E_{\pi_{\phi_i} (\tau)} \[ R( \tau ) \]
 \end{equation}
 
 From those, we can fit any individual related task with few samples.

@@ -57,7 +57,7 @@ There exist 2 types of uncertainty:
 
 ## Estimating the posterior: $$p(\theta \mid \mathcal{D})$$
 
-When training models, we usually only get a Maximum Likelihood Estimation (MLE) of the params: $$argmax_\theta \log p(\theta \mid \mathcal{D})$$ (which if the priors are uniform is the same as $$argmax_\theta \log p(\mathcal{D} \mid \theta)$$).\\
+When training models, we usually only get a Maximum Likelihood Estimation (MLE) of the params: $$\arg \max_\theta \log p(\theta \mid \mathcal{D})$$ (which if the priors are uniform is the same as $$\arg \max_\theta \log p(\mathcal{D} \mid \theta)$$).\\
 Nevertheless, $$p(\theta \mid \mathcal{D})$$ would tell us the real uncertainty of the model. Moreover, we could make predictions marginalizing over the parameters:
 
 \begin{equation}
