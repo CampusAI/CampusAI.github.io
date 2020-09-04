@@ -43,6 +43,12 @@ brief=""
 url="/papers/weight-uncertainty"
 subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016" img="" type="description" %}
 
+{% include card.html title="A Simple Baseline for Bayesian Uncertainty in Deep Learning"
+brief=""
+url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
+subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
+img="" type="description" %}
+
 
 ## Other
 
