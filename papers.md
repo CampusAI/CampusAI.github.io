@@ -46,6 +46,12 @@ brief=""
 url="/papers/weight-uncertainty"
 subtitle="Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, Daan Wierstra, 2015" type="description" %}
 
+{% include card.html
+title="Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles"
+brief=""
+url="/papers/uncertainty-estimation-deep-ensembles"
+subtitle="Balaji Lakshminarayanan, Alexander Pritzel, Charles Blundell, 2017" type="description" %}
+
 
 ## Other
 

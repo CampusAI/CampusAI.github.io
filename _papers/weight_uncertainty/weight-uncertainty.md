@@ -20,7 +20,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 ## Idea
 
-Feed forward ANNs are prone to **overfit** and cannot correctly assess the **uncertainty** in the data.
+**Problem:** Feed forward ANNs are prone to **overfit** and cannot correctly assess the **uncertainty** in the data.
 This work proposes replacing the usage of fixed weights by **probability distributions** over the possible values:
 
 {% include figure.html url="/_papers/weight_uncertainty/idea.png" description="Figure 1: On the left: classic single-valued weights approach. On the right: weights as probability distribution idea." %}
