@@ -78,12 +78,12 @@ They run their algorithm on multiple famous regression datasets (e.g. [Boston Ho
 - It performs slightly worse when using a [root mean squared error (RMSE)](https://en.wikipedia.org/wiki/Root-mean-square_deviation) metric for comparison. Authors claim this is due the fact that the loss they used whilst training was NLL.
 
 ### Classification
-They test classification performance on the [MNIST](http://yann.lecun.com/exdb/mnist/) and [SVHN](http://ufldl.stanford.edu/housenumbers/).
-- Both adversarial training and a greater number of networks improves performance both for classification and [calibration](https://towardsdatascience.com/neural-network-calibration-with-keras-76fb7c13a55).
+They test classification performance on the [MNIST](http://yann.lecun.com/exdb/mnist/) and [SVHN](http://ufldl.stanford.edu/housenumbers/) datasets.
+- Adversarial training and a greater number of networks improve performance both for classification and [calibration](https://towardsdatascience.com/neural-network-calibration-with-keras-76fb7c13a55).
 - The proposed method works better than [MonteCarlo-Dropout](https://datascience.stackexchange.com/questions/44065/what-is-monte-carlo-dropout).
 
 ### Uncertainty estimation
-<!-- They evaluate uncertainty  -->
+They evaluate uncertainty on out-of distribution examples (i.e unseen classes). 
 
 
 ## Contribution
@@ -92,4 +92,4 @@ They test classification performance on the [MNIST](http://yann.lecun.com/exdb/m
 
 ## Weaknesses
 
-
+- Training an ensemble is **computationally expensive** and can be prohibiting in some cases.
