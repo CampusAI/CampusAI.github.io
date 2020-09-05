@@ -21,15 +21,15 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 ## Idea
 
 Problems:
-- Its hard to **quantify uncertainty** with classic ANNS as ground truth is not available. They usually produce over-confident networks.
+- Its hard to **quantify uncertainty** with classic ANNS as ground truth is not available. They usually produce **over-confident** results due to a lack of [calibration](https://towardsdatascience.com/neural-network-calibration-with-keras-76fb7c13a55).
 - Bayesian NN can quantify it but are **slow** to compute, **prior-dependent**, and quality depends on the degree of **approximation** taken.
 
 This paper combines multiple ideas to get an estimation of uncertainty:
 
 ### Use a 2-output network
 
-One output for the mean $$\mu$$ and the other for the variance of the guess $$\sigma$$ as in [Estimating the mean and variance of the target probability distribution](https://ieeexplore.ieee.org/document/374138).
-Samples are treated as from a [heteroscedastic](https://en.wikipedia.org/wiki/Heteroscedasticity) Gaussian distribution.
+One output for the **mean** $$\mu$$ and the other for the **variance** of the guess $$\sigma$$ as in [Estimating the mean and variance of the target probability distribution](https://ieeexplore.ieee.org/document/374138).
+Samples are treated as from taken from a [heteroscedastic](https://en.wikipedia.org/wiki/Heteroscedasticity) Gaussian distribution.
 They then use a Maximum Likelihood Estimation (MLE) on $$\mu$$, $$\sigma$$, minimizing the negative log-likelihood:
 
 \begin{equation}
@@ -42,11 +42,11 @@ They then use a Maximum Likelihood Estimation (MLE) on $$\mu$$, $$\sigma$$, mini
 
 ### Use an ensemble of networks
 
-It is known that an ensemble of models boosts predictive accuracy.
+It is known that an ensemble of models boosts **predictive accuracy**.
 Bagging is often used to decrease variance while boosting to decrease bias. 
-This research shows that it also improves predictive uncertainty.
+This research shows that it also improves **predictive uncertainty**.
 
-The ensemble is then treated as a [mixture of Gaussians](https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95) of same weight.
+Once trained, the ensemble is treated as a [mixture of Gaussians](https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95) of same weight.
 Thus the final prediction is the mean of the mixture and the uncertainty is given by the [variance of the mixture](https://stats.stackexchange.com/questions/16608/what-is-the-variance-of-the-weighted-mixture-of-two-gaussians).
 If using $$M$$ models with parameters: $$\theta_1 ... \theta_M$$:
 
@@ -61,12 +61,14 @@ If using $$M$$ models with parameters: $$\theta_1 ... \theta_M$$:
 ### Use adversarial training
 
 When optimizing using adversarial training, a small perturbation on the input is created in the direction in which the network increases its loss.
-This augmentation of the training set smoothens the predictive distributions.
+This augmentation of the training set **smoothens the predictive distributions**.
 While it had been used before to improve prediction accuracy, this paper shows that it also improves prediction uncertainty.
 
 ## Algorithm
 
-{% include figure.html url="/_papers/Uncertainty_Estimation_Deep_Ensembles/algorithm.png" description="Algorithm 1: Pseudocode of the proposed approach." %}
+The previously presented ideas can be combined in the following algorithm:
+
+{% include figure.html url="/_papers/Uncertainty_Estimation_Deep_Ensembles/algorithm.png" description="Algorithm 1: Pseudocode of the proposed approach." zoom="1.5" %}
 
 ## Results
 First they show on toy-regression examples the benefits of the 3 design choices explained above.
@@ -83,12 +85,29 @@ They test classification performance on the [MNIST](http://yann.lecun.com/exdb/m
 - The proposed method works better than [MonteCarlo-Dropout](https://datascience.stackexchange.com/questions/44065/what-is-monte-carlo-dropout).
 
 ### Uncertainty estimation
-They evaluate uncertainty on out-of distribution examples (i.e unseen classes). 
 
+The paper evaluates uncertainty on **out-of distribution** examples (i.e unseen classes). 
+To do so, they run the following experiment:
+
+1. Train ensemble on MNIST train dataset.
+2. Evaluate both on MNIST test (in-of distribution) and [NotMNIST](https://github.com/gholomia/notMNIST) (out-of distribution).
+This evaluation consists in computing the entropy of network predictions.
+The expectation is that out-of distribution examples present a uniform probability over outputs (with 10 outputs the entropy should be around $$H=-\sum_{i=0}^9 \frac{1}{10} \log_2 (\frac{1}{10}) \simeq 3.32$$).
+
+They repeat the same experiment using the SVHN dataset for training and [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html) for testing.
+Results show that with a big enough ensemble their method is better calibrated than [MonteCarlo-Dropout](https://datascience.stackexchange.com/questions/44065/what-is-monte-carlo-dropout).
+They can better estimate the uncertainty for out-of distribution inputs:
+
+{% include figure.html url="/_papers/Uncertainty_Estimation_Deep_Ensembles/entropy.png" description="Figure 1: Entropy histograms for experimental results. Top row: in-of distribution test results. Bottom row: Out-of distribution test results. Notice that MC-dropout produces much over-confident results for inputs of an unseen distribution. In addition the number of networks in the ensemble plays a key role in uncertainty estimation." zoom="1.5" %}
+
+**Notice**: One can set a minimum confidence level (entropy score) to the model, otherwise output __"I don't know"__.
+They show that their algorithm provides more reliable confidence estimates compared to MC-Dropout.
 
 ## Contribution
 
-- 
+- New method to **estimate uncertainty** more reliable than contemporary ones.
+- Little **meta-parameter** tuning.
+- **Easy** to implement and apply to large scale distributed systems.
 
 ## Weaknesses
 
