@@ -100,7 +100,7 @@ They can better estimate the uncertainty for out-of distribution inputs:
 
 {% include figure.html url="/_papers/Uncertainty_Estimation_Deep_Ensembles/entropy.png" description="Figure 1: Entropy histograms for experimental results. Top row: in-of distribution test results. Bottom row: Out-of distribution test results. Notice that MC-dropout produces much over-confident results for inputs of an unseen distribution. In addition the number of networks in the ensemble plays a key role in uncertainty estimation." zoom="1.5" %}
 
-**Notice**: One can set a minimum confidence level (entropy score) to the model, otherwise output __"I don't know"__.
+**Notice**: One can set a minimum confidence level (entropy score) to the model, otherwise output *"I don't know"*.
 They show that their algorithm provides more reliable confidence estimates compared to MC-Dropout.
 
 ## Contribution
