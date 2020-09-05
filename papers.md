@@ -3,7 +3,6 @@ layout: page
 title: Papers
 permalink: /papers/
 ---
-
 <!--
 To add a paper one must add a line with the following code:
 
@@ -18,6 +17,9 @@ brief:      The text content of the card. If type is "bulletlist",
             If type is "description", semicolons are parsed as newlines.
 subtitle:   Put here the paper authors and year
 -->
+
+This page contains summaries and annotations from papers we found interesting. 
+We mainly review RL-related papers but you'll also find more general ML topics.
 
 ## RL Algorithms
 

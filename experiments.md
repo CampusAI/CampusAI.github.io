@@ -17,6 +17,8 @@ type:   The type of the card. Here we use "description".
 This page contains some of the RL-related experiments we did.
 We mainly test algorithms on new environments and re-implement papers code.
 
+Stay tunned for new experiments such as a RL-trained [**RocketLeague**](https://en.wikipedia.org/wiki/Rocket_League) bot and a **Terrarium** where animals were trained to survive while following a simple food chain.
+
 {% include card.html
 title="Self-learned vehicle control using PPO"
 img="/_experiments/autonomous_driving/icon.gif"
@@ -36,5 +38,3 @@ brief="In this work we experiment on weight transplantation after slight ANN mod
 Networks can be modified by increasing or reducing the number of input/outputs as well as the number of hidden layers and units.
 We show that when modifying the network structure, weight transplant achieves faster and better results than training from scratch."
 type="description" %}
-
-Stay tunned for new experiments such as a RL-trained [**RocketLeague**](https://en.wikipedia.org/wiki/Rocket_League) bot and a **Terrarium** where animals were trained to survive while following a simple food chain.
