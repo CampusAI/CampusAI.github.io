@@ -54,6 +54,12 @@ brief=""
 url="/papers/uncertainty-estimation-deep-ensembles"
 subtitle="Balaji Lakshminarayanan, Alexander Pritzel, Charles Blundell, 2017" type="description" %}
 
+{% include card.html title="A Simple Baseline for Bayesian Uncertainty in Deep Learning"
+brief=""
+url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
+subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
+img="" type="description" %}
+
 
 ## Other
 
