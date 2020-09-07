@@ -48,12 +48,12 @@ Where $$\theta_m$$ can be seen as a sample from some underlying parameter distri
 
 Consider now the categorical distribution which the m-th model of the ensemble yields when a data-point $$x^\star$$ is evaluated: $$\pi_m = \left[ P(y=y_1 \mid x^\star , \theta_m), ..., P(y=y_1 \mid x^\star , \theta_m) \right]$$.
 I.e. $$\mathcal{M}_m(x^\star) = \pi_m$$.
-We can express $$\pi_m = f(x^\star; \theta_m)$$.
-
+<!-- We can express $$\pi_m = f(x^\star; \theta_m)$$. -->
+<!-- 
 The model posteriors can be expressed as:
 $$\left\{ P(y \mid x^\star, \theta_m) \right\}_{m=1}^M$$.
 Or, equivalently, using only the categorical distributions:
-$$\left\{ P(y \mid \pi_m) \right\}_{m=1}^M$$.
+$$\left\{ P(y \mid \pi_m) \right\}_{m=1}^M$$. -->
 
 From these categorical distributions ($$\pi_m$$) we can see the sources of uncertainty of our ensemble.
 $$\pi_m$$ can be understood as the [barycentric coordinates](https://en.wikipedia.org/wiki/Barycentric_coordinate_system) in a k-dimensional [simplex](https://en.wikipedia.org/wiki/Simplex).
@@ -62,12 +62,23 @@ Geometrically, the probability of $$\pi$$ being a particular class is given by i
 For instance, in a 3-class classification problem, we can observe the following behaviors:
 
 {% include figure.html url="/_papers/Ensemble_Distribution_Distillation/ensemble_uncertainty.png"
-description="Figure 2: Representation of different uncertainties of an ensemble when evaluated on a test data-point in a 3-class task. In (a) all model predictions are close to the same corner (class), meaning all models agree. In (b) all the models agree but are uncertain about which class the data-point belongs to. In (c) all models disagree on what the class is, some being confident about different things." zoom="1.5" %}
+description="Figure 2: Representation of different uncertainties of an ensemble when evaluated on a test data-point in a 3-class task. In (a) all model predictions are close to the same corner (class), meaning all models agree. In (b) all  models agree but are uncertain about which class the data-point belongs to, this happens for in-distribution uncertain samples (data uncertainty). In (c) all models disagree, some being confident about different things, a symptom of an out-of distribution input." zoom="1.5" %}
 
-- **Total uncertainty**: $$\mathcal{H} \left[ E_{p(\theta \mid \mathcal{D})} \left[ P(y \mid x^\star)\right] \right] $$
-- **Expected data uncertainty**: $$$$
+**Notice**: The closer to the simplex center a $$\pi_m$$ distribution is, the higher the entropy $$\mathcal{H}$$ of that distribution (more uncertainty).
 
-Therefore, we the following identity holds:
+This interpretation helps us understand the following identities:
+
+- **Expected data uncertainty**: $$E_{p(\theta \mid \mathcal{D})} \left[ \mathcal{H} \left[ P(y \mid x^\star, \theta )\right] \right]$$. That is: the **average of entropies** each model of the ensemble has.
+
+- **Total uncertainty**: $$\mathcal{H} \left[ E_{p(\theta \mid \mathcal{D})} \left[ P(y \mid x^\star \theta)\right] \right]$$ That is: the spread or "disagreement" between models in the ensemble. I.e. the **entropy of the average** of the predictions.
+
+Therefore, from the ensemble we can infer the model uncertainty $$\mathcal{MI}$$ as:
+
+\begin{equation}
+\mathcal{MI} \left[ y, \theta \mid x^\star, \mathcal{D} \right] =
+\mathcal{H} \left[ E_{p(\theta \mid \mathcal{D})} \left[ P(y \mid x^\star \theta)\right] \right] - 
+E_{p(\theta \mid \mathcal{D})} \left[ \mathcal{H} \left[ P(y \mid x^\star, \theta )\right] \right]
+\end{equation}
 
 ### Ensemble distribution distillation
 
