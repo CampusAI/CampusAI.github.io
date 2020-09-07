@@ -60,6 +60,11 @@ url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
 subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
 img="" type="description" %}
 
+{% include card.html title="Ensemble Distribution Distillation"
+brief=""
+url="/papers/ensemble-distribution-distillation"
+subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
+img="" type="description" %}
 
 ## Other
 
