@@ -1,6 +1,6 @@
 ---
 layout: paper
-title: Ensemble Distribution Distillation
+title: Ensemble Distribution Distillation $(EnD^2)$
 category: Uncertainty Estimation
 permalink: /papers/ensemble-distribution-distillation
 paper-author: Andrey Malinin, Bruno Mlodozeniec, Mark Gales
@@ -117,8 +117,48 @@ Nevertheless, the initial parameters of the Dirichlet distribution are closer to
 Training with this disparity can be challenging and authors introduce a **temperature annealing schedule**.
 They "heat" or "move" first optimization steps to make the distributions more uncertain and then gradually decrease this temperature.
 
+## Results
+
+### Artificial Data
+
+The experimented on generating the following two datasets:
+
+{% include figure.html url="/_papers/Ensemble_Distribution_Distillation/artificial_dataset.png" description="Figure 3: Artificial datasets." zoom="1.5" %}
+
+Then train and assess the uncertainty of:
+1. 100 ANN ensemble on the first dataset (with different seeds). **Classification Error**: $$12.37\%$$
+2. Distillation into a single model of this ensemble. **Classification Error**: $$12.47\%$$
+3. Distillation of an ensemble trained also considering the $$Aux$$ data. **Classification Error**: $$12.50\%$$
+
+For reference, a single network had an error of $$13.21\%$$
+
+We can visualize the uncertainty sources in the following plots:
+
+{% include figure.html url="/_papers/Ensemble_Distribution_Distillation//artificial_results.png" description="Figure 4: Artificial datasets. Notice the high data uncertainty around the spiral edges (between classes). Furthermore notice the high model uncertainty for points far away from the training sets." zoom="1.5" %}
+
+**Notice**: Without the $$Aux$$ data the distilled model fails to capture knowledge uncertainty (dark areas).
+
+To overcome that issue, the researchers sample the $$Aux$$ data-points and label them with the ensemble guesses.
+Then use these predictions (in combination with the previous ones) to re-train the distilled model, overcoming the issue.
+
+### Image Data
+
+They then run similar tests on [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html), [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html) and [TIM](https://tiny-imagenet.herokuapp.com/) datasets reaching the following conclusions:
+
+- Both ensemble distillation $$(EnD)$$ and ensemble distribution distillation $$(EnD^2)$$ retain the predictive performance of the ensemble.
+- Both $$(EnD)$$ and $$(EnD^2)$$ show minor [calibration](https://towardsdatascience.com/neural-network-calibration-with-keras-76fb7c13a55) gains w.r.t a single ANN (measured with NLL).
+- When $$Aux$$ data is used, $$(EnD^2)$$ is able to perform on par with the ensemble on a out-of-domain (OOD) detection task. Meaning it learns the ensemble behavior on unseen data.
+- Image data contains a low degree of data uncertainty.
+
 ## Contribution
+
+- Novel task of distilling an ensemble into a single model maintaining the uncertainty information and diversity.
 
 ## Weaknesses
 
-- Choosing a **Dirichlet distribution might be too limiting**: The ensemble outputs could follow a different distribution.
+- Not applied to **regression** tasks.
+- Need of **auxiliary training data** to correctly assess the ensemble knowledge uncertainty.
+- Need of further investigation on the **temperature annealing** properties process.
+- Choosing a **Dirichlet distribution might be too limiting**: The ensemble outputs could follow a different distribution, as hinted by figure 5, where we can induce that the ensemble follows a different distribution from $$(EnD^2)$$. (e.g. [multimodal](https://en.wikipedia.org/wiki/Multimodal_distribution) or  )
+
+{% include figure.html url="/_papers/Ensemble_Distribution_Distillation/cifar10_results.png" description="Figure 5: Histograms of uncertainty of the CIFAR-10 ensemble, EnD 2 and EnD 2+AUX on in-domain (ID) and test out-of-domain (OOD) data." zoom="1.5" %}
