@@ -67,6 +67,12 @@ brief=""
 url="/papers/weight-uncertainty"
 subtitle="Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, Daan Wierstra, 2015" type="description" %}
 
+{% include card.html title="Ensemble Distribution Distillation"
+brief=""
+url="/papers/ensemble-distribution-distillation"
+subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
+img="" type="description" %}
+
 ## Other
 
 {% include card.html title="Neural Network Surgery with Sets"
