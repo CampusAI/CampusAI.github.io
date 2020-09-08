@@ -110,7 +110,7 @@ are applied to decrease the softmax activation of the correct class and force th
 to a wrong prediction. 
 
 ***Notice:** There are some weaknesses in the temperature scaling and input preprocessing
-approach that we discuss in the **Weaknesses** section.*
+approach that I discuss in the **Weaknesses** section.*
 
 Finally, OOD Detection scores are computed by feeding the input to all $$K$$ classifiers
 (using temperature scaling and input preprocessing). For each of the resulting softmax vector,
@@ -199,7 +199,7 @@ And some more theoretical ones:
   their out-of-distribution datasets (CIFAR-10&100, iSUN, ImageNet, LSUN), and observe that
   $$U_1$$ is higher for in-distribution data. The whole technique therefore relies on the
   empirical evidence for the datasets in consideration, but there is no guarantee that the same
-  conditions will apply to other datasets or type of data. The paper we analyze in this article
+  conditions will apply to other datasets or type of data. The paper I analyze in this article
   also employes the trick successfully, but since it uses the same datasets, we cannot draw any
   different conclusion.
 
