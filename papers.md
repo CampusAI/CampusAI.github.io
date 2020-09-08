@@ -42,11 +42,18 @@ url="/papers/the-option-critic-architecture -->
 
 ## Uncertainty Estimation
 
-{% include card.html
-title="Weight Uncertainty in Neural Networks"
+{% include card.html title="A Simple Baseline for Bayesian Uncertainty in Deep Learning"
 brief=""
-url="/papers/weight-uncertainty"
-subtitle="Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, Daan Wierstra, 2015" type="description" %}
+url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
+subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
+img="" type="description" %}
+
+{% include card.html
+title="Out-of-Distribution Detection Using an Ensemble of Self Supervised Leave-out Classifiers"
+brief=""
+url="/papers/out_of_distribution_detection_ensemble"
+subtitle="A. Vyas, N. Jammalamadaka, X. Zhu, D. Das, B. Kaul, T. L. Willke, 2018"
+img="" type="description" %}
 
 {% include card.html
 title="Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles"
@@ -54,12 +61,11 @@ brief=""
 url="/papers/uncertainty-estimation-deep-ensembles"
 subtitle="Balaji Lakshminarayanan, Alexander Pritzel, Charles Blundell, 2017" type="description" %}
 
-{% include card.html title="A Simple Baseline for Bayesian Uncertainty in Deep Learning"
+{% include card.html
+title="Weight Uncertainty in Neural Networks"
 brief=""
-url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
-subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
-img="" type="description" %}
-
+url="/papers/weight-uncertainty"
+subtitle="Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, Daan Wierstra, 2015" type="description" %}
 
 ## Other
 
