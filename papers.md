@@ -36,7 +36,10 @@ url="/papers/HRL-with-MAXQ-decomposition" img="" subtitle="Thomas G. Dietterich,
 
 {% include card.html title="The Option-Critic Architecture"
 brief=""
-subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016" img="" type="description" %}
+subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016"
+img=""
+type="description"
+url="/papers/the-option-critic-architecture" %}
 <!-- The Options framework provides theoretical grounds for temporal abstraction in Reinforcement Learning. Each Option can be considered as a macro-action with its policy and termination condition, leading to two levels of policies: one policy over options and several intra-option policies. This paper presents the Option-Critic Architecture."
 url="/papers/the-option-critic-architecture -->
 
