@@ -1,9 +1,10 @@
 ---
-layout: lecture
+layout: article
 title: "Annex 2: Policy Expectations, Explained"
 permalink: /lectures/policy_expectations
 lecture-author: None
 lecture-date: 2020
+post-author: Oleguer Canal
 slides-link: /lectures/policy_expectations
 video-link: /lectures/policy_expectations
 ---

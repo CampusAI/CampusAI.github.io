@@ -1,7 +1,8 @@
 ---
-layout: page
+layout: article
 title: "Annex 5: Policy Gradients"
 permalink: /lectures/policy_gradients_annex
+post-author: Federico Taschin
 ---
 
 ### Obtaining the Policy Gradient

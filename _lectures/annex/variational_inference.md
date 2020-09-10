@@ -1,7 +1,8 @@
 ---
-layout: page
+layout: article
 title: "Annex 13: Variational Inference"
 permalink: /lectures/variational_inference_annex
+post-author: Federico Taschin
 ---
 
 ### The Evidence Lower Bound
