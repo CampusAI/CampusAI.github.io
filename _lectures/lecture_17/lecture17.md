@@ -4,6 +4,7 @@ title: "Lecture 17: Distributed RL"
 permalink: /lectures/lecture17
 lecture-author: Richard Liaw
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-17.pdf
 video-link: https://www.youtube.com/watch?v=oUnsDUtNsOQ&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=17
 ---

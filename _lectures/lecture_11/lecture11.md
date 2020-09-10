@@ -4,6 +4,7 @@ title: "Lecture 11: Model-based RL"
 permalink: /lectures/lecture11
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-11.pdf
 video-link: https://www.youtube.com/watch?v=6JDfrPRhexQ&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=11
 ---

@@ -4,6 +4,7 @@ title: "Lecture 13: Variational Inference and Generative Models"
 permalink: /lectures/lecture13
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Federico Taschin
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-13.pdf
 video-link: https://www.youtube.com/watch?v=1bpQ0QDPGuI&feature=youtu.be
 ---

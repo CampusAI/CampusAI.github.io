@@ -4,6 +4,7 @@ title: "Lecture 16: Transfer and Multi-task Learning"
 permalink: /lectures/lecture16
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-16.pdf
 video-link: https://www.youtube.com/watch?v=eeww07Jxncw&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=15
 ---

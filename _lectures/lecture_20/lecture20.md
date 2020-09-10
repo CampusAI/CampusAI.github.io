@@ -4,6 +4,7 @@ title: "Lecture 20: Meta-Reinforcement Learning"
 permalink: /lectures/lecture20
 lecture-author: Kate Rakelly
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-20.pdf
 video-link: https://www.youtube.com/watch?v=4qH_h5_V3O4&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=20&t=7s
 ---

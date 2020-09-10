@@ -4,6 +4,7 @@ title: "Lecture 1: Introduction"
 permalink: /lectures/lecture1
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-1.pdf
 video-link: https://www.youtube.com/watch?v=SinprXg2hUA&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=2&t=0s
 ---

@@ -4,6 +4,7 @@ title: "Lecture 9: Advanced Policy Gradients"
 permalink: /lectures/lecture9
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Federico Taschin
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-9.pdf
 video-link: https://www.youtube.com/watch?v=uR1Ubd2hAlE&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A
 ---

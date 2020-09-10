@@ -4,6 +4,7 @@ title: "Lecture 12: Model-based Policy Learning"
 permalink: /lectures/lecture12
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-12.pdf
 video-link: https://www.youtube.com/watch?v=9AbBfIgTzoo&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=13&
 ---

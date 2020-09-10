@@ -4,6 +4,7 @@ title: "Lecture 8: Deep RL with Q functions"
 permalink: /lectures/lecture8
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Federico Taschin
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-8.pdf
 video-link: https://www.youtube.com/watch?v=7Lwf-BoIu3M&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A
 ---

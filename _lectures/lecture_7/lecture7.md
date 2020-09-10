@@ -4,6 +4,7 @@ title: "Lecture 7: Value Function Methods"
 permalink: /lectures/lecture7
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Federico Taschin
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-7.pdf
 video-link: https://www.youtube.com/watch?v=doR5bMe-Wic&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A
 ---

@@ -4,6 +4,7 @@ title: "Lecture 10: Model-based Planning"
 permalink: /lectures/lecture10
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-10.pdf
 video-link: https://www.youtube.com/watch?v=pE0GUFs-EHI&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=11&
 ---

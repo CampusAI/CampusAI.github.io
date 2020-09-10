@@ -4,6 +4,7 @@ title: "Lecture 15: Inverse Reinforcement Learning (IRL)"
 permalink: /lectures/lecture15
 lecture-author: Sergey Levine
 lecture-date: 2019
+post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-15.pdf
 video-link: https://www.youtube.com/watch?v=DP0SJrNgV60&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=15&t
 ---
