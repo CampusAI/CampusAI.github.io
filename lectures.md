@@ -4,7 +4,7 @@ title: Theory
 permalink: /theory/
 ---
 
-## Lecture notes from Sergey Levine UC Berkeley CS-285 (2019)
+## Deep RL lecture notes
 
 In this section you can find our summaries from [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) (Google, UC Berkeley): UC Berkeley CS-285 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/).
 
