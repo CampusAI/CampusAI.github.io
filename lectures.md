@@ -82,6 +82,12 @@ In addition we added our own interpretations of some concepts hoping they can ea
 
 - [Annex 13: Variational Inference](/lectures/variational_inference_annex)
 
+## Interpretations
+
+This sections contains more general posts which ease the interpretation of ML-related concepts.
+
+- [Probabilistic modelling](/lectures/kl_divergence)
+
 ## Other great resources
 
 - [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/bookdraft2017nov5.pdf), Sutton & Barto, 2017. (Arguably the most complete RL book out there)
