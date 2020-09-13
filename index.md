@@ -78,6 +78,6 @@ To be more precise, we are:
 
 # How can I get in contact/collaborate?
 
-For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com) or directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io). Please do not hesitate in providing feedback! We want to know what you think :)
+For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com) or directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io). Please do not hesitate in providing feedback!
 
-We are also looking for RL-related internships/research opportunities, if you know anyone interested in hiring please let us know though LinkedIn.
+We are also looking for RL-related internships/research opportunities, if you know anyone interested in hiring please let us know.
