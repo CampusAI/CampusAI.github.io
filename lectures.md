@@ -74,19 +74,18 @@ img="/_lectures/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"
 This section contains both basic RL knowledge assumed to be known in the previous course and some demonstrations which we found interesting to add as an annex.
 In addition we added our own interpretations of some concepts hoping they can ease their understanding.
 
-- [Annex 1: MDP Basics](/lectures/basic_concepts)
-  
-- [Annex 2: Policy Expectations, Explained](/lectures/policy_expectations)
+<!-- - [Annex 1: MDP Basics](/lectures/basic_concepts) -->
 
-- [Annex 5: Policy Gradients](/lectures/policy_gradients_annex)
-
-- [Annex 13: Variational Inference](/lectures/variational_inference_annex)
+{% include paper-card.html title="Annex 1: MDP Basics" subtitle="" url="/lectures/basic_concepts"   %}
+{% include paper-card.html title="Annex 2: Policy Expectations, Explained" subtitle="" url="/lectures/policy_expectations"   %}
+{% include paper-card.html title="Annex 5: Policy Gradients" subtitle="" url="/lectures/policy_gradients_annex"   %}
+{% include paper-card.html title="Annex 13: Variational Inference" subtitle="" url="/lectures/variational_inference_annex"   %}
 
 ## Interpretations
 
 This sections contains more general posts which ease the interpretation of ML-related concepts.
 
-- [Probabilistic modelling](/lectures/kl_divergence)
+{% include paper-card.html title="Probabilistic modelling" url="/lectures/kl_divergence"   %}
 
 ## Other great resources
 
