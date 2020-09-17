@@ -85,7 +85,9 @@ In addition we added our own interpretations of some concepts hoping they can ea
 
 This sections contains more general posts which ease the interpretation of ML-related concepts.
 
-{% include paper-card.html title="Probabilistic modelling" url="/lectures/kl_divergence"   %}
+{% include paper-card.html title="Probabilistic modelling" url="/lectures/prob_modelling" %}
+
+{% include paper-card.html title="Parametric Deep Generative Models" url="/lectures/generative_models" %}
 
 ## Other great resources
 

@@ -1,14 +1,14 @@
 ---
 layout: article
 title: "Probabilistic Modelling"
-permalink: /lectures/kl_divergence
+permalink: /lectures/prob_modelling
 post-author: Oleguer Canal
 ---
 ## Motivation
 
 The general idea of probabilistic modelling optimization can be summarized in the following figure:
 
-{% include figure.html url="/_lectures/annex/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization" zoom="1.5"%}
+{% include figure.html url="/_lectures/ml/prob_modelling/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization" zoom="1.5"%}
 
 The ultimate goal is to have a model which behaves as close as possible to the "real" distribution.
 Obviously this distribution is not known and we are only given some samples.
@@ -47,6 +47,7 @@ Some probability divergence metric examples are: [Kullback–Leibler](https://en
 
 
 ### Kullback–Leibler (KL) divergence (relative entropy)
+Usually used as an approximation technique in Bayesian modelling when expressions are untractable.
 
 \begin{equation}
 D_{KL} (P || Q) = E_P [ I_Q (X) - I_P (X)]
@@ -74,7 +75,7 @@ If $$P$$ is the "true" distribution and $$Q$$ our approximation we have 2 types 
 - **Forward KL** (moment-matching): $$D_{KL} (P \mid \mid Q) = \sum P \log \frac{P}{Q}$$. Where P is small, it doesn't matter what Q is doing. E.g. if approximating with Gaussian, will only try to match the moments of P, mean and variance.
 - **Reverse KL** (mode-seeking): $$D_{KL} (Q \mid \mid P) = \sum Q \log \frac{Q}{P}$$. Where Q is low, does not matter what P is.
 
-{% include figure.html url="/_lectures/annex/kl_asymmetry.png" description="Figure 2 (from Bishop): Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization)." zoom="1.5"%}
+{% include figure.html url="/_lectures/ml/prob_modelling/kl_asymmetry.png" description="Figure 2 (from Bishop): Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization)." zoom="1.5"%}
 
 ## Variational inference
 
