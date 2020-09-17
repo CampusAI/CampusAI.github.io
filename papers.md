@@ -66,6 +66,14 @@ url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
   %}
 
+## Generative models
+
+
+{% include paper-card.html title="Glow: Generative Flow with Invertible 1x1 Convolutions"
+url="/papers/glow"
+subtitle="Diederik P. Kingma, Prafulla Dhariwal, 2018"
+  %}
+
 ## Other
 
 {% include paper-card.html title="Neural Network Surgery with Sets"
