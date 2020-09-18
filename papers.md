@@ -40,16 +40,10 @@ url="/papers/the-option-critic-architecture -->
 
 ## Uncertainty Estimation
 
-{% include paper-card.html title="A Simple Baseline for Bayesian Uncertainty in Deep Learning"
-url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
-subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
-%}
-
 {% include paper-card.html
-title="Out-of-Distribution Detection Using an Ensemble of Self Supervised Leave-out Classifiers"
-url="/papers/out_of_distribution_detection_ensemble"
-subtitle="A. Vyas, N. Jammalamadaka, X. Zhu, D. Das, B. Kaul, T. L. Willke, 2018"
-%}
+title="Weight Uncertainty in Neural Networks"
+url="/papers/weight-uncertainty"
+subtitle="Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, Daan Wierstra, 2015"  %}
 
 {% include paper-card.html
 title="Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles"
@@ -57,22 +51,27 @@ url="/papers/uncertainty-estimation-deep-ensembles"
 subtitle="Balaji Lakshminarayanan, Alexander Pritzel, Charles Blundell, 2017"  %}
 
 {% include paper-card.html
-title="Weight Uncertainty in Neural Networks"
-url="/papers/weight-uncertainty"
-subtitle="Charles Blundell, Julien Cornebise, Koray Kavukcuoglu, Daan Wierstra, 2015"  %}
+title="Out-of-Distribution Detection Using an Ensemble of Self Supervised Leave-out Classifiers"
+url="/papers/out_of_distribution_detection_ensemble"
+subtitle="A. Vyas, N. Jammalamadaka, X. Zhu, D. Das, B. Kaul, T. L. Willke, 2018"
+%}
+
+{% include paper-card.html title="A Simple Baseline for Bayesian Uncertainty in Deep Learning"
+url="/papers/maddox_et_al_bayesian_uncertainty_deep_learning"
+subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew Gordon Wilson, 2019"
+%}
 
 {% include paper-card.html title="Ensemble Distribution Distillation"
 url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
-  %}
+%}
 
 ## Generative models
-
 
 {% include paper-card.html title="Glow: Generative Flow with Invertible 1x1 Convolutions"
 url="/papers/glow"
 subtitle="Diederik P. Kingma, Prafulla Dhariwal, 2018"
-  %}
+%}
 
 ## Other
 
