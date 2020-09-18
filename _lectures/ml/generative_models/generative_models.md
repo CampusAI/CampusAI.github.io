@@ -62,7 +62,7 @@ We could:
 
 - **Infer latent variables** $$z$$. In the dog example we could understand the underlying common structure of dog images. These latent variables could be dog position, fur color, ears type...
 
-**NB**: _Quantitative evaluation of generative models is non-trivial and is still being researched on._
+**NB**: _Quantitative evaluation of generative models is non-trivial and is still being researched on. A common evaluation metric of $$P_\theta(x)$$ is to assess the negative log-likelihood (NNL) of a "test" set. Images from a dataset should have very high likelihood (they are samples of the distribution)._
 
 **NB**: _Not all type of generative models are able to perform all of the above use-cases. There exist many different approaches (types) with its strengths and weaknesses._
 
@@ -87,17 +87,58 @@ Depending on how they fit this distributions we can divide them into: **Autoregr
 
 
 ### Autoregressive models (AR)
-TODO: Explanation $$p_\theta(x) = \prod_i p_\theta(x_i \mid x_{< i})$$.
 
-Use of Variational INference approximation trick to avoid the integration.
+Given a dataset $$\mathcal{D} = \{x^1, ... x^K \}$$ of K n-dimensional datapoints $$x$$ ($$x$$ could be a flattened image for instance) we can apply the chain rule of probability to each dimension of the datapoint (we take the density estimation perspective):
 
-Provide <span style="color:green">tractable likelihoods</span> but <span style="color:red">no direct mechanism for learning features</span>.
+\begin{equation}
+p(x) = \prod_i^n p(x_i \mid x_{< i})
+\end{equation}
+
+**NB**: _A Bayesian network which does not do any assumption on the conditional independence of the variables is set to obey the **autoregressive property**._
+
+Autoregressive models fix an ordering of the variables and model each conditional probability $$p(x_i \mid x_{< i})$$.
+This model is composed by a parametrized function with a fixed number of params.
+In practice fitting each of the distributions is computationally infeasible (too many parameters for high-dimensional inputs).
+
+Simplification methods:
+
+- **Independence assumption**: Instead of each variable dependent on all the previous, you could define a probabilistic graphical model and define some dependencies: $$P(x) \simeq \prod_i^n p \left(x_i \mid \{ x_j \}_{j \in parents_i} \right)$$. For instance, one could do Markov assumptions: $$P(x) \simeq \prod_i^n p \left(x_i \mid x_{i-1} \right)$$. More on this [paper](http://www.iro.umontreal.ca/~lisa/pointeurs/bb_2000_nips.pdf) and this other [paper](https://papers.nips.cc/paper/1153-does-the-wake-sleep-algorithm-produce-good-density-estimators.pdf).
+
+- **Parameter reduction**: To ease the training one can under-parametrize the model and apply VI to find the closest distribution in the working sub-space. For instance you could design the conditional approximators parameters to grow linearly in input size like: $$P(x) \simeq \prod_i^n p \left(x_i \mid x_{< i}, \theta_i \right)$$ where $$\theta_i \in \mathcal{R}^i$$. More of this [here](https://www.sciencedirect.com/science/article/pii/0004370292900656).
+
+- **Increase representation power**: I.e. parametrize $$p(x_i \mid x_{< i})$$ with an ANN. Parameters can either remain constant or increase with $$i$$ (see figure 2). In addition you can make these networks **share parameters** to ease the learning.
+
+{% include figure.html url="/_lectures/ml/generative_models/ar_ann.png" description="Figure 2: Growing ANN modelling of the conditional distributions. (Image from KTH DD2412 course" zoom="1.0"%}
+
+**NB**: _The order in which you traverse the data matters! A solution is to train an ensemble with different orders (ENADE) and average its predictions._
+
+Instead of having a static model for each input, we can use a **RNN** and encode the seen "context" information as hidden inputs. They work for sequences of arbitrary lengths and we can tune their modeling capacity. The only downsides are that they are slow to train (sequential) and might present vanishing/exploding gradient problems.
+
+[PixelRNN](https://arxiv.org/abs/1601.06759) applies this idea to images.
+They present some tricks like multi-scale context to achieve better results than just traversing the pixels row-wise. It consists of first traversing sub-scaled versions of the image to finally fit the model on the whole image. 
+
+Some other interesting papers about this topic: [PixelCNN](https://arxiv.org/abs/1606.05328) [WaveNet](https://deepmind.com/blog/article/wavenet-generative-model-raw-audio)
+
+Overall AR provide:
+
+- <span style="color:green">**Tractable likelihoods**: exact and simple density estimation)</span>
+- <span style="color:green">**Simple generation process**, which is very good for data imputation (specially if available data is at the beginning of the input sequence)</span>
+
+But:
+
+-  <span style="color:red">There is no direct mechanism for learning features (**no encoding**)</span>.
+-  <span style="color:red">**Slow**: training, sample generation and density estimation. Because of the sequential nature of the algorithm</span>.
+
 
 ### Variational autoencoders (VAE)
 
 TODO: Explanation
 $$p_\theta(x) = \int p_\theta(x, z) dz = \int p_\theta(x \mid z) p(z) dz$$.
 Where $$p_\theta(x \mid z)$$ is modelled by the decoder network and $$p(z)$$ the chosen prior for the latent variables $$z$$.
+
+Latent coding perspective
+
+Use of Variational INference approximation trick to avoid the integration.
 
 Can <span style="color:green">learn feature representations</span> $$(z)$$ but <span style="color:red">have intractable marginal likelihood</span> $$p_\theta(x \mid z)$$.
 
@@ -116,7 +157,7 @@ Notice that its determinant models the **local** change of volume of $$f^{-1}$$ 
 
 **NB:** _"**Normalizing**" because the change of variables gives a normalized density after applying the transformations (achieved by multiplying with the Jacobian determinant). "**Flow**" because the invertible transformations can be composed with each other to create more complex invertible transformations: $$f = f_0 \circ ... \circ f_k$$._
 
-{% include figure.html url="/_lectures/ml/generative_models/normalizing-flow.png" description="Figure 2: Normalizing flow steps example from 1D Gaussian to a more complex distribution. (Image from https://lilianweng.github.io/lil-log/2018/10/13/flow-based-deep-generative-models.html" zoom="1.0"%}
+{% include figure.html url="/_lectures/ml/generative_models/normalizing-flow.png" description="Figure 3: Normalizing flow steps example from 1D Gaussian to a more complex distribution. (Image from https://lilianweng.github.io/lil-log/2018/10/13/flow-based-deep-generative-models.html" zoom="1.0"%}
 
 As you might have guessed, normalizing flow models parametrize this $$f$$ mapping function using an ANN $$(f_\theta)$$.
 **This ANN**, however, needs to verify some specific architectural structures:
@@ -132,6 +173,10 @@ Nevertheless they solve both previous approach problems:
 
 Most famous normalizing flow architectures ([NICE](https://arxiv.org/abs/1410.8516), [RealNVP](https://arxiv.org/abs/1605.08803), [Glow](https://arxiv.org/abs/1807.03039)) design layers whose Jacobian matrices are triangular or can be decomposed in triangular shape. These layers include variations of the **affine coupling layer**, **activation normalization layer** or **invertible 1x1 conv**.
 Check out our [Glow paper post](/papers/glow) for further details on these layers.
+
+**NB**: _Some models combine the flows with the autoregressive idea creating **autoregressive flows**: Each dimension in the input is conditioned to all previous ones. Check out [MAF](https://arxiv.org/abs/1705.07057) and [IAF](https://arxiv.org/abs/1606.04934)._
+
+**NB**: _Similarly flows can be applied to make VAEs latent space distribution more complex than Gaussian. Check out [f-VAES](rxiv.org/abs/1809.05861)._
 
 ## Likelihood free learning
 
