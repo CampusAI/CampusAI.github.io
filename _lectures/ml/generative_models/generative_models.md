@@ -7,6 +7,15 @@ lecture-date: 2019
 post-author: Oleguer Canal
 slides-link: https://deepgenerativemodels.github.io/
 ---
+<!--
+Disclaimer and authorship:
+This article is provided for free only for your personal informational and entertainment purposes. No commercial use of it is allowed.
+
+Please note there might be mistakes. We would be grateful to receive (constructive) criticism if you spot any. You can reach us at: ai.campus.ai@gmail.com or directly open an issue on our github repo: https://github.com/CampusAI/CampusAI.github.io
+
+If considering to use the text please cite the original author/s of the lecture/paper.
+Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
+-->
 
 **Notation**: I will refer to datapoints as $$x$$ (usually high-dimensional), labels as $$y$$ and latent variables as $$z$$. Notice the similarity between $$y$$ and $$z$$, the only difference being $$y$$ is provided and $$z$$ are found by the model.
 
@@ -38,7 +47,7 @@ Naming goes: **Posterior**:  $$P(y \mid x)$$. **Likelihood**:  $$P(x \mid y)$$. 
 
 Discriminative usually outperform generative models in classification tasks:
 
-{% include figure.html url="/_lectures/ml/generative_models/dis_vs_gen.png" description="Figure 1: Learning a decision boundary $P(y \mid x)$ is easier than learning the full x distribution of each class $P(x \mid y)$" zoom="1.0"%}
+{% include figure.html url="/_lectures/ml/generative_models/dis_vs_gen.png" description="Figure 1: Learning a decision boundary $P(y \mid x)$ is easier than learning the full x distribution of each class $P(x \mid y)$ (Image from KTH DD2412 course)" zoom="1.0"%}
 
 Nevertheless the rich interpretation generative models do of our data can be very useful. The next section presents some of their use-cases
 
@@ -49,7 +58,7 @@ We could:
 
 - **Sample new datapoints** from $$P(X)$$ distribution. For instance, we could obtain new dog images beyond the observed ones by sampling from our modelled "dog image distribution".
 
-- **Evaluate the probability of a sample $$x$$** by $$P(x)$$. We could use this to check how likely it is that a given image comes from the "dog image distribution" we used for training. Can be useful in uncertainty estimation to detect **out-of-distribution** (OOD) samples.
+- **Evaluate the probability of a sample $$x$$** by $$P(x)$$ (density estimation). We could use this to check how likely it is that a given image comes from the "dog image distribution" we used for training. Can be useful in uncertainty estimation to detect **out-of-distribution** (OOD) samples.
 
 - **Infer latent variables** $$z$$. In the dog example we could understand the underlying common structure of dog images. These latent variables could be dog position, fur color, ears type...
 
@@ -94,7 +103,7 @@ Can <span style="color:green">learn feature representations</span> $$(z)$$ but <
 
 ### Normalizing flow models
 
-The main idea is to learn a deterministic bijective (invertible) **mapping** from **easy distributions** (easy to sample and easy to evaluate density, e.g. Gaussian) to the **given data distribution** (more complex).
+The main idea is to learn a deterministic [bijective](https://en.wikipedia.org/wiki/Bijection) (invertible) **mapping** from **easy distributions** (easy to sample and easy to evaluate density, e.g. Gaussian) to the **given data distribution** (more complex).
 
 First we need to understand the **change of variables formula**: Given $$Z$$ and $$X$$ random variables related by a bijective (invertable) mapping $$f : \mathbb{R}^n \rightarrow \mathbb{R}^n$$ such that $$X = f(Z)$$ and $$Z = f^{-1}(X)$$ then:
 
@@ -105,7 +114,9 @@ p_X(x) = p_Z \left( f^{-1} (x) \right) \left|\det \left( \frac{\partial f^{-1} (
 Were $$\frac{\partial f^{-1} (x)}{\partial x}$$ is the $$n \times n$$ Jacobian matrix of $$f^{-1}$$.
 Notice that its determinant models the **local** change of volume of $$f^{-1}$$ at the evaluated point.
 
-**NB:** _"**Normalizing**" because the change of variables gives a normalized density after applying the transformations. "**Flow**" because the invertible transformations can be composed with each other to create more complex invertible transformations: $$f = f_0 \circ ... \circ f_k$$._
+**NB:** _"**Normalizing**" because the change of variables gives a normalized density after applying the transformations (achieved by multiplying with the Jacobian determinant). "**Flow**" because the invertible transformations can be composed with each other to create more complex invertible transformations: $$f = f_0 \circ ... \circ f_k$$._
+
+{% include figure.html url="/_lectures/ml/generative_models/normalizing-flow.png" description="Figure 2: Normalizing flow steps example from 1D Gaussian to a more complex distribution. (Image from https://lilianweng.github.io/lil-log/2018/10/13/flow-based-deep-generative-models.html" zoom="1.0"%}
 
 As you might have guessed, normalizing flow models parametrize this $$f$$ mapping function using an ANN $$(f_\theta)$$.
 **This ANN**, however, needs to verify some specific architectural structures:
@@ -119,7 +130,8 @@ Nevertheless they solve both previous approach problems:
 - <span style="color:green">Present feature learning</span>.
 - <span style="color:green">Present a tractable marginal likelihood</span>.
 
-Most famous normalizing flow architectures ([NICE](https://arxiv.org/abs/1410.8516), [RealNVP](https://arxiv.org/abs/1605.08803), [Glow](https://arxiv.org/abs/1807.03039)) design layers whose Jacobian matrices are triangular or can be decomposed in triangular shape. These layers include variations of the **affine coupling layer**, **activation normalization layer** or **Invertible 1x1 conv**.
+Most famous normalizing flow architectures ([NICE](https://arxiv.org/abs/1410.8516), [RealNVP](https://arxiv.org/abs/1605.08803), [Glow](https://arxiv.org/abs/1807.03039)) design layers whose Jacobian matrices are triangular or can be decomposed in triangular shape. These layers include variations of the **affine coupling layer**, **activation normalization layer** or **invertible 1x1 conv**.
+Check out our [Glow paper post](/papers/glow) for further details on these layers.
 
 ## Likelihood free learning
 
