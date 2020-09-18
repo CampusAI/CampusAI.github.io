@@ -79,7 +79,7 @@ Its inverse operation can be computed by simply applying a convolution with $$W^
 
 **NB**: _Usually $$c=3$$ so the $$det(W)$$ and $$W^{-1}$$ are cheap to compute._
 
-**NB**: _Rather than a 1-D convolution I find it easier to imagine as: each channel of the output tensor is going to be a linear combinations of the channels of the input tensor._
+**NB**: _Rather than a 1-D convolution I find it easier to imagine as: each channel of the output tensor is going to be a linear combination of the channels of the input tensor._
 
 ### Layers summary
 In summary this is each layer function, its inverse and its Jacobian log-determinant:
