@@ -94,6 +94,8 @@ Given a dataset $$\mathcal{D} = \{x^1, ... x^K \}$$ of K n-dimensional datapoint
 p(x) = \prod_i^n p(x_i \mid x_{< i})
 \end{equation}
 
+**NB**: _This decomposition converts the joint modelling problem $$p(x_1, ..., x_n)$$ into a sequence modeling one._
+
 **NB**: _A Bayesian network which does not do any assumption on the conditional independence of the variables is set to obey the **autoregressive property**._
 
 Autoregressive models fix an ordering of the variables and model each conditional probability $$p(x_i \mid x_{< i})$$.
@@ -110,13 +112,13 @@ Simplification methods:
 
 {% include figure.html url="/_lectures/ml/generative_models/ar_ann.png" description="Figure 2: Growing ANN modelling of the conditional distributions. (Image from KTH DD2412 course" zoom="1.0"%}
 
-**NB**: _The order in which you traverse the data matters! A solution is to train an ensemble with different orders (ENADE) and average its predictions._
+**NB**: _The order in which you traverse the data matters! While temporal and sequential data have natural orders, 2D data doesn't. A solution is to train an ensemble with different orders (ENADE) and average its predictions._
 
 Instead of having a static model for each input, we can use a **RNN** and encode the seen "context" information as hidden inputs. They work for sequences of arbitrary lengths and we can tune their modeling capacity. The only downsides are that they are slow to train (sequential) and might present vanishing/exploding gradient problems.
 
 [PixelRNN](https://arxiv.org/abs/1601.06759) applies this idea to images.
-They present some tricks like multi-scale context to achieve better results than just traversing the pixels row-wise. It consists of first traversing sub-scaled versions of the image to finally fit the model on the whole image. 
-
+They present some tricks like multi-scale context to achieve better results than just traversing the pixels row-wise. It consists of first traversing sub-scaled versions of the image to finally fit the model on the whole image.
+If interested, check out our [LMConv post](/papers/LMConv).
 Some other interesting papers about this topic: [PixelCNN](https://arxiv.org/abs/1606.05328) [WaveNet](https://deepmind.com/blog/article/wavenet-generative-model-raw-audio)
 
 Overall AR provide:
@@ -127,7 +129,7 @@ Overall AR provide:
 But:
 
 -  <span style="color:red">There is no direct mechanism for learning features (**no encoding**)</span>.
--  <span style="color:red">**Slow**: training, sample generation and density estimation. Because of the sequential nature of the algorithm</span>.
+-  <span style="color:red">**Slow**: training, sample generation, and density estimation. Because of the sequential nature of the algorithm</span>.
 
 
 ### Variational autoencoders (VAE)
