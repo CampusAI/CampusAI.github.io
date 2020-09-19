@@ -20,12 +20,12 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 If not familiar with **autoregressive generative models** I suggest to first take a look at our [Parametric Deep Generative Models post](http://127.0.0.1:4000/lectures/generative_models).
 
-
 ## Idea
 
 **Remember:** Given a dataset $$\mathcal{D} = \{x^1, ... x^K \}$$ of K n-dimensional vectors, autoregressive generative models learn its underlying distribution $$p(x)$$ by making use of the chain rule of probability:
 
 \begin{equation}
+\label{eq:chain}
 p(x) = \prod_i^n p(x_i \mid x_{< i})
 \end{equation}
 
@@ -35,24 +35,63 @@ In particular, this paper is interested in natural image completion.
 
 **Problem:** Sequentially learning $$p(x_i \mid x_{< i})$$ is **order-dependent**. While temporal and sequential data have natural orders, 2D data (such as images) doesn’t.
 Previous work (e.g. [PixelRNN](https://arxiv.org/abs/1601.06759) or [PixelCNN](https://arxiv.org/abs/1606.05328)) only trains on [raster scan order](https://en.wikipedia.org/wiki/Raster_scan) (left to right, top to bottom).
-But this is only 1 of the $$n!$$ possible image traversal ordering!
+But this is only $$1$$ of the $$n!$$ possible image traversal ordering!
 This means inference can only be "reliably" done in this order.
-Therefore, it fails in image-completing tasks when a lot of data is missing around first rows of the image:
+Therefore, it fails in image-completing tasks when it cannot observe the context (i.e. data is missing around first traversed pixels):
 
 {% include figure.html url="/_papers/LMConv/order.png" description="Figure 1: PixelCNN++ failing at image completion task because it cannot take advantage of the information in last rows of the image. LMConv can work in any order and uses all the available information to complete the image." zoom="1.0"%}
 
-This work addresses this issue by adding 2 new ideas to [PixelCNN](https://arxiv.org/abs/1606.05328): Train the model on different **traversal order permutations**, and use **masking** on the level of features (unlike in the weights or inputs).
+This work addresses this issue by adding 2 new ideas to [PixelCNN](https://arxiv.org/abs/1606.05328): Train the model on different **traversal order permutations**, and use **masking** on the level of features.
 
-Training in arbitrary orders allows to customize the traversal for each task.
-I.e. in an image completion traverse first the area with more information and obtain better conditional approximations.
+**NB**: _Convolutional autoregressive networks transform a $$H \times W \times c$$ image into a $$H \times W \times (c \cdot bins)$$ log-probability tensor. Where $$bins$$ is a discretization fo the light intensity of each channel. Row $$i$$, column $$j$$, depth $$k\%c$$ indicate the log-probability of light intensity being in bin $$k$$ for channel $$c$$ in pixel $$(i, j)$$._
 
 ### Pixel traversal permutation training
 
+The idea is simple: train in arbitrary orders so that later the **traversal can be customized** to each task.
+For instance, in an image completion task traverse first the area with more information and obtain richer context.
 
+To do so, the authors define a set of traversal permutations $$\pi$$ and assign a uniform distribution over them $$p_\pi$$.
+They then apply MLE to:
+
+\begin{equation}
+\mathcal{L} (\theta) = E_{x \sim p_{data}} E_{\pi \sim p_\pi} \log p_\theta (x_1, ..., x_D ; \pi)
+\end{equation}
+
+Where $$\log p_\theta (x_1, ..., x_D ; \pi)$$ factorizes as depicted in eq. \ref{eq:chain} in following the order dictated by $$\pi$$:
+
+\begin{equation}
+\log p_\theta (x_1, ..., x_D ; \pi) = \sum_i p_\theta (x_{\pi(i)} \mid x_{\pi(1)},..., x_{\pi(i-1)})
+\end{equation}
+
+Each of the conditionals are parametrized by the **same RNN**.
 
 ### Local masking
 
-Bare with me because things get a bit convoluted at this point (pun intended).
+Since the network is modelling $$p_\theta (x_{\pi(i)} \mid x_{\pi(1)},..., x_{\pi(i-1)})$$ but we apply a convolution operation over the pixels, we need to make sure that when computing $$p_\theta (x_{\pi(i)} \mid x_{\pi(1)},..., x_{\pi(i-1)})$$ we do not use information of any pixel other than $$x_{\pi(1)},..., x_{\pi(i-1)}$$.
+Otherwise, if we make the probability depend on successors on the Bayesian network, the product of conditionals would be invalid due to **cyclicity**.
+
+Previously this had been dealt in 2 different ways:
+- [NADE](http://proceedings.mlr.press/v15/larochelle11a/larochelle11a.pdf) does $$D$$ passes for each image. When evaluating $$p_\theta (x_{i} \mid x_{1},..., x_{i-1})$$ they masks pixels $$x_{i+1},...,x_{D}$$ to ensure no successor information is used.
+- [PixelCNN](https://arxiv.org/abs/1606.05328) controls information flow by setting certain weights to the convolution filters to 0.
+
+Instead, this paper takes advantage of the implementation of the convolution operation to mask the corresponding values of the first-layer input.
+Essentially, convolutions are implemented as a general matrix multiplication (GEEM):
+
+\begin{equation}
+Y = \mathcal{W} \cdot im2col (X, k_1, k_2) + b
+\end{equation}
+
+Where: $$\mathcal{W}$$ rows are each conv2D filter weights and $$b$$ its biases.
+$$im2col (X, k_1, k_2)$$ converts the input image $$X$$ of shape $$H \times W \times c$$ into a tensor of shape $$(k_1 \cdot k_2 \cdot c) \times (H \cdot W)$$. This tensor columns are the $$(k_1 \times k_2 \times c)$$ patches where the convolution filter is applied to.
+
+The mask is applied before computing the convolution: $$\mathcal{M} \circ im2col (X, k_1, k_2)$$.
+Its coefficients are dependent on the permutation $$\pi$$ in which we are traversing the image at that iteration.
+
+
+I oversimplified the idea for the seek of brevity, I recommend taking a look at the [paper](https://arxiv.org/abs/2006.12486) since the idea is quite smart.
+Be careful though, things get a bit convoluted (pun intended).
+
+**NB**: _This allows for parallel computation of the conditionals._
 
 ## Results
 
