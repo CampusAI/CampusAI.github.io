@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: annex
 title: "Annex 13: Variational Inference"
 permalink: /lectures/variational_inference_annex
 post-author: Federico Taschin

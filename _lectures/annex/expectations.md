@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: annex
 title: "Annex 2: Policy Expectations, Explained"
 permalink: /lectures/policy_expectations
 lecture-author: None

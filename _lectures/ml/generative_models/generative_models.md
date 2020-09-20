@@ -1,11 +1,9 @@
 ---
-layout: lecture
+layout: article
 title: "Parametric Deep Generative Models"
 permalink: /lectures/generative_models
-lecture-author: Stefano Ermon, Aditya Grover
-lecture-date: 2019
+content-origin: Standford CS236, KTH DD2412, lilianweng.github.io
 post-author: Oleguer Canal
-slides-link: https://deepgenerativemodels.github.io/
 ---
 <!--
 Disclaimer and authorship:
@@ -132,7 +130,7 @@ But:
 -  <span style="color:red">**Slow**: training, sample generation, and density estimation. Because of the sequential nature of the algorithm</span>.
 
 
-### Variational autoencoders (VAE)
+<!-- ### Variational autoencoders (VAE)
 
 TODO: Explanation
 $$p_\theta(x) = \int p_\theta(x, z) dz = \int p_\theta(x \mid z) p(z) dz$$.
@@ -142,7 +140,7 @@ Latent coding perspective
 
 Use of Variational INference approximation trick to avoid the integration.
 
-Can <span style="color:green">learn feature representations</span> $$(z)$$ but <span style="color:red">have intractable marginal likelihood</span> $$p_\theta(x \mid z)$$.
+Can <span style="color:green">learn feature representations</span> $$(z)$$ but <span style="color:red">have intractable marginal likelihood</span> $$p_\theta(x \mid z)$$. -->
 
 ### Normalizing flow models
 
@@ -159,7 +157,7 @@ Notice that its determinant models the **local** change of volume of $$f^{-1}$$ 
 
 **NB:** _"**Normalizing**" because the change of variables gives a normalized density after applying the transformations (achieved by multiplying with the Jacobian determinant). "**Flow**" because the invertible transformations can be composed with each other to create more complex invertible transformations: $$f = f_0 \circ ... \circ f_k$$._
 
-{% include figure.html url="/_lectures/ml/generative_models/normalizing-flow.png" description="Figure 3: Normalizing flow steps example from 1D Gaussian to a more complex distribution. (Image from https://lilianweng.github.io/lil-log/2018/10/13/flow-based-deep-generative-models.html" zoom="1.0"%}
+{% include figure.html url="/_lectures/ml/generative_models/normalizing-flow.png" description="Figure 3: Normalizing flow steps example from 1D Gaussian to a more complex distribution. (Image from lilianweng.github.io" zoom="1.0"%}
 
 As you might have guessed, normalizing flow models parametrize this $$f$$ mapping function using an ANN $$(f_\theta)$$.
 **This ANN**, however, needs to verify some specific architectural structures:
@@ -178,10 +176,11 @@ Check out our [Glow paper post](/papers/glow) for further details on these layer
 
 **NB**: _Some models combine the flows with the autoregressive idea creating **autoregressive flows**: Each dimension in the input is conditioned to all previous ones. Check out [MAF](https://arxiv.org/abs/1705.07057) and [IAF](https://arxiv.org/abs/1606.04934)._
 
-**NB**: _Similarly flows can be applied to make VAEs latent space distribution more complex than Gaussian. Check out [f-VAES](rxiv.org/abs/1809.05861)._
+**NB**: _Similarly, flows can be applied to make VAEs latent space distribution more complex than Gaussian. Check out [f-VAES](rxiv.org/abs/1809.05861)._
 
-## Likelihood free learning
+<!-- ## Likelihood free learning
 
 These models are not trained using maximum likelihood.
 
-### Generative Adversarial Networks (GANs)
+### Generative Adversarial Networks (GANs) -->
+**_[Stay tunned for VAES and GANs explanations]_**

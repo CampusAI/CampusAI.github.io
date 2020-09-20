@@ -2,6 +2,7 @@
 layout: article
 title: "Probabilistic Modelling"
 permalink: /lectures/prob_modelling
+content-origin: KTH DD2412
 post-author: Oleguer Canal
 ---
 <!--

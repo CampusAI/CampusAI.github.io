@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: annex
 title: "Annex 5: Policy Gradients"
 permalink: /lectures/policy_gradients_annex
 post-author: Federico Taschin
