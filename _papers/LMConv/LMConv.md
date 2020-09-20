@@ -48,7 +48,7 @@ This work addresses this issue by adding 2 new ideas to [PixelCNN](https://arxiv
 ### Pixel traversal permutation training
 
 The idea is simple: train in arbitrary orders so that later the **traversal can be customized** to each task.
-For instance, in an image completion task traverse first the area with more information and obtain richer context.
+For instance, in an image completion task one can obtain a richer context by first traversing the known pixels.
 
 To do so, the authors define a set of traversal permutations $$\pi$$ and assign a uniform distribution over them $$p_\pi$$.
 They then apply MLE to:
@@ -72,7 +72,7 @@ Otherwise, if we make the probability depend on successors on the Bayesian netwo
 
 Previously this had been dealt in 2 different ways:
 - [NADE](http://proceedings.mlr.press/v15/larochelle11a/larochelle11a.pdf) does $$D$$ passes for each image. When evaluating $$p_\theta (x_{i} \mid x_{1},..., x_{i-1})$$ they masks pixels $$x_{i+1},...,x_{D}$$ to ensure no successor information is used.
-- [PixelCNN](https://arxiv.org/abs/1606.05328) controls information flow by setting certain weights to the convolution filters to 0.
+- [PixelCNN](https://arxiv.org/abs/1606.05328) controls information flow by setting certain weights to the convolution filters to 0. This induces blind spots in the image generation which damage its performance.
 
 Instead, this paper takes advantage of the implementation of the convolution operation to mask the corresponding values of the first-layer input.
 Essentially, convolutions are implemented as a general matrix multiplication (GEEM):
@@ -87,13 +87,31 @@ $$im2col (X, k_1, k_2)$$ converts the input image $$X$$ of shape $$H \times W \t
 The mask is applied before computing the convolution: $$\mathcal{M} \circ im2col (X, k_1, k_2)$$.
 Its coefficients are dependent on the permutation $$\pi$$ in which we are traversing the image at that iteration.
 
-
-I oversimplified the idea for the seek of brevity, I recommend taking a look at the [paper](https://arxiv.org/abs/2006.12486) since the idea is quite smart.
+I oversimplified the algorithm for the seek of brevity, I recommend taking a look at the [paper](https://arxiv.org/abs/2006.12486) since the idea is quite smart.
 Be careful though, things get a bit convoluted (pun intended).
 
 **NB**: _This allows for parallel computation of the conditionals._
 
 ## Results
+
+### Density estimation
+
+Tractable generative models are usually evaluated via the average negative log-likelihood (NLL) of test data:
+- This paper achieves **marginally better NLL scores** than [PixelCNN++](https://arxiv.org/pdf/1701.05517.pdf) on [MNIST](http://yann.lecun.com/exdb/mnist/) and [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html). Furthermore they outperform [Glow](https://arxiv.org/abs/1807.03039) ([read our post](/papers/glow)) in high-resolution imge dataset: [CelebA-HQ](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Nevertheless, they are still a bit behind against high-resolution specialized architectures such as [SPN](https://arxiv.org/abs/1812.01608), which use self-attention.
+
+- They show training with **8 different orders achieves better results** than a single one (even when evaluating test sample likelihood in a single order).
+
+### Novel orders generalization
+
+- Training on 8 S-curve orders and testing on a [raster scan order](https://en.wikipedia.org/wiki/Raster_scan) results in a $$26\%$$ NLL increase. (vs. $$26\%$$ NLL increase if only trained with 1 S-curve)
+
+- Training on 7 s-curves and testing on a different s-curve results in a $$5\%$$ NLL increase.
+
+### Image completion
+
+- This work achieves better qualitative and NLL scores than [PixelCNN++](https://arxiv.org/pdf/1701.05517.pdf).
+
+{% include figure.html url="/_papers/LMConv/completion.png" description="Figure 2: Missing pixels are generated along an s-curve which first traverses the observable regions." zoom="1.0"%}
 
 ## Contribution
 
@@ -101,4 +119,6 @@ Be careful though, things get a bit convoluted (pun intended).
 
 ## Weaknesses
 
-- Transfer learning?
+- Since it seems that they mostly care about image completion, I would like to see a comparison against a self-supervised network trained to specifically do so (different from other AR approaches, e.g. VAE).
+
+- I also wonder how **transferable** are the learned weights through different datasets. They only tested on 3 different datasets and re-trained each time the model.

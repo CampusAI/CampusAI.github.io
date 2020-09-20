@@ -73,6 +73,11 @@ url="/papers/glow"
 subtitle="Diederik P. Kingma, Prafulla Dhariwal, 2018"
 %}
 
+{% include paper-card.html title="LMConv: Locally Masked Convolutions for Autoregressive Models"
+url="/papers/LMConv"
+subtitle="Ajay Jain, Pieter Abbeel, Deepak Pathak, 2020"
+%}
+
 ## Other
 
 {% include paper-card.html title="Neural Network Surgery with Sets"
