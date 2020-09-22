@@ -69,7 +69,7 @@ To be more precise, we are:
     <!-- <h2>Some title text</h2> -->
     <p>Studied Computer Engineering at the <a href="https://www.unipd.it/">Università degli Studi di Padova</a> and currently studying Machine Learning at <a href="https://www.kth.se/en">KTH Royal Institute of Technology</a>.</p>
     <p>Working as Driverless Engineer and Technical Integrator at <a href="https://www.kthformulastudent.se/">KTH Formula Student</a>, developing the SLAM module for the autonomous car and integrating to other modules into the car system.</p>
-    <p>Aiming of pursuing a PhD in Reinforcement Learning.</p>
+    <p>Aiming to pursue a PhD in Reinforcement Learning.</p>
     <a href="https://www.linkedin.com/in/federico-taschin/">LinkedIn</a>, 
     <a href="https://github.com/fedetask">GitHub</a>, 
   </div>
