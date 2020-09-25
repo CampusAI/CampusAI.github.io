@@ -6,7 +6,7 @@ permalink: /papers/Understanding-Black-box-Predictions-via-Infuence-Functions
 paper-author: Pang Wei Koh, Percy Liang
 post-author: Oleguer Canal
 paper-year: 2017
-paper-link: https://arxiv.org/abs/1612.01474
+paper-link: https://arxiv.org/abs/1703.04730
 ---
 <!--
 Disclaimer and authorship:
