@@ -66,7 +66,7 @@ url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
 %}
 
-## Generative models
+## Generative Models
 
 {% include paper-card.html title="Glow: Generative Flow with Invertible 1x1 Convolutions"
 url="/papers/glow"
@@ -76,6 +76,18 @@ subtitle="Diederik P. Kingma, Prafulla Dhariwal, 2018"
 {% include paper-card.html title="LMConv: Locally Masked Convolutions for Autoregressive Models"
 url="/papers/LMConv"
 subtitle="Ajay Jain, Pieter Abbeel, Deepak Pathak, 2020"
+%}
+
+## ANN Explainability
+
+{% include paper-card.html title="Understanding Black-box Predictions via Influence Functions"
+url="/papers/Understanding-Black-box-Predictions-via-Infuence-Functions"
+subtitle="Pang Wei Koh, Percy Liang, 2017"
+%}
+
+{% include paper-card.html title="Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization"
+url="/papers/Grad-CAM"
+subtitle=" Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, Dhruv Batra, 2019"
 %}
 
 ## Other

@@ -159,6 +159,8 @@ Notice that its determinant models the **local** change of volume of $$f^{-1}$$ 
 
 {% include figure.html url="/_lectures/ml/generative_models/normalizing-flow.png" description="Figure 3: Normalizing flow steps example from 1D Gaussian to a more complex distribution. (Image from lilianweng.github.io" zoom="1.0"%}
 
+Wait, but why do we need to normalize it? Can't we just make sure $$p_\theta(x) > 0$$?
+
 As you might have guessed, normalizing flow models parametrize this $$f$$ mapping function using an ANN $$(f_\theta)$$.
 **This ANN**, however, needs to verify some specific architectural structures:
 
