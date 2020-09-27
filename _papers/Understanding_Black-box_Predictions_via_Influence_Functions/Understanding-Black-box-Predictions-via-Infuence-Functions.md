@@ -56,7 +56,7 @@ I_{up, loss} (z, z_{test}) = - \nabla_\theta L(z_{test}, \hat \theta)^T \cdot H_
 \end{equation}
 
 ### Perturbing a training point
-Using a similar reasoning, we can evaluate the influence a perturbation of some data-point $$z$$ can have on the loss of some test-point $$z_i$$:
+Using a similar reasoning, we can evaluate the influence a perturbation of some data-point $$z$$ can have on the loss of some test-point $$z_{test}$$:
 
 \begin{equation}
 I_{pert, loss} (z, z_{test}) = - \nabla_\theta L(z_{test}, \hat \theta)^T \cdot H_{\hat \theta}^{-1} \cdot \nabla_x \nabla_\theta L(z, \hat \theta)
