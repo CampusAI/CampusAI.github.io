@@ -11,7 +11,7 @@ In this section you can find our summaries from [Sergey Levine](https://people.e
 <!--
 To add a lecture one must add a line with the following code:
 
-{% include card.html title="" brief="" img="" url="" type="" %}
+include card.html title="" brief="" img="" url="" type=""
 
 title:      The title of the lecture 
 img:        An image that represents the lecture, or leave "" for no image

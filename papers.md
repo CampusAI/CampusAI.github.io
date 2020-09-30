@@ -3,6 +3,7 @@ layout: page
 title: Papers
 permalink: /papers/
 ---
+
 <!--
 To add a paper one must add a line with the following code:
 
@@ -26,6 +27,8 @@ We mainly review RL-related papers but you'll also find more general ML topics.
 {% include paper-card.html title="Soft Actor-Critic (SAC)"
 subtitle="T. Haarnoja, A. Zhou, P. Abbeel, S. Levine, 2018" url="/papers/Soft-Actor-Critic"   %}
 <!-- This paper approaches the high sample complexity of on-policy RL and the brittle convergence of off-policy RL by introducing Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor. -->
+<br>
+
 
 ## Hierarchical RL
 {% include paper-card.html title="Hierarchical Reinforcement Learning with MAXQ Value Function Decomposition"
@@ -37,6 +40,7 @@ subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016"
 url="/papers/the-option-critic-architecture" %}
 <!-- The Options framework provides theoretical grounds for temporal abstraction in Reinforcement Learning. Each Option can be considered as a macro-action with its policy and termination condition, leading to two levels of policies: one policy over options and several intra-option policies. This paper presents the Option-Critic Architecture."
 url="/papers/the-option-critic-architecture -->
+<br>
 
 ## Uncertainty Estimation
 
@@ -65,6 +69,7 @@ subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew
 url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
 %}
+<br>
 
 ## Generative models
 
@@ -77,9 +82,9 @@ subtitle="Diederik P. Kingma, Prafulla Dhariwal, 2018"
 url="/papers/LMConv"
 subtitle="Ajay Jain, Pieter Abbeel, Deepak Pathak, 2020"
 %}
+<br>
 
 ## Other
 
 {% include paper-card.html title="Neural Network Surgery with Sets"
 url="/papers/NN_surgery_sets" subtitle="Jonathan Raiman, Susan Zhang, Christy Dennison, 2019"   %}
-<!-- This paper presents an approach to continuously train a Deep RL policy model while performing architecture and environment modifications. -->
