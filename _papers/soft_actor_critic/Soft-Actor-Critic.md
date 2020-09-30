@@ -20,6 +20,9 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+
+{% include start-row.html %}
+
 ## Idea
 
 Deep RL algorithms suffer from:
@@ -28,10 +31,16 @@ Deep RL algorithms suffer from:
      - Its not directly feasible with conventional [policy gradient](/lectures/lecture5) based methods.
      - __Value-based__ approaches (e.g. [Q-learning](/lectures/lecture7)) combined with NN give a challenge for stability (which worsens if working in continuous spaces).
 
+{% include end-row.html %}
+
+{% include start-row.html %}
 To solve them, this paper implements an __off-policy__ (deal with sample complexity), __actor-critic__ (work in high-dim continuous spaces) algorithm in the __maximum entropy framework__ (enhance learning robustness).
+{% include annotation.html %}
+For infinte-horizon problems, a $$\gamma$$ parameter can be used to make both rewards and entropies finite.
+{% include end-row.html %}
 
-**Note**: For infinte-horizon problems, a $$\gamma$$ parameter can be used to make both rewards and entropies finite.
 
+{% include start-row.html %}
 ### Maximum Entropy Framework
 *"Succeed at the task, while behaving as random as possible"*:
 Actor aims to maximize expected reward while also maximizing entropy:
@@ -66,16 +75,25 @@ Remember that the [entropy](https://en.wikipedia.org/wiki/Entropy_(information_t
 The paper proofs the *Soft policy iteration* theorem.
 It states that the repeated application of the soft Bellman equation on a family of parametrized policies converges to the optimal one.
 
+{% include end-row.html %}
+
+
+{% include start-row.html %}
 ### Algorithm
 
 Since the algorithm lies in the [Actor-Critic](/lectures/lecture6) framework they parametrize the:
+{% include end-row.html %}
 
+{% include start-row.html %}
 - Soft Value function: **$$V_\psi$$**
 - Soft Q function: **$$Q_\theta$$**
 - Tractable policy: **$$\pi_\phi$$**
+{% include annotation.html %}
+Learning $$V_\psi$$ is redundant if also learning $$Q_\theta$$. Nevertheless learning both stabilizes the training process.
+{% include end-row.html %}
 
-**Notice**: Learning $$V_\psi$$ is redundant if also learning $$Q_\theta$$. Nevertheless learning both stabilizes the training process.
 
+{% include start-row.html %}
 $$V_\psi$$ is fitted to minimize the [RSS](https://en.wikipedia.org/wiki/Residual_sum_of_squares) with function \ref{eq:value}:
 
 \begin{equation}
@@ -89,8 +107,12 @@ $$Q_\theta$$ is fitted to minimize the [RSS](https://en.wikipedia.org/wiki/Resid
 J_Q (\theta) = E_{s_t \sim \mathcal{D}} \left[ \frac{1}{2} \left( Q_\theta (s_t, a_t) - r(s_t, a_t) - \gamma E_{s+1 \sim p} \left[ V (s_{t+1}) \right] \right)^2 \right]
 \end{equation}
 
-**Note**: It [has been shown](https://arxiv.org/abs/1312.5602) that using an exponential moving average of $$\psi$$ (usually referred as $$\bar{\psi}$$ stabilizes training.
+{% include annotation.html %}
+It [has been shown](https://arxiv.org/abs/1312.5602) that using an exponential moving average of $$\psi$$ (usually referred as $$\bar{\psi}$$ stabilizes training.
+{% include end-row.html %}
 
+
+{% include start-row.html %}
 $$\pi_\phi$$ is fitted to minimize the expected distance (KL-divergence) between a policy $$\pi \in \Pi$$ ($$\Pi$$ is the parameter-space we are working on), and the policy which the [softmax](https://en.wikipedia.org/wiki/Softmax_function) of $$Q_\theta$$ gives:
 
 \begin{equation}
@@ -104,11 +126,16 @@ Notice that in general it is intractable but since it does not contribute to the
 {% include figure.html url="/_papers/soft_actor_critic/projection.png" description="Interpretation of eq \ref{eq:pi}. We take the closest policy to SOFTMAX(Q) from our parametrized space by the KL divergence projection."%}
 
 The algorithm then becomes:
+{% include end-row.html %}
+
+{% include start-row.html %}
 {% include figure.html url="/_papers/soft_actor_critic/algorithm.png" description="SAC algorithm."%}
+{% include annotation.html %}
+They use 2 Q-function approximators to mitigate positive bias in policy improvement adn speed training. Eq \ref{eq:v} uses the minimum value of the 2 Q-functions.
+{% include end-row.html %}
 
-**Notice**: They use 2 Q-function approximators to mitigate positive bias in policy improvement adn speed training. Eq \ref{eq:v} uses the minimum value of the 2 Q-functions.
 
-
+{% include start-row.html %}
 ## Contribution
  - __Stable Learning:__ Results show similar performance across different seeds, in contrast to other off-policy methods.
  - Better than other SOTA algorithms (DDPG, PPO, TD3) in **complex environments**: Maximum entropy framework improves performance in those cases.
@@ -116,3 +143,5 @@ The algorithm then becomes:
 ## Weaknesses
 - It presents a high variability when using **deterministic policies** (cannot take advantage of entropy). Since SAC converges to stochastic policies, it is often beneficial to make the final one deterministic. 
 - Sensitive to **reward scaling**. Since it affects the temperature parameter controlling the entropy. Larger reward means lower entropy.
+
+{% include end-row.html %}

@@ -18,6 +18,7 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html%}
 A hierarchical policy is a policy in which actions can represent sub-tasks with their own policy.
 This paper presents a new approach, the MAXQ decomposition, to decompose the Value Function for a
 given hierarchical policy in a recursive fashon. It formally defines the MAXQ hierarchy, provides
@@ -76,3 +77,4 @@ represents the cumulative reward of continuing sub-task $M_i$ after having taken
   completely separate subtasks for each possible parameter value. E.g. if the *Navigate* task of Figure 1
   can be called with the destination as parameter, we would need to learn a policy for each possible destination.
 
+{% include end-row.html%}

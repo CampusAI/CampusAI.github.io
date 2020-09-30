@@ -18,6 +18,7 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html%}
 The Options framework provides theoretical grounds for temporal abstraction in Reinforcement Learning.
 Each Option can be considered as a macro-action with its policy and termination condition, leading
 to two levels of policies: one *policy over options* and several *intra-option policies*. This paper
@@ -84,3 +85,4 @@ Architecture, but many techniques can be employed to estimate $Q_U$ and $Q_{\Ome
    one of the options learned will be related, for example, to the task of opening a door. This will make it impossible
    to just pick that option and plug it into a similar robot that does a more complex task. We can generally say that,
    although the learned options show generalization capabilities, they are still tied to their particular configuration.
+{% include end-row.html%}

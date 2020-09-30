@@ -18,6 +18,8 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html %}
+
 ## Idea
 
 Until recently ANNs were unable to provide reliable measures of their prediction **uncertainty**, which often suffer from **over-confidence**.
@@ -59,11 +61,21 @@ Each corner of the simplex represents a different class in the classification ta
 Geometrically, the probability of $$\pi$$ being a particular class is given by its distance to that particular corner.
 For instance, in a 3-class classification problem, we can observe the following behaviors:
 
+{% include end-row.html %}
+
+
+{% include start-row.html %}
+
 {% include figure.html url="/_papers/Ensemble_Distribution_Distillation/ensemble_uncertainty.png"
 description="Figure 2: Representation of different uncertainties of an ensemble when evaluated on a test data-point in a 3-class task. In (a) all model predictions are close to the same corner (class), meaning all models agree. In (b) all  models agree but are uncertain about which class the data-point belongs to, this happens for in-distribution uncertain samples (data uncertainty). In (c) all models disagree, some being confident about different things, a symptom of an out-of distribution input." zoom="1.5" %}
 
-**Notice**: The closer to the simplex center a $$\pi_m$$ distribution is, the higher the entropy $$\mathcal{H}$$ of that distribution (more uncertainty).
+{% include annotation.html %}
+The closer to the simplex center a $$\pi_m$$ distribution is, the higher the entropy $$\mathcal{H}$$ of that distribution (more uncertainty).
 
+{% include end-row.html %}
+
+
+{% include start-row.html %}
 This interpretation helps us understand the following identities:
 
 - **Expected data uncertainty**: $$E_{p(\theta \mid \mathcal{D})} \left[ \mathcal{H} \left[ P(y \mid x^\star, \theta )\right] \right]$$. That is: the **average of entropies** each model of the ensemble has.
@@ -105,6 +117,10 @@ E_{\hat p (\pi \mid x)}
 \right]
 \end{equation}
 
+{% include end-row.html %}
+
+
+{% include start-row.html %}
 Which means (_if my interpretation is not mistaken_) that we get the parameters as:
 
 \begin{equation}
@@ -112,11 +128,17 @@ Which means (_if my interpretation is not mistaken_) that we get the parameters 
 \log p(\pi_{i, j} \mid x_i, \phi)
 \end{equation}
 
-**Notice**: Often training output distributions will be very sharp on a corner of the simplex (as in figure 2.a).
+{% include annotation.html %}
+
+Often training output distributions will be very sharp on a corner of the simplex (as in figure 2.a).
 Nevertheless, the initial parameters of the Dirichlet distribution are closer to the center of the simplex (assume unknown).
 Training with this disparity can be challenging and authors introduce a **temperature annealing schedule**.
 They "heat" or "move" first optimization steps to make the distributions more uncertain and then gradually decrease this temperature.
 
+{% include end-row.html %}
+
+
+{% include start-row.html %}
 ## Results
 
 ### Artificial Data
@@ -134,12 +156,24 @@ For reference, a single network had an error of $$13.21\%$$
 
 We can visualize the uncertainty sources in the following plots:
 
+{% include end-row.html %}
+
+
+{% include start-row.html %}
+
 {% include figure.html url="/_papers/Ensemble_Distribution_Distillation//artificial_results.png" description="Figure 4: Artificial datasets. Notice the high data uncertainty around the spiral edges (between classes). Furthermore notice the high model uncertainty for points far away from the training sets." zoom="1.5" %}
 
-**Notice**: Without the $$Aux$$ data the distilled model fails to capture knowledge uncertainty (dark areas).
-
 To overcome that issue, the researchers sample the $$Aux$$ data-points and label them with the ensemble guesses.
-Then use these predictions (in combination with the previous ones) to re-train the distilled model, overcoming the issue.
+Then use these predictions (in combination with the previous ones) to re-train the distilled model,
+overcoming the issue.
+
+{% include annotation.html %}
+Without the $$Aux$$ data the distilled model fails to capture knowledge uncertainty (dark areas).
+{% include end-row.html %}
+
+
+
+{% include start-row.html %}
 
 ### Image Data
 
@@ -162,3 +196,5 @@ They then run similar tests on [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar
 - Choosing a **Dirichlet distribution might be too limiting**: The ensemble outputs could follow a different distribution, as hinted by figure 5, where we can induce that the ensemble follows a different distribution from $$(EnD^2)$$. (e.g. [multimodal](https://en.wikipedia.org/wiki/Multimodal_distribution) or  )
 
 {% include figure.html url="/_papers/Ensemble_Distribution_Distillation/cifar10_results.png" description="Figure 5: Histograms of uncertainty of the CIFAR-10 ensemble, EnD 2 and EnD 2+AUX on in-domain (ID) and test out-of-domain (OOD) data." zoom="1.5" %}
+
+{% include end-row.html %}
