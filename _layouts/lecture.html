@@ -19,14 +19,41 @@ layout: default
   gtag('config', 'UA-160601102-1');
 </script>
 
-<h1>{{ page.title }}</h1>
-<div class="opaque"> Lecture by {{page.lecture-author}}, {{page.lecture-date}}, <a href="{{page.slides-link}}">Slides</a>, <a href="{{page.video-link}}">Video</a> </div>
-<div class="opaque"> Post author: {{page.post-author}} </div>
+<div class="container-fluid">
+    <div class="row" style="padding-top: 100px;">
+        <div class="col-sm-2 offset-sm-1"> <!-- sidebar -->
+            <div class="container">
+                <nav class="d-none d-md-block" id="toc" style="position: fixed;"></nav>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h1>{{ page.title }}</h1>
+            <div class="opaque col-auto">
+                Lecture by {{page.lecture-author}}, {{page.lecture-date}},
+                <a href="{{page.slides-link}}">Slides</a>, <a href="{{page.video-link}}">Video</a>
+            </div>
+            <div class="opaque col-auto"> Post author: {{page.post-author}} </div>
+        </div>
+    </div>
+
+    <br>
+
+    {{content}}
+
+  <div class="row">
+    <br>
+    {% include comments-section.html pagename=page.name %}
+  </div>
 </div>
 
-<br>
-<div class="text-justify">{{ content }}</div>
-
-<br>
-
-{% include comments-section.html pagename=page.name %}
+<script>
+$(function() {
+  var navSelector = "#toc";
+  var $myNav = $(navSelector);
+  Toc.init($myNav);
+  $("body").scrollspy({
+    target: navSelector
+  });
+});
+</script>
