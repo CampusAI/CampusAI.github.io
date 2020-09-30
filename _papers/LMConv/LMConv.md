@@ -18,6 +18,7 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html %}
 If not familiar with **autoregressive generative models** I suggest to first take a look at our [Parametric Deep Generative Models post](http://127.0.0.1:4000/lectures/generative_models).
 
 ## Idea
@@ -38,13 +39,20 @@ Previous work (e.g. [PixelRNN](https://arxiv.org/abs/1601.06759) or [PixelCNN](h
 But this is only $$1$$ of the $$n!$$ possible image traversal ordering!
 This means inference can only be "reliably" done in this order.
 Therefore, it fails in image-completing tasks when it cannot observe the context (i.e. data is missing around first traversed pixels):
+{% include end-row.html %}
 
+
+{% include start-row.html %}
 {% include figure.html url="/_papers/LMConv/order.png" description="Figure 1: PixelCNN++ failing at image completion task because it cannot take advantage of the information in last rows of the image. LMConv can work in any order and uses all the available information to complete the image." zoom="1.0"%}
 
 This work addresses this issue by adding 2 new ideas to [PixelCNN](https://arxiv.org/abs/1606.05328): Train the model on different **traversal order permutations**, and use **masking** on the level of features.
+{% include annotation.html %}
 
-**NB**: _Convolutional autoregressive networks transform a $$H \times W \times c$$ image into a $$H \times W \times (c \cdot bins)$$ log-probability tensor. Where $$bins$$ is a discretization fo the light intensity of each channel. Row $$i$$, column $$j$$, depth $$k\%c$$ indicate the log-probability of light intensity being in bin $$k$$ for channel $$c$$ in pixel $$(i, j)$$._
+Convolutional autoregressive networks transform a $$H \times W \times c$$ image into a $$H \times W \times (c \cdot bins)$$ log-probability tensor. Where $$bins$$ is a discretization fo the light intensity of each channel. Row $$i$$, column $$j$$, depth $$k\%c$$ indicate the log-probability of light intensity being in bin $$k$$ for channel $$c$$ in pixel $$(i, j)$$.
+{% include end-row.html %}
 
+
+{% include start-row.html %}
 ### Pixel traversal permutation training
 
 The idea is simple: train in arbitrary orders so that later the **traversal can be customized** to each task.
@@ -80,7 +88,9 @@ Essentially, convolutions are implemented as a general matrix multiplication (GE
 \begin{equation}
 Y = \mathcal{W} \cdot im2col (X, k_1, k_2) + b
 \end{equation}
+{% include end-row.html %}
 
+{% include start-row.html %}
 Where: $$\mathcal{W}$$ rows are each conv2D filter weights and $$b$$ its biases.
 $$im2col (X, k_1, k_2)$$ converts the input image $$X$$ of shape $$H \times W \times c$$ into a tensor of shape $$(k_1 \cdot k_2 \cdot c) \times (H \cdot W)$$. This tensor columns are the $$(k_1 \times k_2 \times c)$$ patches where the convolution filter is applied to.
 
@@ -90,8 +100,11 @@ Its coefficients are dependent on the permutation $$\pi$$ in which we are traver
 I oversimplified the algorithm for the seek of brevity, I recommend taking a look at the [paper](https://arxiv.org/abs/2006.12486) since the idea is quite smart.
 Be careful though, things get a bit convoluted (pun intended).
 
-**NB**: _This allows for parallel computation of the conditionals._
+{% include annotation.html %}
+This allows for parallel computation of the conditionals.
+{% include end-row.html %}
 
+{% include start-row.html %}
 ## Results
 
 ### Density estimation
@@ -122,3 +135,5 @@ Tractable generative models are usually evaluated via the average negative log-l
 - Since it seems that they mostly care about image completion, I would like to see a comparison against a self-supervised network trained to specifically do so (different from other AR approaches, e.g. VAE).
 
 - I also wonder how **transferable** are the learned weights through different datasets. They only tested on 3 different datasets and re-trained each time the model.
+
+{% include end-row.html %}

@@ -17,6 +17,9 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+
+
+{% include start-row.html %}
 This paper proposes the SWA-Gaussian algorithm for uncertainty representation and calibration in
 Deep Learning. Standard Neural Networks do not provide any information about the confidence of
 their predictions. The SWAG algorithm proposed in this paper achieves efficient Bayesian
@@ -175,3 +178,6 @@ and ensembles of SGD iterates that were used to construct the SWAG approximation
 - Although the training is comparably faster with SGD, the prediction step requires to sample
   several models and perform predicitons with each one. This may be negligible or not depending
   on the application.
+
+
+{% include end-row.html %}
