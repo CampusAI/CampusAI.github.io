@@ -9,9 +9,9 @@
 </style>
 {% endif %}
 
-<figure class="image">
-  <img class="zoomed_img"
+<figure class="figure">
+  <img class="zoomed_img figure-img img-fluid rounded"
   src="{{ include.url }}" alt="{{ include.description }}"
   style="display:block;margin-left:auto;margin-right:auto;">
-  <figcaption style="text-align: center;">{{ include.description }}</figcaption>
+  <figcaption class="figure-caption">{{include.description}}</figcaption>
 </figure>

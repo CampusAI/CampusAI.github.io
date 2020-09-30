@@ -29,12 +29,11 @@
 </style>
 
 
-
-<div>
-<a href="{{include.url}}" style="text-decoration:none;color:inherit;">
-<div class="card">
-	<paper-title><b>{{include.title}}</b></paper-title> <br>
-    <small>{{include.subtitle}}</small>
-</div>
+<div class="card" style="width: 100%; margin-bottom: 1rem;">
+<a href="{{include.url}}" style="text-decoration:none;color:inherit;"> 
+  <div class="card-body" style="padding: 0.5rem">
+    <h5 class="card-title">{{include.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{include.subtitle}}</h6>
+  </div>
 </a>
 </div>
