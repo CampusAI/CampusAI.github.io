@@ -26,6 +26,10 @@ Given a dataset $$\mathcal{D} = \{x^1, ... x^K \}$$ of K n-dimensional datapoint
 p(x) = \prod_i^n p(x_i \mid x_{< i})
 \end{equation}
 
+Autoregressive models fix an ordering of the variables and model each conditional probability $$p(x_i \mid x_{< i})$$.
+This model is composed by a parametrized function with a fixed number of params.
+In practice fitting each of the distributions is computationally infeasible (too many parameters for high-dimensional inputs).
+
 {% include annotation.html %}
 
 This decomposition converts the joint modelling problem $$p(x_1, ..., x_n)$$ into a sequence modeling one.
@@ -34,10 +38,6 @@ A Bayesian network which does not do any assumption on the conditional independe
 
 {% include end-row.html %}
 {% include start-row.html %}
-
-Autoregressive models fix an ordering of the variables and model each conditional probability $$p(x_i \mid x_{< i})$$.
-This model is composed by a parametrized function with a fixed number of params.
-In practice fitting each of the distributions is computationally infeasible (too many parameters for high-dimensional inputs).
 
 Simplification methods:
 
@@ -50,11 +50,11 @@ Simplification methods:
 {% include end-row.html %}
 {% include start-row.html %}
 
-{% include figure.html url="/_ml/generative_models/ar_ann.png" description="Figure 2: Growing ANN modelling of the conditional distributions. (Image from KTH DD2412 course" zoom="1.0"%}
+{% include figure.html url="/_ml/generative_models/ar_ann.png" description="Figure 2: Growing ANN modelling of the conditional distributions. (Image from KTH DD2412 course)" zoom="1.0"%}
 
 {% include annotation.html %}
 
-The order in which you traverse the data matters! While temporal and sequential data have natural orders, 2D data doesn't. A solution is to train an ensemble with different orders (ENADE) and average its predictions.
+The **order** in which you traverse the data **matters!** While temporal and sequential data have natural orders, 2D data doesn't. A solution is to train an ensemble with different orders (ENADE) and average its predictions.
 
 {% include end-row.html %}
 {% include start-row.html %}
