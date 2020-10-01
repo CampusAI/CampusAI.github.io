@@ -17,7 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
-
+{% include start-row.html %}
 In the previous lecture ([Actor-Critic Algorithms](/lectures/lecture6)) we learned how to
 improve the policy by taking gradient steps proportional to an Advantage Function
 $$A^{\pi}(s_t, a_t)$$ that tells us *how much better* is action $$a_t$$ than the average action
@@ -50,16 +50,24 @@ performed *for each $$s \in S$$*.
 ## Evaluating $$V^{\pi}$$
 Following Eq. \ref{eq:advantage} we decide to evaluate $$A^{\pi}$$ by evaluating $$V^{\pi}$$.
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 We can store the whole $$V^{\pi}(\pmb{s})$$ and perform a **bootstrapped update**
 \begin{equation}
 \label{eq:v_update}
 V^{\pi}(\pmb{s}) \leftarrow r(\pmb{s}, \pi(\pmb{s})) + \gamma
 E_{s_{t+1} \sim p(s_{t+1} \vert s_t, a_t)} \Big[ V^{\pi}(\pmb{s}_{t+1}) \Big]
 \end{equation}
+
+{% include annotation.html %}
 Note that we are using the current estimate of $$V^{\pi}$$ when computing the expectation
 for the next states $$\pmb{s}_{t+1}$$. Since we are assuming to know the transition
 probabilities, the expected value can be computed analytically. This leads us to the
 **Policy Iteration** algorithm.
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Policy Iteration
 
@@ -114,15 +122,21 @@ Iteration** algorithm.
 We are still assuming that we know the transition dynamics of the environment and that the
 state space is finite.
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Repeat:
 1. Set $$\pmb{y}_i \leftarrow max_{a_i} \left( r(\pmb{s}_i, \pmb{a}_i) + \gamma
    E\left[ V_{\phi}(\pmb{s}_{i}')\right] \right)$$
 2. Set $$\phi \leftarrow \arg\min_{\phi} \frac{1}{2} \sum_{i} \vert\vert
    V_{\phi}(\pmb{s}_i) - \pmb{y}_i \vert \vert ^2$$
 
+{% include annotation.html %}
 Note that we still need to iterate trough all the possible states, although now we do not need
 to store a value for each, and we need to know the transition dynamics to compute
 $$E[V_{\phi}(\pmb{s}_i')]$$.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Unknown transition dynamics and infinite states
 The algorithm above has an issue that prevents us from relaxing the assumptions we made: we need
@@ -154,9 +168,13 @@ There are a few observations that we can make to better understand what this alg
 
 We can derive an **online** version of the algorithm that we can call **Q Learning**
 in which we optimize $$Q_{\phi}$$ at every step.
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_7/online_q_learning.png" %}
 
-**NOTE:** Here we use the same name as the well-known
+{% include annotation.html %}
+Here we use the same name as the well-known
 [Watson's Q Learning](https://link.springer.com/article/10.1007/BF00992698#article-info)
 algorithm which was designed for discrete tasks with no function approximation and contains some
 additional concepts that we will use in the next
@@ -164,7 +182,8 @@ additional concepts that we will use in the next
 approximation has serious implications, most importantly that **convergence is no more
 guaranteed**. Therefore, keep in mind that this algorithm is not the same as Watkin's, and we
 are using is only as an intermediate step until the next lecture.
-
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Exploration with Q iteration
 In step 1 of the **Fitted Q Iteration** and **Q Learning** we collect one or more
@@ -202,3 +221,5 @@ $$
 
 This allows us to take random actions in a way that is more oriented towards our current
 $$Q_{\phi}$$ estimate
+
+{% include end-row.html %}

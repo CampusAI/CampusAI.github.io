@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 **Idea:** If we learn $$f(s_t, a_t) = s_{t+1}$$ (or $$p(s_{t+1} \mid s_t, a_t)$$ in stochastic envs.) we can apply [last lecture](/lectures/lecture10) techniques to get a policy.
 
@@ -38,9 +39,15 @@ Yes, if we design a good base policy and we hand hand-engineer a dynamics repres
 
 ### Model Predictive Controller (MPC)
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_11/si_3.png"%}
 
-**OBS:** This algorithm works very decently: Replanning after each step compensates for imperfections in model and in planner. We can even plan for shorter horizons or use some very simple planner like random shooting.
+{% include annotation.html %}
+This algorithm works very decently: Replanning after each step compensates for imperfections in model and in planner. We can even plan for shorter horizons or use some very simple planner like random shooting.
+{% include end-row.html %}
+{% include start-row.html %}
 
 **Problems:**
 - Replanning after every step can be very expensive if we use good planners.
@@ -50,11 +57,17 @@ Yes, if we design a good base policy and we hand hand-engineer a dynamics repres
 
 **Idea:** What if we exploit models being aware of their uncertainty? (similarly to Gaussian Processes)
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 There exist 2 types of uncertainty:
 - The **aleatoric** (or statistical) uncertainty: Regarding the samples of the data. A good model of high aleatoric uncertainty data can have relative high entropy.
 - The **epistemic** (or model) uncertainty: When the model is certain about the data, but we are not certain about the model (e.g. overfiting). You cannot infer that uncertainty from output entropy.
 
-**OBS:** We cannot just use entropy of the ANN outcome since it is not a good measure of uncertainty. The model could be overfited and be very confident about something it is wrong about.
+{% include annotation.html %}
+We cannot just use entropy of the ANN outcome since it is not a good measure of uncertainty. The model could be overfited and be very confident about something it is wrong about.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Estimating the posterior: $$p(\theta \mid \mathcal{D})$$
 
@@ -74,11 +87,17 @@ We can achieve a rough approximation of $$p(s_{t+1} \mid s_t, a_t)$$ by training
 \frac{1}{N} \sum_i p(s_{t+1} \mid s_t, a_t, \theta_i)
 \end{equation}
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Bootstrap ensembling achieves the training of "independent" models by  training on "independent" datasets:
 It uses **bootstrap samples**, uniform sampling with replacement of the entire dataset.
 Later, to get an estimation of $$p(\theta \mid \mathcal{D})$$ we can just average each model output as depicted in Eq. \ref{bootstrap}.
 
-**OBS:** Bootstrap sampling is not very needed since SGD and random initialization is usually sufficient to make models independent enough. 
+{% include annotation.html %}
+Bootstrap sampling is not very needed since SGD and random initialization is usually sufficient to make models independent enough.
+{% include end-row.html %}
+{% include start-row.html %}
 
 **Problem:** Training ANNs is expensive so usually the number of fitted models is very small (< 10), this makes the approximation to be very crude.
 
@@ -106,10 +125,15 @@ s_{t+1, i} = f_i (s_{t, i}, a_t)
 \end{equation}
 
 In case of a stochastic environment, the algorithm becomes:
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include figure.html url="/_rl/lecture_11/stoc_bootstrap.png"%}
 
-**OBS:** There exist fancier options such as **moment matching** or better posterior estimation with **BNNs**.
+{% include annotation.html %}
+There exist fancier options such as **moment matching** or better posterior estimation with **BNNs**.
+{% include end-row.html %}
+{% include start-row.html %}
 
 
 # Model-based RL with complex observations
@@ -127,13 +151,19 @@ Remember that states are the underlying structure which fully describe an instan
 - $$p(s_{t+1} \mid s_t, a_t)$$: Is low-**dimensional** but **dynamic**: It models the environment transitions.
 
 ### Latent space models
+{% include end-row.html %}
+{% include start-row.html %}
+
 We need to learn models for:
 - **Observation model:** $$p(o_t \mid s_t )$$: To convert from states to observations.
 <!-- - $$p(s_t \mid o_t )$$: To convert from observations to states. -->
 - **Dynamics model:** $$p(s_{t+1} \mid s_t, a_t )$$: To know how the transitions work.
 - **Reward model:** $$p(r_t \mid s_t, a_t )$$: To plan for maximum reward.
 
-**OBS:** The state structure is not given to us, they are latent variables (helper random variables which are not observed but rather inferred from the observed variables).
+{% include annotation.html %}
+The state structure is not given to us, they are latent variables (helper random variables which are not observed but rather inferred from the observed variables).
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Training Latent space models
 Given a dataset of trajectories: $$\mathcal{D} = \{(s_{t+1} \mid s_t, a_t)_i\}$$ we can train a **fully observed** ($$s_t = o_t$$) model maximizing over its parameters:
@@ -178,15 +208,21 @@ max_{\phi, \psi} \frac{1}{N} \sum_i \sum_t
 \log p_{\phi} (g_\psi (o_{t+1, i}) \mid g_\psi (o_{t, i}), a_{t, i}) + \log p_{\phi} (o_{t, i} \mid g_\psi (o_{t, i)}) + \log p_\phi (r_{t,i} \mid g_\psi (o_{t,i}))
 \end{equation}
 
-In this order, we have the **latent space dinamics**, the **obesrvation reconstruction** and the **reward model**. The previous model-based algorithm can be adapted as:
+In this order, we have the **latent space dynamics**, the **observation reconstruction** and the **reward model**. The previous model-based algorithm can be adapted as:
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include figure.html url="/_rl/lecture_11/latent_space.png"%}
 
-**OBS**: How is this related to Hidden Markov Models (HMM) and Kalman filters (or Linear Quadratic Estimation, LQE)?
+{% include annotation.html %}
+How is this related to Hidden Markov Models (HMM) and Kalman filters (or Linear Quadratic Estimation, LQE)?
 - All three rely on the same structure of learning a latent space given observations.
 - **HMM** has states and observations which are all discrete (usually uses tabular representations).
 - **Kalman Filters** has states and observations which are all continuous and uses linear Gaussian representations for everything.
 - **Latent space RL models**: Can deal with much bigger spaces such as images thanks to ANNs. 
+{% include end-row.html %}
+{% include start-row.html %}
 
 <!-- TODO(Oleguer): Maybe I'll move this into an annex and talk about HMM and Kalman filters -->
 
@@ -194,3 +230,5 @@ In this order, we have the **latent space dinamics**, the **obesrvation reconstr
 
 Do we really need to learn an embedding to get the underlying states?\\
 **Observations model** directly learn $$p(o_{t+1} \mid o_t, a_t)$$. Usually combining CNNs with RNNs in a kind of video-prediction model achieves good results.
+
+{% include end-row.html %}

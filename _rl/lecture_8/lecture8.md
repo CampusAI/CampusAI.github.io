@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 In this lecture we go over again the two algorithms we studied in
 [Lecture 7: Value Function Methods](/lectures/lecture7), **Fitted Q iteration** and
@@ -29,13 +30,21 @@ The **Q-Learning** algorithm we previously described is the following
 {% include figure.html url="/_rl/lecture_8/q_learning_naive.png"
 description="Q Learning algorithm" %}
 which is an online version of the **Fitted Q Iteration** algorithm
+
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_8/fitted_q_naive.png" description="Fitted Q Iteration" %}
-**NOTE:** there is a fundamental difference between the Q Learning and the Fitted Q
+
+{% include annotation.html %}
+There is a fundamental difference between the Q Learning and the Fitted Q
 Iteration algorithms. While in Q-Learning we learn while the agent collects experience, in
 Fitted Q Iteration we collect **the whole experience dataset first**, and then we perform a full
 regression on it. Then, we use the learned policy to collect a new dataset, and we repeat. This
 is however not optimal for large networks, as it becomes too expensive to train on the whole
 dataset at each iteration.
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Q-Learning is NOT gradient descent
 The step 3 of Q-Learning looks very similar to the Gradient Descent algorithm, which we know
@@ -72,7 +81,7 @@ transitions to perform the gradient step. We can instead store a dataset of tran
 from one or multiple parallel workers, and sample from this dataset batches of transitions from
 which we compute the targets and perform the gradient step.
 
-{% include figure.html url="/_rl/lecture_8/replay_buffer.png" description="A replay buffer acts as a dataset of transitions. It is filled by interacting with the environmen, but the learning is off-policy" %}
+{% include figure.html url="/_rl/lecture_8/replay_buffer.png" description="A replay buffer acts as a dataset of transitions. It is filled by interacting with the environment, but the learning is off-policy" %}
 
 We now have to decide how often to refill the replay buffer, how many transitions to store, and
 how to sample transitions for the off-policy learning. Replay buffers solve the one-step
@@ -134,15 +143,24 @@ values is equivalent to taking the $$Q_{\phi'}$$ value of the $$\arg\max$$ actio
 both the selected action (in the $$\arg\max$$ ) and the value of that action are taken from the
 same network $$Q_{\phi'}$$: the **same noise** affects both. 
 
-In order to **decorrelate** this error, we will use two networks, one for chosing the action,
+{% include end-row.html %}
+{% include start-row.html %}
+
+In order to **decorrelate** this error, we will use two networks, one for choosing the action,
 and the other to compute its value. Luckily, we already have two networks, the **learning** and
 the **target** network. In **Double Q Learning**, we compute the targets of Eq. \ref{eq:targets}
 as 
+
 \begin{equation}
 y = r + \gamma Q_{\phi'}(s', \arg\max_{a'}Q_{\phi}(s', a'))
 \end{equation}
+
+{% include annotation.html %}
 Note how the action is chosen according to an $$\arg\max$$ over $$Q_{\phi}$$, while its value
 is computed with $$Q_{\phi'}$$.
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Multi Step Returns
 The targets computed by Eq. \ref{eq:targets} are composed of a single reward term and a
@@ -235,3 +253,5 @@ We obtain the **DDPG** algorithm:
 At this point we can understand this meme:
 
 {% include figure.html url="/_rl/lecture_8/PG_vs_DQN.png" %}
+
+{% include end-row.html %}

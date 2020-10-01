@@ -17,6 +17,8 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
+
 
 ## The Reinforcement Learning Framework
 Reinforcement Learning deals with **agents** interacting within a certain **environment**, observing
@@ -136,3 +138,5 @@ generating new samples may be way faster than updating the policy (for example, 
 networks). Different algorithms make different assumptions on the state and action spaces as well as
 the nature of the task (episodic vs continuous). Moreover, **convergence is not always guaranteed** in
 many cases! One should always chose the algorithm by taking all this and much more factors into account.
+
+{% include end-row.html %}

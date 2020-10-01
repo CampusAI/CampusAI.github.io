@@ -17,12 +17,16 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 Until now we had to manually design the reward function.
 IRL automatically learns the reward function from expert demonstrations.
 In this case, instead of hard-coding a reward we would provide demonstrations.
 
-**OBS**: This is different from imitation learning (IL) since IL does not reason about the outcome of actions, it just tries to mimic the demonstrations.
+{% include annotation.html %}
+This is different from imitation learning (IL) since IL does not reason about the outcome of actions, it just tries to mimic the demonstrations.
+{% include end-row.html %}
+{% include start-row.html %}
 
 **Problem**: Learning the reward is an **underspecified** problem, multiple reward functions may explain the same expert behavior.
 
@@ -108,6 +112,8 @@ Z = \int p(\tau) exp(r_\psi (\tau)) d \tau
 \end{equation}
 
 Which can be interpreted as "make the reward on the seen trajectories (expert demonstrations) big w.r.t the other possible trajectories that the expert did not execute".\\
+{% include end-row.html %}
+{% include start-row.html %}
 Substituting and taking derivatives:
 
 \begin{equation}
@@ -123,10 +129,13 @@ E_{\tau \sim \pi^\star (\tau)} \left[ \nabla_\psi r_\psi (\tau_i) \right] -
 E_{\tau \sim p(\tau \mid O_{1:T}, \psi)} \left[ \nabla_\psi r_\psi(\tau) \right]
 \end{equation}
 
-**OBS**: The gradient of the likelihood points into the positive direction for the trajectories that come from the expert.
+{% include annotation.html %}
+The gradient of the likelihood points into the positive direction for the trajectories that come from the expert.
 And negative direction for the samples of the policy corresponding to the current reward. Cancelling to zero when both distributions are equal.
 
-**OBS**: Computing the first expectation is easy using the experts samples, so now we'll focus on computing the soft optimal policy under current reward.
+Computing the first expectation is easy using the experts samples, so now we'll focus on computing the soft optimal policy under current reward.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Estimating the expectation (second term in eq. \ref{grad}):
 
@@ -138,13 +147,20 @@ E_{\tau \sim p(\tau \mid O_{1:T}, \psi)} \left[ \nabla_\psi r_\psi(\tau) \right]
 \sum_t E_{(s_t, a_t) \sim p(s_t, a_t \mid O_{1:T}, \psi)} \left[ \nabla_\psi r_\psi(s_t, a_t) \right]
 \end{equation}
 
+{% include end-row.html %}
+{% include start-row.html %}
 Where if we break $$p(s_t, a_t \mid O_{1:T}, \psi) = p(a_t \mid O_{1:T}, \psi) p(s_t \mid O_{1:T}, \psi)$$,
 which as we saw in [Lecture 14: Control as Inference](/lectures/lecture14),
 $$p(a_t \mid O_{1:T}, \psi) p(s_t \mid O_{1:T}, \psi) \propto \beta(s_t, a_t) \alpha(s_t)$$ where $$\beta$$ is the backward message, and $$\alpha$$ the forward message.
 
-**OBS**: This requires the state-action space to be small enough so you can go through every single state and action (still much better than working with trajectories, which grow exponentially with the number of states-actions). This is instead linear in time-horizon, state, and action space.
+{% include annotation.html %}
+This requires the state-action space to be small enough so you can go through every single state and action (still much better than working with trajectories, which grow exponentially with the number of states-actions). This is instead linear in time-horizon, state, and action space.
+{% include end-row.html %}
+{% include start-row.html %}
 
 Defining $$\mu_t(s_t, a_t) \propto \beta(s_t, a_t) \alpha(s_t)$$ (normalized) we get:
+{% include end-row.html %}
+{% include start-row.html %}
 
 \begin{equation}
 E_{\tau \sim p(\tau \mid O_{1:T}, \psi)} \left[ \nabla_\psi r_\psi(\tau) \right] = 
@@ -154,22 +170,29 @@ ds_t da_t =
 \sum_t  \vec{\mu_t}^T \cdot \vec{r}_\psi
 \end{equation}
 
-**OBS**: $$\vec{\mu_t}$$ is the state-action visitation probability for each $$(s_t, a_t)$$.
+{% include annotation.html %}
+$$\vec{\mu_t}$$ is the state-action visitation probability for each $$(s_t, a_t)$$.
+{% include end-row.html %}
+{% include start-row.html %}
 
 With this, we can finally define the [MaxEnt IRL algorithm](https://www.aaai.org/Papers/AAAI/2008/AAAI08-227.pdf) ():
 
+{% include end-row.html %}
+{% include start-row.html %}
 {% include figure.html url="/_rl/lecture_15/maxentr_irl.png" description="MaxEntr IRL algorithm"%}
 
 This works well for small (tabular) state-action spaces with known transitions.
 
-**OBS**: This framework is called max-entropy because it can be shown in the case where: $$r_\psi (s_t, a_t) = \psi^T f(s_t, a_t)$$, it optimizes:
+{% include annotation.html %}
+This framework is called max-entropy because it can be shown in the case where: $$r_\psi (s_t, a_t) = \psi^T f(s_t, a_t)$$, it optimizes:
 $$
 max_\psi \mathcal{H} \left( \pi^{r_\psi} \right)
 \space \space s.t.
 E_{\pi^{r_\psi}}[f] = E_{\pi^\star} [f]
 $$.
 Which is like saying "get the most random policy which matches the expert". It is good because it doesn't do any more assumptions on the behavior other than this one.
-
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Learning the optimality variable $$r$$ in big spaces
 
@@ -199,7 +222,6 @@ Where the first term are expert demonstrations and the second one policy samples
 
 **Problem**: We need to make the learning of $$p(a_t \mid s_t, O_{1:T}, \psi)$$ converge for every step of the $$\psi$$ optimization $$\Rightarrow$$ Very slow!
 
-
 **Solution**: Instead of re-learning a policy after each step of $$\psi$$ optimization, we can have a single one and do single steps to optimize it. For instance, we can use **importance sampling**:
 
 \begin{equation}
@@ -208,12 +230,18 @@ Where the first term are expert demonstrations and the second one policy samples
 \frac{1}{\sum_j w_j} \sum_j  w_j \nabla_\psi r_\psi (\tau_j)
 \end{equation}
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Where: $$w_j = \frac{p(\tau) exp ( r_\psi (\tau_j) ) }{\pi(\tau_j)}$$, which if we expand using trajectory probabilities a lot gets cancelled out:
 $$
 w_j = \frac{exp \left( \sum_t r_\psi (s_t, a_t)\right)}{\prod_t \pi (a_t \mid s_t)}
 $$.
 
-**OBS:** This lazy update of the policy samples w.r.t $$r_\psi$$ brings us closer to the target distribution!
+{% include annotation.html %}
+This lazy update of the policy samples w.r.t $$r_\psi$$ brings us closer to the target distribution!
+{% include end-row.html %}
+{% include start-row.html %}
 
 **Guided cost learning** algorithm exemplifies how to use this approach:
 
@@ -224,3 +252,5 @@ Reward and policy are sort of "**competing**" against each other: Policy demos a
 More on this connection between GANs and IRL in this [paper](https://arxiv.org/abs/1611.03852).\\
 Another GAN IRL algorithm in this [paper](https://arxiv.org/abs/1710.11248).\\
 Yet another which even takes the similarities in a more direct way: [paper](https://arxiv.org/abs/1606.03476).
+
+{% include end-row.html %}

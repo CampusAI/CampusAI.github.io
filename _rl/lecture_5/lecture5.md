@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 In this lecture we focus on the case where we have an explicit, differentiable policy that maps
 a given state to the correspondent distribution over actions. In deep RL this is tipically
@@ -254,3 +255,5 @@ the new policy $$\pi_{\theta'}$$, preventing us to exploit samples from policies
 different, but solves the numerical issues. Therefore, if the time horizon $T$ is not too big,
 the formulation of Eq. \ref{eq:off_policy} is preferrable, otherwise one should go for
 Eq. \ref{eq:off_policy_approx}.
+
+{% include end-row.html %}

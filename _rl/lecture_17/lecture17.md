@@ -18,7 +18,9 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
-**OBS:** The main bottleneck of creating distributed RL algorithms is that we need to create our own datasets with improved policies. Unlike SL where the datasets are given.
+{% include start-row.html %}
+
+The main bottleneck of creating distributed RL algorithms is that we need to create our own datasets with improved policies. Unlike SL where the datasets are given.
 This means we need to create algorithmic changes alongside system changes when designing new parallel architectures.
 
 # History of large scale distributed RL
@@ -142,3 +144,5 @@ Technique for hyperparameter optimization.
 Merges the idea of a grid search but instead of the networks training independently, it uses information from the rest of the population to refine the hyperparameters and direct computational resources to models which show promise.
 
 Using this technique one can improve the performance of any hyperparam-dependent algorithm.
+
+{% include end-row.html %}

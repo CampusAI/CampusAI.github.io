@@ -17,6 +17,8 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
+
 In [Lecture 2: Imitation Learning](/lectures/lecture2) we noticed an issue with learning from
 demonstrations when the data has a **multi-modal behavior**. In the example below, the human
 demonstrator sometimes decides to avoid the obstacle by turning left, and sometimes by turning
@@ -361,3 +363,5 @@ learning rates</span>.
 + <span style="color:green">Low variance (one sample is often enough)</span>.
 + <span style="color:green">Simple to implement</span>.
 + <span style="color:red">Can handle only continuous latent variables</span>.
+
+{% include end-row.html %}

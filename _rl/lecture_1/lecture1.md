@@ -17,17 +17,25 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 - **Deep Learning (DL):** Useful for recognition of unstructured data.
 <!-- (*raw* data not designed for a machine to work well on) -->
 - **Reinforcement Learning (RL):** Useful for decision-making problems:  An **agent** interacts with an **environment**. It perceives **states** and takes **actions** according to some **policy** to maximize a sense of **reward**.
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_1/idea.jpg" description="RL problem structure" %}
 
-**OBS:** Most problems we perceive as AI problems can be framed as RL problems. (e.g. Image classification can be seen as a decision problem with +1 reward when correctly classified).
+{% include annotation.html %}
 
-**OBS:** Deep models are what make RL solve complex tasks end-to-end. They allow the direct mapping between states and actions.
+Most problems we perceive as AI problems can be framed as RL problems. (e.g. Image classification can be seen as a decision problem with +1 reward when correctly classified).
 
+Deep models are what make RL solve complex tasks end-to-end. They allow the direct mapping between states and actions.
+
+{% include end-row.html %}
+{% include start-row.html %}
 <!-- ## RL Examples:
 
 Robot:
@@ -86,3 +94,5 @@ Inventory management:
 - DRL methods are very **slow**: They require a lot of experience samples before they work well.
 - Humans re-use a lot of knowledge but **transfer** learning in DRL is still an open problem.
 - How should the **reward** function be? What is the role of **predictions**?
+
+{% include end-row.html %}

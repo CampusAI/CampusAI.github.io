@@ -17,6 +17,8 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
+
 
 - **Actor:** The policy $\pi$
 - **Critic:** The value function $V^\pi$
@@ -46,7 +48,10 @@ We saw that using the estimate of the expected reward of the current state-actio
 \nabla_{\theta} \log \pi_{\theta} (a_{i, t} \mid s_{i, t}) \hat Q^\pi (s_t^i, a_t^i)
 \end{equation}
 
-We also saw the power of baslines to reduce variance:
+{% include end-row.html %}
+{% include start-row.html %}
+
+We also saw the power of baselines to reduce variance:
 In particular, we can use the state-dependent baseline: $V(s_{i, t})$: **critic-based estimator**.
 With this, we indicate how much better the action $a_{i, t}$ is, with respect to the average action in state $s_{i, t}$, we refer to it as the **advantage function**:
 
@@ -54,8 +59,11 @@ With this, we indicate how much better the action $a_{i, t}$ is, with respect to
 A^\pi (s_t, a_t) := Q^\pi (s_t, a_t) - V^\pi (s_t)
 \end{equation}
 
-**OBS:** We cannot add an action-dependent bias like $Q^\pi (s_t, a_t)$ unless we add some other term to zero the expectation.
-More on this [here](https://arxiv.org/abs/1611.02247)
+{% include annotation.html %}
+We cannot add an action-dependent bias like $Q^\pi (s_t, a_t)$ unless we add some other term to zero the expectation.
+More on this [paper](https://arxiv.org/abs/1611.02247)
+{% include end-row.html %}
+{% include start-row.html %}
 
 Thus, where the better the estimate of $\hat A$ is, the lower the variance:
 
@@ -78,7 +86,7 @@ So, what should we fit, $Q^\pi$, $V^\pi$ or $A^\pi$?
 <!-- Not so sure in the approximation from the expectation to a single value -->
       - $A^\pi (s_t, a_t) \simeq r(s_t, a_t) + V^{\pi} (s_{t+1}) - V^{\pi} (s_t)$
 
-**OBS:** If we don't want to fit something that takes both states and actions we can just fit $V^{\pi}$ at the cost of using a single-sample estimate for $s_{t+1}$.
+If we don't want to fit something that takes both states and actions we can just fit $V^{\pi}$ at the cost of using a single-sample estimate for $s_{t+1}$.
 We will do this for now, to fit $Q^\pi$ look into [Q-learning](/lectures/lecture7) methods.
 
 ## Policy Evaluation
@@ -87,13 +95,19 @@ Fitting a value function $V^\pi$ for a given policy $\pi$. To do so we generate 
 
 ### Monte Carlo (MC) Policy Evaluation
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Use single-sample estimate of return of a particular state:
 
 \begin{equation}
 y_{i, t} = \hat V^{\pi} (s_t) \simeq \sum_{t^{\prime}=t}^T r(s_{t^{\prime}}, a_{t^{\prime}})
 \end{equation}
 
-**OBS:** If we approximate $V^{\pi}$ like this, isn't that the same as what we were doing in Eq. \ref{eq:basic_objective} ? Not if we use a value function approximator able to generalize which doesn't overfit (e.g. ANNs). It will average out similar states and generalize to unseen ones.
+{% include annotation.html %}
+If we approximate $V^{\pi}$ like this, isn't that the same as what we were doing in Eq. \ref{eq:basic_objective} ? Not if we use a value function approximator able to generalize which doesn't overfit (e.g. ANNs). It will average out similar states and generalize to unseen ones.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Bootstrapped Estimate Evaluation
 
@@ -136,22 +150,28 @@ With this, we can define an offline and an online learning method based on the R
 
 ### Online actor-critic
 
+{% include end-row.html %}
+{% include start-row.html %}
 {% include figure.html url="/_rl/lecture_6/ac_algorithm_online.png" description="Figure 2: Online actor-critic algorithm" %}
 
-**OBS:** We need 2 ANNs, one for $\pi_\theta$ and one for $\hat V^\pi$.
+{% include annotation.html %}
+Notice that we need 2 ANNs, one for $\pi_\theta$ and one for $\hat V^\pi$.
+{% include end-row.html %}
+{% include start-row.html %}
+
 We could make them **share** the **first** feature-extracting **layers** and have a single network with "2 heads":
 - **Pros:**
-    - Faster learning
+    - <span style="color:green">Faster learning.</span>
 - **Cons:**
-    - Harder to implement
-    - The combination of 2 learning gradients on a shared network can become unstable (how do you decide each learning rate? variance of policy gradient is much larger than the one in value gradients).
+    - <span style="color:red">Harder to implement.</span>
+    - <span style="color:red">The combination of 2 learning gradients on a shared network can become unstable (how do you decide each learning rate? variance of policy gradient is much larger than the one in value gradients).</span>
 
 **Online AC problem:** We train using a minibatch size of 1 $\Rightarrow$ Not even Supervised Learning works if training with 1-sample batches!! (Too noisy)
 If we want a bigger batch size we need parallel sampling workers. We can use **synchronized** (easier to implement) or a **asynchronous** algorithm.
 
 ### Eligibility traces and n-step returns
 
-**OBSs:** 
+So far we know:
 - Short-term samples have low variance (a sample of you doing something tomorrow is more accurate than one of in 30 years) $\Rightarrow$ MC excels short-term.
 - Bias in long-term predictions is not as big of a problem compared to variance $\Rightarrow$ Bootstrapping excels long-term.
 
@@ -178,6 +198,9 @@ After some algebra:
 \hat A_{GAE}^{\pi} (s_t, a_t)= \sum_{t^{\prime} = t}^\infty (\gamma \lambda)^{t^{\prime} - t} \delta_{t^\prime}
 \end{equation}
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Where:
 
 \begin{equation}
@@ -185,4 +208,8 @@ Where:
 \hat V_{\theta}^{\pi} (s_t) + \gamma^n \hat V_{\theta}^{\pi} (s_{t+1})
 \end{equation}
 
-**OBS:** $\gamma$ and $\lambda$ get multiplied together in Eq. \ref{eq:gae} $\Rightarrow$ they have similar effects $\Rightarrow$ they both balance the bias-variance trade-off $\Rightarrow$ discount factor is also a form of variance reduction.
+{% include annotation.html %}
+
+$\gamma$ and $\lambda$ get multiplied together in Eq. \ref{eq:gae} $\Rightarrow$ they have similar effects $\Rightarrow$ they both balance the bias-variance trade-off $\Rightarrow$ discount factor is also a form of variance reduction.
+
+{% include end-row.html %}

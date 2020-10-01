@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 In this lecture we take a deeper dive into why Policy Gradient algorithms work, and we extract
 some useful knowledge that will help us to derive advanced Policy Gradient algorithms such as
@@ -285,3 +286,5 @@ $$
     - If $$d \gt 1.5 d_{targ}$$ then $$\beta \leftarrow 2\beta$$
 
 Where $$d_{targ}$$ is the desired KL Divergence target value.
+
+{% include end-row.html %}

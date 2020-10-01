@@ -19,6 +19,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 
 <!-- # Introduction -->
+{% include start-row.html %}
 
 Until now, we assumed we did not know the dynamics of the environment.
 Nevertheless, they are often known or can be learned.
@@ -78,12 +79,18 @@ Black-box optimization techniques.
 2. Choose $$A_i$$ based on $$\arg \max_i J(A_i)$$
 
 ### Cross-Entropy Method (CEM)
+{% include end-row.html %}
+{% include start-row.html %}
+
 **Algorithm:**
 1. Sample $$A_1,..., A_N$$ from some distribution $$p(A)$$
 2. Choose $$M$$ highest rewarding samples results $$A^1,...,A^M$$, *the elites*
 3. Re-fit $$p(A)$$ to *the elites* $$A^1,...,A^M$$.
 
-**OBS:** Not a great optimizer but easy to code and easy to parallelize. Works well for low-dimension systems (dimensionality < 64) and few time-steps.
+{% include annotation.html %}
+Not a great optimizer but easy to code and easy to parallelize. Works well for low-dimension systems (dimensionality < 64) and few time-steps.
+{% include end-row.html %}
+{% include start-row.html %}
 
 **Improvements:** CMA-ES, implements momentum into CEM.
 
@@ -108,11 +115,17 @@ Score(s_t) = \frac{Q(s_t)}{N(s_t)} + 2C\sqrt{\frac{2\log N(s_{t-1})}{N(s_{t-1})}
 
 Where $$Q(s_t)$$ is the "Quality" of a state (sum of all trajectory rewards which passed through it) and $$N(s_t)$$ the number of times the state has been visited. $$C$$ controls how much we favour less visited nodes.
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Handles better the stochastic case compared to Stochastic optimization methods.
 More on MCTS [here](http://www.incompleteideas.net/609%20dropbox/other%20readings%20and%20resources/MCTS-survey.pdf).
 It can also substitute the human data hand-labeling in [DAgger](/lectures/lecture2) algorithm: [paper](https://papers.nips.cc/paper/5421-deep-learning-for-real-time-atari-game-play-using-offline-monte-carlo-tree-search-planning)
 
-**OBS:** MCTS takes advantage of the model of the environment by repeatedly resetting it to the studied state.
+{% include annotation.html %}
+MCTS takes advantage of the model of the environment by repeatedly resetting it to the studied state.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Trajectory optimization
 
@@ -123,6 +136,8 @@ min_{u_1,...u_T} \sum_t c(x_t, u_t) \space \space \space \space s.t. \space x_t=
 \end{equation}
 
 ### Collocation method
+{% include end-row.html %}
+{% include start-row.html %}
 
 Instead of optimizing only over actions and letting the states be a consequence of them, collocation methods optimize over both states and actions while enforcing the constrains:
 
@@ -130,8 +145,12 @@ Instead of optimizing only over actions and letting the states be a consequence 
 min_{u_1,...u_T, x_1,...,x_T} \sum_t c(x_t, u_t) \space \space \space \space s.t. \space x_t=f(x_{t_1}, u_{t-1})
 \end{equation}
 
-**OBS:** This usually results into a much better conditioned optimization problem than Shooting Methods (next alg.).\\
-**OBS:** It is usually solved using some variant of sequential quadratic programming, locally linearly approximating the constrain and making a second-level Taylor approximation of the cost. (Solve local optimization problem and repeat).
+{% include annotation.html %}
+
+This usually results into a much better conditioned optimization problem than Shooting Methods (next alg.).\\
+It is usually solved using some variant of sequential quadratic programming, locally linearly approximating the constrain and making a second-level Taylor approximation of the cost.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Shooting method
 
@@ -169,8 +188,15 @@ Same, using a time-varying linear controller: $K_t s_t + k_t$.
 Extend LQR into **iterative LQR (iLQR)** or **Differential Dynamic Programming (DDP)**.\\
 The idea is to estimate local linear approximation of the dynamics and quadratic approximation of the cost by doing Taylor expansions. This way we can frame the problem as in simple LQR:
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_10/ilqr.png" description="Non-linear case approximation." %}
 
-**OBS:** This is equivalent to Newton's minimization method (but applied to trajectory optimization). More on it in this [paper](https://homes.cs.washington.edu/~todorov/papers/TassaIROS12.pdf).
+{% include annotation.html %}
+
+This is equivalent to Newton's minimization method (but applied to trajectory optimization). More on it in this [paper](https://homes.cs.washington.edu/~todorov/papers/TassaIROS12.pdf).
 
 <!-- TODO(oleguer): Add videos and comment it is very good -->
+
+{% include end-row.html %}

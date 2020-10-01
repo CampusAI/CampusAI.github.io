@@ -17,16 +17,26 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 # Behavioral cloning (BC)
 
 **IDEA:** Record a lot of "expert" demonstrations and apply classic supervised learning to obtain a model to map observations to actions (policy).
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_2/bc.png" description="Self-driving vehicle behavioral cloning workflow example." %}
 
-**OBS:** Behavioral cloning is a type of Imitation Learning -a general term to say "learn from expert demonstrations".
+{% include annotation.html %}
 
-**OBS:** Behavioral cloning is just a fancy way to say "supervised learning".
+Behavioral cloning is a type of Imitation Learning -a general term to say "learn from expert demonstrations".
+
+Behavioral cloning is just a fancy way to say "supervised learning".
+
+{% include end-row.html %}
+{% include start-row.html %}
+
 
 # Why doesn't this work?
 
@@ -89,18 +99,31 @@ Defining the cost function: $c(s, a) = \delta_{a \neq \pi^*(s)}$ (1 when the act
 
 And assuming that the probability of making a mistake on a state sampled from the training distribution is bounded by $\epsilon$: $\space \space \pi_\theta (a \neq \pi^* (s) \mid s) \leq \epsilon \space\space \forall s \sim p_{train}(s)$ 
 
-### Case: $p_{train}(s) \simeq p_{\theta}(s)$
+## Case: $p_{train}(s) \simeq p_{\theta}(s)$
+
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{equation}
 E \left[ \sum_t c(s_t, a_t) \right] = O(\epsilon T)
 \end{equation}
 
-**OBS:** This would be the case if DAgger algorithm correctly applied, where the training data distribution converges to the trained policy one.
+{% include annotation.html %}
 
-### Case: $p_{train}(s) \neq p_{\theta}(s)$
+This would be the case if DAgger algorithm correctly applied, where the training data distribution converges to the trained policy one.
 
-We have that: $p_\theta (s_t) = (1-\epsilon)^t p_{train} (s_t) + (1 - (1 - \epsilon)^t) p_{mistake} (s_t)$
+{% include end-row.html %}
+{% include start-row.html %}
 
-Where $p_{mistake} (s_t)$ is a state probability distribution different from $p_{train} (s_t)$. In the worst case, the total variation divergence: $\mid p_{mistake} (s_t) - p_{train} (s_t) \mid = 2$
+
+## Case: $p_{train}(s) \neq p_{\theta}(s)$
+
+We have that: $$p_\theta (s_t) = (1-\epsilon)^t p_{train} (s_t) + (1 - (1 - \epsilon)^t) p_{mistake} (s_t)$$
+
+Where $p_{mistake} (s_t)$ is a state probability distribution different from $$p_{train} (s_t)$$. In the worst case, the total variation divergence: $$\mid p_{mistake} (s_t) - p_{train} (s_t) \mid = 2$$
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 Therefore:
 
@@ -108,4 +131,8 @@ Therefore:
 \sum_t E_{p_\theta (s_t)} [c_t] = O(\epsilon T^2)
 \end{equation}
 
-**OBS:** The error expectation grows quadratically over time!! More details on: [A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning](https://arxiv.org/abs/1011.0686)
+{% include annotation.html %}
+
+The error expectation grows quadratically over time!! More details on: [A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning](https://arxiv.org/abs/1011.0686)
+
+{% include end-row.html %}

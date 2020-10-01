@@ -25,6 +25,8 @@ brief:      The text conten of the card. If type is "bulletlist",
 subtitle:   Leave empty in lectures
 -->
 
+### RL Basics
+
 {% include card.html title="Lecture 1: Introduction" brief="SL vs RL;Ways to learn;How to build intelligent machines;State of the art" img="/_rl/lecture_1/icon.jpg" url="/lectures/lecture1" type="bulletlist" %}
 
 
@@ -33,6 +35,7 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Lecture 4: Introduction to Reinforcement Learning" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist" %}
 
+### Model-Free RL
 
 {% include card.html title="Lecture 5: Policy Gradients" brief="Policy differentiation;The REINFORCE algorithm;Solving the causality issue;Baselines;Off-policy Policy Gradient" img="/_rl/lecture_5/icon.png" url="/lectures/lecture5" type="bulletlist" %}
 
@@ -48,6 +51,8 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Lecture 9: Advanced Policy Gradients" brief="Policy Gradient as Policy Iteration;The KL Divergence constraint;Dual Gradient Descent;Natural Gradients and Trust Region Policy Optimization;Proximal Policy Optimization" img="/_rl/lecture_9/icon.png" url="/lectures/lecture9" type="bulletlist"%}
 
+### Model-Based RL
+
 {% include card.html title="Lecture 10: Model-based Planning" brief="Deterministic vs Stochastic environments;Stochastic optimization methods;Monte Carlo Tree Search (MCTS);Collocation trajectory optimization;Shooting trajectory optimization" img="/_rl/lecture_10/icon.png" url="/lectures/lecture10" type="bulletlist"%}
 
 {% include card.html title="Lecture 11: Model-based Reinforcement Learning" brief="Naive Model-Based RL;Uncertainty in model-based RL;Model-based RL with complex observations" img="/_rl/lecture_11/icon.png" url="/lectures/lecture11" type="bulletlist"%}
@@ -57,6 +62,7 @@ subtitle:   Leave empty in lectures
 {% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%}
 
 <!-- {% include card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
+### Advanced Topics
 
 {% include card.html title="Lecture 15: Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_rl/lecture_15/icon.png" url="/lectures/lecture15" type="bulletlist"%}
 

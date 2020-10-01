@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 **NOTE**: Transfer Learning (TL) & Multi-task Learning (MTL) are still an open problem in DRL, this lecture is more a survey on latest research rather than some well-established methods.
 
@@ -184,3 +185,5 @@ In a setup with $$n$$ robots working on $$m$$ tasks instead of having a single A
 {% include figure.html url="/_rl/lecture_16/modular_ann.png" description="Modular ANN training approach. Different robots learn different tasks in a modular setup. Notice that you only need 2 different modules (robot and task) to learn 4 situations."%}
 
 The performance of this approach depends on how many different values you have of this factors of variation and the information capacity between the modules is not too large (otherwise you need to use some kind of regularization).
+
+{% include end-row.html %}

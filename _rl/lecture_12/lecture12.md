@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 In the previous lecture: [Model-based RL](/lectures/lecture11), we where planning trajectories (**stochastic open-loop**), by maximizing the expected reward over a sequence of actions: 
 \begin{equation}
@@ -87,9 +88,16 @@ Avoids backprop through time as it treats the derivation of an expectation as th
 
 Online Q-learning algorithm performing model-free RL with a model to help compute future expectations.
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 {% include figure.html url="/_rl/lecture_12/dyna.png" description="Dyna algorithm pseudocode."%}
 
-**OBS:** We use our learned synthetic model to make better estimations of future rewards.
+{% include annotation.html %}
+We use our learned synthetic model to make better estimations of future rewards.
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Generalized Dyna-style Algorithms
 
@@ -100,12 +108,12 @@ Online Q-learning algorithm performing model-free RL with a model to help comput
 {% include figure.html url="/_rl/lecture_12/gen_dyna_idea.png" description="Generalyzed Dyna approach. Black arrows are the real-world traversed trajectories. Tan points the samples from which to generate synthetic trajectories. Red arrows the simulated trajectories using our learned transition model."%}
 
 **Pros**:
-- We augment the training states by generating new samples (this reduces variance). 
-- Env. model doesn't need to be super good since we only use it to simulate few steps close to real states.
+- <span style="color:green">We augment the training states by generating new samples (this reduces variance).</span>
+- <span style="color:green">Env. model doesn't need to be super good since we only use it to simulate few steps close to real states.</span>
 
 **Cons**:
-- Initial env. model might be very bad and mess up the policy approximator.
-- Learning a decent model of the environment in some cases might be harder than learning the Q function.
+- <span style="color:red">Initial env. model might be very bad and mess up the policy approximator.</span>
+- <span style="color:red">Learning a decent model of the environment in some cases might be harder than learning the Q function.</span>
 
 ## Local policies
 
@@ -154,32 +162,49 @@ For instance, if we have an environment with different possible starting states,
 
 **Problem**: The learned controllers behavior might not be reproducible by a single ANN. They all have different local optima and an ANN can only have one.
 
-**Solution**: After training the ANN, go back and modify the weak learners rewards to try to mimic the ANN as well. This way, after re-training, the global optima should be found:
+**Solution**: After training the ANN, go back and modify the weak learners rewards to try to mimic the ANN as well.This way, after re-training, the global optima should be found:
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include figure.html url="/_rl/lecture_12/guided_pol.png" description="Guided policy search algorithm. $\pi_{theta}$ is the global ANN-modelled policy. $\lambda$ is the Lagrange multiplier and the sign of the equation in step 3 should be negative."%}
 
+{% include annotation.html %}
 More on this [paper](https://arxiv.org/abs/1504.00702).
 
-**OBS**: This idea of combining local policies and a single global policy ANN can be used in other settings beyond model-based RL (it also works well on model-free RL).
-
+This idea of combining local policies and a single global policy ANN can be used in other settings beyond model-based RL (it also works well on model-free RL).
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Distillation in Supervised Learning
 
+{% include end-row.html %}
+{% include start-row.html %}
 **Distillation**: Given an ensemble of weaker models, we can train a single one that matches their performance by using each model output of the ensemble as a "soft" target (e.g. applying Softmax over them). The intuition is that the ensemble adds knowledge to the otherwise hard labels, such as: which ones can be confusing.
 
-Mor on this [paper](https://arxiv.org/abs/1503.02531)
+{% include annotation.html %}
+More on this [paper](https://arxiv.org/abs/1503.02531)
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Policy Distillation
-
+{% include end-row.html %}
+{% include start-row.html %}
 Distillation concept can be brought to RL.
 For instance in this [paper](https://arxiv.org/abs/1511.06342) they train an agent to play all Atari games.
 They train a different policies to play each of the games and then use supervised learning to train a single policy which plays all of them.
 This technique seems to be easier than multi-task RL training.
 
-**OBS**: This is analogous to **Guided policy search** but for multi-task learning
+{% include annotation.html %}
+This is analogous to **Guided policy search** but for multi-task learning
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Divide and Conquer RL
 
 We can use the loop presented in **Guided policy search** also in this setting to improve the specific policies using the global policy:
 
 {% include figure.html url="/_rl/lecture_12/div_conq_rl.png" description="Divide and conquer RL algorithm. $\pi_{theta}$ is the global ANN-modelled policy. Now $\pi_{phi_i}$ are also modelled by ANNs. $\lambda$ is the Lagrange multiplier and the sign of the equation in step 3 should be negative. $x \equiv s$, $u \equiv a$."%}
+
+{% include end-row.html %}
