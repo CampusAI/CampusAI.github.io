@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Probabilistic Modelling"
-permalink: /lectures/prob_modelling
+permalink: /ml/prob_modelling
 content-origin: KTH DD2412
 post-author: Oleguer Canal
 ---
@@ -15,17 +15,19 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
-## Motivation
+{% include start-row.html %}
+
+<!-- ## Motivation
 
 The general idea of probabilistic modelling optimization can be summarized in the following figure:
 
-{% include figure.html url="/_rl/ml/prob_modelling/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization" zoom="1.5"%}
+{% include figure.html url="/_ml/prob_modelling/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization. (Image from CampusAI)" zoom="1.5"%}
 
 The ultimate goal is to have a model which behaves as close as possible to the "real" distribution.
 Obviously this distribution is not known and we are only given some samples.
 The basic approach is to choose a model which can capture a subspace of the probability distribution space.
 Later, to optimize the model parameters to minimize the distance to the given distribution.
-This distance is often measured with KL divergence.
+This distance is often measured with KL divergence. -->
 
 ## Information Theory Basics
 
@@ -57,7 +59,7 @@ The closer $$Q$$ is to $$P$$, the closer $$\mathcal{H} (P, Q)$$ will be to $$\ma
 Some probability divergence metric examples are: [Kullback–Leibler](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence), [Jensen–Shannon](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence) or [Bhattacharyya distance](https://en.wikipedia.org/wiki/Bhattacharyya_distance).
 
 
-### Kullback–Leibler (KL) divergence (relative entropy)
+### Kullback–Leibler (KL) divergence
 Usually used as an approximation technique in Bayesian modelling when expressions are untractable.
 
 \begin{equation}
@@ -68,6 +70,9 @@ D_{KL} (P || Q) = E_P [ I_Q (X) - I_P (X)]
 
 Developing the expression we get:
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{equation}
 D_{KL} (P || Q) = -
 \sum P (x) \log (Q (x)) +
@@ -75,9 +80,14 @@ D_{KL} (P || Q) = -
 \mathcal{H} (P, Q) - \mathcal{H} (P)
 \end{equation}
 
-**NB**: _The minimum achievable value is 0 and happens when $$P=Q$$, in this case $$\mathcal{H} (P, Q) = \mathcal{H} (P)$$_
+{% include annotation.html %}
 
-**NB**: _If P is a fixed distribution, then $$\mathcal{H} (P)$$ is constant, so minimizing KL-divergence is the same as minimizing Cross-Entropy. That is why cross entropy is often used as a loss when minimizing NN (P are labels, Q are predictions)._
+The minimum achievable value is 0. This happens when $$P=Q$$, in this case $$\mathcal{H} (P, Q) = \mathcal{H} (P)$$
+
+If P is a fixed distribution, then $$\mathcal{H} (P)$$ is constant, so minimizing KL-divergence is the same as minimizing Cross-Entropy. That is why cross entropy is often used as a loss when minimizing NN (P are labels, Q are predictions).
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Asymmetry in KL divergence:
 
@@ -86,9 +96,12 @@ If $$P$$ is the "true" distribution and $$Q$$ our approximation we have 2 types 
 - **Forward KL** (moment-matching): $$D_{KL} (P \mid \mid Q) = \sum P \log \frac{P}{Q}$$. Where P is small, it doesn't matter what Q is doing. E.g. if approximating with Gaussian, will only try to match the moments of P, mean and variance.
 - **Reverse KL** (mode-seeking): $$D_{KL} (Q \mid \mid P) = \sum Q \log \frac{Q}{P}$$. Where Q is low, does not matter what P is.
 
-{% include figure.html url="/_rl/ml/prob_modelling/kl_asymmetry.png" description="Figure 2 (from Bishop): Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization)." zoom="1.5"%}
+{% include figure.html url="/_ml/prob_modelling/kl_asymmetry.png" description="Figure 2: Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization). (Image from Bishop)" zoom="1.5"%}
 
-## Variational inference
+{% include end-row.html %}
+
+
+<!-- ## Variational inference
 
 **NB**: _VI can be done using any distance, but reverse KL-divergence is useful for its tractability_
 
@@ -130,5 +143,5 @@ It is interesting to compare the objective function of a deterministic approach:
 
 \begin{equation}
 \min_\theta \sum_i l \left(f_\theta (x_i), y_i \right) + \Omega(\theta)
-\end{equation}
+\end{equation} -->
 

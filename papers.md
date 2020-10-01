@@ -19,8 +19,7 @@ brief:      The text content of the card. If type is "bulletlist",
 subtitle:   Put here the paper authors and year
 -->
 
-This page contains summaries and annotations from papers we found interesting. 
-We mainly review RL-related papers but you'll also find more general ML topics.
+This page contains summaries and annotations from papers we found interesting.
 
 ## RL Algorithms
 

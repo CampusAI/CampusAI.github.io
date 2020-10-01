@@ -1,8 +1,10 @@
 ---
 layout: page
-title: Theory
+title: Reinforcement Learning Theory
 permalink: /theory/
 ---
+
+This page contains explanations of diverse RL lines of work.
 
 ## Deep Reinforcement Learning lecture notes
 
@@ -80,14 +82,6 @@ In addition we added our own interpretations of some concepts hoping they can ea
 {% include paper-card.html title="Annex 2: Policy Expectations, Explained" subtitle="" url="/lectures/policy_expectations"   %}
 {% include paper-card.html title="Annex 5: Policy Gradients" subtitle="" url="/lectures/policy_gradients_annex"   %}
 {% include paper-card.html title="Annex 13: Variational Inference" subtitle="" url="/lectures/variational_inference_annex"   %}
-
-## Interpretations
-
-This sections contains more general posts which ease the interpretation of ML-related concepts.
-
-{% include paper-card.html title="Probabilistic modelling" url="/lectures/prob_modelling" %}
-
-{% include paper-card.html title="Parametric Deep Generative Models" url="/lectures/generative_models" %}
 
 ## Other great resources
 

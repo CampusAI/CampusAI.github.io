@@ -62,8 +62,6 @@ Geometrically, the probability of $$\pi$$ being a particular class is given by i
 For instance, in a 3-class classification problem, we can observe the following behaviors:
 
 {% include end-row.html %}
-
-
 {% include start-row.html %}
 
 {% include figure.html url="/_papers/Ensemble_Distribution_Distillation/ensemble_uncertainty.png"
@@ -73,7 +71,6 @@ description="Figure 2: Representation of different uncertainties of an ensemble 
 The closer to the simplex center a $$\pi_m$$ distribution is, the higher the entropy $$\mathcal{H}$$ of that distribution (more uncertainty).
 
 {% include end-row.html %}
-
 
 {% include start-row.html %}
 This interpretation helps us understand the following identities:
@@ -118,7 +115,6 @@ E_{\hat p (\pi \mid x)}
 \end{equation}
 
 {% include end-row.html %}
-
 
 {% include start-row.html %}
 Which means (_if my interpretation is not mistaken_) that we get the parameters as:
