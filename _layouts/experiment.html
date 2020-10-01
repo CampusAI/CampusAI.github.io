@@ -19,12 +19,45 @@ layout: default
   gtag('config', 'UA-160601102-1');
 </script>
 
-<h1>{{ page.title }}</h1>
-<div class="opaque"> Authors: {{page.experiment-author}}
-  ({{page.experiment-date}}).
-  <a href="{{page.code-link}}">Code Repo</a>,
-  <a href="{{page.report-link}}">Full Report</a> </div>
-</div>
+<!-- Here starts the HTML  -->
 
-<br>
-<div class="text-justify">{{ content }}</div>
+<div class="container-fluid">
+
+  <!-- First row: sidebar and title -->
+      <div class="row" style="padding-top: 20px;">
+  
+          <div class="col-sm-2 offset-sm-1"> <!-- Sidebar -->
+        <div class="container">
+                  <nav class="d-none d-md-block" id="toc" style="position: fixed;"></nav>
+        </div>
+    </div>
+  
+          <div class="col-sm-6"> <!-- Title, subtitle, etc-->
+              <h1>{{ page.title }}</h1>
+              <div class="col-auto opaque"> Authors: {{page.experiment-author}}
+                ({{page.experiment-date}}).
+                <a href="{{page.code-link}}">Code Repo</a>,
+                <a href="{{page.report-link}}">Full Report</a> </div>
+    </div>
+          
+    <div class="col-sm-3"></div> <!-- Right spacing -->
+      </div>
+  
+  <br>
+  
+  <!-- MAIN CONTENT -->
+  <!-- Be careful: the content must manage the space by itself -->
+         {{content}}
+  
+  </div> <!-- End of container -->
+  
+  <script>
+  $(function() {
+    var navSelector = "#toc";
+    var $myNav = $(navSelector);
+    Toc.init($myNav);
+    $("body").scrollspy({
+      target: navSelector
+    });
+  });
+  </script>
