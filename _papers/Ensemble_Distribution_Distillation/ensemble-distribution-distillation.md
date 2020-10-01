@@ -193,7 +193,7 @@ They then run similar tests on [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar
 - Not applied to **regression** tasks.
 - Need of **auxiliary training data** to correctly assess the ensemble knowledge uncertainty.
 - Need of further investigation on the **temperature annealing** properties process.
-- Choosing a **Dirichlet distribution might be too limiting**: The ensemble outputs could follow a different distribution, as hinted by figure 5, where we can induce that the ensemble follows a different distribution from $$(EnD^2)$$. (e.g. [multimodal](https://en.wikipedia.org/wiki/Multimodal_distribution) or  )
+- Choosing a **Dirichlet distribution might be too limiting**: The ensemble outputs could follow a different distribution, as hinted by figure 5, where we can induce that the ensemble follows a different distribution from $$(EnD^2)$$. (e.g. [multimodal](https://en.wikipedia.org/wiki/Multimodal_distribution) or [crescent-shaped](https://arxiv.org/pdf/1702.03550))
 
 {% include figure.html url="/_papers/Ensemble_Distribution_Distillation/cifar10_results.png" description="Figure 5: Histograms of uncertainty of the CIFAR-10 ensemble, EnD 2 and EnD 2+AUX on in-domain (ID) and test out-of-domain (OOD) data." zoom="1.5" %}
 
