@@ -37,16 +37,20 @@ CampusAI is an artificial intelligence content website with (currently) 35+ arti
 <div class="row">
 <div class="col-5 col-sm-4 offset-0 offset-sm-1">
     <figure class="figure">
+        <a href="https://www.linkedin.com/in/oleguercanal/">
         <img src="/assets/images/about/oleguer.jpg" class="rounded-circle figure-img img-fluid">
         <p class="text-center roboto-bold"> Oleguer Canal </p>
+        </a>
     </figure>
 </div>
 
 <div class="col-1 col-sm-2"></div>
 <div class="col-5 col-sm-4">
     <figure class="figure">
+        <a href="https://www.linkedin.com/in/federico-taschin/">
         <img src="/assets/images/about/federico.jpg" class="rounded-circle figure-img img-fluid">
         <p class="text-center roboto-bold"> Federico Taschin </p>
+        </a>
     </figure>
  
 </div>
