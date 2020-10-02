@@ -19,47 +19,43 @@ layout: default
   gtag('config', 'UA-160601102-1');
 </script>
 
-<!-- Here starts the HTML  -->
 
 <div class="container-fluid">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-sm-2 offset-sm-1"> <!-- sidebar -->
+            <div class="container">
+                <nav class="d-none d-md-block" id="toc" style="position: fixed;"></nav>
+            </div>
+        </div>
 
-  <!-- First row: sidebar and title -->
-      <div class="row" style="padding-top: 20px;">
-  
-          <div class="col-sm-2 offset-sm-1"> <!-- Sidebar -->
-        <div class="container">
-                  <nav class="d-none d-md-block" id="toc" style="position: fixed;"></nav>
+        <div class="col-sm-6">
+            <h1>{{ page.title }}</h1>
+            <div class="opaque col-auto">
+                Lecture by {{page.lecture-author}}, {{page.lecture-date}},
+                <a href="{{page.slides-link}}">Slides</a>, <a href="{{page.video-link}}">Video</a>
+            </div>
+            <div class="opaque col-auto"> Post author: {{page.post-author}} </div>
         </div>
     </div>
-  
-          <div class="col-sm-6"> <!-- Title, subtitle, etc-->
-              <h1>{{ page.title }}</h1>
-              <div class="col-auto opaque">
-                Lecture by {{page.lecture-author}}, {{page.lecture-date}}, <a href="{{page.slides-link}}">Slides</a>, <a href="{{page.video-link}}">Video</a>
-              </div>
-              <div class="col-auto opaque"> Post author: {{page.post-author}} </div>
-    </div>
-          
-    <div class="col-sm-3"></div> <!-- Right spacing -->
-      </div>
-  
-  <br>
-  
-  <!-- MAIN CONTENT -->
-  <!-- Be careful: the content must manage the space by itself -->
-         {{content}}
-  
-  </div> <!-- End of container -->
-  
-  <script>
-  $(function() {
-    var navSelector = "#toc";
-    var $myNav = $(navSelector);
-    Toc.init($myNav);
-    $("body").scrollspy({
-      target: navSelector
-    });
-  });
-  </script>
 
-<!-- {% include comments-section.html pagename=page.name %} -->
+    <br>
+
+    <div id="content-row">
+    {{content}}
+    </div>
+
+</div>
+
+<script>
+$(function() {
+  var navSelector = "#toc";
+  var $myNav = $(navSelector);
+	Toc.init({
+		$nav: $myNav,
+		$scope: $("#content-row")
+	});
+  $("body").scrollspy({
+    target: navSelector
+  });
+});
+</script>
