@@ -59,10 +59,11 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Lecture 12: Model-based Policy Learning" brief="How to use env. models to learn policies;Local vs Global policies;Guided policy search;Policy Distillation;Divide & conquer RL" img="/_rl/lecture_12/icon.png" url="/lectures/lecture12" type="bulletlist"%}
 
+### Advanced Topics
+
 {% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%}
 
 <!-- {% include card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
-### Advanced Topics
 
 {% include card.html title="Lecture 15: Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_rl/lecture_15/icon.png" url="/lectures/lecture15" type="bulletlist"%}
 
