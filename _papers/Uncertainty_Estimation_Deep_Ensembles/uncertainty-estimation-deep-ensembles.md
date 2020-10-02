@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 ## Idea
 
@@ -32,13 +33,19 @@ One output for the **mean** $$\mu$$ and the other for the **variance** of the gu
 Samples are treated as from taken from a [heteroscedastic](https://en.wikipedia.org/wiki/Heteroscedasticity) Gaussian distribution.
 They then use a Maximum Likelihood Estimation (MLE) on $$\mu$$, $$\sigma$$, minimizing the negative log-likelihood:
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{equation}
 -\log p_\theta (y | x) =
 \frac{\log \sigma_\theta^2 (x) }{2} +
 \frac{(y - \mu_\theta (x))^2}{2 \sigma_\theta^2 (x)} + constant
 \end{equation}
 
-**Notice:** The trade-off between $$\mu$$ and $$\sigma$$. The optimizer can't just minimize $$\sigma$$ faster than $$\mu$$ since would make the second term grow.
+{% include annotation.html %}
+Notice the trade-off between $$\mu$$ and $$\sigma$$. The optimizer can't just minimize $$\sigma$$ faster than $$\mu$$ since would make the second term grow.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Use an ensemble of networks
 
@@ -97,10 +104,16 @@ The expectation is that out-of distribution examples present a uniform probabili
 They repeat the same experiment using the SVHN dataset for training and [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html) for testing.
 Results show that with a big enough ensemble their method is better calibrated than [MonteCarlo-Dropout](https://datascience.stackexchange.com/questions/44065/what-is-monte-carlo-dropout).
 They can better estimate the uncertainty for out-of distribution inputs:
-
+{% include end-row.html %}
+{% include start-row.html %}
 {% include figure.html url="/_papers/Uncertainty_Estimation_Deep_Ensembles/entropy.png" description="Figure 1: Entropy histograms for experimental results. Top row: in-of distribution test results. Bottom row: Out-of distribution test results. Notice that MC-dropout produces much over-confident results for inputs of an unseen distribution. In addition the number of networks in the ensemble plays a key role in uncertainty estimation." zoom="1.5" %}
 
-**Notice**: One can set a minimum confidence level (entropy score) to the model, otherwise output *"I don't know"*.
+{% include annotation.html %}
+One can set a minimum confidence level (entropy score) to the model, otherwise output *"I don't know"*.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
 They show that their algorithm provides more reliable confidence estimates compared to MC-Dropout.
 
 ## Contribution
@@ -112,3 +125,5 @@ They show that their algorithm provides more reliable confidence estimates compa
 ## Weaknesses
 
 - Training an ensemble is **computationally expensive** and can be prohibiting in some cases.
+
+{% include end-row.html %}

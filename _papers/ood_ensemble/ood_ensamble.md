@@ -8,6 +8,7 @@ post-author: Federico Taschin
 paper-year: 2018
 paper-link: https://arxiv.org/abs/1809.03576
 ---
+
 <!--
 Disclaimer and authorship:
 This article is provided for free only for your personal informational and entertainment purposes. No commercial use of it is allowed.
@@ -18,13 +19,13 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html %}
 Out-of-Distribution (OOD) Detection consists of being able to identify data that lies outside the
 domain a Deep Learning system had been trained with. This can include recognizing when an image
 does not belong to any of the known classes, detecting a sensor failure or a cyber attack.
 In this paper, the authors propose an OOD detection algorithm that exploits an ensemble of
 self-supervised classifiers trained by using a partition of the data as OOD data. The proposed
 algorithm outperforms the state-of-the-art [ODIN](https://arxiv.org/abs/1706.02690).
-
 
 ## Idea
 Softmax outputs of classifiers are often seen as output probabilities for each class. However,
@@ -37,12 +38,16 @@ classifiers, each one using a partition of the classes as out-of-distribution da
 with an entropy based loss function.
 
 ### Entropy based margin loss
+{% include end-row.html %}
+
+{% include start-row.html %}
 This paper proposes a modified loss function for the classifiers training. Given a dataset of
 in-disttribution samples $$(x_i \in X_{in}, y_i \in Y_{in})$$ and out-of-distribution samples
 $$x_o \in X_{ood}$$, this loss term aims to maintain a margin of at least $$m$$ between the
 average entropy of predictions for in and out distribution. Being $$F: x \rightarrow p$$ the
 Neural Network function that maps an input $$x$$ to a distribution over classes, the loss is
 given by
+
 
 \begin{equation}
 \mathcal{L} = -\frac{1}{\vert X_{in} \vert} \sum_{x_i \in X_{in}} \ln(F_{y_i}(x_i))
@@ -51,25 +56,29 @@ given by
 0 \Bigg)}_{entropy-margin}
 \end{equation}
 
-***Notice:** $$F_{y_i}(x_i)$$ represents the predicted probability of class $$y_i$$ for input
-$$x_i$$, while $$F(x)$$ represents the whole output distribution for input $$x$$, and thus
-$$H(F(x_i))$$ is the entropy of the softmax scores.*
 
 This loss function is made of two terms: the **corss-entropy** loss and the novel
 **entropy-margin** loss. The first makes the classifiers correclty classify data points, while
 the second encourages it to predict softmax scores with high entropy for out-of-distribution
 inputs, and low entropy for in-distribution inputs.
 
-***Notice:** High entropy softmax scores means that the predicted softmax values are
+{% include annotation.html %}
+$$F_{y_i}(x_i)$$ represents the predicted probability of class $$y_i$$ for input
+$$x_i$$, while $$F(x)$$ represents the whole output distribution for input $$x$$, and thus
+$$H(F(x_i))$$ is the entropy of the softmax scores.*
+
+High entropy softmax scores means that the predicted softmax values are
 approximately equal for all classes, while low entropy scores means that the highest softmax
 value will be much higher than the others.*
 
-***Notice:** Bounding the second loss term by a marging $$m$$ is helpful in reducing
+Bounding the second loss term by a marging $$m$$ is helpful in reducing
 overfitting. Without it the classifiers could easily overfit in assigning high entropy to 
 the out-of-distribution training data partition at the cost of not generalizing to other unseen
 data. Keep in mind that this out-of-distribution data is not really out of distribution as it
 is part of the dataset.*
+{% include end-row.html %}
 
+{% include start-row.html %}
 ### Training the ensemble
 The training data $$X$$ is divided into $$K$$ mutually-exclusive partitions $$\{X_i\}_{i=1}^K$$,
 i.e. no classes are contained by more than one partition. For each partition $$X_i$$, a
@@ -77,7 +86,9 @@ classifier $$F_i$$ is learned by using $$X_i$$ as out-of-distribution data and t
 partitions as in-distribution data. The process is described in Algorithm 1.
 
 {% include figure.html url="/_papers/ood_ensemble/algorithm1.png"
-description="Learning K classifiers using a different partition as out-of-distribution data each"%}
+description="Learning K classifiers using a different partition as out-of-distribution data each"
+zoom=1.5
+%}
 
 ### Classification
 In classification, the input $$x$$ is fed to all the $$K$$ classifiers, and the output softmax
@@ -90,6 +101,9 @@ as shown in Algorithm 2.
 When computing the OOD Detection scores, **temperature scaling** and **input preprocessing**
 are applied. 
 
+{% include end-row.html %}
+
+{% include start-row.html %}
 **Temperature scaling** is used when computing the softmax over the output logits.
 In temperature scaling, the logits of the classifier output are divided by a constant
 temperature parameter $$T$$ before being fed to the softmax. It has been empirically shown by
@@ -109,9 +123,13 @@ out-of-distribution samples. This is inspired from
 are applied to decrease the softmax activation of the correct class and force the classifier
 to a wrong prediction. 
 
-***Notice:** There are some weaknesses in the temperature scaling and input preprocessing
-approach that I discuss in the **Weaknesses** section.*
+{% include annotation.html %}
+There are some weaknesses in the temperature scaling and input preprocessing
+approach that I discuss in the **Weaknesses** section.
+{% include end-row.html %}
 
+
+{% include start-row.html %}
 Finally, OOD Detection scores are computed by feeding the input to all $$K$$ classifiers
 (using temperature scaling and input preprocessing). For each of the resulting softmax vector,
 the maximum value and negative entropy are computed and the OOD Detection score is given by
@@ -128,9 +146,11 @@ differently:
 
 - **Out-of-distribution samples:** We expect an out-of-distribution sample to produce low
   maximum value and low negative entropy for all the $$K$$ classifiers.
+{% include annotation.html %}
+It is not clear from the paper how these OOD Detection scores are effectively used.*
+{% include end-row.html %}
 
-***Notice:** It is not clear from the paper how these OOD Detection scores are effectively used.*
-
+{% include start-row.html %}
 {% include figure.html url="/_papers/ood_ensemble/algorithm2.png"
 description="" %}
 
@@ -222,3 +242,4 @@ And some more theoretical ones:
   generate OOD samples that the classifiers cannot detect and use those in the entropy-margin
   loss could overcome the problem?
 
+{% include end-row.html %}

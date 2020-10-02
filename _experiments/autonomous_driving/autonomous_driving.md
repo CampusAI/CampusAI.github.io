@@ -17,6 +17,8 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html %}
+
 ***[video coming soon]***
 
 ## Context
@@ -103,3 +105,5 @@ It wasn't until we stopped to think the best experiments to perform and formaliz
 In later projects we automated these searches using [Bayesian optimization](https://en.wikipedia.org/wiki/Bayesian_optimization).
 
 Design choice justifications, experimental results, further detailed explanations and drone state-action space adaptations in the [full report](/pdf/autonomous_driving.pdf).
+
+{% include end-row.html %}

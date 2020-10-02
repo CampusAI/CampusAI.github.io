@@ -19,6 +19,15 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+This is how you write content rows. 
+
+{% include start-row.html %}
+  Here goes the main content (1)
+{% include annotation.html %}
+  This annotation will appear at the beginning of (1)
+{% include end-row.html %}
+
+
 Brief description that should cover:
  - One sentence about the general topic of the paper
  - One or two about the general idea of the topic

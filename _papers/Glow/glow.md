@@ -18,6 +18,7 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html %}
 If not familiar with flow-based generative models I suggest to first take a look at our [Parametric Deep Generative Models post](http://127.0.0.1:4000/lectures/generative_models).
 
 ## Idea
@@ -43,7 +44,9 @@ Given a D-dimensional input $$x$$, this layer applies the following operations:
 1. Split $$x$$ into 2 sub-vectors: $$x_{1:d}, x_{d+1:D}$$
 2. The first part $$(x_{1:d})$$ is left untouched.
 3. The second part undergoes an **affine transformation** (scale $$s$$ and translation $$t$$). This scale and translations are a function dependent on the first part of the input vector: $$s(x_{1:d}), t(x_{1:d})$$.
+{% include end-row.html %}
 
+{% include start-row.html %}
 Overall:
 
 \begin{equation}
@@ -56,18 +59,24 @@ y_{d+1:D} = x_{d+1:D} \circ \exp (s(x_{1:d})) + t(x_{1:d})
 
 The inverse is trivial and its Jacobian a lower triangular matrix (log-determinant is then the addition of the log-elements of the diagonal).
 
-**NB**: _$$s$$ and $$t$$ can be any function. In practice they are parametrized by an ANN._
-
-**NB**: _The design of this layer is copied from [RealNVP](https://arxiv.org/abs/1605.08803), which adds the scale term on the coupling layer presented in [NICE](https://arxiv.org/abs/1410.8516) called **additive coupling**._
-
 To ensure each dimension can affect each other dimension, we need to perform enough steps of some kind of **permutations** on the inputs. Previous work implemented a fixed simple permutation layer, this work generalizes this permutation by introducing the invertible 1x1 convolution.
+{% include annotation.html %}
+$$s$$ and $$t$$ can be any function. In practice they are parametrized by an ANN.
 
+The design of this layer is copied from [RealNVP](https://arxiv.org/abs/1605.08803), which adds the scale term on the coupling layer presented in [NICE](https://arxiv.org/abs/1410.8516) called **additive coupling**.
+
+{% include end-row.html %}
+
+
+{% include start-row.html %}
 #### Invertible 1x1 2D-convolution
 
 This layer is a generalization of a permutation along the channels dimension.
 Given an input of shape $$h\times w \times c$$.
 It applies a 1x1 convolution with $$c$$ filters, meaning the output tensor shape is also going to be $$h\times w \times c$$ (we need to keep the dimensions in normalizing flows).
+{% include end-row.html %}
 
+{% include start-row.html %}
 Thus, each layer has a set of weights $$W$$ with $$c \cdot c$$ values.
 Its log-determinant can be computed as:
 
@@ -76,11 +85,14 @@ Its log-determinant can be computed as:
 \end{equation}
 
 Its inverse operation can be computed by simply applying a convolution with $$W^{-1}$$ weights.
+{% include annotation.html %}
 
-**NB**: _Usually $$c=3$$ so the $$det(W)$$ and $$W^{-1}$$ are cheap to compute._
+Usually $$c=3$$ so the $$det(W)$$ and $$W^{-1}$$ are cheap to compute.
 
-**NB**: _Rather than a 1x1 2D-conv, I find it easier to imagine as: each channel of the output tensor is going to be a linear combination of the channels of the input tensor._
+Rather than a 1x1 2D-conv, I find it easier to imagine as: each channel of the output tensor is going to be a linear combination of the channels of the input tensor.
+{% include end-row.html %}
 
+{% include start-row.html %}
 ### Layers summary
 In summary this is each layer function, its inverse and its Jacobian log-determinant:
 
@@ -134,3 +146,4 @@ They claim lower $$T$$ values provide higher-quality samples:
 - As this paper is more an **evolution** rather than a **revolution** there are no major weaknesses. Future lines of work could focus on the design of new normalizing flow layers and experiment on those.
 
 - They could further investigate the role of the temperature parameter $$T$$.
+{% include end-row.html %}

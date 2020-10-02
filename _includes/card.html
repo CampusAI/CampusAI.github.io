@@ -1,17 +1,16 @@
+
 <style>
 .card {
   /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  padding: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
-
-.card_inner {
-  display:flex;
-  margin-top: 20px;
- }
 
 /* On mouse-over, add a deeper shadow */
 
@@ -19,30 +18,31 @@
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card_excerpt {
-  padding-left: 20px;
-  width: 60%;
+.small {
+  font-size: 0.5em;
 }
 
-.card_image {
-  width: 40%;
-  clear:both;
+.paper-title {
+  color: #606c71;
+  margin-bottom: 1rem;
+  display: block;
 }
 </style>
 
-<div>
+
+<div class="card mb-3" style="max-width: 1080px;">
 <a href="{{include.url}}" style="text-decoration:none;color:inherit;">
-<div class="card">
-    <h3><b>{{include.title}}</b></h3>
-    {{include.subtitle}}
-    <div class="card_inner">
-	{% if include.img != "" or include.img != blank %}
-        <div class="card_image"> <img src="{{include.img}}"/> </div>
-        <div style="padding-left:20px;width:60%">
-	{% else %}
-        <div style="padding-left:20px;width:90%;padding-right:20px">
-        {% endif %}
-        
+  <div class="row no-gutters">
+    <div class="col-md-4 my-auto">
+	    <img src="{{include.img}}" class="card-img">
+    </div>
+
+   <div class="col-0 col-md-1"></div>
+
+    <div class="col-md-7">
+      <div class="card-body">
+	<h5 class="card-title">{{include.title}}</h5>
+	<div class="card-text">	
 	{% if include.type == "bulletlist" %}
             <ul>
                 {% assign bullets = include.brief | split: ";" %}
@@ -58,8 +58,9 @@
 	{% else %}
 	    ERROR: card type attribute is not set
 	{% endif %}
-        </div>
+	</div>
+      </div>
     </div>
-</div>
+  </div>
 </a>
 </div>

@@ -17,11 +17,38 @@ layout: default
   gtag('config', 'UA-160601102-1');
 </script>
 
-<h1>{{ page.title }}</h1>
-<div class="opaque"> Paper authors: {{page.paper-author}}, {{page.paper-year}}, <a href="{{page.paper-link}}">Link to paper</a> </div>
-<div class="opaque"> Post author: {{page.post-author}}  </div>
-</div>
+
+<!-- Here starts the HTML  -->
+
+<div class="container-fluid">
+
+<!-- First row: sidebar and title -->
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-3 col-0"> <!-- sidebar -->
+		{% if page.index != false %}
+		    {% include sidebar.html %}
+		{% endif %}
+        </div>
+
+        <div class="col-xl-6 col-12"> <!-- Title, subtitle, etc-->
+            <h1>{{ page.title }}</h1>
+            <div class="col-auto opaque">
+                Paper authors: {{page.paper-author}}, {{page.paper-year}},
+		<a href="{{page.paper-link}}">Link to paper</a>
+            </div>
+            <div class="col-auto opaque"> Post author: {{page.post-author}} </div>
+	</div>
+        
+    </div>
 
 <br>
-<div class="text-justify">{{ content }}</div>
 
+<!-- MAIN CONTENT -->
+<!-- Be careful: the content must manage the space by itself -->
+<div class="row" id="content-row">
+    <div class="col-auto">
+       {{content}}
+    </div>
+</div>
+
+</div> <!-- End of container -->

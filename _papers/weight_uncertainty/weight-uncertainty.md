@@ -18,17 +18,24 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html%}
 ## Idea
 
 **Problem:** Feed forward ANNs are prone to **overfit** and cannot correctly assess the **uncertainty** in the data.
 This work proposes replacing the usage of fixed weights by **probability distributions** over the possible values:
+{% include end-row.html%}
 
+{% include start-row.html%}
 {% include figure.html url="/_papers/weight_uncertainty/idea.png" description="Figure 1: On the left: classic single-valued weights approach. On the right: weights as probability distribution idea." %}
 
-**Notice:** Each weight distribution encodes the uncertainty of that connection: A network with high-variance weights implies a highly uncertain model. This leads into a higher regularization by model averaging.
+{% include annotation.html%}
+Each weight distribution encodes the uncertainty of that connection: A network with high-variance weights implies a highly uncertain model. This leads into a higher regularization by model averaging.
 
-**Notice:** By just encoding each weight distribution with 2 parameters you can train an infinite ensemble of networks from which to sample from.
+By just encoding each weight distribution with 2 parameters you can train an infinite ensemble of networks from which to sample from.
+{% include end-row.html%}
 
+
+{% include start-row.html%}
 ### Nice... but how do you train this? Bayesian by Backpropagation
 
 Usually ANNs weights are optimized by Maximum Likelihood Estimation (**MLE**): 
@@ -50,18 +57,26 @@ $$P \left( y | x \right) = E_{P(w | D)} \left[ P \left( y | x, w \right) \right]
 
 The paper proposes learning the parameters $$\theta$$ of the weights distribution $$q(w \mid \theta)$$ using [Variational Inference](/lectures/lecture13).
 I.e. minimizing KL divergence between this $$q(w \mid \theta)$$ and the true Bayesian posterior of the weights:
+{% include end-row.html%}
 
+{% include start-row.html%}
 \begin{equation}
 \label{eq:vi_opt}
 \theta^\star = \arg \min_\theta KL \left[ q(w | \theta) \mid \mid P (w | \mathcal{D})\right] =
 \arg \min_\theta KL \left[ q(w | \theta) \mid \mid P (w) \right] - E_{q(w | \theta)} \left[ \log P(\mathcal{D} | w) \right]
 \end{equation}
 
-**Notice:** The trade-off between satisfying the simplicity of $$P(w)$$ vs satisfying the complexity of $$\mathcal{D}$$.
+{% include annotation.html%}
+Notice the trade-off between satisfying the simplicity of $$P(w)$$ vs satisfying the complexity of $$\mathcal{D}$$.
+{% include end-row.html%}
 
+
+{% include start-row.html%}
 The optimization can be done using **unbiased Monte Carlo gradients**.
 Which means to approximate the expectations in eq. \ref{eq:vi_opt} using Monte Carlo sampling:
+{% include end-row.html%}
 
+{% include start-row.html%}
 \begin{equation}
 \label{eq:vi_opt_approx}
 \theta^\star \simeq \arg \min_\theta
@@ -69,14 +84,20 @@ Which means to approximate the expectations in eq. \ref{eq:vi_opt} using Monte C
 \end{equation}
 
 Where $$w^i$$ denotes the $$i$$-th Monte Carlo sample drawn from the variational posterior $$q(w^i \mid \theta)$$.
+{% include annotation.html%}
 
-**Notice:** Not using a closed-form in the optimization allows any combination of prior and variational posterior.
+Not using a closed-form in the optimization allows any combination of prior and variational posterior.
 Results show similar performance between closed and open forms.
+{% include end-row.html%}
 
+
+{% include start-row.html%}
 For instance, we can assume all weights follow an independent Gaussian.
 In this case $$\theta$$ will be the vector of $$\mu, \sigma$$ of each weight.
 The algorithm would look like this:
+{% include end-row.html%}
 
+{% include start-row.html%}
 1. Sample $$\epsilon \sim \mathcal{N} (0, I)$$.
 2. Let $$w = \mu + \sigma \circ \epsilon$$. ($$\circ$$ denotes the [Hadamard](https://en.wikipedia.org/wiki/Hadamard_product_(matrices)) or element-wise product)
 3. Let $$\theta = (\mu, \sigma)$$.
@@ -84,9 +105,11 @@ The algorithm would look like this:
 5. Compute gradients wrt to each parameter: $$\Delta_\mu = \frac{\partial f}{\partial w} + \frac{\partial f}{\partial \mu}$$, $$\Delta_\sigma = \frac{\partial f}{\partial w} \frac{\epsilon}{\sigma} + \frac{\partial f}{\partial \sigma}$$.
 6. Update variational parameters: $$\mu \leftarrow \mu - \alpha \Delta_\mu$$, $$\sigma \leftarrow \sigma - \alpha \Delta_\sigma$$.
 7. Go to $$1.$$ until convergence.
+{% include annotation.html%}
+$$\frac{\partial f}{\partial w}$$ is shared between both optimizations and is the Network gradient as computed by the usual BackProp Algorithm.
+{% include end-row.html%}
 
-**Notice:** $$\frac{\partial f}{\partial w}$$ is shared between both optimizations and is the Network gradient as computed by the usual BackProp Algorithm.
-
+{% include start-row.html%}
 The paper proposes the $$P(w)$$ prior to be a combination of 2 [scale mixture of normals](https://stats.stackexchange.com/questions/174502/what-are-gaussian-scale-mixtures-and-how-to-generate-samples-of-gaussian-scale) with 0 mean.
 It combines one with small variance and one with a large one to make the prior more amenable during optimization.
 
@@ -108,3 +131,5 @@ It combines one with small variance and one with a large one to make the prior m
 - Having to **optimize twice as many parameters** and seeing that the results are not significantly better one could argue whether just having a network twice as big would be simpler.
 
 - Seems very **dependent on the priors** one chooses for the parameters: $$P(w)$$
+
+{% include end-row.html%}

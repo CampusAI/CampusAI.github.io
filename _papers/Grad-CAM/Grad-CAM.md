@@ -17,6 +17,7 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
 ## IDEA
 
@@ -30,7 +31,6 @@ Compared to humans, when AI is:
 This paper develops on this challenge with 2 contributions:
 1. Generalizes the [Class Activation Mapping (CAM)](https://arxiv.org/abs/1512.04150) method for detecting attention areas. They call this algorithm **Grad-CAM**.
 2. It combines the previous algorithm with [Guided BackPropagation](https://arxiv.org/abs/1412.6806) to detect the key features of the relevant area. They call this algorithm **Guided Grad-CAM**.
-
 
 Consider a CNN-based image classification task.
 Given an input image and a label, [CAM](https://arxiv.org/abs/1512.04150) provides a heatmap over the image of the area which is more relevant for that particular label.
@@ -52,6 +52,8 @@ The algorithm goes as follows:
 2. For each channel $$c$$ of the feature-map, compute its gradient w.r.t the desired label (through the task-specific ANN): $$\frac{\partial y^c }{\partial A_{i, j}^k}$$. This gives an idea on how important each pixel of the feature-map is for that label. To do so, you should consider the output of the task-specific ANN to perfectly fix the desired label (e.g. one-hot vector in a classification task).
 3. For each of those gradients compute the global average pooling (i.e. the average of its pixel values): $$\alpha_k^c = \frac{1}{Z} \sum_{i, j} \frac{\partial y^c }{\partial A_{i, j}^k}$$. This gives an idea on how important each feature map channel is for that label.
 4. The "importance" heatmap will then be the linear combination of the feature channels weighted by the $$\alpha$$ values. They take only the positive contributions by applying a $$ReLU$$ function:
+{% include end-row.html %}
+{% include start-row.html %}
 
 \begin{equation}
 L_{Grad-CAM}^c =  ReLU \left( \sum_k \alpha_k^c A^k\right)
@@ -59,7 +61,11 @@ L_{Grad-CAM}^c =  ReLU \left( \sum_k \alpha_k^c A^k\right)
 
 This $$L_{Grad-CAM}^c$$ is later up-sampled using bilinear interpolation to match the original image size.
 
-**NB**: _We can also highlight the regions which distract the network from guessing a particular label by just getting the negative gradients: $$\alpha_k^c = \frac{1}{Z} \sum_{i, j} - \frac{\partial y^c }{\partial A_{i, j}^k}$$. These explanations are known as **counterfactual explanations**._
+{% include annotation.html %}
+We can also highlight the regions which distract the network from guessing a particular label by just getting the negative gradients: $$\alpha_k^c = \frac{1}{Z} \sum_{i, j} - \frac{\partial y^c }{\partial A_{i, j}^k}$$. These explanations are known as **counterfactual explanations**.
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Guided Grad-CAM
 
@@ -145,3 +151,4 @@ Again, **Guided Grad-CAM** outperforms **Guided BackProp** in all of them.
 
 - Future lines of work should bring explainability to other areas such as RL, NLP or video.
 
+{% include end-row.html %}

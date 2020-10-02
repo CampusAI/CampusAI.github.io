@@ -19,14 +19,32 @@ layout: default
   gtag('config', 'UA-160601102-1');
 </script>
 
-<h1>{{ page.title }}</h1>
-<div class="opaque"> Lecture by {{page.lecture-author}}, {{page.lecture-date}}, <a href="{{page.slides-link}}">Slides</a>, <a href="{{page.video-link}}">Video</a> </div>
-<div class="opaque"> Post author: {{page.post-author}} </div>
+
+<div class="container-fluid">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-3 col-0"> <!-- sidebar -->
+		{% if page.index != false %}
+		    {% include sidebar.html %}
+		{% endif %}
+        </div>
+
+        <div class="col-xl-6 col-12">
+            <h1>{{ page.title }}</h1>
+            <div class="opaque col-auto">
+                Lecture by {{page.lecture-author}}, {{page.lecture-date}},
+                <a href="{{page.slides-link}}">Slides</a>, <a href="{{page.video-link}}">Video</a>
+            </div>
+            <div class="opaque col-auto"> Post author: {{page.post-author}} </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row" id="content-row">
+        <div class="col-auto">
+            {{content}}
+        </div>
+    </div>
+
 </div>
 
-<br>
-<div class="text-justify">{{ content }}</div>
-
-<br>
-
-{% include comments-section.html pagename=page.name %}

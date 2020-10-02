@@ -18,6 +18,9 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 
+{% include start-row.html %}
+
+
 ## Idea
 
 ANNs parameters are given uniquely from the data.
@@ -45,9 +48,15 @@ Applying influence functions (and some Taylor-expansion approximations) we get:
 I_{up, params}(z) = - H_{\hat \theta}^{-1} \cdot \nabla_\theta L(z, \hat \theta)
 \end{equation}
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Where $$H_{\hat \theta} \in \mathbb{R}^{p \times p}$$ is the Hessian of the loss function w.r.t $$\theta$$. It can be inverted since its positive definite (PD), thanks to the convexity assumption. $$\nabla_\theta L(z, \hat \theta) \in \mathbb{R}^{p \times 1}$$ is the gradient of the loss function w.r.t $$\theta$$ evaluated at $$z$$ with parameters $$\hat \theta$$.
 
-**NB**: _If we take $$\epsilon = - \frac{1}{n}$$ we can see the effect on the parameters of removing a point $$z$$ from the dataset: $$\hat \theta_{-z} \simeq \hat \theta - \frac{1}{n} I_{up, params}(z)$$_.
+{% include annotation.html %}
+If we take $$\epsilon = - \frac{1}{n}$$ we can see the effect on the parameters of removing a point $$z$$ from the dataset: $$\hat \theta_{-z} \simeq \hat \theta - \frac{1}{n} I_{up, params}(z)$$.
+{% include end-row.html %}
+{% include start-row.html %}
 
 $$I_{up, loss} (z, z_{test}) = \frac{\partial L(z_{test}, \hat \theta_{\epsilon, z})}{\partial \epsilon} \vert_{\epsilon=0}$$ then encodes "how important" a data-point $$z$$ is to a test-point $$z_{test}$$. Developing we get:
 
@@ -56,6 +65,10 @@ I_{up, loss} (z, z_{test}) = - \nabla_\theta L(z_{test}, \hat \theta)^T \cdot H_
 \end{equation}
 
 ### Perturbing a training point
+
+{% include end-row.html %}
+{% include start-row.html %}
+
 Using a similar reasoning, we can evaluate the influence a perturbation of some data-point $$z$$ can have on the loss of some test-point $$z_{test}$$:
 
 \begin{equation}
@@ -64,9 +77,13 @@ I_{pert, loss} (z, z_{test}) = - \nabla_\theta L(z_{test}, \hat \theta)^T \cdot 
 
 If we perform a $$\delta$$ perturbation to $$z$$, $$I_{pert, loss} (z, z_{test}) \cdot \delta$$ tells us the effect it has on the loss of $$z_{test}$$.
 
-**NB**: _We can construct training-set attacks by choosing a small perturbation which augments test data loss._
+{% include annotation.html %}
+We can construct training-set attacks by choosing a small perturbation which augments test data loss._
 
-**NB**: _$$I_{pert, loss} (z, z_{test})$$ can also help us identify the key features of data-point $$z$$ responsible for the prediction of $$z_{test}$$._
+$$I_{pert, loss} (z, z_{test})$$ can also help us identify the key features of data-point $$z$$ responsible for the prediction of $$z_{test}$$.
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### Assumptions and approximations
 
@@ -104,3 +121,5 @@ The proposed method has many use-cases:
 - Future line of work could tackle how sub-sets of training points affect the model. Not just how individual data-points locally affect the model performance.
 
 - I guess they fix the random seed but they don't talk about the effect of different weight initialization and don't seem to check how robust the results are to it.
+
+{% include end-row.html %}
