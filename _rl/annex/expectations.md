@@ -1,5 +1,5 @@
 ---
-layout: annex
+layout: article
 title: "Annex 2: Policy Expectations, Explained"
 permalink: /lectures/policy_expectations
 lecture-author: None
@@ -9,6 +9,7 @@ slides-link: /lectures/policy_expectations
 video-link: /lectures/policy_expectations
 ---
 
+{% include start-row.html %}
 Given each possible trajectory in the studied environment: $\tau = (s_1, a_1, s_2, a_2, \:...) \in \mathrm{T}$, we can compute its cumulative reward:
 
 \begin{equation}
@@ -43,3 +44,5 @@ In this case we could write the expected reward as:
 \sum_{t} E_{(s_t, a_t) \sim p_{\theta}(s_t, a_t)}\left[ r(s_t, a_t) \right] =
 \sum_{t} \sum_{(s, a) \in S\times A} p(s_t=s, a_t=a \mid \pi_\theta) \cdot r(s_t=s, a_t=a) 
 \end{equation}
+
+{% include end-row.html %}

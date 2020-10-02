@@ -1,10 +1,11 @@
 ---
-layout: annex
+layout: article
 title: "Annex 13: Variational Inference"
 permalink: /lectures/variational_inference_annex
 post-author: Federico Taschin
 ---
 
+{% include start-row.html %}
 ### The Evidence Lower Bound
 In [Lecture 13: Variational Inference](/lectures/lecture13) we showed that $$\ln p(x)$$ has a
 lower bound that we called **Evidence Lower Bound**, which can be expressed in terms of some
@@ -90,3 +91,5 @@ Thus, we obtain the key result that will prove extremely useful in the
 \begin{equation}
 \boxed{\ln p(x) = D_{KL}\Big(q(z) \vert\vert p(z \vert x)\Big) + \mathcal{L}(p, q)}
 \end{equation}
+
+{% include end-row.html %}

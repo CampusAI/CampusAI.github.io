@@ -1,14 +1,14 @@
 ---
-layout: lecture
+layout: article
 title: "Annex 1: MDP Basics"
 permalink: /lectures/basic_concepts
 lecture-author: Sergey Levine
 lecture-date: 2019
 post-author: Oleguer Canal, Federico Taschin
-slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-1.pdf
-video-link: https://www.youtube.com/watch?v=SinprXg2hUA&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=2&t=0s
 ---
 
+
+{% include start-row.html %}
 # Sequential decision problems definitions
 
 ### State space $$S$$:
@@ -62,3 +62,5 @@ Usually policies are dependent on a set of parameters $\theta$ (e.g. weights in 
 **OBS:** If the environment transitions and rewards are known, the optimal policy can be found using **Dynamic Programming (DP)** approaches. Otherwise, we need to use RL methods.
 
 **OBS:** Observations do NOT necessarily satisfy Markov property but states do.
+
+{% include end-row.html %}
