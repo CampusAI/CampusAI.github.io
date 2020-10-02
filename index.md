@@ -3,29 +3,41 @@ layout: page
 title: Welcome to CampusAI!
 ---
 
-CampusAI is a Reinforcement Learning content website with (currently) 25+ articles distributed across:
+CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focussing on Reinforcement Learning.
 
-- A [theory section](/theory/) with insights on the main research fields. It contains our annotations and personal interpretations of [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) UC Berkeley CS-285 2019 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/). As well as pointers to other great RL resources.
+## Content
 
-- A [papers page](/papers/) with summaries on latest/influential developments in the RL world. We select interesting papers and try to provide a summary which will give you a good understanding of them (deeper than what you get by just reading the abstract) in a much compressed way (by omitting technical details, previous work, and reiterations).
+- [Machine Learning (ML)](/ml/): <span style="color:gray">Probabilistic view on general ML topics.</span>
+  - Probabilistic basics
+  - Deep Generative Models
 
-- An [experiments area](/experiments) where we briefly explain some of our RL-related projects and their takeaways. We also point to the full project reports and the code for their reproducibility. 
+- [Reinforcement Learning (RL)](/theory/):  <span style="color:gray">Annotations on main RL fields of study.</span>
+  - Basics
+  - Model-Free RL: Q-learning, policy gradients, actor-critic
+  - Model-Based RL: Model planning, model policy learning
+  - Transfer, multi-task, and meta-learning
+  - Open problems
 
-<!-- # Who is this for?
+- [Papers](/papers/): <span style="color:gray">Summaries of recent/influential/interesting research developments.</span>
+  - Uncertainty Estimation
+  - ANN explainability
+  - Generative Models
+  - RL algorithms
 
-This is for RL enthusiasts such as ourselves!
-We hope you get a clearer idea on how the field is evolving.
+- [Experiments](/experiments/): <span style="color:gray">Some of our own projects and the takeaways of what we learned.</span>
+  - Learning to drive with PPO
+  - NN surgery in DRL
 
-Ultimately (in fact, mainly) this website is also for us, to ensure we keep reading and learning.
-Creating theoretical articles has helped us to sort the main ideas while summarizing recent papers allows us to understand the experiments being attempted by most famous researchers. -->
+## Authors
 
-# Who are we?
-
-We are two [Machine Learning M.Sc.](https://www.kth.se/en/studies/master/machinelearning/description-1.48533) students from [KTH Royal Institute of Technology](https://www.kth.se/en) very interested in Reinforcement Learning research.
-We decided to start this website in an attempt to deepen our understanding on this field.
-It is a nice way of forcing ourselves be up to date with most recent developments and make our projects more presentable.
-
-To be more precise, we are:
+<div class="row">
+<div class="col-sm-4 offset-sm-2">
+    <a href="#"><img src="http://placehold.it/250x250" alt="inn_logo" /></a>
+</div>
+<div class="col-sm-4 offset-sm-2">
+    <a href="#" ><img src="http://placehold.it/250x250" alt="ccs_logo" /></a>
+</div>
+</div>
 
 ### Oleguer Canal
 <div style="clear: both;">
@@ -76,8 +88,6 @@ To be more precise, we are:
 </div>
 
 
-# How can I get in contact/collaborate?
+# Contact
 
-For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us here: [ai.campus.ai@gmail.com](mailto:ai.campus.ai@gmail.com) or directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io). Please do not hesitate in providing feedback!
-
-We are also looking for RL-related internships/research opportunities, if you know anyone interested in hiring please let us know.
+For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us [here](mailto:ai.campus.ai@gmail.com) or (preferably) directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io). Please do not hesitate in providing feedback!

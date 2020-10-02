@@ -19,8 +19,9 @@ layout: default
   gtag('config', 'UA-160601102-1');
 </script>
 
+
 <div class="container-fluid">
-    <div class="row" style="padding-top: 100px;">
+    <div class="row" style="padding-top: 20px;">
         <div class="col-sm-2 offset-sm-1"> <!-- sidebar -->
             <div class="container">
                 <nav class="d-none d-md-block" id="toc" style="position: fixed;"></nav>
@@ -39,14 +40,10 @@ layout: default
 
     <br>
 
-    <div class="row" id="content-row">
+    <div id="content-row">
     {{content}}
     </div>
 
-  <div class="row">
-    <br>
-    {% include comments-section.html pagename=page.name %}
-  </div>
 </div>
 
 <script>
@@ -57,7 +54,7 @@ $(function() {
 		$nav: $myNav,
 		$scope: $("#content-row")
 	});
-  $("#content-row").scrollspy({
+  $("body").scrollspy({
     target: navSelector
   });
 });

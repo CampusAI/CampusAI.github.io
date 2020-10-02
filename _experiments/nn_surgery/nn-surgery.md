@@ -22,6 +22,8 @@ frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; pict
 allowfullscreen></iframe>
 </div>
 
+{% include start-row.html %}
+
 ## Context
 As we learned in many of our [experiments](/experiments), training DRL agents can be an extremely time consuming task.
 Specially when performing changes in the environment:
@@ -225,3 +227,5 @@ Once again, the transplant technique proved superior to training from scratch.
   always be chosen by the DQN algorithm.
 
 - There does not seem to be any library implementing this transfer for DRL algorithms.
+
+{% include end-row.html %}

@@ -28,8 +28,7 @@ This work proposes replacing the usage of fixed weights by **probability distrib
 {% include start-row.html%}
 {% include figure.html url="/_papers/weight_uncertainty/idea.png" description="Figure 1: On the left: classic single-valued weights approach. On the right: weights as probability distribution idea." %}
 
-{% include annotation.html %}
-
+{% include annotation.html%}
 Each weight distribution encodes the uncertainty of that connection: A network with high-variance weights implies a highly uncertain model. This leads into a higher regularization by model averaging.
 
 By just encoding each weight distribution with 2 parameters you can train an infinite ensemble of networks from which to sample from.
@@ -68,7 +67,7 @@ I.e. minimizing KL divergence between this $$q(w \mid \theta)$$ and the true Bay
 \end{equation}
 
 {% include annotation.html%}
-The trade-off between satisfying the simplicity of $$P(w)$$ vs satisfying the complexity of $$\mathcal{D}$$.
+Notice the trade-off between satisfying the simplicity of $$P(w)$$ vs satisfying the complexity of $$\mathcal{D}$$.
 {% include end-row.html%}
 
 
