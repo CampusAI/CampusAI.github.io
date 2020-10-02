@@ -1,0 +1,17 @@
+<div class="container">
+    <nav class="d-none d-xl-block" id="toc" style="position: fixed; word-wrap: break-word;"></nav>
+</div>
+
+<script>
+$(function() {
+  var navSelector = "#toc";
+  var $myNav = $(navSelector);
+	Toc.init({
+		$nav: $myNav,
+		$scope: $("#content-row")
+	});
+  $("body").scrollspy({
+    target: navSelector
+  });
+});
+</script>
