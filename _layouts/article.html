@@ -23,38 +23,34 @@ layout: default
 
   <!-- First row: sidebar and title -->
       <div class="row" style="padding-top: 20px;">
+          <div class="col-xl-3 col-0"> <!-- sidebar -->
+              {% if page.index != false %}
+	          {% include sidebar.html %}
+	      {% endif %}
+          </div>
   
-          <div class="col-sm-2 offset-sm-1"> <!-- Sidebar -->
-        <div class="container">
-                  <nav class="d-none d-md-block" id="toc" style="position: fixed;"></nav>
-        </div>
-    </div>
   
-          <div class="col-sm-6"> <!-- Title, subtitle, etc-->
+          <div class="col-xl-6 col-12"> <!-- Title, subtitle, etc-->
               <h1>{{ page.title }}</h1>
-              <div class="col-auto opaque"> Content from: {{page.content-origin}} </div>
-              <div class="col-auto opaque"> Post author: {{page.post-author}} </div>
-    </div>
-          
-    <div class="col-sm-3"></div> <!-- Right spacing -->
+	      {% if page.content-origin and page.content-origin != "" and page.content-origin != blank %}
+                  <div class="col-auto opaque">
+			  Content from: {{page.content-origin}}
+		  </div>
+	      {% endif %}
+	      <div class="col-auto opaque">
+		      Post author: {{page.post-author}}
+	      </div>
+          </div>
       </div>
   
   <br>
   
-  <!-- MAIN CONTENT -->
-  <!-- Be careful: the content must manage the space by itself -->
-         {{content}}
+    <!-- MAIN CONTENT -->
+    <!-- Be careful: the content must manage the space by itself -->
+    <div class="row" id="content-row">
+        <div class="col-auto">
+           {{content}}
+        </div>
+    </div>
   
   </div> <!-- End of container -->
-  
-  <script>
-  $(function() {
-    var navSelector = "#toc";
-    var $myNav = $(navSelector);
-    Toc.init($myNav);
-    $("body").scrollspy({
-      target: navSelector
-    });
-  });
-  </script>
-  
