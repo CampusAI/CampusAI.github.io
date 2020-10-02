@@ -1,10 +1,11 @@
 ---
-layout: annex
+layout: article
 title: "Annex 5: Policy Gradients"
 permalink: /lectures/policy_gradients_annex
 post-author: Federico Taschin
 ---
 
+{% include start-row.html %}
 ### Obtaining the Policy Gradient
 Here we explain the steps to obtain the gradient of the RL objective in a form that we are able
 to compute. Note that this is not the proof of the Policy Gradient theorem, that can be found in
@@ -135,3 +136,6 @@ an *action-independent* baseline $b$ has zero expected value on th Policy Gradie
 does not introduce any bias. As explained in [Lecture 6: Actor Critic](/lectures/lecture6),
 **state-dependent** baselines $$b(s_t)$$ are often exploited to reduce the Policy Gradient variance
 without introducing biases.
+
+
+{% include end-row.html %}
