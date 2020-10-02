@@ -39,7 +39,9 @@ layout: default
 
     <br>
 
+    <div class="row" id="content-row">
     {{content}}
+    </div>
 
   <div class="row">
     <br>
@@ -51,8 +53,11 @@ layout: default
 $(function() {
   var navSelector = "#toc";
   var $myNav = $(navSelector);
-  Toc.init($myNav);
-  $("body").scrollspy({
+	Toc.init({
+		$nav: $myNav,
+		$scope: $("#content-row")
+	});
+  $("#content-row").scrollspy({
     target: navSelector
   });
 });
