@@ -20,6 +20,7 @@ CampusAI is an artificial intelligence content website with (currently) 35+ arti
 
 - [Papers](/papers/): <span style="color:gray">Summaries of recent/influential/interesting research developments.</span>
   - Uncertainty Estimation
+  - ANN explainability
   - Generative Models
   - RL algorithms
 

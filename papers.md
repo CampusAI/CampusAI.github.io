@@ -36,7 +36,20 @@ subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
 %}
 <br>
 
-## Generative models
+## ANN Explainability
+
+{% include paper-card.html title="Understanding Black-box Predictions via Influence Functions"
+url="/papers/Understanding-Black-box-Predictions-via-Infuence-Functions"
+subtitle="Pang Wei Koh, Percy Liang, 2017"
+%}
+
+{% include paper-card.html title="Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization"
+url="/papers/Grad-CAM"
+subtitle=" Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, Dhruv Batra, 2019"
+%}
+<br>
+
+## Generative Models
 
 {% include paper-card.html title="Glow: Generative Flow with Invertible 1x1 Convolutions"
 url="/papers/glow"
