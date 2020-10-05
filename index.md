@@ -5,7 +5,7 @@ index: false
 ---
 <div class="row" markdown="1">
 <div class="col-12" markdown="1">
-CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focussing on Reinforcement Learning.
+CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focused on Reinforcement Learning.
 
 ## Content
 
@@ -16,8 +16,8 @@ CampusAI is an artificial intelligence content website with (currently) 35+ arti
 - [Reinforcement Learning (RL)](/theory/):  <span style="color:gray">Annotations on main RL fields of study.</span>
   - Basics
   - Model-Free RL: Q-learning, policy gradients, actor-critic
-  - Model-Based RL: Model planning, model policy learning
-  - Transfer, multi-task, and meta-learning
+  - Model-Based RL: model planning, model policy learning
+  - Advanced topics: transfer, multi-task, and meta-learning
   - Open problems
 
 - [Papers](/papers/): <span style="color:gray">Summaries of recent/influential/interesting research developments.</span>
