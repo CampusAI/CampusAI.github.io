@@ -213,7 +213,7 @@ keeping ($$w_i$$ = 1) only those with $$f_{y_i}(x_i) \ge k$$ and $$\mathcal{L}_q
 
 {% include start-row.html %}
 {% include figure.html url="/_papers/cross_entropy_loss_noisy_labels/acs.png"
-description="Figure 1: The ACS algorithm to train the weighted loss. Picture from the paper."
+description="Figure 1: The ACS algorithm to train the weighted loss. Figure from the paper."
 %}
 
 {% include annotation.html %}
@@ -223,8 +223,29 @@ Does this really improve on the truncated loss? See the Weaknesses section for m
 
 {% include start-row.html %}
 ## Results
-- 
+A [ResNet](https://arxiv.org/abs/1512.03385) is trained for different values of $$q$$ and noise
+$$\eta$$ on the CIFAR-10 dataset. Only the training and validation datasets are corrupted with
+noise, while the test set is left with the true labels.
 
+- When trained without noise ($$\eta=0$$), higher values of $$q$$ show worse performance on the
+  test set, and the best are for$$q=0$$, i.e. the standard CCE loss. 
+
+- By increasing the noise $$\eta$$ to 0.2 and 0.6 the test accuracies decrease for low values
+  of $$q$$, while the best results are obtained for values $$q = 0.8$$ and 1.0. 
+
+- The validation plots suggest that low values of $$q$$ make the network overfit to the noisy
+  datasets, while this does not happen with higher values.
+
+A comparison between $$\mathcal{L}_q$$ loss and truncated loss, pure CCE and MAE losses, and 
+other noisy-labels techniques is performed for uniform and class-dependent noise. $$q$$ is kept
+fixed at 0.7. While $$\mathcal{L}_q$$ loss and truncated loss are among the best in uniform
+noise datasets, they do not always provide the same performances in class dependent noise. In
+particular, Forward T ([Patrini et al., 2017, Making Deep Neural Networks Robust to Label Noise: a Loss Correction Approach](https://arxiv.org/abs/1609.03683)) perform consistently better
+in class-dependent noise datasets.
+
+An open set noise is build by introducing some images from CIFAR-100 into CIFAR-10 and
+assigning them a random CIFAR-10 class. When tested in this dataset, the truncated loss
+provided the best accuracy among all the above methods. 
 
 ## Contribution
 - The paper proposes a generalized class of loss functions whose behavior spans between MAE and
@@ -236,13 +257,17 @@ Does this really improve on the truncated loss? See the Weaknesses section for m
 - The paper shows how the theory developed by [Gosh et al.](https://arxiv.org/pdf/1403.3610.pdf)
   can be exploited to construct novel noise tolerant loss functions. It provides bounds
   of the expected risk for the proposed loss. In doing so, it explains the procedure, that can
-  be used to develop other loss functions robust to noise. 
+  be used to develop other loss functions robust to noise. The theorems in the Appendix provide
+  extensive theoretical results on properties of this family of loss functions.
 
 - The paper pushes the research in an area that, to the best of my knowledge, received little
   attention. While lot of work is being done in developing methods to perform classifiaction on
   noisy datasets, little attention has been given to building noise-tolerant loss functions.
 
 ## Weaknesses
+The major weaknesses are related to the ACS algorithm, and the experiments.
+
+### Weaknesses in weighted loss ACS
 The weighted loss and the related ACS algorithm (both in Figure 1) is developed to overcome the
 issue of the truncated loss. The truncated discards, at each training step, every sample for
 which the softmax output of the true label is less than the threshold $$k$$. I argue that the
@@ -269,7 +294,7 @@ beginning of the training with high $$k$$ threshold. Unfortunately, the paper do
 any comparison between the simple $$\mathcal{L}_q$$ loss, the truncated loss, and the ACS
 algorithm.
 
-### Suggestion for future research
+#### Suggestion for future research
 Despite the weaknesses highlighted above, he ACS idea seems really interesting. Indeed, research
 should be done to compare it with the results that this paper provides for the $$\mathcal{L}_q$$
 loss. Moreover, it naturally leads to the idea of using continuous weights, and updating them
@@ -277,7 +302,18 @@ with gradient techniques.
 
 The ACS algorithm can also be viewed as a more general algorithm in which the two steps perform
 the operations of **selection** and **optimization**. The selection step selects the samples
-to use (by assignign weights, probabilities of sampling, or other methods). The rightmost term
+to use (by assigning weights, probabilities of sampling, or other methods). The rightmost term
 $$-\mathcal{L}_q(k) \sum_{i=1}^n w_i$$ of the weighted loss can be seen more generally as a
 regularization term of the selection step, since it does not depend on $$\theta$$.
 The optimization steps optimizes the network on the training set modified by the selection step.
+
+### Weaknesses in experiments
+The paper compares ResNet training on CIFAR-10 for different values of $$q$$ and noise $$\eta$$
+(Figure 2 in the paper). It would have been interesting to see the same comparison with the
+truncated loss and the weighted loss using ACS. In fact, this is the only experiment that
+explores different values of $$q$$.
+
+The following experiments -on CIFAR-10, CIFAR-100, Fashon MNIST- compare the $$\mathcal{L}_q$$
+and the truncated loss with CCE, MAE, and other noisy labels techniques. 
+
+{% include end-row.html %}
