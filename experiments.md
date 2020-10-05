@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Experiments
-permalink: /experiments
+permalink: /experiments/
 ---
 <!--
 To add an experiment one must add a line with the following code:
