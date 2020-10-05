@@ -275,7 +275,7 @@ ACS algorithm of Figure 1 does the same. The paper in Section 3.3 says:
 
 <blockquote markdown="1">
 "At every step of iteration, pruning can be carried out easily by computing $$f(x_i)$$ for
-all training samples. Only samples with $$f_{y_i}(x_i) \ge k$$ and $$\mathcal{L}_q(f(x_i), yi)
+all training samples. Only samples with $$f_{y_i}(x_i) \ge k$$ and $$\mathcal{L}_q(f(x_i), y_i)
 \le \mathcal{L}_q(k)$$ are kept for updating $$\theta$$ during that iteration (and hence
 $$w_i = 1$$)."
 </blockquote>
@@ -283,8 +283,8 @@ $$w_i = 1$$)."
 I do not see any actual difference between this and the simple truncated loss alone. The
 truncated loss discards, at each training step, every sample for which $$f_{y_i}(x_i) \le k$$.
 This algorithm does the same, as $$\mathcal{L}_q(f(x_i), y_i) < \mathcal{L}_q(k)$$ implies 
-$$f(x) > k$$. Therefore both the truncated loss and the ACS algorithm discard the same set of
-samples. The difference is that while the truncated loss re-evaluates this condition every
+$$f_{y_i}(x_i) > k$$. Therefore both the truncated loss and the ACS algorithm discard the same
+set of samples. The difference is that while the truncated loss re-evaluates this condition every
 time, in the ACS algorithm this is done once, then $$\theta$$ is optimized. This is then
 repeated for $$T$$ iterations. It could be argued that samples that after a few optimization
 steps would be discarded by the truncated loss are kept more by the ACS algorithm. However,
