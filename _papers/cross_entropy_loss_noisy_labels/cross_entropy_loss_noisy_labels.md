@@ -313,7 +313,10 @@ The paper compares ResNet training on CIFAR-10 for different values of $$q$$ and
 truncated loss and the weighted loss using ACS. In fact, this is the only experiment that
 explores different values of $$q$$.
 
-The following experiments -on CIFAR-10, CIFAR-100, Fashon MNIST- compare the $$\mathcal{L}_q$$
-and the truncated loss with CCE, MAE, and other noisy labels techniques. 
+The following experiment -on CIFAR-10, CIFAR-100, Fashon MNIST- compare the $$\mathcal{L}_q$$
+and the truncated loss with CCE, MAE, and other noisy labels techniques. $$q$$ is kept fixed
+to 0.7.It would have been interesting to see the comparison with also the ACS algorithm,
+especially to compare it with the truncated loss. It is also not clear the choice of $$q=0.7$$,
+when the experiment described in the paragraph above suggested a value between 0.8 and 1.
 
 {% include end-row.html %}
