@@ -37,7 +37,8 @@ $$x_i$$, the correspondent label $$y_i$$ is represented in the common one-hot en
 A **clean dataset** $$\mathcal{D} = \{(x_i, y_i)\}_{i=1}^n$$ is a dataset with correct labels
 $$y_i$$. Let $$f(\theta, x)$$ be the Neural Network function parametrized by $$\theta$$
 that maps $$x$$ to the predicted label $$y$$. In this article we always assume that the last
-layer of $$f$$ is a **softmax** layer, therefore $$f(\theta, x) \in [0, 1]$$ always.
+layer of $$f$$ is a **softmax** layer, therefore $$f(\theta, x) \in [0, 1]^{c}$$ always.
+
 ### Notation
 In this article $$f(x)$$ is always intended to be parametrized by $$\theta$$, i.e.
 $$f_{\theta}(x) = f(x)$$. $$f_j(x)$$ represents the $$j$$-th output of the softmax classifier
@@ -152,7 +153,7 @@ of CCE loss.
 
 The paper proposes to use the Box-Cox transformation as a loss function:
 \begin{equation}
-\mathcal{L}_{q}(f(x), j) = \frac{(1 - f_j(x))^q}{q}
+\mathcal{L}_{q}(f(x), j) = \frac{1 - f_j(x)^q}{q}
 \end{equation}
 where $$q \in [0, 1]$$ is a tuning parameter. By computing the limits we observe that for $$q=0$$
 the $$\mathcal{L}_q$$ loss becomes the CCE loss, while for $$q=1$$ it becomes the MAE loss up to
@@ -182,15 +183,14 @@ $$
 \end{cases}
 $$
 
-The parameter $$k$$ acts as a threshold. If the softmax output for the correct class is smaller
-thank $$k$$, the loss is constant with respect to $$\theta$$. Therefore, the gradient will be
-zero, and the sample will effectively not count. Ideally, the higher the noise in the dataset,
-the closer $$k$$ should be. 
+where $$\mathcal{L}_q(k) = \frac{1 - k^q}{q}$$. The parameter $$k$$ acts as a threshold.
+If the softmax output for the correct class is smaller thank $$k$$, the loss is constant with
+respect to $$\theta$$. Therefore, the gradient will be zero, and the sample will effectively
+not count. Ideally, the higher the noise in the dataset, the closer $$k$$ should be. 
 
 It is however not a good idea to directly use this loss for training when values of $$k$$ are
-high -e.g. $$k = 0-5$$. In fact, very few samples will have high softmax outputs in the beginning
+high, e.g. $$k = 0.5$$. In fact, very few samples will have high softmax outputs in the beginning
 of the training. The classifier would be therefore trained only on a small subset of samples.
-
 To circumvent the issue, the paper shows that optimizing the truncated loss is the same as
 solving the following:
 
