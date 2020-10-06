@@ -97,7 +97,7 @@ Let $$f^*$$ be the global minimizer of $$R_{\mathcal{L}}(f)$$, the empirical ris
 dataset. A loss function is said to be **noise tolerant** if $$f^*$$ is also a global minimizer
 of $$R_{\mathcal{L}}^{\eta}$$, the empirical risk on the noisy dataset.
 
-As proved in [Gosh et al., 2015, Making Risk Minimization Tolerant to Label Noise](https://arxiv.org/pdf/1403.3610.pdf),
+As proved in [Gosh et al., 2015, Making Risk Minimization Tolerant to Label Noise](https://arxiv.org/abs/1403.3610),
 if the loss function $$\mathcal{L}$$ is **symmetric** and $$\eta < \frac{c-1}{c}$$ then,
 under *uniform noise*, $$\mathcal{L}$$ is noise tolerant. Additionally, if
 $$R_{\mathcal{L}}(f^*) = 0$$, then $$\mathcal{L}$$ is noise tolerant under class dependent noise.
@@ -254,7 +254,7 @@ provided the best accuracy among all the above methods.
   that at each step trains the network on a subset of the training samples. This subset is
   computed by pruning the training set from all samples that are likely to be noisy.
 
-- The paper shows how the theory developed by [Gosh et al.](https://arxiv.org/pdf/1403.3610.pdf)
+- The paper shows how the theory developed by [Gosh et al.](https://arxiv.org/abs/1403.3610)
   can be exploited to construct novel noise tolerant loss functions. It provides bounds
   of the expected risk for the proposed loss. In doing so, it explains the procedure, that can
   be used to develop other loss functions robust to noise. The theorems in the Appendix provide
