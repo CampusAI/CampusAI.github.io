@@ -36,8 +36,9 @@ By just encoding each weight distribution with 2 parameters you can train an inf
 
 
 {% include start-row.html%}
-### Nice... but how do you train this? Bayesian by Backpropagation
+### How do you train this?
 
+The authors name the training method "Bayesian by Backpropagation".
 Usually ANNs weights are optimized by Maximum Likelihood Estimation (**MLE**): 
 
 \begin{equation}

@@ -9,26 +9,26 @@ CampusAI is an artificial intelligence content website with (currently) 35+ arti
 
 ## Content
 
-- [Machine Learning (ML)](/ml/): <span style="color:gray">Probabilistic view on general ML topics.</span>
-  - Probabilistic basics
-  - Deep Generative Models
 
-- [Reinforcement Learning (RL)](/theory/):  <span style="color:gray">Annotations on main RL fields of study.</span>
-  - Basics
-  - Model-Free RL: Q-learning, policy gradients, actor-critic
-  - Model-Based RL: model planning, model policy learning
-  - Advanced topics: transfer, multi-task, and meta-learning
-  - Open problems
+{% include bulletpoint-card.html title="Machine Learning (ML)"
+subtitle="Probabilistic view on general ML topics."
+brief="Probabilistic basics;Deep Generative Models;"
+url="/ml/" type="bulletlist" %}
 
-- [Papers](/papers/): <span style="color:gray">Summaries of recent/influential/interesting research developments.</span>
-  - Uncertainty Estimation
-  - ANN explainability
-  - Generative Models
-  - RL algorithms
+{% include bulletpoint-card.html title="Reinforcement Learning (RL)"
+subtitle="Annotations on main RL fields of study."
+brief="RL Basics;Model-Free RL;Model-Based RL;Advanced topics;Open problems"
+url="/theory/" type="bulletlist" %}
 
-- [Experiments](/experiments/): <span style="color:gray">Some of our own projects and the takeaways of what we learned.</span>
-  - Learning to drive with PPO
-  - NN surgery in DRL
+{% include bulletpoint-card.html title="Papers"
+subtitle="Summaries of recent/influential/interesting research developments."
+brief="Uncertainty estimation;ANN explainability;Generative models;Beyond standard labels;RL algorithms"
+url="/papers/" type="bulletlist" %}
+
+{% include bulletpoint-card.html title="Experiments"
+subtitle="Some of our own projects and the takeaways of what we learned."
+brief="Learning to drive with PPO;NN surgery in DRL;"
+url="/experiments/" type="bulletlist" %}
 
 ## Authors
 </div>

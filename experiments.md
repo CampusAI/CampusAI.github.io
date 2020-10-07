@@ -31,7 +31,7 @@ This project was part of a contest and we achieved the faster maze completion ti
 type="description" %}
 
 {% include card.html
-title="Neural Network Surgery in Deep Reinforcement Learning"
+title="NN Surgery in Deep RL"
 img="/_experiments/nn_surgery/lunar_lander.gif"
 url="/experiments/nn_surgery"
 brief="In this work we experiment on weight transplantation after slight ANN modifications.
