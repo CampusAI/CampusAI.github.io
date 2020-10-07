@@ -62,7 +62,20 @@ subtitle="Ajay Jain, Pieter Abbeel, Deepak Pathak, 2020"
 %}
 <br>
 
+## Beyond standard labels
 
+<!-- include paper-card.html title="A Simple Framework for Contrastive Learning of Visual Representations"
+subtitle="Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton"
+url="chen2020-contrastive-learning"
+-->
+
+{% include paper-card.html
+title="Generalized Cross Entropy Loss for Training Deep Neural Networks with Noisy Labels" 
+subtitle="Zhilu Zhang, Mert R. Sabuncu"
+url="/papers/zhang_sabuncu2018_cross_entropy_noisy_labels"
+%}
+
+<br>
 ## RL Algorithms
 
 {% include paper-card.html title="Soft Actor-Critic (SAC)"
