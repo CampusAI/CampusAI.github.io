@@ -35,10 +35,10 @@ Now, separating the terms using the properties of $$\ln$$, we obtain:
 \begin{align}
 \ln p(x) & \ge E_{z \sim q(z)} \Big[ \ln p(x \vert z) + \ln p(z) \Big] -
 E_{z \sim q(z)} \Big[ q(z) \Big] \\\\\\
-& = E_{z \sim q(z)}\Big[\ln p(x \vert z) + \ln p(x)\Big] + \mathcal{H}[q(z)]
+& = E_{z \sim q(z)}\Big[\ln p(x \vert z) + \ln p(z)\Big] + \mathcal{H}[q(z)]
 \end{align}
 
-As promised, we obtained the **Evidence Lowe Bound** that in the lecture we denote with
+As promised, we obtained the **Evidence Lower Bound** that in the lecture we denote with
 $$\mathcal{L}(p, q)$$.
 
 \begin{equation}
@@ -82,7 +82,7 @@ D_{KL}\Big(q(z) \vert\vert p(z \vert x)\Big) =&
 \end{align}
 
 In which we used the fact that $$E_{z \sim q(z)}[\ln q(z)] = -\mathcal{H}[q(z)]$$ and therefore
-we recognize in the first two terms the **Evidence Lowe Bound** of Eq. \ref{eq:elbo}. Moreover,
+we recognize in the first two terms the **Evidence Lower Bound** of Eq. \ref{eq:elbo}. Moreover,
 since $$\ln p(x)$$ does not depend on $$z$$, the last term is just $$\ln p(x)$$.
 
 Thus, we obtain the key result that will prove extremely useful in the
