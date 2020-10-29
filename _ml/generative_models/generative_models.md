@@ -41,15 +41,15 @@ Naming goes: **Posterior**:  $$P(y \mid x)$$. **Likelihood**:  $$P(x \mid y)$$. 
 
 ## Discriminative vs Generative models
 
-- **Discriminative models** task is to predict a label $$y$$ for any given datapoint $$x$$. I.e. learn the conditional probability distribution $$P(y \mid x)$$ (**posterior**) by mapping inputs to provided labels. (**supervised learning**)
+- **Discriminative models** task is to predict a label $$y$$ for any given datapoint $$x$$. I.e. learn the conditional probability distribution $$P(y \mid x)$$ (**posterior**) by mapping inputs to provided labels. **Supervised learning**.
 
-- **Generative models** attempt to learn an **approximate probabilistic distribution** of $$P(x)$$, $$P(x \mid z)$$, or $$P(x \mid z)$$. Usually some functional form of $$P(z)$$ and $$P(X \mid z)$$ is assumed, then their parameters are estimated using data. If interested in the posterior one can use Bayes to compute it. (**unsupervised learning**)
+- **Generative models** attempt to learn an **approximate probabilistic distribution** of $$P(x)$$, $$P(x \mid z)$$, or $$P(z \mid x)$$. Usually some functional form of $$P(z)$$ and $$P(X \mid z)$$ is assumed, then their parameters are estimated using data. If interested in the posterior one can use Bayes to compute it: **Unsupervised learning**.
 
-Discriminative usually outperform generative models in classification tasks:
+Discriminative models usually outperform generative models in classification tasks:
 
 {% include figure.html url="/_ml/generative_models/dis_vs_gen.png" description="Figure 1: Learning a decision boundary $P(y \mid x)$ is easier than learning the full x distribution of each class $P(x \mid y)$ (Image from KTH DD2412 course)" zoom="1.0"%}
 
-Nevertheless the rich interpretation generative models do of our data can be very useful. The next section presents some of their use-cases
+Nevertheless the rich interpretation generative models do of our data can be very useful. The next section presents some of their use-cases.
 
 ## Generative models use-cases
 
@@ -67,7 +67,7 @@ We could:
 
 {% include annotation.html %}
 
-Quantitative evaluation of generative models is non-trivial and is still being researched on. A common evaluation metric of $$P_\theta(x)$$ is to assess the negative log-likelihood (NNL) of a "test" set. Images from a dataset should have very high likelihood (they are samples of the distribution).
+Quantitative evaluation of generative models is non-trivial and is still being researched on. A common evaluation metric of $$P_\theta(x)$$ is to assess the negative log-likelihood (NLL) of a "test" set. Images from a dataset should have very high likelihood (they are samples of the distribution).
 
 Not all type of generative models are able to perform all of the above use-cases. There exist many different approaches (types) with its strengths and weaknesses.
 
