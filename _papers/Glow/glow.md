@@ -19,7 +19,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 
 {% include start-row.html %}
-If not familiar with flow-based generative models I suggest to first take a look at our [Parametric Deep Generative Models post](http://127.0.0.1:4000/lectures/generative_models).
+If not familiar with flow-based generative models I suggest to first take a look at our [Normalizing FLows post](/ml/flow_models).
 
 ## Idea
 
