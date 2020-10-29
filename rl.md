@@ -35,6 +35,8 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Lecture 4: Introduction to Reinforcement Learning" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist" %}
 
+<br>
+<br>
 ### Model-Free RL
 
 {% include card.html title="Lecture 5: Policy Gradients" brief="Policy differentiation;The REINFORCE algorithm;Solving the causality issue;Baselines;Off-policy Policy Gradient" img="/_rl/lecture_5/icon.png" url="/lectures/lecture5" type="bulletlist" %}
@@ -51,6 +53,8 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Lecture 9: Advanced Policy Gradients" brief="Policy Gradient as Policy Iteration;The KL Divergence constraint;Dual Gradient Descent;Natural Gradients and Trust Region Policy Optimization;Proximal Policy Optimization" img="/_rl/lecture_9/icon.png" url="/lectures/lecture9" type="bulletlist"%}
 
+<br>
+<br>
 ### Model-Based RL
 
 {% include card.html title="Lecture 10: Model-based Planning" brief="Deterministic vs Stochastic environments;Stochastic optimization methods;Monte Carlo Tree Search (MCTS);Collocation trajectory optimization;Shooting trajectory optimization" img="/_rl/lecture_10/icon.png" url="/lectures/lecture10" type="bulletlist"%}
@@ -59,6 +63,8 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Lecture 12: Model-based Policy Learning" brief="How to use env. models to learn policies;Local vs Global policies;Guided policy search;Policy Distillation;Divide & conquer RL" img="/_rl/lecture_12/icon.png" url="/lectures/lecture12" type="bulletlist"%}
 
+<br>
+<br>
 ### Advanced Topics
 
 {% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%}
@@ -78,6 +84,7 @@ img="/_rl/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"%}
 <!-- {% include card.html title="Lecture 20: Meta-learning" brief="" img="" url="" %} -->
 <!-- {% include card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
+<br>
 ## Annex
 
 This section contains both basic RL knowledge assumed to be known in the previous course and some demonstrations which we found interesting to add as an annex.
@@ -90,6 +97,7 @@ In addition we added our own interpretations of some concepts hoping they can ea
 {% include paper-card.html title="Annex 5: Policy Gradients" subtitle="" url="/lectures/policy_gradients_annex"   %}
 {% include paper-card.html title="Annex 13: Variational Inference" subtitle="" url="/lectures/variational_inference_annex"   %}
 
+<br>
 ## Other great resources
 
 - [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/bookdraft2017nov5.pdf), Sutton & Barto, 2017. (Arguably the most complete RL book out there)

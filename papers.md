@@ -34,7 +34,7 @@ subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew
 url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
 %}
-<br>
+
 
 ## ANN Explainability
 
@@ -47,7 +47,7 @@ subtitle="Pang Wei Koh, Percy Liang, 2017"
 url="/papers/Grad-CAM"
 subtitle=" Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, Dhruv Batra, 2019"
 %}
-<br>
+
 
 ## Generative Models
 
@@ -60,7 +60,7 @@ subtitle="Diederik P. Kingma, Prafulla Dhariwal, 2018"
 url="/papers/LMConv"
 subtitle="Ajay Jain, Pieter Abbeel, Deepak Pathak, 2020"
 %}
-<br>
+
 
 ## Beyond standard labels
 
@@ -75,7 +75,7 @@ subtitle="Zhilu Zhang, Mert R. Sabuncu"
 url="/papers/zhang_sabuncu2018_cross_entropy_noisy_labels"
 %}
 
-<br>
+
 ## RL Algorithms
 
 {% include paper-card.html title="Soft Actor-Critic (SAC)"
@@ -91,7 +91,7 @@ subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016"
 url="/papers/the-option-critic-architecture" %}
 <!-- The Options framework provides theoretical grounds for temporal abstraction in Reinforcement Learning. Each Option can be considered as a macro-action with its policy and termination condition, leading to two levels of policies: one policy over options and several intra-option policies. This paper presents the Option-Critic Architecture."
 url="/papers/the-option-critic-architecture -->
-<br>
+
 
 ## Other
 

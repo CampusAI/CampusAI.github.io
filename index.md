@@ -57,6 +57,6 @@ url="/experiments/" type="bulletlist" %}
 <div class="col-0 col-sm-1"></div>
 </div>
 
-# Contact
+## Contact
 
 For website-related messages such as __questions__, __collaborations__ or __suggestions__ you can write us [here](mailto:ai.campus.ai@gmail.com) or (preferably) directly open an issue to the website's [repo](https://github.com/CampusAI/CampusAI.github.io). Please do not hesitate in providing feedback!
