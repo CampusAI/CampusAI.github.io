@@ -26,15 +26,15 @@ achieved by a Neural Network, but other function approximation techniques may be
 {% include figure.html url="/_rl/lecture_5/NN_policy.png" description="Example of a policy modeled by a Convolutional Neural NetworkExample of a policy modeled by a Convolutional Neural Network" %}
 
 #### Notation
-Such a policy is parametrized by a set of parameters $\theta$ that can be, for example, the
+Such a policy is parametrized by a set of parameters $$\theta$$ that can be, for example, the
 weights of a Neural Network. Thus, $$\pi_{\theta}(a | s)$$ represents the probability of
-chosing action $a$ given the current state $s$. We use $\pi_{\theta}(\tau)$ to represent
-the probability of a trajectory $\tau$. We represent the total reward of a trajectory $\tau$
-as $r(\tau)$
+chosing action $$a$$ given the current state $$s$$. We use $$\pi_{\theta}(\tau)$$ to represent
+the probability of a trajectory $\tau$. We represent the total reward of a trajectory $$\tau$$
+as $$r(\tau)$$.
 
 
 ## Direct Policy Differentiation
-We aim to maximize the objective function $J(\theta)$ of Eq. \ref{eq:objective}. We can do this
+We aim to maximize the objective function $$J(\theta)$$ of Eq. \ref{eq:objective}. We can do this
 by exploiting the common gradient step technique. 
 \begin{equation}
 \label{eq:objective}
@@ -49,7 +49,7 @@ Exploiting the **log gradient trick** we obtain that
 \end{equation}
 
 Then, by plugging in $$\pi_{\theta}(\tau) = p(s_1) \prod_{t=1}^T \pi_{\theta}(a_t \vert s_t) p(s_{t+1} \vert s_t, a_t)$$ into the log in Eq.\ref{eq:objective_gradient} and observing that
-the gradient is zero for all the terms not depending on $\theta$, we obtain
+the gradient is zero for all the terms not depending on $$\theta$$, we obtain
 
 \begin{equation}
 \label{eq:policy_gradient}
@@ -62,9 +62,9 @@ A more detailed explanation of the steps that bring to this result can be found 
 problem of computing this gradient, that is defined as an expectation over the trajectory
 distribution. Since we assume to not know the dynamics of the environment, we cannot directly
 compute this distribution and its expected value. Instead, we use Monte Carlo sampling to
-obtain an unbiased estimate of the gradient. We sample $N$ trajectories $\tau^{(i)}$,
-$i = 1$ ... $N$, by running the policy in the environment, and we compute the gradient
-$\nabla_{\theta}J(\theta)$
+obtain an unbiased estimate of the gradient. We sample $$N$$ trajectories $$\tau^{(i)}$$,
+$$i = 1$$ ... $$N$$, by running the policy in the environment, and we compute the gradient
+$$\nabla_{\theta}J(\theta)$$
 
 \begin{equation}
 \label{eq:gradient_sample}
@@ -72,30 +72,30 @@ $\nabla_{\theta}J(\theta)$
 \nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \right) r(\tau^{(i)})
 \end{equation}
 
-where $r(\tau^{(i)})$ is the total reward of the $i$-th trajectory. 
+where $$r(\tau^{(i)})$$ is the total reward of the $$i$$-th trajectory. 
 
 ## REINFORCE
 We now have everything we need to introduce the basic **REINFORCE** algorithm.
-1. Initialize $\theta$ at random
+1. Initialize $$\theta$$ at random
 2. While not converged
     1. Run policy $$\pi_{\theta}$$ in the environment and collect trajectories $$\{\tau^{(i)}\}$$
-    2. Compute $\nabla_{\theta}J(\theta) \approx \sum_{i=1}^N \left( \sum_{t=1}^T
-       \nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \right) r(\tau^{(i)})$ 
-    3. $\theta = \theta + \alpha \nabla_{\theta}J(\theta)$ 
+    2. Compute $$\nabla_{\theta}J(\theta) \approx \sum_{i=1}^N \left( \sum_{t=1}^T
+       \nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \right) r(\tau^{(i)})$$
+    3. $$\theta = \theta + \alpha \nabla_{\theta}J(\theta)$$
 
-The equation of the gradient does not contain the term $\frac{1}{N}$ because the magnitude of
-the gradient is already determined by the learning rate $\alpha$. 
+The equation of the gradient does not contain the term $$\frac{1}{N}$$ because the magnitude of
+the gradient is already determined by the learning rate $$\alpha$$. 
 
 ### Interpretation
 We now reason about what does Eq. \ref{eq:policy_gradient} do. When we take a gradient step
 given by $$E_{\tau \sim \pi_{\theta}(\tau)} [\nabla_{\theta}\log \pi_{\theta}(\tau)]$$ we are
-making the trajectory $\tau$ more probale. If we multiply the term inside the gradient by
-$r(\tau)$ as in Eq. \ref{eq:policy_gradient}, we increase/decrease the likelihood of the
-trajectory in consideration depending on the sign of $r(\tau)$. Thus, if the total reward
-$r(\tau)$ is negative, the likelihood of the trajectory $\tau$ is decreased, while if it is
-positive it is increased. Increasing or decreasing the likelihood of a trajectory $\tau$ means
-that the gradient step is increasing/decreasing the likelihood of the actions $a_t$
-correspondent to the states $s_t$ for $a_t, s_t \in \tau$. This, however, poses some serious
+making the trajectory $$\tau$$ more probale. If we multiply the term inside the gradient by
+$$r(\tau)$$ as in Eq. \ref{eq:policy_gradient}, we increase/decrease the likelihood of the
+trajectory in consideration depending on the sign of $$r(\tau)$$. Thus, if the total reward
+$$r(\tau)$$ is negative, the likelihood of the trajectory $$\tau$$ is decreased, while if it is
+positive it is increased. Increasing or decreasing the likelihood of a trajectory $$\tau$$ means
+that the gradient step is increasing/decreasing the likelihood of the actions $$a_t$$
+correspondent to the states $$s_t$$ for $$a_t, s_t \in \tau$$. This, however, poses some serious
 issues that in practice make the Policy Gradient technique as we stated it not working.
 
 ## How to make Policy Gradient work
@@ -103,12 +103,12 @@ As formulated above, the Policy Gradient methods do not really work well. In thi
 analyze their main issues and the tricks necessary to make Policy Gradient algorithms work.
 
 ### The causality issue
-The term $r(\tau)$ in Eq.\ref{eq:gradient_sample} is the total reward of a trajectory $\tau$:
+The term $$r(\tau)$$ in Eq.\ref{eq:gradient_sample} is the total reward of a trajectory $$\tau$$:
 \begin{equation}
 r(\tau) = \sum_{t=1}^T r(s_t, a_t)
 \end{equation}
-with $s_t$, $a_t$ being the state and action at time-step $t$ in the trajectory $\tau$.
-If we develop Eq. \ref{eq:policy_gradient} by expliciting $r(\tau)$ and moving it inside the
+with $$s_t$$, $$a_t$$ being the state and action at time-step $$t$$ in the trajectory $$\tau$$.
+If we develop Eq. \ref{eq:policy_gradient} by expliciting $$r(\tau)$$ and moving it inside the
 summation we obtain 
 
 \begin{equation}
@@ -126,8 +126,8 @@ bad actions thanks to rewards obtained before that action was taken -i.e. the **
 not taken into consideration.
 
 This can be solved by using the so called **reward to go**
-$$\hat{Q}_t = \sum_{t'=t}^T r(s_t, a_t)$$ that is the total reward of a trajectory $\tau$
-from the time-step $t$ onwards. Eq. \ref{eq:policy_gradient} then becomes 
+$$\hat{Q}_t = \sum_{t'=t}^T r(s_t, a_t)$$ that is the total reward of a trajectory $$\tau$$
+from the time-step $$t$$ onwards. Eq. \ref{eq:policy_gradient} then becomes 
 
 \begin{equation}
 \label{eq:pg_togo}
@@ -152,7 +152,7 @@ step is also increasing their likelihood.
 
 A solution to this issue is to use a **baseline**. As we explain more in detail in the
 [Annex 5: Policy Gradients](/lectures/policy_gradients_annex), we can subtract any term
-$b$ that does not depend on the trajectory $\tau$ from Eq. \ref{eq:gradient_sample}, obtaining
+$b$ that does not depend on the trajectory $$\tau$$ from Eq. \ref{eq:gradient_sample}, obtaining
 \begin{equation}
 \nabla_{\theta}J(\theta) = \frac{1}{N} \sum_{i=1}^N \sum_{t=1}^T
 \nabla_{\theta}\log \pi_{\theta}(a_t^{(i)} \vert s_t^{(i)}) \left( r(\tau^{(i)}) - b \right) 
@@ -242,17 +242,17 @@ The resulting **off-policy Policy Gradient** will then be
 \frac{\pi_{\theta'}(a_t^{(i)} \vert s_t^{(i)})}{\pi_{\theta}(a_t^{(i)} \vert s_t^{(i)})}
 \nabla_{\theta'}\log\pi_{\theta'}(a_t^{(i)} \vert s_t^{(i)}) \hat{Q}_{i, t}
 \end{equation}
-in which we used the reward to go $$\hat{Q}_{i, t}$$, i.e. the total reward of the $i$-th
-trajectory from time-step $t$ onwards.
+in which we used the reward to go $$\hat{Q}_{i, t}$$, i.e. the total reward of the $$i$$-th
+trajectory from time-step $$t$$ onwards.
 
 #### Which off-policy setting should I implement?
 The goal of off-policy algorithms is to reuse experience collected with elder versions of the
 policy as much as possible. The formulation of Eq. \ref{eq:off_policy} allows us to use samples
-obtained from any distribution $$\pi_{\theta}$$, but has the issue that for big values of $T$
+obtained from any distribution $$\pi_{\theta}$$, but has the issue that for big values of $$T$$
 it can lead to numerical instabilities. On the other hand, the formulation of Eq. 
 \ref{eq:off_policy_approx} requires the old policy $$\pi_{\theta}$$ to be *close enough* to
 the new policy $$\pi_{\theta'}$$, preventing us to exploit samples from policies that are too
-different, but solves the numerical issues. Therefore, if the time horizon $T$ is not too big,
+different, but solves the numerical issues. Therefore, if the time horizon $$T$$ is not too big,
 the formulation of Eq. \ref{eq:off_policy} is preferrable, otherwise one should go for
 Eq. \ref{eq:off_policy_approx}.
 
