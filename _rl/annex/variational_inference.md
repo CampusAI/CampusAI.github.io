@@ -1,15 +1,15 @@
 ---
 layout: article
-title: "Annex 13: Variational Inference"
+title: "Variational Inference"
 permalink: /lectures/variational_inference_annex
 post-author: Federico Taschin
 ---
 
 {% include start-row.html %}
 ### The Evidence Lower Bound
-In [Lecture 13: Variational Inference](/lectures/lecture13) we showed that $$\ln p(x)$$ has a
+In [Variational Inference](/ml/variational_inference) we showed that $$\ln p(x)$$ has a
 lower bound that we called **Evidence Lower Bound**, which can be expressed in terms of some
-latent variables $$z$$ and a distribution $$q(z)$$ -that in the lecture we use to approximate
+latent variables $$z$$ and a distribution $$q(z)$$ -that in the post we use to approximate
 $$p(z \vert x)$$.
 
 By applying marginalisation of $$p(x)$$ over the latent variables and multiplying by
@@ -38,7 +38,7 @@ E_{z \sim q(z)} \Big[ q(z) \Big] \\\\\\
 & = E_{z \sim q(z)}\Big[\ln p(x \vert z) + \ln p(z)\Big] + \mathcal{H}[q(z)]
 \end{align}
 
-As promised, we obtained the **Evidence Lower Bound** that in the lecture we denote with
+As promised, we obtained the **Evidence Lower Bound** that in the post we denote with
 $$\mathcal{L}(p, q)$$.
 
 \begin{equation}
@@ -49,7 +49,7 @@ $$\mathcal{L}(p, q)$$.
 
 
 ### Developing on the KL Divergence
-In the lecture, we find another expression for $$p(x)$$, that includes the Evidence Lower Bound
+In the post, we find another expression for $$p(x)$$, that includes the Evidence Lower Bound
 we derived above, but this time the equality is exact. We obtain theis by developing on the
 KL Divergence between $$q(z)$$ and $$p(z \vert x)$$. Remember that $$q(z)$$ is the distribution
 we use to approximate $$p(z \vert x)$$ which we assume to be intractable.
@@ -86,7 +86,7 @@ we recognize in the first two terms the **Evidence Lower Bound** of Eq. \ref{eq:
 since $$\ln p(x)$$ does not depend on $$z$$, the last term is just $$\ln p(x)$$.
 
 Thus, we obtain the key result that will prove extremely useful in the
-[lecture](/lectures/lecture13)
+[post](/ml/variational_inference)
 
 \begin{equation}
 \boxed{\ln p(x) = D_{KL}\Big(q(z) \vert\vert p(z \vert x)\Big) + \mathcal{L}(p, q)}

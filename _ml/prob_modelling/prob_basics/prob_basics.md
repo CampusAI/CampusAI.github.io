@@ -96,7 +96,7 @@ If $$P$$ is the "true" distribution and $$Q$$ our approximation we have 2 types 
 - **Forward KL** (moment-matching): $$D_{KL} (P \mid \mid Q) = \sum P \log \frac{P}{Q}$$. Where P is small, it doesn't matter what Q is doing. E.g. if approximating with Gaussian, will only try to match the moments of P, mean and variance.
 - **Reverse KL** (mode-seeking): $$D_{KL} (Q \mid \mid P) = \sum Q \log \frac{Q}{P}$$. Where Q is low, does not matter what P is.
 
-{% include figure.html url="/_ml/prob_modelling/kl_asymmetry.png" description="Figure 2: Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization). (Image from Bishop)" zoom="1.5"%}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/kl_asymmetry.png" description="Figure 2: Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization). (Image from Bishop)" zoom="1.5"%}
 
 {% include end-row.html %}
 

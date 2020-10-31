@@ -1,7 +1,7 @@
 ---
 layout: lecture
-title: "Lecture 13: Variational Inference and Generative Models"
-permalink: /lectures/lecture13
+title: "Variational Inference"
+permalink: /ml/variational_inference
 lecture-author: Sergey Levine
 lecture-date: 2019
 post-author: Federico Taschin
@@ -19,26 +19,25 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 {% include start-row.html %}
 
-In [Lecture 2: Imitation Learning](/lectures/lecture2) we noticed an issue with learning from
+<!-- In [Lecture 2: Imitation Learning](/lectures/lecture2) we noticed an issue with learning from
 demonstrations when the data has a **multi-modal behavior**. In the example below, the human
 demonstrator sometimes decides to avoid the obstacle by turning left, and sometimes by turning
 right. However, averaging between the two will make you crash.
 
-{% include figure.html url="/_rl/lecture_13/tree.png" description="Example of bimodal behavior" %}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/tree.png" description="Example of bimodal behavior" %}
 
 If our neural network outputs a Gaussian action, it will be forced to average between the human
 demonstrations. We learned that there are three main ways of dealing with this issue:
 
 - Output a mixture of Gaussians
 - **Latent Variable Models**
-- Autoregressive Discretization
+- Autoregressive Discretization -->
 
-In this lecture we talk about **Latent Variable Models**, and how to approximate any multimodal
-distribution using **Variational Inference**.
+In this post we talk about **Latent Variable Models**, and how to approximate any multimodal distribution using **Variational Inference**.
 
 It is often the case that data is distributed accordingly to some variables that cannot be directly observed. One schoolbook examples is the Gaussian Mixture:
 
-{% include figure.html url="/_rl/lecture_13/gauss_mix.png" description="Gaussian Mixture"%}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/gauss_mix.png" description="Gaussian Mixture"%}
 
 The likelyhood of a datapoint $$x$$ is given by the marginalization over the possible values of a
 **latent variable** $$z \in \{1, 2, 3\}$$ that indicates the cluster.
@@ -71,7 +70,7 @@ can be hard or impossible to compute. In this lecture we will learn how to appro
 If we want to represent a really complex distribution, we can represent $$p(x \vert  z)$$ with a **Neural Network** that, given $$z$$, will output the mean and variance of a Gaussian
 distribution for $$x$$:
 
-{% include figure.html url="/_rl/lecture_13/nn_transform.png" description="Neural Network mapping $z$ to $p(x\vert z)$" %}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/nn_transform.png" description="Neural Network mapping $z$ to $p(x\vert z)$" %}
 
 Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gaussian are given
 by the non-linear function of the Neural Network, and therefore it can approximate any
@@ -92,6 +91,8 @@ computing the log likelihood.
 
 
 ## Estimating the log likelihood
+
+### Expectation Maximization
 
 Eq. \ref{eq:ml_lvm} requires us to compute $$p_{\theta}(x)$$, which involves integrating the
 latent variables and is therefore intractable. One important technique for finding Maximum
@@ -132,13 +133,13 @@ distribution. As we show in
 the log of $$p(x)$$ is bounded by:
 
 \begin{align}
-\label{eq:elbo}
 \begin{split}
 \ln p(x_i) \ge &  E_{z \sim q_i(z)} \Big[\overbrace{\ln p_{\theta}(x_i\vert z)+\ln p(z)}
 ^{\ln p(x_i, z)}\Big]+
 \mathcal{H}(q_i) \\\\\\
 = & \mathcal{L}_i(p, q_i)
 \end{split}
+\label{eq:elbo}
 \end{align}
 
 
@@ -312,7 +313,7 @@ on the gradient of $$q_{\phi}$$ in order to increase the likelihood of $$x_i$$ t
 large. This is the same we did in [Lecture 5: Policy Gradients](/lectures/lecture5), where we
 discussed why doing this leads to an high variance estimator. The figure below shows the
 process that from $$x_i$$ gives us $$q_{\phi}(z \vert x_i)$$ and $$p_{\theta}(x_i \vert z)$$:
-{% include figure.html url="/_rl/lecture_13/icon.png" description="" %}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/icon.png" description="" %}
 
 
 #### A more practical form of $$\mathcal{L_i}(p, q)$$

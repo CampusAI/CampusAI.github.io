@@ -67,7 +67,7 @@ subtitle:   Leave empty in lectures
 <br>
 ### Advanced Topics
 
-{% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%}
+<!-- {% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%} -->
 
 <!-- {% include card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
 

@@ -56,7 +56,7 @@ Notice that $$P ( w | \mathcal{D} )$$ fully determines unseen data predictions.
 One can get it by marginalizing over all the network weights:
 $$P \left( y | x \right) = E_{P(w | D)} \left[ P \left( y | x, w \right) \right]$$ (intractable in practice). 
 
-The paper proposes learning the parameters $$\theta$$ of the weights distribution $$q(w \mid \theta)$$ using [Variational Inference](/lectures/lecture13).
+The paper proposes learning the parameters $$\theta$$ of the weights distribution $$q(w \mid \theta)$$ using [Variational Inference](/ml/variational_inference).
 I.e. minimizing KL divergence between this $$q(w \mid \theta)$$ and the true Bayesian posterior of the weights:
 {% include end-row.html%}
 
