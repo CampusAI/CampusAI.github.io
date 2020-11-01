@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 10: Model-based Planning"
+title: "Model-based Planning"
 permalink: /lectures/lecture10
 lecture-author: Sergey Levine
 lecture-date: 2019

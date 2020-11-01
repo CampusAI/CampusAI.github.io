@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 8: Deep RL with Q functions"
+title: "Deep RL with Q functions"
 permalink: /lectures/lecture8
 lecture-author: Sergey Levine
 lecture-date: 2019

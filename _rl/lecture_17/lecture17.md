@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 17: Distributed RL"
+title: "Distributed RL"
 permalink: /lectures/lecture17
 lecture-author: Richard Liaw
 lecture-date: 2019

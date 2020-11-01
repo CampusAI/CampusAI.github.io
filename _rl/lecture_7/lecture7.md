@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 7: Value Function Methods"
+title: "Value Function Methods"
 permalink: /lectures/lecture7
 lecture-author: Sergey Levine
 lecture-date: 2019

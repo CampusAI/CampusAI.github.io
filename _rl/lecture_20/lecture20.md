@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 20: Meta-Reinforcement Learning"
+title: "Meta-Reinforcement Learning"
 permalink: /lectures/lecture20
 lecture-author: Kate Rakelly
 lecture-date: 2019

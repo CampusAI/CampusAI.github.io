@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 16: Transfer and Multi-task Learning"
+title: "Transfer and Multi-task Learning"
 permalink: /lectures/lecture16
 lecture-author: Sergey Levine
 lecture-date: 2019

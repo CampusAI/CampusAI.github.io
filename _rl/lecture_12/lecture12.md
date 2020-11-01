@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 12: Model-based Policy Learning"
+title: "Model-based Policy Learning"
 permalink: /lectures/lecture12
 lecture-author: Sergey Levine
 lecture-date: 2019

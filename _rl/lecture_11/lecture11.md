@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 11: Model-based RL"
+title: "Model-based RL"
 permalink: /lectures/lecture11
 lecture-author: Sergey Levine
 lecture-date: 2019

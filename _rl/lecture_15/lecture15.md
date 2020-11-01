@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 15: Inverse Reinforcement Learning (IRL)"
+title: "Inverse Reinforcement Learning (IRL)"
 permalink: /lectures/lecture15
 lecture-author: Sergey Levine
 lecture-date: 2019

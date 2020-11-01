@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 9: Advanced Policy Gradients"
+title: "Advanced Policy Gradients"
 permalink: /lectures/lecture9
 lecture-author: Sergey Levine
 lecture-date: 2019

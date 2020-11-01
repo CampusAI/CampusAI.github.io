@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 5: Policy Gradients"
+title: "Policy Gradients"
 permalink: /lectures/lecture5
 lecture-author: Sergey Levine
 lecture-date: 2019

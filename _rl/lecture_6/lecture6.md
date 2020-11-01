@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 6: Actor-Critic Algorithms (AC)"
+title: "Actor-Critic Algorithms (AC)"
 permalink: /lectures/lecture6
 lecture-author: Sergey Levine
 lecture-date: 2019
