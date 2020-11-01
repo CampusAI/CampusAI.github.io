@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 4: Introduction to Reinforcement Learning"
+title: "Reinforcement Learning Overview"
 permalink: /lectures/lecture4
 lecture-author: Sergey Levine
 lecture-date: 2019
@@ -18,7 +18,6 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 {% include start-row.html %}
-
 
 ## The Reinforcement Learning Framework
 Reinforcement Learning deals with **agents** interacting within a certain **environment**, observing

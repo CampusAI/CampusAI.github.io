@@ -6,7 +6,7 @@ permalink: /ml/
 
 This page contains explanations of diverse ML topics we found interesting.
 
-## Probabilistic Modelling
+### Probabilistic Modelling
 
 {% include paper-card.html
 title="Probability Basics"
@@ -14,11 +14,11 @@ subtitle="Information theory, Statistical distances"
 url="/ml/prob_modelling"%}
 
 {% include paper-card.html
-title="Variational Inference"
+title="Expectation Maximization & Variational Inference"
 subtitle="Latent Variable Models, Variational Inference, Amortized Variational Inference, Reparametrization Trick"
 url="/ml/variational_inference"%}
 
-## Deep Generative Models
+### Deep Generative Models
 
 {% include paper-card.html
 title="Why generative models?"
@@ -34,3 +34,7 @@ url="/ml/autoregressive_models"%}
 title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
+
+## Annex
+
+{% include paper-card.html title="Variational Inference Annex" subtitle="" url="/lectures/variational_inference_annex"   %}

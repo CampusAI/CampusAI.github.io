@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Lecture 1: Introduction"
+title: "Introduction"
 permalink: /lectures/lecture1
 lecture-author: Sergey Levine
 lecture-date: 2019
@@ -18,8 +18,10 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 {% include start-row.html %}
-- **Deep Learning (DL):** Useful for recognition of unstructured data.
-<!-- (*raw* data not designed for a machine to work well on) -->
+Before venturing into the details of Reinforcement Learning, lets take a step back and see the strengths of each type of Machine Learning:
+
+- **Supervised Learning:** Useful for recognition (classification/regression) of unstructured data.
+- **Unsupervised Learning:** Useful for distribution inference, dimensionality reduction, clustering, latent variable inference... of unlabeled data.
 - **Reinforcement Learning (RL):** Useful for decision-making problems:  An **agent** interacts with an **environment**. It perceives **states** and takes **actions** according to some **policy** to maximize a sense of **reward**.
 {% include end-row.html %}
 
