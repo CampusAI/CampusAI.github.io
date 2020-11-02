@@ -4,9 +4,9 @@ title: Machine Learning Theory
 permalink: /ml/
 ---
 
-This page contains explanations of diverse ML topics we found interesting.
+<!-- This page contains explanations of diverse ML topics we found interesting. -->
 
-### Probabilistic Modelling
+## Probabilistic Modelling
 
 {% include paper-card.html
 title="Probability Basics"
@@ -18,7 +18,14 @@ title="Expectation Maximization & Variational Inference"
 subtitle="Latent Variable Models, Variational Inference, Amortized Variational Inference, Reparametrization Trick"
 url="/ml/variational_inference"%}
 
-### Deep Generative Models
+## Unsupervised Learning
+
+{% include paper-card.html
+title="Dimensionality reduction"
+subtitle="The curse of dimensionality, SVD, Eigen Decomposition, PCA, MDS, Isomap"
+url="/ml/dim_reduction"%}
+
+### Generative Models
 
 {% include paper-card.html
 title="Why generative models?"
