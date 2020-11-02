@@ -4,9 +4,9 @@ title: Reinforcement Learning Theory
 permalink: /theory/
 ---
 
-This page contains explanations of diverse RL lines of work.
+<!-- This page contains explanations of diverse RL lines of work. -->
 
-## Deep Reinforcement Learning lecture notes
+## Deep Reinforcement Learning notes
 
 In this section you can find our summaries from [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/) (Google, UC Berkeley): UC Berkeley CS-285 [Deep Reinforcement Learning course](http://rail.eecs.berkeley.edu/deeprlcourse/).
 
@@ -27,7 +27,7 @@ subtitle:   Leave empty in lectures
 
 ### Basics
 
-{% include card.html title="Introduction" brief="Supervised vs Reinforcement Learning;Ways to learn;How to build intelligent machines;State of the art" img="/_rl/lecture_1/icon.jpg" url="/lectures/lecture1" type="bulletlist" %}
+{% include card.html title="Introduction" brief="Supervised vs Unsupervised vs Reinforcement;Ways to learn;How to build intelligent machines;State of the art" img="/_rl/lecture_1/icon.jpg" url="/lectures/lecture1" type="bulletlist" %}
 
 {% include card.html title="Reinforcement Learning Overview" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist" %}
 
