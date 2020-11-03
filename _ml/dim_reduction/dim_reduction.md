@@ -148,21 +148,24 @@ Lets first think of $$A \in \mathbf{R}^{n \times m}$$ as a [linear map](https://
 A: \mathcal{V} \subseteq \mathbf{R}^n \rightarrow \mathcal{U} \subseteq \mathbf{R}^m
 \end{equation}
 
-In this case, SVD finds an orthogonal base $$\{v_1, ... v_n\}$$ in $$\mathcal{V}$$ and another one $$\{u_1, ... u_m\}$$ in $$\mathcal{U}$$ such that in those bases $$A$$ is just a **positive dilation** (and a **projection**).
+In this case, SVD finds an orthonormal base $$\mathcal{B}_\mathcal{V} = \{v_1, ... v_n\}$$ in $$\mathcal{V}$$ and another one $$\mathcal{B}_\mathcal{U} = \{u_1, ... u_m\}$$ in $$\mathcal{U}$$ such that between those bases $$A$$ is diagonal ($$\Sigma$$).
 
-If $$A \in \mathbf{R}^{2 \times 3}$$, it maps points from a 2-d space $$\mathcal{V}$$ to a plane in a 3-d space $$\mathcal{U}$$.
-SVD maps an orthonormal base $$\mathcal{B}_\mathcal{V}$$ in $$\mathcal{V}$$ to one $$\mathcal{B}_\mathcal{U}$$ in $$\mathcal{U}$$: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$, such that a point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{U}}$$ gets mapped to $$p = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2)_{\mathcal{B}_\mathcal{U}}$$
+For instance: If $$A \in \mathbf{R}^{2 \times 3}$$,
+<!-- it maps points from a 2-d space $$\mathcal{V}$$ to a plane in a 3-d space $$\mathcal{U}$$. -->
+<!-- SVD maps an orthonormal base $$\mathcal{B}_\mathcal{V}$$ in $$\mathcal{V}$$ to one $$\mathcal{B}_\mathcal{U}$$ in $$\mathcal{U}$$: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$, such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$: -->
+SVD maps: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$.
+Such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$:
 
 {% include figure.html url="/_ml/dim_reduction/svd_interpretation.png"
-description="Figure 2: Representation of A mapping SVD. Left singular vectors in the 2-d space are mapped to right singular vectors in 3-d space. Figure from CampusAI."
+description="Figure 2: Representation of A mapping SVD. Left singular vectors in the 2-d space are mapped to right singular vectors in 3-d space. In this case $\sigma_1 >> \sigma_2$. Figure by CampusAI."
 %}
 
-In those directions in which the dilation is close to $$0$$, the dimension will be ignored.
+As we saw, SVD matrix approximation ignores the dimensions where the dilation is factor ($$\sigma_i$$) is close to $$0$$
 In the image, $$\sigma_2$$ is much smaller than $$\sigma_1$$, if we remove the second dimension our mapping approximation will lie in a line.
 The purple point will then be on the $$u_1$$ direction.
 
 {% include figure.html url="/_ml/dim_reduction/svd_compression.png"
-description="Figure 3: Representation of the effect of removing second dimension. Figure from CampusAI."
+description="Figure 3: Effect of removing the second dimension. Notice that the purple point is relatively close to the `real` position. Figure by CampusAI."
 %}
 
 
