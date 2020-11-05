@@ -171,7 +171,7 @@ description="Figure 3: Effect of removing the second dimension. Notice that the 
 
 {% include annotation.html %}
 In general:
-- If $$m \le n$$, $$A$$ maps space $$\mathcal{V}$$ into a subspace of dimensional m in $$\mathcal{U}$$.
+- If $$m \le n$$, $$A$$ maps space $$\mathcal{V}$$ into a subspace of dimension m in $$\mathcal{U}$$.
 
 In particular, the one which $$A$$ presents a larger dilation. 
 
@@ -181,19 +181,50 @@ Keeping only the first $$k$$ dimensions will project into the  $$k$$-dim subspac
 {% include end-row.html %}
 {% include start-row.html %}
 
-You now might think something like:
-- _Wait, what if my matrix is not a transformation but just a table with data?_
+##### Matrix as a transformation or matrix as data?
 
-Is it really _"just a table"_ though? This [post](https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/) puts it very nicely.
-In essence:
-We can understand $$A \in \mathbf{R}^{n \times m}$$ as a collection of m $$n$$-dim points.
+You now might think something like: _Wait, what if my matrix is not a transformation but just a table with data?_
 
+{% include end-row.html %}
+{% include start-row.html %}
+
+Is it really _"just a table"_ though?
+The [2006 Netflix prize](https://en.wikipedia.org/wiki/Netflix_Prize) is a great example to see the connection between matrices as data tables and matrices as transformations.
+Netflix provided a dataset of users vs movie ratings as:
+
+{% include annotation.html %}
+I oversimplified this section for readers to just get the general idea, if interested in this topic read this great [post](https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/) on SVD interpretation.
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include figure.html url="/_ml/dim_reduction/A_as_table.png"
-description="Figure 3: Effect of removing the second dimension. Notice that the purple point is relatively close to the `real` position. Figure from jeremykun.com."
+description="Figure 4: Movie ratings examples. Figure from jeremykun.com."
 %}
 
-- _Ok, more or less... But we represent images as matrices... What about that?_
+The prize was 1.000.000$ for team which achieved at least 10% less RMSE error than Cinematch (Netflix's recommender system used at that time).
+And yeah, you guessed it: the winners used SVD (otherwise I wouldn't be talking about this duh).
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+So, where is the connection?
+We can also understand this data matrix as a transformation from the user-space ($$\mathcal{V}$$) to the movie-space ($$\mathcal{U}$$):
+If I'm 70% like Aisha 25% like Bob and 5% like Chandrika  my movie ratings will be a linear combination of Aisha's, Bob's and Chandrika weighted by my similarity to each of them.
+If do the dot product of the matrix to my similarity vector $$(0.7, 0.25, 0.05)$$ I get my most likely movie ratings (the matrix is now a transformation).
+
+SVD finds a base in the user-space which is "aligned" to a base in the movie-space.
+Each **right singular vector** $$v_i$$ encodes the person archetype who "just cares" for an associated archetype movie represented by a **left singular vector** $$u_i$$ with a strength of $$\sigma_i$$.
+
+We can express each person as a combination of archetype people, which will like their associated archetype movies.
+Moreover, we can pick k to have as many archetypes as we want to cluster people's preferences.  
+
+{% include annotation.html %}
+For instance, you can think of an archetype person $$v_i$$ your *grandad* and an associated archetype movie $$u_i$$ *westerns*.
+{% include end-row.html %}
+{% include start-row.html %}
+
+<!-- - _Ok, more or less... But we represent images as matrices... What about that?_ -->
+
 
 
 ### Eigen Decomposition
