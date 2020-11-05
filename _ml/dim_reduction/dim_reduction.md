@@ -204,13 +204,13 @@ description="Figure 4: Movie ratings examples. Figure from jeremykun.com."
 The prize was 1.000.000$ for team which achieved at least 10% less RMSE error than Cinematch (Netflix's recommender system used at that time).
 And yeah, you guessed it: the winners used SVD (otherwise I wouldn't be talking about this duh).
 
-{% include end-row.html %}
-{% include start-row.html %}
-
 So, where is the connection?
 We can also understand this data matrix as a transformation from the user-space ($$\mathcal{V}$$) to the movie-space ($$\mathcal{U}$$):
 If I'm 70% like Aisha 25% like Bob and 5% like Chandrika  my movie ratings will be a linear combination of Aisha's, Bob's and Chandrika weighted by my similarity to each of them.
 If do the dot product of the matrix to my similarity vector $$(0.7, 0.25, 0.05)$$ I get my most likely movie ratings (the matrix is now a transformation).
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 SVD finds a base in the user-space which is "aligned" to a base in the movie-space.
 Each **right singular vector** $$v_i$$ encodes the person archetype who "just cares" for an associated archetype movie represented by a **left singular vector** $$u_i$$ with a strength of $$\sigma_i$$.
@@ -225,9 +225,9 @@ For instance, you can think of an archetype person $$v_i$$ your *grandad* and an
 
 <!-- - _Ok, more or less... But we represent images as matrices... What about that?_ -->
 
-
-
 ### Eigen Decomposition
+
+Eigen Decomposition (also known as )
 
 - $$\{\sigma_i \}_i$$: singular values fo $$A$$ are: $$\{ \sqrt{\lambda_i} \}_i$$ square root of eigenvalues of $$A^T A$$.
 - Right singular vectors of $$A$$ (columns of $$V$$) are eigenvectors of $$A^T A$$.
