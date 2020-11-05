@@ -2,7 +2,7 @@
 layout: article
 title: "Dimensionality Reduction"
 permalink: /ml/dim_reduction
-content-origin: KTH DD2434, http://gregorygundersen.com/
+content-origin: KTH DD2434, gregorygundersen.com
 post-author: Oleguer Canal
 ---
 <!--
@@ -110,8 +110,8 @@ So, lets see how we can take advantage of this type of matrix decomposition:
 
 {% include annotation.html %}
 Notice that:
-$$A v_i = \sigma_i u_i$$ and
-$$A^T u_i = \sigma_i v_i$$
+- $$A v_i = \sigma_i u_i$$.
+- $$A^T u_i = \sigma_i v_i$$.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -145,20 +145,21 @@ description="Figure 1: Matrix approximation by selecting the first k singular va
 Lets first think of $$A \in \mathbf{R}^{n \times m}$$ as a [linear map](https://en.wikipedia.org/wiki/Linear_map) between two [vector spaces](https://en.wikipedia.org/wiki/Vector_space):
 
 \begin{equation}
-A: \mathcal{V} \subseteq \mathbf{R}^n \rightarrow \mathcal{U} \subseteq \mathbf{R}^m
+A: \mathcal{V} \subseteq \mathbf{R}^m \rightarrow \mathcal{U} \subseteq \mathbf{R}^n
 \end{equation}
 
-In this case, SVD finds an orthonormal base $$\mathcal{B}_\mathcal{V} = \{v_1, ... v_n\}$$ in $$\mathcal{V}$$ and another one $$\mathcal{B}_\mathcal{U} = \{u_1, ... u_m\}$$ in $$\mathcal{U}$$ such that between those bases $$A$$ is diagonal ($$\Sigma$$).
+In this case, SVD finds an orthonormal base $$\mathcal{B}_\mathcal{V} = \{v_1, ... v_m\}$$ in $$\mathcal{V}$$ and another one $$\mathcal{B}_\mathcal{U} = \{u_1, ... u_n\}$$ in $$\mathcal{U}$$ such that between those bases $$A$$ is diagonal ($$\Sigma$$).
 
-For instance: If $$A \in \mathbf{R}^{2 \times 3}$$,
-<!-- it maps points from a 2-d space $$\mathcal{V}$$ to a plane in a 3-d space $$\mathcal{U}$$. -->
-<!-- SVD maps an orthonormal base $$\mathcal{B}_\mathcal{V}$$ in $$\mathcal{V}$$ to one $$\mathcal{B}_\mathcal{U}$$ in $$\mathcal{U}$$: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$, such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$: -->
-SVD maps: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$.
+For instance: If $$A \in \mathbf{R}^{3 \times 2}$$,
+SVD pairs: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$.
 Such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$:
 
 {% include figure.html url="/_ml/dim_reduction/svd_interpretation.png"
 description="Figure 2: Representation of A mapping SVD. Left singular vectors in the 2-d space are mapped to right singular vectors in 3-d space. In this case $\sigma_1 >> \sigma_2$. Figure by CampusAI."
 %}
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 As we saw, SVD matrix approximation ignores the dimensions where the dilation is factor ($$\sigma_i$$) is close to $$0$$
 In the image, $$\sigma_2$$ is much smaller than $$\sigma_1$$, if we remove the second dimension our mapping approximation will lie in a line.
@@ -168,10 +169,32 @@ The purple point will then be on the $$u_1$$ direction.
 description="Figure 3: Effect of removing the second dimension. Notice that the purple point is relatively close to the `real` position. Figure by CampusAI."
 %}
 
+{% include annotation.html %}
+In general:
+- If $$m \le n$$, $$A$$ maps space $$\mathcal{V}$$ into a subspace of dimensional m in $$\mathcal{U}$$.
+
+In particular, the one which $$A$$ presents a larger dilation. 
+
+- If $$m \ge n$$, $$A$$ fills the whole destination space $$\mathcal{U}$$.
+Keeping only the first $$k$$ dimensions will project into the  $$k$$-dim subspace of larger dilation.
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 You now might think something like:
-- _Wait, what if my matrix is not a transformation but a table with features?_
-- _We represent images as matrices... What about that?_
+- _Wait, what if my matrix is not a transformation but just a table with data?_
+
+Is it really _"just a table"_ though? This [post](https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/) puts it very nicely.
+In essence:
+We can understand $$A \in \mathbf{R}^{n \times m}$$ as a collection of m $$n$$-dim points.
+
+
+{% include figure.html url="/_ml/dim_reduction/A_as_table.png"
+description="Figure 3: Effect of removing the second dimension. Notice that the purple point is relatively close to the `real` position. Figure from jeremykun.com."
+%}
+
+- _Ok, more or less... But we represent images as matrices... What about that?_
+
 
 ### Eigen Decomposition
 
