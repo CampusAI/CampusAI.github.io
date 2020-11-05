@@ -129,7 +129,7 @@ A_k = U_k \Sigma_k V_k^T
 
 Is the closest projection of $$A$$ into the space of matrices of rank-k w.r.t the **spectral norm**, and its distance to $$A$$ is $$\sigma_{k+1}$$:
 \begin{equation}
-\min_{B \ rank(N) \le k} \Vert A - B \Vert_2 = \Vert A - A_k\Vert_2 = \sigma_{k+1}
+\min_{B s.t. rank(B) \le k} \Vert A - B \Vert_2 = \Vert A - A_k\Vert_2 = \sigma_{k+1}
 \end{equation}
 </blockquote>
 
@@ -216,7 +216,7 @@ SVD finds a base in the user-space which is "aligned" to a base in the movie-spa
 Each **right singular vector** $$v_i$$ encodes the person archetype who "just cares" for an associated archetype movie represented by a **left singular vector** $$u_i$$ with a strength of $$\sigma_i$$.
 
 We can express each person as a combination of archetype people, which will like their associated archetype movies.
-Moreover, we can pick k to have as many archetypes as we want to cluster people's preferences.  
+Moreover, we can pick $$k$$ to have as many archetypes as we want to cluster people's preferences.  
 
 {% include annotation.html %}
 For instance, you can think of an archetype person $$v_i$$ your *grandad* and an associated archetype movie $$u_i$$ *westerns*.
@@ -227,11 +227,33 @@ For instance, you can think of an archetype person $$v_i$$ your *grandad* and an
 
 ### Eigen Decomposition
 
-Eigen Decomposition (also known as )
+[Eigen decomposition](https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix) (aka spectral decomposition) is the decomposition of a **square** and **diagonizable** matrix into eigenvectors and eigenvalues:
 
-- $$\{\sigma_i \}_i$$: singular values fo $$A$$ are: $$\{ \sqrt{\lambda_i} \}_i$$ square root of eigenvalues of $$A^T A$$.
-- Right singular vectors of $$A$$ (columns of $$V$$) are eigenvectors of $$A^T A$$.
-- Left singular vectors of $$A$$ (columns of $$U$$) are eigenvectors of $$A A^T$$.
+\begin{equation}
+A = Q \Lambda Q^{-1}
+\end{equation}
+
+Where $$Q = (v_1, ... v_n)$$ is an orthonormal matrix composed by the eigenvectors $$\{v_i\}_i$$ and $$\Lambda$$ is diagonal with the eigenvalues $$\{\lambda_i\}_i$$
+
+#### Interpretation
+
+[video](https://www.youtube.com/watch?v=PFDu9oVAE-g&ab_channel=3Blue1Brown)
+
+#### Relation to SVD
+
+This decomposition has many similarities to the more general SVG (see [SVG theorem proof](http://gregorygundersen.com/blog/2018/12/20/svd-proof/)). Summarized:
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+- $$\{\sigma_i \}_i$$: **singular values** fo $$A$$ are: $$\{ \sqrt{\lambda_i} \}_i$$ square root of eigenvalues of $$A^T A$$.
+- **Right singular vectors** of $$A$$ (columns of $$V$$) are eigenvectors of $$A^T A$$.
+- **Left singular vectors** of $$A$$ (columns of $$U$$) are eigenvectors of $$A A^T$$.
+
+{% include annotation.html %}
+If $$A \in \mathbb{R}^{n \times n}$$ is symmetric with non-negative eigenvalues, then eigenvalues and singular values coincide.
+{% include end-row.html %}
+{% include start-row.html %}
 
 <!-- http://gregorygundersen.com/blog/2018/12/20/svd-proof/  -->
 
