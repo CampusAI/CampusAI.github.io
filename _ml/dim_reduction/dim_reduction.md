@@ -36,11 +36,6 @@ These include:
 
 - Geometry in high-dim spaces is **not intuitive**.
 
-So, how can we cope with high-dim data?
-
-- Quantify **relevance** of dimensions and (possibly) eliminate some. This is commonly used in supervised learning, where we pay more attention to the variables which are more highly-correlated to the target.
-
-- Explore **correlation between dimensions**. Often a set of dimensions can be explained by a single phenomena which can be explained by a single latent dimension.
 
 {% include annotation.html %}
 It is easy to see how space grows exponentially with the dimensions.
@@ -55,13 +50,20 @@ The volume is growing exponentially with the number of dimensions as data-points
 
 ## Algorithms
 
+So, how can we cope with high-dim data?
+
+- Quantify **relevance** of dimensions and (possibly) eliminate some. This is commonly used in supervised learning, where we pay more attention to the variables which are more highly correlated to the target.
+
+- Explore **correlation between dimensions**. Often a set of dimensions can be explained by a single phenomena which can be explained by a single latent dimension.
+
+<!-- 
 Dimensionality reduction algorithms present 3 main components:
 
 - A **model**: Composed by an `encoder` which projects the data into a lower-dim (embedded) space and a `decoder` which recovers the original data from the embedded space.
 
 - A **criterion** to be optimized. In dim-reduction problems the criterion is usually least squares over the representation: $$min E_x \left[ \Vert x - dec(enc(x)) \Vert_2^2 \right]$$. Other criteria can be: embedded space variance maximization or making latent variables independent.
 
-- An **optimizer** to fit the criterion.
+- An **optimizer** to fit the criterion. -->
 
 <!-- Furthermore, we can classify them into different categories:
 
@@ -74,7 +76,14 @@ Dimensionality reduction algorithms present 3 main components:
 
 ### **SVD**: Singular Value Decomposition
 
+{% include end-row.html %}
+{% include start-row.html %}
 **Matrix decomposition** is expressing a matrix as a product of other matrices which certify some conditions.
+{% include annotation.html %}
+Some famous decompositions not presented in this post are: [LU Decomposition](https://en.wikipedia.org/wiki/LU_decomposition), [Cholesky Decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition), [Polar Decomposition](https://en.wikipedia.org/wiki/Polar_decomposition)
+{% include end-row.html %}
+{% include start-row.html %}
+
 Before explaining the idea behind SVD dimensionality reduction, lets take a look at the SVD theorem:
 
 {% include end-row.html %}
@@ -89,10 +98,10 @@ A = U \Sigma V^T
 \end{equation}
 
 Where:
-- $$U \in \mathbb{R}^{m \times m}$$ is an [orthogonal matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix).
+- $$U \in \mathbb{R}^{m \times m}$$ is an [orthogonal matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix) (its cols form an [orthonormal basis](https://en.wikipedia.org/wiki/Orthonormal_basis)).
 <!-- $$U^T U = I$$, $$U$$ rows and cols are orthogonal to each other and $$U^T = U^{-1}$$. -->
 - $$\Sigma \in \mathbb{R}^{m \times n}$$ is diagonal with elements: $$\space \sigma_1 \geq \sigma_2 \ge ... \ge \sigma_k \ge 0$$. Where $$k = min\{m, n\}$$.
-- $$V \in \mathbb{R}^{n \times n}$$ is an [orthogonal matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix).
+- $$V \in \mathbb{R}^{n \times n}$$ is an [orthogonal matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix) (its cols form an [orthonormal basis](https://en.wikipedia.org/wiki/Orthonormal_basis)).
 </blockquote>
 
 {% include annotation.html %}
@@ -137,7 +146,7 @@ This is all SVD dim-reduction does: Keep the k biggest singular values of the SV
 We are approximating $$A$$ by only using the information of the gray areas of the SVD in this image:
 
 {% include figure.html url="/_ml/dim_reduction/SVD.png"
-description="Figure 1: Matrix approximation by selecting the first k singular values (gray area). Instead of representing $A$ by all its $m \times n$ values we can approximate it with $m \times k + k + k \times n$ (way lesser). Figure from http://ezcodesample.com/."
+description="Figure 1: Matrix approximation by selecting the first k singular values (gray area). Instead of representing $A$ by all its $m \times n$ values we can approximate it with $m \times k + k + k \times n \ll m \times n$. Figure from http://ezcodesample.com/."
 %}
 
 #### Interpretation
@@ -155,7 +164,7 @@ SVD pairs: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$.
 Such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$:
 
 {% include figure.html url="/_ml/dim_reduction/svd_interpretation.png"
-description="Figure 2: Representation of A mapping SVD. Left singular vectors in the 2-d space are mapped to right singular vectors in 3-d space. In this case $\sigma_1 >> \sigma_2$. Figure by CampusAI."
+description="Figure 2: Representation of A mapping SVD. Left singular vectors in the 2-d space are mapped to right singular vectors in 3-d space. In this case $\sigma_1 \gg \sigma_2$. Figure by CampusAI."
 %}
 
 {% include end-row.html %}
@@ -206,7 +215,7 @@ And yeah, you guessed it: the winners used SVD (otherwise I wouldn't be talking 
 
 So, where is the connection?
 We can also understand this data matrix as a transformation from the user-space ($$\mathcal{V}$$) to the movie-space ($$\mathcal{U}$$):
-If I'm 70% like Aisha 25% like Bob and 5% like Chandrika  my movie ratings will be a linear combination of Aisha's, Bob's and Chandrika weighted by my similarity to each of them.
+If I'm 70% like Aisha 25% like Bob and 5% like Chandrika  my movie ratings will be a linear combination of Aisha's, Bob's and Chandrika weighted by my similarity to each one of them.
 If do the dot product of the matrix to my similarity vector $$(0.7, 0.25, 0.05)$$ I get my most likely movie ratings (the matrix is now a transformation).
 
 {% include end-row.html %}
@@ -225,23 +234,18 @@ For instance, you can think of an archetype person $$v_i$$ your *grandad* and an
 
 <!-- - _Ok, more or less... But we represent images as matrices... What about that?_ -->
 
-### Eigen Decomposition
+##### Relation to Eigen Decomposition
 
-[Eigen decomposition](https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix) (aka spectral decomposition) is the decomposition of a **square** and **diagonizable** matrix into eigenvectors and eigenvalues:
+[Eigen decomposition](https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix) (aka spectral decomposition) is the decomposition of a **square** and **[diagonizable](https://en.wikipedia.org/wiki/Diagonalizable_matrix)** matrix into eigenvectors and eigenvalues:
 
 \begin{equation}
 A = Q \Lambda Q^{-1}
 \end{equation}
 
-Where $$Q = (v_1, ... v_n)$$ is an orthonormal matrix composed by the eigenvectors $$\{v_i\}_i$$ and $$\Lambda$$ is diagonal with the eigenvalues $$\{\lambda_i\}_i$$
+Where $$Q = (v_1, ... v_n)$$ is an orthogonal matrix composed by the eigenvectors $$\{v_i\}_i$$ and $$\Lambda$$ is diagonal with the eigenvalues $$\{\lambda_i\}_i$$. Remember that an eigenvalue, eigenvector pair satisfy: $$A v_i = \lambda_i v_i$$, they represent the directions in which the transformation is a simple scaling.
+For visual interpretation I recommend checking out this [video](https://www.youtube.com/watch?v=PFDu9oVAE-g&ab_channel=3Blue1Brown).
 
-#### Interpretation
-
-[video](https://www.youtube.com/watch?v=PFDu9oVAE-g&ab_channel=3Blue1Brown)
-
-#### Relation to SVD
-
-This decomposition has many similarities to the more general SVG (see [SVG theorem proof](http://gregorygundersen.com/blog/2018/12/20/svd-proof/)). Summarized:
+If you take a look on the [SVG theorem proof](http://gregorygundersen.com/blog/2018/12/20/svd-proof/) you'll see SVG is based on the Eigen decomposition of $$A A^T$$ and $$A^T A$$. In essence:
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -259,6 +263,45 @@ If $$A \in \mathbb{R}^{n \times n}$$ is symmetric with non-negative eigenvalues,
 
 ### **PCA**: Principal Component Analysis
 
+Consider a dataset $$\mathcal{D}$$ of $$n$$ points in a high-dim space $$y_i \in \mathbf{R}^d$$. In a matrix form: $$Y \in \mathbf{R}^{d \times n}$$.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+Assumptions:
+- For each data-point $$x_i \in \mathcal{D}$$ there exists a latent point in a lower-dim space $$z_i \in \mathbf{R}^k$$ which generates $$x_i$$.
+- There exists a linear mapping (`decoder`) $$W \in \mathcal{R}^{d \times k}$$ s.t. $$x_i = W x_i \space \forall (x_i, x_i)$$
+- $$W$$ has orthonormal columns (i.e. $$W^T W = I_{k \times k}$$, notice that usually $$W W^T \neq I_{d \times d}$$).
+
+
+{% include annotation.html %}
+Since $$W W^T = I_{k \times k}$$, we already have the `encoder`: $$z_i = W x_i$$.
+{% include end-row.html %}
+{% include start-row.html %}
+
+So far we have a `decoder`:
+
+\begin{equation}
+    \textrm{dec}: \mathbf{R}^k \rightarrow \mathbf{R}^d \mid \textrm{dec(z)} = W z
+\end{equation}
+
+And an `encoder`:
+
+\begin{equation}
+    \textrm{enc}: \mathbf{R}^d \rightarrow \mathbf{R}^k \mid \textrm{enc(x)} = W^T x
+\end{equation}
+
+PCA aims to minimize the MSE between original data and the reconstruction: $$\min E_x \left[ \Vert t - dec(enc(x)) \Vert_2^2 \right]$$, which is:
+
+\begin{equation}
+\min_W E_x \left[ \Vert x - W W^T x \Vert_2^2 \right] = \min_W \underbrace{E_x \left[ x^T x \right]}_{\textrm{constant}} - E_x \left[ x^T W W^T x \right]
+\end{equation}
+
+
+<!-- define a linear mapping **model** $$W: R^d \rightarrow R^k$$ which optimizes the MSE as a **criterion**.
+As a consequence, it uses the SVD **algorithm**. -->
+
+[video](https://www.youtube.com/watch?v=_UVHneBUBW0&ab_channel=StatQuestwithJoshStarmer)
 ### **MDS**: Multi-Dimensional Scaling
 
 
