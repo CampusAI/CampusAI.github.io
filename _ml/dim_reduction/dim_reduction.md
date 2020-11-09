@@ -151,15 +151,15 @@ description="Figure 1: Matrix approximation by selecting the first k singular va
 
 #### Interpretation
 
-Lets first think of $$A \in \mathbf{R}^{n \times m}$$ as a [linear map](https://en.wikipedia.org/wiki/Linear_map) between two [vector spaces](https://en.wikipedia.org/wiki/Vector_space):
+Lets first think of $$A \in \mathbb{R}^{n \times m}$$ as a [linear map](https://en.wikipedia.org/wiki/Linear_map) between two [vector spaces](https://en.wikipedia.org/wiki/Vector_space):
 
 \begin{equation}
-A: \mathcal{V} \subseteq \mathbf{R}^m \rightarrow \mathcal{U} \subseteq \mathbf{R}^n
+A: \mathcal{V} \subseteq \mathbb{R}^m \rightarrow \mathcal{U} \subseteq \mathbb{R}^n
 \end{equation}
 
 In this case, SVD finds an orthonormal base $$\mathcal{B}_\mathcal{V} = \{v_1, ... v_m\}$$ in $$\mathcal{V}$$ and another one $$\mathcal{B}_\mathcal{U} = \{u_1, ... u_n\}$$ in $$\mathcal{U}$$ such that between those bases $$A$$ is diagonal ($$\Sigma$$).
 
-For instance: If $$A \in \mathbf{R}^{3 \times 2}$$,
+For instance: If $$A \in \mathbb{R}^{3 \times 2}$$,
 SVD pairs: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$.
 Such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$:
 
@@ -263,13 +263,13 @@ If $$A \in \mathbb{R}^{n \times n}$$ is symmetric with non-negative eigenvalues,
 
 ### **PCA**: Principal Component Analysis
 
-Consider a dataset $$\mathcal{D}$$ of $$n$$ points in a high-dim space $$y_i \in \mathbf{R}^d$$. In a matrix form: $$Y \in \mathbf{R}^{d \times n}$$.
+Consider a dataset $$\mathcal{D}$$ of $$n$$ points in a high-dim space $$x_i \in \mathbb{R}^d$$. In a matrix form: $$X \in \mathbb{R}^{d \times n}$$.
 
 {% include end-row.html %}
 {% include start-row.html %}
 
 Assumptions:
-- For each data-point $$x_i \in \mathcal{D}$$ there exists a latent point in a lower-dim space $$z_i \in \mathbf{R}^k$$ which generates $$x_i$$.
+- For each data-point $$x_i \in \mathcal{D}$$ there exists a latent point in a lower-dim space $$z_i \in \mathbb{R}^k$$ which generates $$x_i$$.
 - There exists a linear mapping (`decoder`) $$W \in \mathcal{R}^{d \times k}$$ s.t. $$x_i = W x_i \space \forall (x_i, x_i)$$
 - $$W$$ has orthonormal columns (i.e. $$W^T W = I_{k \times k}$$, notice that usually $$W W^T \neq I_{d \times d}$$).
 
@@ -282,13 +282,13 @@ Since $$W W^T = I_{k \times k}$$, we already have the `encoder`: $$z_i = W x_i$$
 So far we have a `decoder`:
 
 \begin{equation}
-    \textrm{dec}: \mathbf{R}^k \rightarrow \mathbf{R}^d \mid \textrm{dec(z)} = W z
+    \textrm{dec}: \mathbb{R}^k \rightarrow \mathbb{R}^d \mid \textrm{dec(z)} = W z
 \end{equation}
 
 And an `encoder`:
 
 \begin{equation}
-    \textrm{enc}: \mathbf{R}^d \rightarrow \mathbf{R}^k \mid \textrm{enc(x)} = W^T x
+    \textrm{enc}: \mathbb{R}^d \rightarrow \mathbb{R}^k \mid \textrm{enc(x)} = W^T x
 \end{equation}
 
 PCA aims to minimize the MSE between original data and the reconstruction: $$\min E_x \left[ \Vert t - dec(enc(x)) \Vert_2^2 \right]$$, which is:
@@ -297,9 +297,37 @@ PCA aims to minimize the MSE between original data and the reconstruction: $$\mi
 \min_W E_x \left[ \Vert x - W W^T x \Vert_2^2 \right] = \min_W \underbrace{E_x \left[ x^T x \right]}_{\textrm{constant}} - E_x \left[ x^T W W^T x \right]
 \end{equation}
 
+Therefore we aim to minimize:
 
-<!-- define a linear mapping **model** $$W: R^d \rightarrow R^k$$ which optimizes the MSE as a **criterion**.
-As a consequence, it uses the SVD **algorithm**. -->
+\begin{equation}
+\min_W - E_x \left[ x^T W W^T x \right] =
+\max_W E_x \left[ x^T W W^T x \right] =
+\max_W \frac{1}{n} \sum_i^n x_i^T W W^T x_i =
+\max_W \frac{1}{n} \text{tr} \left( X^T W W^T X \right)
+\end{equation}
+
+If we consider the SVD of $$X$$:
+
+\begin{equation}
+\text{tr} \left( X^T W W^T X \right) =
+\text{tr} \left( V \Sigma U^T W W^T U \Sigma V \right)
+\end{equation}
+
+Which can be shown that the maximum is achieved by taking $$W = U_k$$.
+ <!-- with value $$\sum_{i=1}^k \sigma_i^2$$. -->
+SVD gives a nice connection between **explained variance** of the data and **reconstruction error** through singular values:
+- First k ppal components variance: $$V_W = \sum_{i=1}^k \sigma_i^2$$
+- Reconstruction error: $$E_W = \sum_{i=k+1}^d \sigma_i^2$$
+
+We can use this idea to select an appropriate k to explain a certain percentage of data.
+For instance, if we want our encoding to explain at least 85% of the data variance:
+
+\begin{equation}
+\min_k \mid \frac{V_W}{V_X} = \frac{\sum_{i=1}^k \sigma_i^2}{\sum_{i=d}^k \sigma_i^2} \ge 0.85
+\end{equation}
+
+#### Interpretation
+
 
 [video](https://www.youtube.com/watch?v=_UVHneBUBW0&ab_channel=StatQuestwithJoshStarmer)
 ### **MDS**: Multi-Dimensional Scaling
