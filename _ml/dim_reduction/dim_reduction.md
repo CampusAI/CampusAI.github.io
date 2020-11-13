@@ -328,9 +328,38 @@ For instance, if we want our encoding to explain at least 85% of the data varian
 
 #### Interpretation
 
+{% include end-row.html %}
+{% include start-row.html %}
+PCA focusses on what makes the data more different from each other:
+i.e dimensions with higher variance.
+As we said before, left singular vectors of SVD $$(u_1, ..., u_k)$$ give the directions in final space in which there is larger dilation sorted by magnitude.
+Therefore, if most data-points (vectors) lay in a line the largest elongation will be along that direction.
+In the picture, $$A \in \mathbb{R}^{2 \times n}: \mathbb{R}^n \rightarrow \mathbb{R}^2$$ has larger elongation along the pink marks axis.
+So the projection which keeps the largest variance is that one.
 
-[video](https://www.youtube.com/watch?v=_UVHneBUBW0&ab_channel=StatQuestwithJoshStarmer)
+{% include figure.html url="/_ml/dim_reduction/pca.gif"
+description="Figure 5: 2D points linear projection into 1D space. Notice that the axis of higher variance (first left singular vector) provides the most informative projection. Figure from https://builtin.com/ (Zakaria Jaadi)"
+%}
+
+
+{% include annotation.html %}
+I highly recommend this
+[video](https://www.youtube.com/watch?v=_UVHneBUBW0&ab_channel=StatQuestwithJoshStarmer) for PCA interpretation.
+{% include end-row.html %}
+{% include start-row.html %}
+
+
 ### **MDS**: Multi-Dimensional Scaling
 
+{% include end-row.html %}
+{% include start-row.html %}
+
+[Metric MDS](https://en.wikipedia.org/wiki/Multidimensional_scaling) (aka PCoA: Principal Coordinate Analysis) is essentially the same as PCA but projecting distances among samples instead of correlations.
+
+
+{% include annotation.html %}
+If using the euclidean distance, the result is the same as the one achieved by PCA.
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include end-row.html %}
