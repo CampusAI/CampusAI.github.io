@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Variational Inference"
+title: "LVM: EM & VI"
 permalink: /ml/variational_inference
 lecture-author: Sergey Levine
 lecture-date: 2019
@@ -46,7 +46,7 @@ $$
 p(x) = \sum_{i=1}^3 p(x\vert  z=i)p(z=i)
 $$
 
-## Latent Variable Models
+## Latent Variable Models (LVM)
 
 Usually though, modelling distributions with low-range discrete latent variables is not good enough.
 The general formula of a Latent Variable Model with a latent variable $$z$$ is obtained by marginalization:
@@ -67,7 +67,8 @@ p(y \vert  x) = \int p(y \vert  x, z)p(z) dz
 \end{equation}
 
 {% include annotation.html %}
-This is usually the case when modelling distributions with ANNs, given $$x$$, one wants to know $$p(y \mid x)$$
+This is usually the case when modelling distributions with ANNs, given $$x$$, one wants to know $$p(y \mid x)$$.
+Which can be explained by marginalizing over some simpler distribution $$z$$. 
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -95,15 +96,19 @@ Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gauss
 {% include end-row.html %}
 {% include start-row.html %}
 So, given a dataset $$\mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}$$ we want to learn the underlying distribution $$p(x)$$.
-Since we are using latent variable models, we suspect there exists some simpler distribution $$z$$ which can be used to explain $$p(x)$$.
+Since we are using latent variable models, we suspect there exists some simpler distribution $$z$$ (usually Gaussian) which can be used to explain $$p(x)$$.
  
 {% include annotation.html %}
 For further motivations on why one would want to learn $$p(x)$$ check out our post: [Why generative models?](/ml/generative_models)
 {% include end-row.html %}
 {% include start-row.html %}
 
-the Maximum Likelihood fit to train the latent variable model $$p_{\theta}(x)$$ finds the parameters which better explain the data.
-I.e. the weights which give a higher probability to the given dataset:
+One can parametrize $$p(x)$$ with some function $$p_\theta (x)$$ adn find the parameters $$\theta$$ which minimizes the distance between the two.
+The Maximum Likelihood fit of $$p_{\theta}(x)$$ finds the parameters $$\theta$$ which better explain the data.
+I.e. the $$\theta$$ which give a higher probability to the given dataset:
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 \begin{equation}
 \label{eq:ml_lvm}
@@ -113,20 +118,26 @@ I.e. the weights which give a higher probability to the given dataset:
 
 The integral makes the computation intractable, therefore we need to resort to other ways of computing the log likelihood.
 
+{% include annotation.html %}
+Why do we maximize the probability of each data-point?
+Since we assume our dataset is composed by samples of $$p(x)$$, we want the samples to be very likely, thus we maximize their probability.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Estimating the log likelihood
 
-### Expectation Maximization
+### Expectation Maximization (EM)
+{% include end-row.html %}
+{% include start-row.html %}
 
-Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables and is therefore intractable.
-
-**Idea**: Lets develop a bit the expression and see if we can come up with something easier to deal with:
+Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables (usually multi-dimensional) and is therefore intractable.
+Lets develop a bit the expression and see if we can come up with something easier to deal with:
 
 $$
 \log p (x \mid \theta) =
 \int_z \log p\left(x \mid z, \theta \right) p(z) = 
 \int_z \log  \frac {p \left(x, z \mid \theta \right)}{p \left(z \mid x, \theta \right)} p(z) =
-\underbrace{\int_z \log \frac {p \left(x, z \mid \theta \right)}{p(z)} p(z)}_{\mathcal{L}(p(z), \theta)}
+\underbrace{\int_z \log \frac {p \left(x, z \mid \theta \right)}{p(z)} p(z)}_{\mathcal{L}(p(z), \theta)} 
 \underbrace{- \int_z \log \frac {p \left(z \mid x, \theta \right)}{p(z)} p(z)}_{D_{KL} \left(p(z) \Vert p(x \mid \theta) \right)}
 $$
 
@@ -134,25 +145,35 @@ $$
 Since $$D_{KL} \left(p(z) \Vert p(x \mid \theta) \right) \ge 0$$,
 we have that:
 $$\mathcal{L}(p(z), \theta) \leq \log p(X \mid \theta)$$.\\
-Thus, maximizing
+Thus, by maximizing
 $$\mathcal{L}(p(z), \theta) := E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]$$
-is equivalent to maximizing
-$$\log p (x \mid \theta)$$.\\
+you will also push up $$\log p (x \mid \theta)$$.\\
 This is why $$\mathcal{L}$$ is known as **lower bound**.
 
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/EM_interpretation.png" description="Bishop shows this decomposition with this figure. He represents $p(z)$ as $q$." %}
+See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
+/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
 {% include end-row.html %}
 {% include start-row.html %}
+<!-- 
+{% include end-row.html %}
+{% include start-row.html %} -->
 
 **Expectation Maximization** assumes $$p_{\theta^{old}}(z \vert x_i)$$ is tractable and exploits the lower bound inequality by iteratively alternating between the following steps:
 
+<blockquote markdown="1">
+Repeat until convergence:
 1. **E step**: Compute the posterior $$p_{\theta^{old}}(z \vert x_i)$$
 2. **M step**: Maximize the expected value of the log joint likelihood 
    $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \log p_{\theta}(x_i, z) \Big]$$
    over the parameters $$\theta$$
+</blockquote>
 
 {% include annotation.html %}
-See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
-/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
+Intuitively, what we are doing is:
+1. Assume the probability of each $$z$$ given $$x_i$$ (the probability of each cluster if $$z$$ discrete).
+2. Pretend $$z$$ is the right one and maximize the expected log-likelihood based on your guessed $$z$$.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -163,21 +184,19 @@ Eq. \ref{eq:ml_lvm} then becomes
 E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]
 \end{equation}
 
-but we now have the issue of computing $$p(z \vert x_i)$$, which is likely to be intractable.
+While for discrete $$z$$ values (clusters of data) computing $$p(z \vert x_i)$$ might be tractable, it is not usually when mapping from continuous $$z$$ to continuous $$p(x)$$.
 Instead, we **approximate** $$p(z \vert x_i)$$ with a simpler parametrized distribution $$q_i(z)$$ using **Variational Inference**.
 
 
-### Variational Inference
+### Variational Inference (VI)
 
 {% include end-row.html %}
 {% include start-row.html %}
 
-We are interested in the maximization of Eq. \ref{eq:ml_lvm_em}, but we need to
-perform it by approximating $$p(z\vert x_i)$$ that is intractable with a distribution
-$$q_i(z)$$ that we choose to be tractable. $$q_i(z)$$ can be any analytically parametrized
-distribution. As we show in
-[Annex 13: Variational Inference](/lectures/variational_inference_annex),
-the log of $$p(x)$$ is bounded by:
+As we said, we are interested in the maximization of Eq. \ref{eq:ml_lvm_em}, but $$p(z\vert x_i)$$ is intractable.
+**Variational inference** approximates it using a tractable parametrization $$q_i(z) \simeq p(z\vert x_i)$$ dependent on $$\theta_i$$.
+
+As we show in [Annex 13: Variational Inference](/lectures/variational_inference_annex), the log of $$p(x)$$ is bounded by:
 
 {% include annotation.html %}
 For a deeper explanation of this very useful tool, see Chapter 10.1 of
@@ -196,31 +215,12 @@ For a deeper explanation of this very useful tool, see Chapter 10.1 of
 \label{eq:elbo}
 \end{align}
 
-where $$\mathcal{H}(q_i)$$ is the **entropy** of $$q_i$$ and $$\mathcal{L}_i(p, q_i)$$ is called
-the **Evidence Lower Bound**, shortened in ELBO.
+where $$\mathcal{H}(q_i)$$ is the **entropy** of $$q_i$$ and $$\mathcal{L}_i(p, q_i)$$ is called the **Evidence Lower Bound**, shortened in ELBO.
+Again, if you maximize this lower bound you will also push up the entire log-likelihood.
 
 {% include end-row.html %}
 {% include start-row.html %}
-
-A useful mathematical tool to measure the
-distance between two distributions is the
-[KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence),
-which is defined as
-
-{% include annotation.html %}
-See our [Information Theory Post](/ml/prob_modelling) for a better interpretation of Entropy $$\mathcal{H}$$ and KL Divergence.
-{% include end-row.html %}
-{% include start-row.html %}
-
-\begin{equation}
-D_{KL}\Big(q_i(z) \vert\vert p(z \vert x_i)\Big) =
-\int p(z \vert x_i) \log \frac{p(z \vert x_i)}{q_i(z)}
-\end{equation}
-
-{% include end-row.html %}
-{% include start-row.html %}
-
-If we develop on this definition we obtain that
+Furthermore, you can develop the $$p(x)$$ expression to also satisfy:
 
 \begin{equation}
 \label{eq:dkl}
@@ -228,19 +228,18 @@ If we develop on this definition we obtain that
 \end{equation}
 
 {% include annotation.html %}
-See the [Annex](/lectures/variational_inference_annex) for more details.
+See our [Information Theory Post](/ml/prob_modelling) for a better interpretation of Entropy $$\mathcal{H}$$ and KL Divergence.
+And see the [Annex](/lectures/variational_inference_annex) for more details.
 {% include end-row.html %}
 {% include start-row.html %}
 
 The two results together give us a way to approximate $$p(x_i)$$: 
 
-1. **Maximize $$p(x_i)$$ w.r.t. $$\theta$$**: As Eq. \ref{eq:elbo} shows, we can maximize
-   $$p(x_i)$$ with respect to $$\theta$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$.
-2. **Maximize $$p(x_i)$$ w.r.t. $$q_i$$**: Since the KL Divergence is always greater than zero,
-   we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings
-   the equation closer to the equality, i.e. $$\log p(x_i) \approx \mathcal{L}_i(p, q_i)$$. 
-   Minimizing the $$D_{KL}$$ term corresponds to maximizing the Evidence Lower Bound
-   $$\mathcal{L}_i(p, q_i)$$.
+<!-- <blockquote markdown="1"> -->
+1. **Maximize $$p(x_i)$$ w.r.t. $$\theta$$**: As Eq. \ref{eq:elbo} shows, we can push up $$p(x_i)$$ with respect to $$\theta$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$.
+
+2. **Maximize $$p(x_i)$$ w.r.t. $$q_i$$**: Since the KL Divergence is always greater than zero, we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings the equation closer to the equality, i.e. $$\log p(x_i) \approx \mathcal{L}_i(p, q_i)$$. Minimizing the $$D_{KL}$$ term corresponds to maximizing the Evidence Lower Bound $$\mathcal{L}_i(p, q_i)$$.
+<!-- </blockquote> -->
 
 We obtained an important result: in order to maximize $$p(x_i)$$, we need to maximize the
 **Evidence Lower Bound** of Eq. \ref{eq:elbo} both with respece to $$\theta$$ and $$q_i$$.
@@ -267,6 +266,8 @@ are not able to compute, and we therefore estimate its gradient by sampling. Fin
 update $$q_i$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$, which in Eq. \ref{eq:dkl} we
 showed being equivalent to minimizing the KL Divergence between $$q_i(z)$$ and
 $$p(z \vert x_i)$$ and thus pushing $$q_i(z)$$ closer to $$p(z\vert x_i)$$.
+
+<!-- In short, VI simplifies p(z | x_i) and solves the problem exactly for that simplification -->
 
 #### What is the issue?
 We said that $$q_i(z)$$ approximates $$p(z\vert x_i)$$. This means that if our dataset has $$N$$
