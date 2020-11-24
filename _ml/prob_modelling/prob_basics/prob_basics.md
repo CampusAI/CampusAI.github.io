@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Probabilistic Modelling"
+title: "Probabilistic Modelling Basics"
 permalink: /ml/prob_modelling
 content-origin: KTH DD2412
 post-author: Oleguer Canal
@@ -17,17 +17,17 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
-<!-- ## Motivation
+## Motivation
 
-The general idea of probabilistic modelling optimization can be summarized in the following figure:
+The general idea of parametric probabilistic modelling optimization can be summarized in the following figure:
 
-{% include figure.html url="/_ml/prob_modelling/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization. (Image from CampusAI)" zoom="1.5"%}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization. (Image from CampusAI)" zoom="1.5"%}
 
 The ultimate goal is to have a model which behaves as close as possible to the "real" distribution.
 Obviously this distribution is not known and we are only given some samples.
 The basic approach is to choose a model which can capture a subspace of the probability distribution space.
 Later, to optimize the model parameters to minimize the distance to the given distribution.
-This distance is often measured with KL divergence. -->
+This distance is often measured with KL divergence.
 
 ## Information Theory Basics
 
@@ -93,7 +93,8 @@ If P is a fixed distribution, then $$\mathcal{H} (P)$$ is constant, so minimizin
 
 If $$P$$ is the "true" distribution and $$Q$$ our approximation we have 2 types of KL divergence:
 
-- **Forward KL** (moment-matching): $$D_{KL} (P \mid \mid Q) = \sum P \log \frac{P}{Q}$$. Where P is small, it doesn't matter what Q is doing. E.g. if approximating with Gaussian, will only try to match the moments of P, mean and variance.
+- **Forward KL** (moment-matching): $$D_{KL} (P \mid \mid Q) = \sum P \log \frac{P}{Q}$$. Where P is small, it doesn't matter what Q is doing. E.g. if Q is Gaussian, it will only try to match the moments of P (mean and variance). **Forward KL** is what most ANNs optimize.
+
 - **Reverse KL** (mode-seeking): $$D_{KL} (Q \mid \mid P) = \sum Q \log \frac{Q}{P}$$. Where Q is low, does not matter what P is.
 
 {% include figure.html url="/_ml/prob_modelling/prob_basics/kl_asymmetry.png" description="Figure 2: Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization). (Image from Bishop)" zoom="1.5"%}

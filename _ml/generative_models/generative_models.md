@@ -41,9 +41,9 @@ Naming goes: **Posterior**:  $$P(y \mid x)$$. **Likelihood**:  $$P(x \mid y)$$. 
 
 ## Discriminative vs Generative models
 
-- **Discriminative models** task is to predict a label $$y$$ for any given datapoint $$x$$. I.e. learn the conditional probability distribution $$P(y \mid x)$$ (**posterior**) by mapping inputs to provided labels. **Supervised learning**.
+- **Discriminative models** task is to predict a label $$y$$ for any given datapoint $$x$$. I.e. learn the conditional probability distribution $$P(y \mid x)$$ (**posterior**) by mapping inputs to provided labels. Most **Supervised learning** models are discriminative.
 
-- **Generative models** attempt to learn an **approximate probabilistic distribution** of $$P(x)$$, $$P(x \mid z)$$, or $$P(z \mid x)$$. Usually some functional form of $$P(z)$$ and $$P(X \mid z)$$ is assumed, then their parameters are estimated using data. If interested in the posterior one can use Bayes to compute it: **Unsupervised learning**.
+- **Generative models** attempt to learn an **approximate probabilistic distribution** of $$P(x)$$, $$P(x \mid z)$$, or $$P(z \mid x)$$. Usually some functional form of $$P(z)$$ and $$P(X \mid z)$$ is assumed, then their parameters are estimated using data. If interested in the posterior one can use Bayes to compute it. Most **Unsupervised learning** models are generative.
 
 Discriminative models usually outperform generative models in classification tasks:
 
