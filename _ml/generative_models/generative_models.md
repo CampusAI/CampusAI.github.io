@@ -17,7 +17,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
-**Notation**: I will refer to datapoints as $$x$$ (usually high-dimensional), labels as $$y$$ and latent variables as $$z$$. Notice the similarity between $$y$$ and $$z$$, the only difference being $$y$$ is provided and $$z$$ are found by the model.
+**Notation**: I will refer to datapoints as $$x$$ (usually high-dimensional), labels as $$y$$ and latent variables as $$z$$. Notice the similarity between $$y$$ and $$z$$, the only difference being $$y$$ are **explicitly** provided and $$z$$ are **intrinsic** to the data (hidden).
 
 <!-- **NB**: _In this post we will focus on **parametric** distribution approximations.
 In contrast to non-parametric ones, they
@@ -69,7 +69,7 @@ We could:
 
 Quantitative evaluation of generative models is non-trivial and is still being researched on. A common evaluation metric of $$P_\theta(x)$$ is to assess the negative log-likelihood (NLL) of a "test" set. Images from a dataset should have very high likelihood (they are samples of the distribution).
 
-Not all type of generative models are able to perform all of the above use-cases. There exist many different approaches (types) with its strengths and weaknesses.
+Not all type of generative models are able to perform all of the above use-cases. There exist many different approaches (types) with their strengths and weaknesses.
 
 {% include end-row.html %}
 {% include start-row.html %}
