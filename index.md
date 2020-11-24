@@ -6,8 +6,7 @@ index: false
 <div class="row" markdown="1">
 <div class="col-12" markdown="1">
 <!-- CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focused on Reinforcement Learning. -->
-
-## Content
+<!-- ## Content -->
 
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
