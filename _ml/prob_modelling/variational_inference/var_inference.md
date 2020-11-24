@@ -4,7 +4,7 @@ title: "Variational Inference"
 permalink: /ml/variational_inference
 lecture-author: Sergey Levine
 lecture-date: 2019
-post-author: Federico Taschin
+post-author: Federico Taschin, Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-13.pdf
 video-link: https://www.youtube.com/watch?v=1bpQ0QDPGuI&feature=youtu.be
 ---
@@ -39,23 +39,25 @@ It is often the case that data is distributed accordingly to some variables that
 
 {% include figure.html url="/_ml/prob_modelling/variational_inference/gauss_mix.png" description="Gaussian Mixture"%}
 
-The likelyhood of a datapoint $$x$$ is given by the marginalization over the possible values of a
+The likelihood of a datapoint $$x$$ is given by the marginalization over the possible values of a
 **latent variable** $$z \in \{1, 2, 3\}$$ that indicates the cluster.
 
 $$
 p(x) = \sum_{i=1}^3 p(x\vert  z=i)p(z=i)
 $$
 
-
 ## Latent Variable Models
 
-The general formula of a Latent Variable Model with a latent variable $$z$$ is obtained by
-marginalization:
+Usually though, modelling distributions with low-range discrete latent variables is not good enough.
+The general formula of a Latent Variable Model with a latent variable $$z$$ is obtained by marginalization:
 
 \begin{equation}
 \label{eq:lvm}
 p(x) = \int p(x \vert  z) p(z) dz
 \end{equation}
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 and for a **conditioned** latent variable model we have:
 
@@ -64,66 +66,111 @@ and for a **conditioned** latent variable model we have:
 p(y \vert  x) = \int p(y \vert  x, z)p(z) dz
 \end{equation}
 
+{% include annotation.html %}
+This is usually the case when modelling distributions with ANNs, given $$x$$, one wants to know $$p(y \mid x)$$
+{% include end-row.html %}
+{% include start-row.html %}
+
 Dealing with these integrals in practice is not easy at all, as for many complex distributions they
 can be hard or impossible to compute. In this lecture we will learn how to approximate them.
 
-If we want to represent a really complex distribution, we can represent $$p(x \vert  z)$$ with a **Neural Network** that, given $$z$$, will output the mean and variance of a Gaussian
-distribution for $$x$$:
+{% include end-row.html %}
+{% include start-row.html %}
+
+If we want to represent a really complex distribution, we can represent $$p(x \vert  z)$$ with a **Neural Network** that, given $$z$$, will output the mean and variance of a Gaussian distribution for $$x$$:
 
 {% include figure.html url="/_ml/prob_modelling/variational_inference/nn_transform.png" description="Neural Network mapping $z$ to $p(x\vert z)$" %}
 
-Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gaussian are given
-by the non-linear function of the Neural Network, and therefore it can approximate any
-distribution. Given a dataset
+{% include annotation.html %}
+You can imagine this as a mixture of infinite Gaussians:
+For every possible value of $$z$$, a Gaussian $$\mathcal{N}(\mu_{nn}(z), \sigma_{nn}(z))$$ is summed to the approximation of $$p(x)$$.
 
-$$
-\mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}
-$$
+Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gaussian are given by the non-linear function of the Neural Network, and therefore it can approximate any distribution.
+{% include end-row.html %}
+{% include start-row.html %}
 
-the Maximum Likelihood fit to train the latent variable model $$p_{\theta}(x)$$ finds the parameters which better explain the data:
+
+### How do you train latent variable models?
+
+{% include end-row.html %}
+{% include start-row.html %}
+So, given a dataset $$\mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}$$ we want to learn the underlying distribution $$p(x)$$.
+Since we are using latent variable models, we suspect there exists some simpler distribution $$z$$ which can be used to explain $$p(x)$$.
+ 
+{% include annotation.html %}
+For further motivations on why one would want to learn $$p(x)$$ check out our post: [Why generative models?](/ml/generative_models)
+{% include end-row.html %}
+{% include start-row.html %}
+
+the Maximum Likelihood fit to train the latent variable model $$p_{\theta}(x)$$ finds the parameters which better explain the data.
+I.e. the weights which give a higher probability to the given dataset:
+
 \begin{equation}
 \label{eq:ml_lvm}
 \theta \leftarrow \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N \log p_{\theta}(x_i) =
 \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N \log \left(\int p_{\theta}(x_i \vert z)p(z)dz\right)
 \end{equation}
-The integral makes the computation intractable, therefore we need to resort to other ways of
-computing the log likelihood.
+
+The integral makes the computation intractable, therefore we need to resort to other ways of computing the log likelihood.
 
 
 ## Estimating the log likelihood
 
 ### Expectation Maximization
 
-Eq. \ref{eq:ml_lvm} requires us to compute $$p_{\theta}(x)$$, which involves integrating the
-latent variables and is therefore intractable. One important technique for finding Maximum
-Likelihood solutions to latent variable models is **Expectation Maximization**
-(see chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
-/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)).
+Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables and is therefore intractable.
 
-Expectation Maximization consists of iteratively alternating between the following steps:
+**Idea**: Lets develop a bit the expression and see if we can come up with something easier to deal with:
+
+$$
+\log p (x \mid \theta) =
+\int_z \log p\left(x \mid z, \theta \right) p(z) = 
+\int_z \log  \frac {p \left(x, z \mid \theta \right)}{p \left(z \mid x, \theta \right)} p(z) =
+\underbrace{\int_z \log \frac {p \left(x, z \mid \theta \right)}{p(z)} p(z)}_{\mathcal{L}(p(z), \theta)}
+\underbrace{- \int_z \log \frac {p \left(z \mid x, \theta \right)}{p(z)} p(z)}_{D_{KL} \left(p(z) \Vert p(x \mid \theta) \right)}
+$$
+
+<!-- Since $$p(z)$$ is chosen and $$p(x)$$ is constant: $$KL \left(p(z) \Vert p(x \mid \theta) \right)$$ is constant. -->
+Since $$D_{KL} \left(p(z) \Vert p(x \mid \theta) \right) \ge 0$$,
+we have that:
+$$\mathcal{L}(p(z), \theta) \leq \log p(X \mid \theta)$$.\\
+Thus, maximizing
+$$\mathcal{L}(p(z), \theta) := E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]$$
+is equivalent to maximizing
+$$\log p (x \mid \theta)$$.\\
+This is why $$\mathcal{L}$$ is known as **lower bound**.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+**Expectation Maximization** assumes $$p_{\theta^{old}}(z \vert x_i)$$ is tractable and exploits the lower bound inequality by iteratively alternating between the following steps:
 
 1. **E step**: Compute the posterior $$p_{\theta^{old}}(z \vert x_i)$$
 2. **M step**: Maximize the expected value of the log joint likelihood 
-   $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \ln p_{\theta}(x_i, z) \Big]$$
+   $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \log p_{\theta}(x_i, z) \Big]$$
    over the parameters $$\theta$$
 
+{% include annotation.html %}
+See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
+/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
+{% include end-row.html %}
+{% include start-row.html %}
 
 Eq. \ref{eq:ml_lvm} then becomes
 \begin{equation}
 \label{eq:ml_lvm_em}
 \theta \leftarrow \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N
-E_{z \sim p(z\vert x_i)} \Big[ \ln p_{\theta}(x_i, z) \Big]
+E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]
 \end{equation}
 
 but we now have the issue of computing $$p(z \vert x_i)$$, which is likely to be intractable.
-Instead, we **approximate** $$p(z \vert x_i)$$ with $$q_i(z)$$ using **Variational Inference**.
+Instead, we **approximate** $$p(z \vert x_i)$$ with a simpler parametrized distribution $$q_i(z)$$ using **Variational Inference**.
 
 
 ### Variational Inference
 
-*For a deeper explanation of this very useful tool, see Chapter 10.1 of
-[C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
-/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)*
+{% include end-row.html %}
+{% include start-row.html %}
 
 We are interested in the maximization of Eq. \ref{eq:ml_lvm_em}, but we need to
 perform it by approximating $$p(z\vert x_i)$$ that is intractable with a distribution
@@ -132,32 +179,58 @@ distribution. As we show in
 [Annex 13: Variational Inference](/lectures/variational_inference_annex),
 the log of $$p(x)$$ is bounded by:
 
+{% include annotation.html %}
+For a deeper explanation of this very useful tool, see Chapter 10.1 of
+[C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
+/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{align}
 \begin{split}
-\ln p(x_i) \ge &  E_{z \sim q_i(z)} \Big[\overbrace{\ln p_{\theta}(x_i\vert z)+\ln p(z)}
-^{\ln p(x_i, z)}\Big]+
+\log p(x_i) \ge &  E_{z \sim q_i(z)} \Big[\overbrace{\log p_{\theta}(x_i\vert z)+\log p(z)}
+^{\log p(x_i, z)}\Big]+
 \mathcal{H}(q_i) \\\\\\
 = & \mathcal{L}_i(p, q_i)
 \end{split}
 \label{eq:elbo}
 \end{align}
 
-
 where $$\mathcal{H}(q_i)$$ is the **entropy** of $$q_i$$ and $$\mathcal{L}_i(p, q_i)$$ is called
-the **Evidence Lower Bound**, shortened in ELBO. A useful mathematical tool to measure the
+the **Evidence Lower Bound**, shortened in ELBO.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+A useful mathematical tool to measure the
 distance between two distributions is the
 [KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence),
 which is defined as
+
+{% include annotation.html %}
+See our [Information Theory Post](/ml/prob_modelling) for a better interpretation of Entropy $$\mathcal{H}$$ and KL Divergence.
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{equation}
 D_{KL}\Big(q_i(z) \vert\vert p(z \vert x_i)\Big) =
-\int p(z \vert x_i) \ln \frac{p(z \vert x_i)}{q_i(z)}
+\int p(z \vert x_i) \log \frac{p(z \vert x_i)}{q_i(z)}
 \end{equation}
+
+{% include end-row.html %}
+{% include start-row.html %}
+
 If we develop on this definition we obtain that
+
 \begin{equation}
 \label{eq:dkl}
-\ln p(x_i) = D_{KL}(q_i(z) \vert\vert p(z \vert x_i)) + \mathcal{L}_i(p, q_i)
+\log p(x_i) = D_{KL}(q_i(z) \vert\vert p(z \vert x_i)) + \mathcal{L}_i(p, q_i)
 \end{equation}
-*see the [Annex](/lectures/variational_inference_annex) for more details.*
+
+{% include annotation.html %}
+See the [Annex](/lectures/variational_inference_annex) for more details.
+{% include end-row.html %}
+{% include start-row.html %}
 
 The two results together give us a way to approximate $$p(x_i)$$: 
 
@@ -165,7 +238,7 @@ The two results together give us a way to approximate $$p(x_i)$$:
    $$p(x_i)$$ with respect to $$\theta$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$.
 2. **Maximize $$p(x_i)$$ w.r.t. $$q_i$$**: Since the KL Divergence is always greater than zero,
    we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings
-   the equation closer to the equality, i.e. $$\ln p(x_i) \approx \mathcal{L}_i(p, q_i)$$. 
+   the equation closer to the equality, i.e. $$\log p(x_i) \approx \mathcal{L}_i(p, q_i)$$. 
    Minimizing the $$D_{KL}$$ term corresponds to maximizing the Evidence Lower Bound
    $$\mathcal{L}_i(p, q_i)$$.
 
@@ -180,7 +253,7 @@ that we optimize with the following algorithm:
 1. For each $$x_i$$ (or minibatch):
 2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample $$z \sim q_i(z)$$
 3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compute $$\nabla_{\theta}\mathcal{L}_i(p, q_i) \approx
-   \nabla_{\theta}\ln p_{\theta}(x_i \vert z)$$ 
+   \nabla_{\theta}\log p_{\theta}(x_i \vert z)$$ 
 4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\theta \leftarrow \theta + \alpha
    \nabla_{\theta}\mathcal{L}_i(p, q_i)$$
 5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Update $$q_i$$ to maximize $$\mathcal{L}_i(p, q_i)$$
@@ -216,8 +289,8 @@ of $$q_i$$:
 
 \begin{equation}
 \label{eq:amortized_elbo}
-\mathcal{L_i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)}\Big[\ln p_{\theta}(x_i \vert z)
-+\ln p(z) \Big] + \mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
+\mathcal{L_i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)}\Big[\log p_{\theta}(x_i \vert z)
++\log p(z) \Big] + \mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
 \end{equation}
 
 We now have two networks: $$p_{\theta}$$ that learns $$p(x \vert z)$$, and $$q_{\phi}$$, that
@@ -226,7 +299,7 @@ approximates $$p(z \vert x)$$. We then modify the algorithm like this:
 1. For each $$x_i$$ (or minibatch):
 2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample $$z \sim q_{\phi}(z \vert x_i)$$
 3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compute $$\nabla_{\theta}\mathcal{L}_i(p, q) \approx
-   \nabla_{\theta}\ln p_{\theta}(x_i \vert z)$$ 
+   \nabla_{\theta}\log p_{\theta}(x_i \vert z)$$ 
 4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\theta \leftarrow \theta + \alpha
    \nabla_{\theta}\mathcal{L}_i(p, q)$$
 5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\phi \leftarrow \phi + \alpha
@@ -236,7 +309,7 @@ We now need to compute the gradient of Eq. \ref{eq:amortized_elbo} with respect 
 
 \begin{equation}
 \nabla_{\phi}\mathcal{L_i}(p, q) = \nabla_{\phi}E_{z \sim q_{\phi}(z \vert x_i)}\Big[
-\overbrace{\ln p_{\theta}(x_i \vert z)+\ln p(z)}^{r(x_i, z)\text{, constant in } \phi} \Big] +
+\overbrace{\log p_{\theta}(x_i \vert z)+\log p(z)}^{r(x_i, z)\text{, constant in } \phi} \Big] +
 \nabla_{\phi}\mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
 \end{equation}
 
@@ -245,12 +318,12 @@ the formula in a textbook, the gradient of the expectation is somewhat trickier,
 to take the gradient of the parameters of the distribution under which the expectation is taken.
 This is however exactly the same thing we do in **Policy Gradient**!
 (see [Lecture 5: Policy Gradients](/lectures/lecture5)). Collecting the terms that do not depend
-on $$\phi$$ under $$r(x_i, z) = \ln p_{\theta}(x_i \vert z) + \ln p(z)$$ we obtain the policy
+on $$\phi$$ under $$r(x_i, z) = \log p_{\theta}(x_i \vert z) + \log p(z)$$ we obtain the policy
 gradient:
 
 \begin{equation}
 \nabla_{\phi}E_{z \sim q_{\phi}(z\vert x_i)} \left[r(x_i, z)\right]
-= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}\ln q_{\phi}(z_j \vert x_i)r(x_i, z_j)
+= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}\log q_{\phi}(z_j \vert x_i)r(x_i, z_j)
 \end{equation}
 
 where we estimate the gradient by averaging over $$M$$ samples
@@ -261,7 +334,7 @@ of Eq. \ref{eq:amortized_elbo}:
 \label{eq:elbo_pgradient}
 \boxed{
 \nabla_{\phi}\mathcal{L_i}(p, q)
-= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}\ln q_{\phi}(z_j \vert x_i)r(x_i, z_j)
+= \frac{1}{M} \sum_{j=1}^M \nabla_{\phi}\log q_{\phi}(z_j \vert x_i)r(x_i, z_j)
 +\nabla_{\phi}\mathcal{H}\Big[q_{\phi}(z \vert x_i)\Big]
 }
 \end{equation}
@@ -322,9 +395,9 @@ If we look at Eq. \ref{eq:amortized_elbo}, we observe that it can be written in 
 KL Divergence between $$q_{\phi}$$ and $$p(z)$$:
 
 \begin{equation}
-\mathcal{L_i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)}\Big[\ln p_{\theta}(x_i \vert z)\Big]+
+\mathcal{L_i}(p, q) = E_{z \sim q_{\phi}(z \vert x_i)}\Big[\log p_{\theta}(x_i \vert z)\Big]+
 \overbrace{
-E_{z \sim q_{\phi}(z \vert x_i)}\Big[\ln p(z) \Big]
+E_{z \sim q_{\phi}(z \vert x_i)}\Big[\log p(z) \Big]
 +\mathcal{H}\Big(q_{\phi}(z \vert x_i)\Big)
 }^{-D_{KL}\Big(q_{\phi}(z \vert x_i) \vert\vert p(z) \Big)}
 \end{equation}
@@ -338,7 +411,7 @@ The **Policy Gradient** for $$\mathcal{L_i}(p, q)$$ with respect to $$\phi$$ the
 \label{eq:elbo_pgradient_dkl}
 \boxed{
 \nabla_{\phi} \mathcal{L_i}(p, q) =
-\frac{1}{M} \sum_{j=1}^M \nabla_{\phi}q_{\phi}(z_j \vert x_i)\ln p_{\theta}(x_i \vert z_j)
+\frac{1}{M} \sum_{j=1}^M \nabla_{\phi}q_{\phi}(z_j \vert x_i)\log p_{\theta}(x_i \vert z_j)
 -\nabla_{\phi}D_{KL}\Big(q_{\phi}(z \vert x_i) \vert \vert p(z)\Big)
 }
 \end{equation}
@@ -348,7 +421,7 @@ The **Reparametrized Gradient** then becomes (single sample estimate):
 \label{eq:elbo_trick_gradient_dkl}
 \boxed{
 \nabla_{\phi} \mathcal{L_i}(p, q) = 
-\nabla_{\phi} \ln p_{\theta}(x_i \vert \mu_{\phi}(x_i) + \epsilon \sigma_{\phi}(x_i)) -
+\nabla_{\phi} \log p_{\theta}(x_i \vert \mu_{\phi}(x_i) + \epsilon \sigma_{\phi}(x_i)) -
 \nabla_{\theta} D_{KL}\Big(q_{\phi}(z \vert x_i) \vert\vert p(z)\Big)
 }
 \end{equation}
