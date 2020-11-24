@@ -13,11 +13,6 @@ title="Probability Basics"
 subtitle="Information theory, Statistical distances"
 url="/ml/prob_modelling"%}
 
-{% include paper-card.html
-title="Expectation Maximization & Variational Inference"
-subtitle="Latent Variable Models, Variational Inference, Amortized Variational Inference, Reparametrization Trick"
-url="/ml/variational_inference"%}
-
 ## Unsupervised Learning
 
 {% include paper-card.html
@@ -31,6 +26,11 @@ url="/ml/dim_reduction"%}
 title="Why generative models?"
 subtitle="Basics, Discriminative vs Generative, Use-cases, Types"
 url="/ml/generative_models"%}
+
+{% include paper-card.html
+title="Latent Variable Models"
+subtitle="Latent Variable Models, Expectation Maximization, Variational Inference, Amortized Variational Inference, Reparametrization Trick"
+url="/ml/variational_inference"%}
 
 {% include paper-card.html
 title="Autoregressive models (AR)"
