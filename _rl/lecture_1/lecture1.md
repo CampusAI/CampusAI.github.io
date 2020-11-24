@@ -20,7 +20,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 {% include start-row.html %}
 Before venturing into the details of Reinforcement Learning, lets take a step back and see the strengths of each type of Machine Learning:
 
-- **Supervised Learning:** Useful for recognition (classification/regression) of unstructured data.
+- **Supervised Learning:** Useful for recognition (classification/regression) of unstructured (labeled )data.
 - **Unsupervised Learning:** Useful for distribution inference, dimensionality reduction, clustering, latent variable inference... of unlabeled data.
 - **Reinforcement Learning (RL):** Useful for decision-making problems:  An **agent** interacts with an **environment**. It perceives **states** and takes **actions** according to some **policy** to maximize a sense of **reward**.
 {% include end-row.html %}
