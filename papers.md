@@ -4,8 +4,7 @@ title: Papers
 permalink: /papers/
 ---
 
-This page contains summaries and annotations from papers we found interesting.
-
+<!-- This page contains summaries and annotations from papers we found interesting. -->
 
 ## Uncertainty Estimation
 
