@@ -6,21 +6,21 @@ permalink: /ml/
 
 <!-- This page contains explanations of diverse ML topics we found interesting. -->
 
-## Probabilistic Modelling
+<!-- ## Unsupervised Learning -->
+
+## Background
 
 {% include paper-card.html
 title="Probability Basics"
 subtitle="Information theory, Statistical distances"
 url="/ml/prob_modelling"%}
 
-## Unsupervised Learning
-
-{% include paper-card.html
+<!-- {% include paper-card.html
 title="Dimensionality reduction"
 subtitle="The curse of dimensionality, SVD, Eigen Decomposition, PCA, MDS, Isomap"
-url="/ml/dim_reduction"%}
+url="/ml/dim_reduction"%} -->
 
-### Generative Models
+## Generative Models
 
 {% include paper-card.html
 title="Why generative models?"
