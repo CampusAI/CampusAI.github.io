@@ -6,7 +6,7 @@ lecture-author: Sergey Levine
 lecture-date: 2019
 post-author: Federico Taschin, Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-13.pdf
-video-link: https://www.youtube.com/watch?v=1bpQ0QDPGuI&feature=youtu.be
+video-link: https://www.youtube.com/watch?v=1bpQ0QDPGuI&feature=youtu.be&ab_channel=CALESG-EECS
 ---
 <!--
 Disclaimer and authorship:
@@ -35,7 +35,8 @@ demonstrations. We learned that there are three main ways of dealing with this i
 
 In this post we talk about **Latent Variable Models**, and how to approximate any multimodal distribution using **Variational Inference**.
 
-It is often the case that data is distributed accordingly to some variables that cannot be directly observed. One schoolbook examples is the Gaussian Mixture:
+It is often the case that data $$\mathcal{D} = \{x_1, ..., x_N\}$$ is distributed accordingly to some variables that cannot be directly observed (referred as latent variables $$z$$).
+One schoolbook examples is the Gaussian Mixture:
 
 {% include figure.html url="/_ml/prob_modelling/variational_inference/gauss_mix.png" description="Gaussian Mixture"%}
 
@@ -95,7 +96,7 @@ Note that $$p(x\vert z)$$ is a Gaussian, but the mean and variance of this Gauss
 
 {% include end-row.html %}
 {% include start-row.html %}
-So, given a dataset $$\mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}$$ we want to learn the underlying distribution $$p(x)$$.
+So, given a dataset $$\mathcal{D} = \left\{ x_1, x_2, \: ... \:x_N\right\}$$ we want to learn its underlying distribution $$p(x)$$.
 Since we are using latent variable models, we suspect there exists some simpler distribution $$z$$ (usually Gaussian) which can be used to explain $$p(x)$$.
  
 {% include annotation.html %}
@@ -103,7 +104,7 @@ For further motivations on why one would want to learn $$p(x)$$ check out our po
 {% include end-row.html %}
 {% include start-row.html %}
 
-One can parametrize $$p(x)$$ with some function $$p_\theta (x)$$ adn find the parameters $$\theta$$ which minimizes the distance between the two.
+One can parametrize $$p(x \mid z)$$ with some function $$p_\theta (x \mid z)$$ and find the parameters $$\theta$$ which minimizes the distance between the two.
 The Maximum Likelihood fit of $$p_{\theta}(x)$$ finds the parameters $$\theta$$ which better explain the data.
 I.e. the $$\theta$$ which give a higher probability to the given dataset:
 
@@ -120,49 +121,82 @@ The integral makes the computation intractable, therefore we need to resort to o
 
 {% include annotation.html %}
 Why do we maximize the probability of each data-point?
-Since we assume our dataset is composed by samples of $$p(x)$$, we want the samples to be very likely, thus we maximize their probability.
+Our dataset is composed by samples of $$p(x)$$, and we want the samples to be very likely, thus we maximize their probability. This is the essence of **[MLE](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)**:
+<!-- Finding the parameters which maximize the data likelihood. -->
 {% include end-row.html %}
 {% include start-row.html %}
 
 ## Estimating the log likelihood
 
 ### Expectation Maximization (EM)
+
+
+Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables (usually multi-dimensional) and is therefore intractable.
+
+**Idea**: Lets try to develop a bit the expression and see if we can simplify it somehow.
+Turns out that by applying [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality) on the expectation we get:
+
 {% include end-row.html %}
 {% include start-row.html %}
 
-Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables (usually multi-dimensional) and is therefore intractable.
-Lets develop a bit the expression and see if we can come up with something easier to deal with:
+\begin{equation}
+\log p_\theta (x) \geq
+\underbrace{E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]}_{\mathcal{L}(p(z), \theta)}
+\end{equation}
 
-$$
-\log p (x \mid \theta) =
-\int_z \log p\left(x \mid z, \theta \right) p(z) = 
-\int_z \log  \frac {p \left(x, z \mid \theta \right)}{p \left(z \mid x, \theta \right)} p(z) =
-\underbrace{\int_z \log \frac {p \left(x, z \mid \theta \right)}{p(z)} p(z)}_{\mathcal{L}(p(z), \theta)} 
-\underbrace{- \int_z \log \frac {p \left(z \mid x, \theta \right)}{p(z)} p(z)}_{D_{KL} \left(p(z) \Vert p(x \mid \theta) \right)}
-$$
-
-<!-- Since $$p(z)$$ is chosen and $$p(x)$$ is constant: $$KL \left(p(z) \Vert p(x \mid \theta) \right)$$ is constant. -->
 Things to note:
 
-- By definition: $$D_{KL} \left(p(z) \Vert p(x \mid \theta) \right) \ge 0$$
+- We say: $$\mathcal{L}(p(z), \theta) := E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]$$ is a **lower bound** of $$\log p_{\theta}(X)$$
 
-- Which means: $$\log p(X \mid \theta) \geq \mathcal{L}(p(z), \theta) := E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]$$
+- Thus, by **maximizing** $$\mathcal{L}(p(z), \theta)$$ you will also **push up** $$\log p_{\theta} (x)$$
 
-- Therefore we say: $$\mathcal{L}(p(z), \theta)$$ is a **lower bound** of $$\log p(X \mid \theta)$$
+{% include annotation.html %}
+In essence, we are just saying that the log-likelihood of a datapoint is greater than the average of likelihoods for each latent variable weighted by the expected latent variable.
+{% include end-row.html %}
+{% include start-row.html %}
 
-- Thus, by **maximizing** $$\mathcal{L}(p(z), \theta)$$ you will also **push up** $$\log p (x \mid \theta)$$
+<!-- In fact:
+
+$$
+\log p_{\theta} (x) =
+\underbrace{\int_z \log \frac {p_{\theta} \left(x, z \right)}{p(z)} p(z)}_{\mathcal{L}(p(z), \theta)} 
+\underbrace{- \int_z \log \frac {p_{\theta} \left(z \mid x \right)}{p(z)} p(z)}_{D_{KL} \left(p(z) \Vert p_{\theta} (z \mid x) \right)}
+$$
+
+Things to note:
+
+- By definition: $$D_{KL} \left(p(z) \Vert p_{\theta} (z \mid x) \right) \ge 0$$
+
+- And $$D_{KL} \left(p(z) \Vert p_{\theta}(z \mid x) \right) = 0 \iff p(z) = p_{\theta} (z \mid x)$$, 
+
+- Therefore we are also choosing $$\theta$$ which make these distributions be most similar.
 
 {% include annotation.html %}
 {% include figure.html url="/_ml/prob_modelling/variational_inference/EM_interpretation.png" description="C. Bishop shows this decomposition with this figure. He represents $p(z)$ as $q$." %}
 See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
 /en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
 {% include end-row.html %}
-{% include start-row.html %}
-<!-- 
-{% include end-row.html %}
 {% include start-row.html %} -->
 
-**Expectation Maximization** assumes $$p_{\theta^{old}}(z \vert x_i)$$ is tractable and exploits the lower bound inequality by iteratively alternating between the following steps:
+#### Problem
+
+We have a cyclic dependence!!
+- To optimize $$\theta$$, we need $$p_{\theta} (z \mid x)$$
+- To compute $$p_{\theta} (z \mid x)$$ we need $$\theta$$
+
+To solve these kind of dependencies we can do this:
+- Randomly guess $$\theta^1$$
+- Use $$\theta^1$$ to compute $$p_{\theta^1} (z \mid x)$$ (expectation)
+- Use $$p_{\theta^1} (z \mid x)$$ to compute the $$\theta^2$$ which maximize $$\mathcal{L}(p(z), \theta)$$ (maximize)
+- Use $$\theta^2$$ to compute $$p_{\theta^2} (z \mid x)$$ (expectation)
+- ...
+- Convergence :)
+
+And this is exactly what EM does!
+
+#### EM Algorithm
+
+**Expectation Maximization** assumes $$p_{\theta}(z \vert x_i)$$ is tractable and exploits the lower bound inequality by iteratively alternating between the following steps:
 
 <blockquote markdown="1">
 Repeat until convergence:
@@ -172,13 +206,6 @@ Repeat until convergence:
    over the parameters $$\theta$$
 </blockquote>
 
-{% include annotation.html %}
-Intuitively, what we are doing is:
-1. Assume the probability of each $$z$$ given $$x_i$$ (the probability of each cluster if $$z$$ discrete).
-2. Pretend $$z$$ is the right one and maximize the expected log-likelihood based on your guessed $$z$$.
-{% include end-row.html %}
-{% include start-row.html %}
-
 Eq. \ref{eq:ml_lvm} then becomes the maximization of $$\mathcal{L}(p(z), \theta)$$:
 \begin{equation}
 \label{eq:ml_lvm_em}
@@ -186,9 +213,48 @@ Eq. \ref{eq:ml_lvm} then becomes the maximization of $$\mathcal{L}(p(z), \theta)
 E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]
 \end{equation}
 
-While for discrete $$z$$ values (clusters of data) computing $$p(z \vert x_i)$$ might be tractable, this is not usually th case when mapping from continuous $$z$$ to continuous $$p(x)$$.
-Instead, we **approximate** $$p(z \vert x_i)$$ with a simpler parametrized distribution $$q_i(z)$$ using **Variational Inference**.
+<!-- {% include annotation.html %}
+Intuitively, what we are doing is:
+1. Assume the probability of each $$z$$ given $$x_i$$ (the probability of each cluster if $$z$$ discrete).
+2. Pretend $$z$$ is the right one and maximize the expected log-likelihood based on your guessed $$z$$. (update the parameters of each cluster according to the classification of each point done in 1.)
+{% include end-row.html %}
+{% include start-row.html %} -->
 
+{% include end-row.html %}
+{% include start-row.html %}
+
+#### EM is just fancier [k-means](https://en.wikipedia.org/wiki/K-means_clustering)
+
+Its nice to notice that EM algorithm shares a similar structure to k-means clustering:
+
+<blockquote markdown="1">
+**K-means:** Repeats these two steps until convergence:
+- Step 1: **Hard assign** each point ($$x_i$$) to a cluster ($$z_i$$). <span style="color:gray">_Should we say the **expected** cluster?_
+- Step 2: **Move** the cluster centroids to better fit their assigned points. <span style="color:gray">_Should we say **maximize** cluster likelihood?_
+</blockquote>
+
+<blockquote markdown="1">
+**EM:** Repeats these two steps until convergence:
+- Step 1: **Soft assign** each point ($$x_i$$) to a "cluster" ($$z_i$$). (Compute $$p_{\theta^{old}}(z \vert x_i)$$)
+- Step 2: **Update** "cluster" parameters to better fit their assigned points. (Maximize Lower Bound using MLE)
+</blockquote>
+
+Things to notice:
+- k-means is restricted to spheric clusters and EM presents the flexibility of the chosen distribution. Clustering with Gaussian Mixture Model (GMM) is quite frequent: Each cluster is a Gaussian distribution.
+
+- If in EM we are using a discrete latent vars $$z_j$$, we can imagine that instead of hard-assigning a single value to a "cluster", we assign a probability.
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/k-means.gif" description="K-means example" width="50"%}
+{% include figure.html url="/_ml/prob_modelling/variational_inference/EM.gif" description="EM on GMM example" width="50"%}
+{% include end-row.html %}
+{% include start-row.html %}
+
+
+#### Problems
+
+While for discrete $$z$$ values (clusters of data) computing $$p(z \vert x_i)$$ might be tractable, this is not usually the case when mapping from continuous $$z$$ to continuous $$p(x)$$.
+Instead, we **approximate** $$p(z \vert x_i)$$ with a simpler parametrized distribution $$q_i(z)$$ using **Variational Inference**.
 
 ### Variational Inference (VI)
 
@@ -199,8 +265,10 @@ As we said, we are interested in the maximization of Eq. \ref{eq:ml_lvm_em}, but
 **Variational inference** approximates it using a tractable parametrization $$q_i(z) \simeq p(z\vert x_i)$$ dependent on $$\phi_i$$.
 
 We thus have to optimize two sets of parameters:
-- $$\theta$$ of $$p_{\theta}(x_i\vert z)$$
-- $$\{ \phi_i \}_i$$ of $$q_i(z) \simeq p_{\theta}(z \vert x_i)$$
+
+- $$\theta$$ to parametrize the likelihood: $$p_{\theta}(x_i\vert z)$$
+  
+- $$\{ \phi_i \}_i$$ to parametrize the variational: $$q_i(z) \simeq p_{\theta}(z \vert x_i)$$
 
 #### Optimizing $$\theta$$
 As we show in [Annex 13: Variational Inference](/lectures/variational_inference_annex), the log of $$p(x)$$ is bounded by:
@@ -296,7 +364,7 @@ For each $$x_i$$ (or minibatch):
 
 {% include annotation.html %}
 Why $$\nabla_{\theta}\mathcal{L}_i(p, q_i) \approx \nabla_{\theta}\log p_{\theta}(x_i \vert z)$$?
-1. Since we cannot compute the expectation over $$q_i(z)$$, we estimate the expectation by sampling (Done in step 1.) 
+1. Since we cannot compute the expectation over $$q_i(z)$$, we estimate the expectation by sampling (We to this in step 1.) 
 2. The gradient w.r.t. $$\theta$$ acts only on the first expectation of Eq. \ref{eq:elbo} since the entropy does not depend on $$\theta$$.
 {% include end-row.html %}
 {% include start-row.html %}
@@ -316,6 +384,9 @@ parameters for the approximate distributions than in our Neural Network!
 
 
 ### Amortized Variational Inference
+{% include end-row.html %}
+{% include start-row.html %}
+
 Having a distribution $$q_i$$ for each datapoint can lead us with an extreme number
 of parameters. We therefore employ another **Neural Network** to approximate $$p(z \vert x_i)$$
 with a contained number of parameters. We denote with $$\phi$$ the set of parameters of this
@@ -323,6 +394,11 @@ new network. This network $$q_{\phi}(z \vert x)$$ will output the parameters of 
 for example the mean and the variance of a Gaussian:
 $$q_{\phi}(z \vert x) = \mathcal{N}(\mu_{\phi}(x), \sigma_{\phi}(x))$$. Since mean and variance
 are given by the Neural Network, $$q_{\phi}$$ can approximate any distribution.
+
+{% include annotation.html %}
+"Amortized" because you use a single model (ANN) $$q_\phi$$ to encode all $$q_i$$ approximations.
+{% include end-row.html %}
+{% include start-row.html %}
 
 The ELBO $$\mathcal{L}_i(p, q)$$ is the same as before, with $$q_{\phi}$$ instead
 of $$q_i$$:
