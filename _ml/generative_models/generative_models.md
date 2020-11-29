@@ -91,10 +91,10 @@ p_\theta (x_i) = \int_z p_\theta (x_i \mid z) p(z) dz
 \end{equation}
 
 This means, they try to find the parametrized distribution $$p_\theta$$ which better explains the data.
-Depending on how they fit this distributions we can divide them into: **[Autoregressive models](/ml/autoregressive_models)** (AR), **Variational autoencoders** (VAEs), and **[Flow-based generative models](/ml/flow_models)**.
+Depending on how they fit this distributions we can divide them into: **[Autoregressive models](/ml/autoregressive_models)** (AR), **[Variational autoencoders](/ml/variational_inference)** (VAEs), and **[Flow-based generative models](/ml/flow_models)**.
 
 
-### Likelihood-free based methods
+### Likelihood-free methods
 
 The most famous examples are **General Adversarial Networks** (GANs).
 They do not minimize a likelihood, instead use the adversarial duality and minimize a cost function.
