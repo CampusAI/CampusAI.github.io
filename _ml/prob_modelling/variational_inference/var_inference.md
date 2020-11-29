@@ -33,7 +33,7 @@ demonstrations. We learned that there are three main ways of dealing with this i
 - **Latent Variable Models**
 - Autoregressive Discretization -->
 
-In this post we talk about **Latent Variable Models**, and how to approximate any multimodal distribution using **Variational Inference**.
+In this post we talk about **Latent Variable Models**, and how to approximate any multimodal distribution using **Variational Inference**. For some motivation on why these techniques are interesting check out our [Why generative models?](/ml/generative_models) post.
 
 It is often the case that data $$\mathcal{D} = \{x_1, ..., x_N\}$$ is distributed accordingly to some variables that cannot be directly observed (referred as latent variables $$z$$).
 One schoolbook examples is the Gaussian Mixture:
