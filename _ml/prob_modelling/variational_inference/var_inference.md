@@ -178,21 +178,28 @@ See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://w
 {% include end-row.html %}
 {% include start-row.html %} -->
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 #### Problem
 
 We have a cyclic dependence!!
+
 - To optimize $$\theta$$, we need $$p_{\theta} (z \mid x)$$
+
 - To compute $$p_{\theta} (z \mid x)$$ we need $$\theta$$
 
-To solve these kind of dependencies we can do this:
+{% include annotation.html %}
+To solve these kind of dependencies we can iterate until convergence:
 - Randomly guess $$\theta^1$$
 - Use $$\theta^1$$ to compute $$p_{\theta^1} (z \mid x)$$ (expectation)
 - Use $$p_{\theta^1} (z \mid x)$$ to compute the $$\theta^2$$ which maximize $$\mathcal{L}(p(z), \theta)$$ (maximize)
 - Use $$\theta^2$$ to compute $$p_{\theta^2} (z \mid x)$$ (expectation)
 - ...
-- Convergence :)
+{% include end-row.html %}
+{% include start-row.html %}
 
-And this is exactly what EM does!
+<!-- And this is exactly what EM does! -->
 
 #### EM Algorithm
 
