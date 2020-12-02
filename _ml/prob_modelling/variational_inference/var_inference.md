@@ -131,73 +131,73 @@ Our dataset is composed by samples of $$p(x)$$, and we want the samples to be ve
 ### Expectation Maximization (EM)
 
 
-Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables (usually multi-dimensional) and is therefore intractable.
+Eq. $$\ref{eq:ml_lvm}$$ requires us to compute $$p_{\theta}(x)$$, which involves integrating the latent variables (usually multi-dimensional) and is therefore intractable. Lets try to develop a bit the expression and see if we can simplify it somehow.
 
-**Idea**: Lets try to develop a bit the expression and see if we can simplify it somehow.
-Turns out that by applying [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality) on the expectation we get:
+Turns out that by applying [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality) on the expectation we get that for any distribution $$q(z)$$:
 
 {% include end-row.html %}
 {% include start-row.html %}
 
 \begin{equation}
-\log p_\theta (x) \geq
-\underbrace{E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]}_{\mathcal{L}(p(z), \theta)}
+\log p_\theta(x) \ge
+\overbrace{E_{z \sim q(z)} \left[ \log \frac{p_\theta (x, z)}{q(z)} \right]}^{\text{Lower Bound:} \mathcal{L} (q, \theta)} =
+E_{z \sim q(z)} \left[ \log p_\theta (x, z) \right] - \mathcal{H} (q)
 \end{equation}
 
 Things to note:
 
-- We say: $$\mathcal{L}(p(z), \theta) := E_{z \sim p(z \vert x_i)} \left[ \log p_{\theta}(x_i, z) \right]$$ is a **lower bound** of $$\log p_{\theta}(X)$$
+- We say: $$\mathcal{L}(q(z), \theta) := E_{z \sim q(z)} \left[ \log \frac{p_\theta (x, z)}{q(z)} \right]$$ is a **lower bound** of $$\log p_{\theta}(X)$$
 
-- Thus, by **maximizing** $$\mathcal{L}(p(z), \theta)$$ you will also **push up** $$\log p_{\theta} (x)$$
+- Thus, by **maximizing** $$\mathcal{L}(q(z), \theta)$$ you will also **push up** $$\log p_{\theta} (x)$$
+
+- Notice that if maximizing $$\mathcal{L}(q(z), \theta)$$ wrt $$\theta$$, we can just maximize $$E_{z \sim q(z)} \left[ \log p_\theta (x, z) \right]$$ since $$\mathcal{H} (q)$$ does not depend on it.
 
 {% include annotation.html %}
-In essence, we are just saying that the log-likelihood of a datapoint is greater than the average of likelihoods for each latent variable weighted by the expected latent variable.
+In essence, we are just saying that the log-likelihood of a datapoint is greater than the average of likelihoods weighted by some distribution over latent variables.
 {% include end-row.html %}
 {% include start-row.html %}
 
-<!-- In fact:
+In fact:
 
-$$
+<!-- $$
 \log p_{\theta} (x) =
 \underbrace{\int_z \log \frac {p_{\theta} \left(x, z \right)}{p(z)} p(z)}_{\mathcal{L}(p(z), \theta)} 
 \underbrace{- \int_z \log \frac {p_{\theta} \left(z \mid x \right)}{p(z)} p(z)}_{D_{KL} \left(p(z) \Vert p_{\theta} (z \mid x) \right)}
-$$
+$$ -->
+
+\begin{equation}
+\log p_{\theta} (x) =
+\mathcal{L}(q(z), \theta) + D_{KL} \left(q(z) \Vert p_{\theta} (z \mid x) \right)
+\end{equation}
+
 
 Things to note:
 
-- By definition: $$D_{KL} \left(p(z) \Vert p_{\theta} (z \mid x) \right) \ge 0$$
+- By definition: $$D_{KL} \left(q(z) \Vert p_{\theta} (z \mid x) \right) \ge 0$$
 
-- And $$D_{KL} \left(p(z) \Vert p_{\theta}(z \mid x) \right) = 0 \iff p(z) = p_{\theta} (z \mid x)$$, 
+- And $$D_{KL} \left(q(z) \Vert p_{\theta}(z \mid x) \right) = 0 \iff q(z) = p_{\theta} (z \mid x)$$, 
 
-- Therefore we are also choosing $$\theta$$ which make these distributions be most similar.
+- $$\log p_{\theta} (x)$$ does not depend on $$q(z)$$, so apart from maximizing $$\mathcal{L}(q(z), \theta)$$ wrt $$\theta$$, we can also maximize it by setting: $$q(z) \leftarrow p_{\theta} (z \mid x)$$
 
 {% include annotation.html %}
 {% include figure.html url="/_ml/prob_modelling/variational_inference/EM_interpretation.png" description="C. Bishop shows this decomposition with this figure. He represents $p(z)$ as $q$." %}
 See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
 /en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
-{% include end-row.html %}
-{% include start-row.html %} -->
 
 {% include end-row.html %}
 {% include start-row.html %}
 
 #### Problem
 
-We have a cyclic dependence!!
-
-- To optimize $$\theta$$, we need $$p_{\theta} (z \mid x)$$
-
-- To compute $$p_{\theta} (z \mid x)$$ we need $$\theta$$
-
-{% include annotation.html %}
-To solve these kind of dependencies we can iterate until convergence:
-- Randomly guess $$\theta^1$$
-- Use $$\theta^1$$ to compute $$p_{\theta^1} (z \mid x)$$ (expectation)
-- Use $$p_{\theta^1} (z \mid x)$$ to compute the $$\theta^2$$ which maximize $$\mathcal{L}(p(z), \theta)$$ (maximize)
-- Use $$\theta^2$$ to compute $$p_{\theta^2} (z \mid x)$$ (expectation)
-- ...
 {% include end-row.html %}
 {% include start-row.html %}
+
+We can maximize $$\mathcal{L}(q(z), \theta)$$ wrt 2 things: $$\theta$$ and $$q(z)$$.
+But they form a **cyclic dependence**!!!
+
+- To optimize over $$\theta$$, we need $$q(z)$$
+
+- To compute $$q(z)$$ we need $$\theta$$
 
 <!-- And this is exactly what EM does! -->
 
@@ -207,11 +207,22 @@ To solve these kind of dependencies we can iterate until convergence:
 
 <blockquote markdown="1">
 Repeat until convergence:
-1. **E step**: Compute the posterior $$p_{\theta^{old}}(z \vert x_i)$$
-2. **M step**: Maximize the expected value of the log joint likelihood 
-   $$E_{z \sim p_{\theta^{old}}(z\vert x_i)} \Big[ \log p_{\theta}(x_i, z) \Big]$$
-   over the parameters $$\theta$$
+1. **E step**: Compute the posterior $$q(z) \leftarrow p_{\theta^{old}}(z \vert x_i)$$
+2. **M step**: Maximize wrt $$\theta$$:
+   $$\theta \leftarrow \arg \max_\theta E_{z \sim q(z)} \Big[ \log p_{\theta}(x_i, z) \Big]$$
 </blockquote>
+
+{% include annotation.html %}
+To solve these kind of dependencies we can iterate until convergence:
+- Randomly guess $$\theta^1$$
+- Use $$\theta^1$$ to compute $$q(z) \leftarrow p_{\theta^1} (z \mid x)$$ (expectation)
+- Use $$p_{\theta^1} (z \mid x)$$ to compute the $$\theta^2$$ which maximize $$\mathcal{L}(p(z), \theta)$$ (maximize)
+- Use $$\theta^2$$ to compute $$q(z) \leftarrow p_{\theta^2} (z \mid x)$$ (expectation)
+- ...
+
+And this is exactly what EM does!
+{% include end-row.html %}
+{% include start-row.html %}
 
 Eq. \ref{eq:ml_lvm} then becomes the maximization of $$\mathcal{L}(p(z), \theta)$$:
 \begin{equation}
@@ -320,9 +331,9 @@ See our [Information Theory Post](/ml/prob_modelling) for a better interpretatio
 <!-- The two results together give us a way to approximate $$p(x_i)$$:  -->
 
 <!-- <blockquote markdown="1"> -->
-<!-- 1. **Maximize $$p(x_i)$$ w.r.t. $$\theta$$**: As Eq. \ref{eq:elbo} shows, we can push up $$p(x_i)$$ with respect to $$\theta$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$.
+<!-- 1. **Maximize $$p(x_i)$$ wrt. $$\theta$$**: As Eq. \ref{eq:elbo} shows, we can push up $$p(x_i)$$ with respect to $$\theta$$ by maximizing the ELBO $$\mathcal{L}_i(p, q_i)$$.
 
-1. **Maximize $$p(x_i)$$ w.r.t. $$q_i$$**: Since the KL Divergence is always greater than zero, we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings the equation closer to the equality, i.e. $$\log p(x_i) \approx \mathcal{L}_i(p, q_i)$$. Minimizing the $$D_{KL}$$ term corresponds to maximizing the Evidence Lower Bound $$\mathcal{L}_i(p, q_i)$$. -->
+1. **Maximize $$p(x_i)$$ wrt. $$q_i$$**: Since the KL Divergence is always greater than zero, we can exploit Eq. \ref{eq:dkl}, that shows us that minimizing the $$D_{KL}$$ term brings the equation closer to the equality, i.e. $$\log p(x_i) \approx \mathcal{L}_i(p, q_i)$$. Minimizing the $$D_{KL}$$ term corresponds to maximizing the Evidence Lower Bound $$\mathcal{L}_i(p, q_i)$$. -->
 <!-- </blockquote> -->
 
 <!-- We obtained an important result: -->
@@ -372,7 +383,7 @@ For each $$x_i$$ (or minibatch):
 {% include annotation.html %}
 Why $$\nabla_{\theta}\mathcal{L}_i(p, q_i) \approx \nabla_{\theta}\log p_{\theta}(x_i \vert z)$$?
 1. Since we cannot compute the expectation over $$q_i(z)$$, we estimate the expectation by sampling (We to this in step 1.) 
-2. The gradient w.r.t. $$\theta$$ acts only on the first expectation of Eq. \ref{eq:elbo} since the entropy does not depend on $$\theta$$.
+2. The gradient wrt. $$\theta$$ acts only on the first expectation of Eq. \ref{eq:elbo} since the entropy does not depend on $$\theta$$.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -566,7 +577,7 @@ the first term ensures $$p(x_i)$$ is large and the second ensures $$q_\phi(z \mi
 {% include end-row.html %}
 {% include start-row.html %}
 
-### Policy Gradient Approach or Reparametrization Trick?
+#### Policy Gradient Approach or Reparametrization Trick?
 
 **Policy Gradient** (Eq. \ref{eq:elbo_pgradient_dkl}):
 + <span style="color:green">Can handle both discrete and continuous latent variables</span>.
@@ -577,5 +588,22 @@ learning rates</span>.
 + <span style="color:green">Low variance (one sample is often enough)</span>.
 + <span style="color:green">Simple to implement</span>.
 + <span style="color:red">Can handle only continuous latent variables</span>.
+
+
+### Mean Field Approximation Variational Inference
+
+Mean Field Approximation Variational Inference is another approach of VI which does **not** rely on assuming a functional form of the distribution and learning its parameters.
+Instead, attempts to learn both latent variables and parameters distributions by **assuming independence** between a subdivision of them.
+
+\begin{equation}
+q(Z_1, ... , Z_k, \Theta_1, ..., \Theta_l) = \prod_i^a q(Z_i) \prod_j^b q(\Theta_j)
+\end{equation}
+
+While not 100% accurate, it can significantly the expressions.
+If we attempt to maximize the ELBO we get that:
+
+\begin{equation}
+q (Z_i) \propto E_{Z, \Theta - Z_i} \left[ \log p(X, Z, \Theta) \right]
+\end{equation}
 
 {% include end-row.html %}
