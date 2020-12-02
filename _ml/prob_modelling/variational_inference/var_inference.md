@@ -215,9 +215,9 @@ Repeat until convergence:
 {% include annotation.html %}
 To solve these kind of dependencies we can iterate until convergence:
 - Randomly guess $$\theta^1$$
-- Use $$\theta^1$$ to compute $$q(z) \leftarrow p_{\theta^1} (z \mid x)$$ (expectation)
-- Use $$p_{\theta^1} (z \mid x)$$ to compute the $$\theta^2$$ which maximize $$\mathcal{L}(p(z), \theta)$$ (maximize)
-- Use $$\theta^2$$ to compute $$q(z) \leftarrow p_{\theta^2} (z \mid x)$$ (expectation)
+- Use $$\theta^1$$ to compute $$q(z) \leftarrow p_{\theta^1} (z \mid x)$$ (**expectation**)
+- Use $$q(z)$$ to compute the $$\theta^2$$ which maximize $$\mathcal{L}(q(z), \theta)$$ (**maximization**)
+- Use $$\theta^2$$ to compute $$q(z) \leftarrow p_{\theta^2} (z \mid x)$$ (**expectation**)
 - ...
 
 And this is exactly what EM does!
