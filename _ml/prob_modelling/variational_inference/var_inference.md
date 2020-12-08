@@ -121,7 +121,7 @@ The integral makes the computation intractable, therefore we need to resort to o
 
 {% include annotation.html %}
 Why do we maximize the probability of each data-point?
-Our dataset is composed by samples of $$p(x)$$, and we want the samples to be very likely, thus we maximize their probability. This is the essence of **[MLE](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)**:
+Our dataset is composed by samples of $$p(x)$$, and we want the samples to be very likely, thus we maximize their probability. This is the essence of **[MLE](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)**
 <!-- Finding the parameters which maximize the data likelihood. -->
 {% include end-row.html %}
 {% include start-row.html %}
@@ -224,7 +224,7 @@ And this is exactly what EM does!
 {% include end-row.html %}
 {% include start-row.html %}
 
-Eq. \ref{eq:ml_lvm} then becomes the maximization of $$\mathcal{L}(p(z), \theta)$$:
+Eq. \ref{eq:ml_lvm} then becomes the maximization of $$\mathcal{L}(q(z), \theta)$$:
 \begin{equation}
 \label{eq:ml_lvm_em}
 \theta \leftarrow \arg\max_{\theta} \frac{1}{N}\sum_{i=1}^N
