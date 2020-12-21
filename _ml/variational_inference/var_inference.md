@@ -24,7 +24,7 @@ demonstrations when the data has a **multi-modal behavior**. In the example belo
 demonstrator sometimes decides to avoid the obstacle by turning left, and sometimes by turning
 right. However, averaging between the two will make you crash.
 
-{% include figure.html url="/_ml/prob_modelling/variational_inference/tree.png" description="Example of bimodal behavior" %}
+{% include figure.html url="/_ml/variational_inference/tree.png" description="Example of bimodal behavior" %}
 
 If our neural network outputs a Gaussian action, it will be forced to average between the human
 demonstrations. We learned that there are three main ways of dealing with this issue:
@@ -38,7 +38,7 @@ In this post we talk about **Latent Variable Models**, and how to approximate an
 It is often the case that data $$\mathcal{D} = \{x_1, ..., x_N\}$$ is distributed accordingly to some variables that cannot be directly observed (referred as latent variables $$z$$).
 One schoolbook examples is the Gaussian Mixture:
 
-{% include figure.html url="/_ml/prob_modelling/variational_inference/gauss_mix.png" description="Gaussian Mixture"%}
+{% include figure.html url="/_ml/variational_inference/gauss_mix.png" description="Gaussian Mixture"%}
 
 The likelihood of a datapoint $$x$$ is given by the marginalization over the possible values of a
 **latent variable** $$z \in \{1, 2, 3\}$$ that indicates the cluster.
@@ -81,7 +81,7 @@ can be hard or impossible to compute. In this lecture we will learn how to appro
 
 If we want to represent a really complex distribution, we can represent $$p(x \vert  z)$$ with a **Neural Network** that, given $$z$$, will output the mean and variance of a Gaussian distribution for $$x$$:
 
-{% include figure.html url="/_ml/prob_modelling/variational_inference/nn_transform.png" description="Neural Network mapping $z$ to $p(x\vert z)$" %}
+{% include figure.html url="/_ml/variational_inference/nn_transform.png" description="Neural Network mapping $z$ to $p(x\vert z)$" %}
 
 {% include annotation.html %}
 You can imagine this as a mixture of infinite Gaussians:
@@ -180,7 +180,7 @@ Things to note:
 - $$\log p_{\theta} (x)$$ does not depend on $$q(z)$$, so apart from maximizing $$\mathcal{L}(q(z), \theta)$$ wrt $$\theta$$, we can also maximize it by setting: $$q(z) \leftarrow p_{\theta} (z \mid x)$$
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/prob_modelling/variational_inference/EM_interpretation.png" description="C. Bishop shows this decomposition with this figure. He represents $p(z)$ as $q$." %}
+{% include figure.html url="/_ml/variational_inference/EM_interpretation.png" description="C. Bishop shows this decomposition with this figure. He represents $p(z)$ as $q$." %}
 See chapter 9 of [C. Bishop, Pattern Recognition and Machine Learning](https://www.microsoft.com
 /en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
 
@@ -263,8 +263,8 @@ Things to notice:
 - If in EM we are using a discrete latent vars $$z_j$$, we can imagine that instead of hard-assigning a single value to a "cluster", we assign a probability.
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/prob_modelling/variational_inference/k-means.gif" description="K-means example" width="50"%}
-{% include figure.html url="/_ml/prob_modelling/variational_inference/EM.gif" description="EM on GMM example" width="50"%}
+{% include figure.html url="/_ml/variational_inference/k-means.gif" description="K-means example" width="50"%}
+{% include figure.html url="/_ml/variational_inference/EM.gif" description="EM on GMM example" width="50"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -524,7 +524,7 @@ The figure below shows the process that from $$x_i$$ gives us $$q_{\phi}(z \vert
 {% include end-row.html %}
 {% include start-row.html %}
 
-{% include figure.html url="/_ml/prob_modelling/variational_inference/icon.png" description="" %}
+{% include figure.html url="/_ml/variational_inference/icon.png" description="" %}
 
 {% include annotation.html %}
 Notice this is what **Variational Autoencoders** do, first network being the **Encoder** $$p(z \mid x)$$ and second network being the **Decoder** $$p(x \mid z)$$.

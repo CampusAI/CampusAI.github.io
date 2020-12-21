@@ -17,6 +17,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
+<!-- 
 ## Motivation
 
 The general idea of parametric probabilistic modelling optimization can be summarized in the following figure:
@@ -28,7 +29,7 @@ Obviously this distribution is not known and we are only given some samples.
 The basic approach is to choose a model which can capture a subspace of the probability distribution space.
 Later, to optimize the model parameters to minimize the distance to the given distribution.
 This distance is often measured with KL divergence.
-
+ -->
 ## Information Theory Basics
 
 ### Shannon Information
