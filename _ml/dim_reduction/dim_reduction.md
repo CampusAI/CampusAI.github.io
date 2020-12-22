@@ -384,12 +384,17 @@ Consider this example of a 2D surface embedded into a 3D space.
 No matter how you orient the projection plane (if $$k=2$$), the projection will not be good:
 
 {% include figure.html url="/_ml/dim_reduction/kernel_pca.png"
-description="Figure 5: PCA of s-shaped surface into a 2D space. Figure from David Thompon Carltech kernel-PCA lecture."
+description="Figure 6: PCA of s-shaped surface into a 2D space. Figure from David Thompon Carltech kernel-PCA lecture."
 %}
 
 The main idea of kernel-PCA is to **non-linearly** project the data into a higher-dimensional space so that the data becomes easier to project from there.
-Given a non-linear funtion $$\phi$$: we look for $$\min E_x \left[ \Vert \phi(x) - W W^T \phi(x) \Vert_2^2 \right]$$.
-Same as before, we would do SVD of $$\phi(X) \phi(X)^T$$
+Given a non-linear function $$\phi$$: we minimize the following objective:
+
+\begin{equation}
+\min E_x \left[ \Vert \phi(x) - W W^T \phi(x) \Vert_2^2 \right]
+\end{equation}
+
+Same as before, we would do SVD of $$\phi(X) \phi(X)^T$$.
 
 #### Kernel Trick
 
@@ -405,36 +410,135 @@ This technique is known as "*the kernel trick*".
 {% include end-row.html %}
 {% include start-row.html %}
 
-[Classical MDS](https://en.wikipedia.org/wiki/Multidimensional_scaling) gets inputed the pair-wise distances between a set of points in a high-dim space and projects them into a lower-dim space trying to maintain the distances.
-**Input:** Pair-wise distance matrix. **Output:** Point coordinates (aka coordinate matrix).
+[Classical MDS](https://en.wikipedia.org/wiki/Multidimensional_scaling) (aka PCoA: Principal Coordinate Analysis) solves the following input-output problem:
 
-While PCA attempts to preserve correlation (similarity), MDS attempts to preserve some sense of distance between datapoints in the embedded space.
-To achieve it, MDS algorithms convert the inputed Pair-wise distance matrix into a similarity matrix using the double centering trick and then use PCA
+- **Input:** Pair-wise **euclidean** distance matrix between points in high-dim space.
+- **Output:** Point coordinates in low-dim space (aka coordinate matrix).
+
+More formally: Given a set of pair-wise euclidean distances $$d_{ij}$$ between point $$i$$ and point $$j$$, Classical MDS finds the latent points $$z_1, ..., z_n$$ which minimize the following metric:
+
+\begin{equation}
+Stress_p (z_1, ..., z_n) = \left( \sum_{i < j}^n
+\left( \Vert z_i - z_j \Vert - d_{ij} \right)^2
+\right)^{\frac{1}{2}}
+\end{equation}
+
+<!-- While PCA attempts to preserve correlation (similarity), MDS attempts to preserve some sense of distance between datapoints in the embedded space.
+To achieve it, MDS algorithms convert the inputed pair-wise distance matrix into a similarity matrix using the **double centering trick** and then use PCA. -->
+Same as in PCA, we need to center the data.
+We do this by making the distance matrix columns and rows sum to zero by multiplying it on both sides by a [centering matrix](https://en.wikipedia.org/wiki/Centering_matrix).
+This is known as the **double centering trick**.
+Once we have this matrix, the procedure is analogous to the one from PCA.
+In summary:
+
+<blockquote markdown="1">
+**Classical MDS algorithm**:
+1. Get squared distance matrix $$D := \left[ d_{ij}^2 \right]$$
+2. Double-center the distance matrix: $$B := -\frac{1}{2} J D J$$, where $$J$$ is a [centering matrix](https://en.wikipedia.org/wiki/Centering_matrix).
+3. Get spectral decomposition of $$B$$ and select k-highest eigenvals: $$\Lambda := diag(\lambda_1, ..., \lambda_k)$$, $$E_k := [v_1 \cdots v_k]$$
+4. The k-dim data is then: $$Z^T = E_k \Lambda^{\frac{1}{2}}$$
+</blockquote>
 
 {% include annotation.html %}
-Nota that MDS does not need to know the features of the datapoints, just some sense of distance among them.
+<!-- Note that MDS does not need to know the features of the datapoints, just the euclidean distance among them.
+This has been exploited to map complex elements using the averages of qualitative distances given by humans. -->
+MDS can be seen as a dim-reduction technique since it can produce embeddings which preserve the structure of the data.
+{% include end-row.html %}
+{% include start-row.html %}
+
+Obviously, the solutions given by MDS are **not unique**.
+Translations, rotations, and mirrorings do not alter the distances.
+
+Model-checking is usually done plotting a scatter plot of **original** vs **latent** distances.
+You can easily detect biases if the datapoints do not lie in the diagonal.
+
+<!-- **Starting points:** Depending on the data we have we'll need to do some pre-processings.
+- If directly provided with **similarity matrix** $$S$$ no pre-processing is needed other than double-centering.
+- If provided with **distance matrix** $$D$$ we need to convert it to a similarity matrix.
+- If provided with the data **X**, we can compute the similarity matrix as: $$S = X^T X$$. In this case MDS becomes analogous to PCA. -->
+
+**MDS vs PCA**:
+PCA and MDS solve different problems using the same idea.
+- PCA aims to find the subspace of larger variance by using the data covariance matrix (a measure of correlation between points)
+- MDS applies the same algorithm to find points in a lower-dim space which are distanced equally as the points in the high-dim space.
+
+{% include end-row.html %}
+{% include start-row.html %}
+- <span style="color:green">With MDS you don't need to know the actual feature values, just the distance or (dis)similarity between the points.</span>
+
+{% include annotation.html %}
 This has been exploited to map complex elements using the averages of qualitative distances given by humans.
 {% include end-row.html %}
 {% include start-row.html %}
 
-#### Metric MDS
 
-Metric MDS (aka PCoA: Principal Coordinate Analysis) 
+#### mMDS (metric-MDS)
 
-is essentially the same as PCA but projecting distances among samples instead of correlations.
-It optimizes a general stress function with inter-point distance information.
+Metric MDS is a generalization of classical MDS.
+Remember that classical MDS assumes the provided distances are euclidean $$(L^2)$$ which can be very limiting.
+Metric MDS generalizes Classical MDS to use any other distance.
 
+\begin{equation}
+Stress_p (z_1, ..., z_n) = \left( \sum_{i < j}^n
+w_{ij} \left( \Vert z_i - z_j \Vert - d_{ij} \right)^2
+\right)^{\frac{1}{2}}
+\end{equation}
 
-#### Non-metric MDS
+Where $$w_{ij}$$ is a weight given to that distance difference.
+A common choice is $$w_{ij} = \frac{1}{d_{ij}}$$ (aka [Sammon's nonlinear mapping](https://en.wikipedia.org/wiki/Sammon_mapping)).
+In this case we "care" more about close things and less about far things.
 
-[Non-metric MDS](https://en.wikipedia.org/wiki/Multidimensional_scaling) 
+**mMDS vs MDS:**
+- <span style="color:green">Working with any distance function provides more expressivenes.</span>
+- <span style="color:red">Greater generality comes at the cost of no closed-form solution. Need to use some generic optimizer (e.g. gradient descent).</span>
 
+#### nmMDS (non-metric-MDS)
 
+Non-metric MDS is yet another generalization.
+for when instead of having distance information you have ordinal information of the data.
+This is: you only know some ordering (or ranking) of it instead of some quantitative distance.
+Given the pairwise ordinal proximities $$\delta_{ij}$$ between a set of elements, we are trying to minimize:
+
+\begin{equation}
+E_{nmMDS} (z_1, ..., z_n) = \left( \sum_{i < j}^n
+w_{ij} \left( \Vert z_i - z_j \Vert - f(\delta_{ij}) \right)^2
+\right)^{\frac{1}{2}}
+\end{equation}
+
+Where $$f$$ is a monotone transformation of proximities.
+
+### Isomap
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+**Idea**: Euclidean distance in the original space might be a poor measure of dissimilarity between points.
+Instead the [geodesic](https://en.wikipedia.org/wiki/Geodesic) distance might be more informative.
+
+**Problem**: Computing the geodessic distance between any two points without knowing the manifold is too hard.
+
+**Solution**: For close points: Euclidean $$\simeq$$ Geodessic.
+We can approximate long distances by doing a sequence of "short hops".
+We can model this with a graph.
+
+The main algorithm then becomes:
+
+<blockquote markdown="1">
+**Classical MDS algorithm**:
+1. Given dataset $$\mathcal{D} = \{x_i\}_i$$. Compute Euclidean distances among the points $$d_{ij}$$.
+2. Construct a graph where each vertex is a point and its connected to the p nearest neighbors.
+3. For each pair of points ($$x_i$$, $$x_j$$) compute the shortest path distance (using the graph) $$\delta_{ij}$$.
+4. Use MDS on these $$\delta_{ij}$$ to compute the low-dim embedding $$\{z_i\}_i$$.
+</blockquote>
+
+**Disadvantages:**
+- <span style="color:red">Sensitive to noise.</span>
+- <span style="color:red">Sensitive to the number of neighbours.</span>
+- <span style="color:red">If the graph is disconnected, the algorithm will fail.</span>
 
 
 {% include annotation.html %}
-Distances are measures of dissimilarity.
-Some common similarity measures are: dot product, [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity), [Jaccard similarity](https://en.wikipedia.org/wiki/Jaccard_index)...
+{% include figure.html url="/_ml/dim_reduction/geodessic_distance.jpeg" description="Euclidean vs Geodessic distances. Image from A. Yamin et al., Comparison Of Brain Connectomes Using Geodesic Distance On Manifold: A Twins Study"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -442,14 +546,28 @@ Some common similarity measures are: dot product, [cosine similarity](https://en
 ### Autoencoders
 
 Another recently popular non-linear dim-reduction technique is to use ANN-based autoencoders.
-In a nutshell: you train a sand-clock shaped neural network to reconstruct your data forcing the middle layer to learn a compressed representation of it.
+In a nutshell: you train a sandclock shaped neural network to reconstruct your data forcing the middle layer to learn a compressed representation of it.
 The objective function (loss) optimized is essentially the same as the ones we've seen so far.
-For instance, if we want to minimize the MSE between each input and its reconstruction: $$\min_{\theta} \Vert x - dec_\phi(enc_\phi(x)) \Vert_2^2 $$ where `enc` and `dec` are ANNs which can be trained with gradient descend.
+For instance, if we want to minimize the MSE between each input and its reconstruction:
 
+{% include end-row.html %}
+{% include start-row.html %}
+
+\begin{equation}
+\min_{\phi} \Vert x - dec_\phi(enc_\phi(x)) \Vert_2^2
+\end{equation}
+
+Where `enc` and `dec` are ANNs which can be trained with gradient descend.
 
 {% include figure.html url="/_ml/dim_reduction/autoencoder.png"
-description="Figure 6: Standard autoencoder architecture. First half of the neural networks works as a data compression encoder, second half reconstructs the input to its decompressed form. Figure from compthree blog"
+description="Figure 7: Standard autoencoder architecture. First half of the neural networks works as a data compression encoder, second half reconstructs the input to its decompressed form. Figure from compthree blog"
 %}
+
+{% include annotation.html %}
+Note the similarity with PCA.
+PCA is a special case where the ANNs only have 1 dense layer without activation function and share the same parameters to encode and decode (transposed).
+{% include end-row.html %}
+{% include start-row.html %}
 
 We talk more about autoencoders (and their more interesting evolution: variational-autoencoders VAEs) in this [Latent Variable Models post](/ml/variational_inference).
 

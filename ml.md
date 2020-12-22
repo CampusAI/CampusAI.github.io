@@ -15,11 +15,6 @@ title="Probability Basics"
 subtitle="Information theory, Statistical distances"
 url="/ml/prob_modelling"%}
 
-<!-- {% include paper-card.html
-title="Dimensionality reduction"
-subtitle="The curse of dimensionality, SVD, Eigen Decomposition, PCA, MDS, Isomap"
-url="/ml/dim_reduction"%} -->
-
 ## Generative Models
 
 {% include paper-card.html
@@ -41,6 +36,15 @@ url="/ml/autoregressive_models"%}
 title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
+
+
+## Misc.
+
+{% include paper-card.html
+title="Dimensionality reduction"
+subtitle="The curse of dimensionality, SVD, PCA, KPCA, MDS, Isomap, AutoEncoders"
+url="/ml/dim_reduction"%}
+
 
 ## Annex
 
