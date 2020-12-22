@@ -10,7 +10,7 @@ index: false
 
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
-brief="Probabilistic basics;Deep Generative Models;"
+brief="Probabilistic basics;Deep Generative Models;Dimensionality reduction"
 url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"
