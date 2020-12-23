@@ -8,12 +8,17 @@ permalink: /ml/
 
 <!-- ## Unsupervised Learning -->
 
-## Background
+## Dimensionality reduction
 
 {% include paper-card.html
-title="Probability Basics"
-subtitle="Information theory, Statistical distances"
-url="/ml/prob_modelling"%}
+title="Dim reduction basics"
+subtitle="The curse of dimensionality, SVD"
+url="/ml/dim_reduction_basics"%}
+
+{% include paper-card.html
+title="Dim reduction algorithms"
+subtitle="PCA, KPCA, MDS, Isomap, AutoEncoders"
+url="/ml/dim_reduction_algos"%}
 
 ## Generative Models
 
@@ -38,14 +43,11 @@ subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
 
 
-## Misc.
+## Annex
 
 {% include paper-card.html
-title="Dimensionality reduction"
-subtitle="The curse of dimensionality, SVD, PCA, KPCA, MDS, Isomap, AutoEncoders"
-url="/ml/dim_reduction"%}
-
-
-## Annex
+title="Probability Basics"
+subtitle="Information theory, Statistical distances"
+url="/ml/prob_modelling"%}
 
 {% include paper-card.html title="Variational Inference Annex" subtitle="" url="/lectures/variational_inference_annex"   %}
