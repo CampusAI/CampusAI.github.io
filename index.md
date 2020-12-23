@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Welcome to CampusAI!
+# title: Welcome to CampusAI!
 index: false
 ---
 <div class="row" markdown="1">
@@ -10,7 +10,7 @@ index: false
 
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
-brief="Dimensionality reduction;Generative Models"
+brief="Dimensionality reduction;Generative Models;Data Mining"
 url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"
