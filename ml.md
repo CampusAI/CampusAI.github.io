@@ -42,6 +42,12 @@ title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
 
+## Data Mining
+
+{% include paper-card.html
+title="Similar items"
+subtitle="Shingling, Minhashing, LSH"
+url="/ml/similar_items"%}
 
 ## Annex
 
