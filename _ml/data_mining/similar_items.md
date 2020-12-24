@@ -50,7 +50,7 @@ The first step is to encode each document into a set of numbers easier to deal w
 <blockquote markdown="1">
 **Algorithm:**
 1. Split the given sequence in [k-grams](https://en.wikipedia.org/wiki/N-gram): Continuous subsequences of length k (aka k-shingles)
-2. Hash each of the shingles into an integer value and store them in a unique set.
+2. Hash each of the shingles into a 4B integer value and store them in a unique set.
 </blockquote>
 
 {% include annotation.html %}
@@ -63,19 +63,28 @@ The first step is to encode each document into a set of numbers easier to deal w
 
 Note that at this point we could pair-wise compare each document computing the **Jaccard similarity** between them.
 <span style="color:red">Nevertheless, for big documents this is too expensive.</span>
+$$O(N^2)$$ if done naively.
 Thus, we will approximate the Jaccard similarity value using the Minhashing technique.
 
 ### Minhashing
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Given the sets of hashed shingles $$S_1$$ and $$S_2$$, from documents: $$D_1$$ and $$D_2$$.
 We are looking for a fast way to estimate their Jaccard similarity.
+
+{% include annotation.html %}
+Invented in 1997 and used in AltaVista search engine to detect website duplicates.
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include end-row.html %}
 {% include start-row.html %}
 **Idea:** The probability of two sets having the same minimum is approximately their Jaccard similarity:
 
 \begin{equation}
-P(\min(S_1) = \min(S_2)) \simeq J_{SIM}
+P(\min(S_1) = \min(S_2)) \simeq J_{SIM} (S_1, S_2)
 \end{equation}
 
 {% include annotation.html %}
@@ -83,10 +92,21 @@ Main intuition behind it is that the more common elements, the higher the likeli
 {% include end-row.html %}
 {% include start-row.html %}
 
+We can use this idea by repeatedly applying a hash function to our sets' elements and get an approximation of the similarity.
 
+**DEF:** Given a hash function $$h$$ and a set $$S$$, we call **minhash** the value $$min_{e \in S} h(e)$$.
 
-To get a better estimation we can apply the same hash function to both sets elements and compare again their minimum values.
-Furthermore, we can repeat it several times with different hash functions.
+<blockquote markdown="1">
+**Algorithm:**
+Repeat m times:
+1. Pick a hash function $$h_i$$
+2. Hash each value of both sets
+3. Check if minhashes match: $$\min(h_i(S_1)) == \min(h_i(S_2))$$
+
+**Return**: Proportion of same minimum values.
+</blockquote>
+
+If comparing multiple sets, it is a good idea to store all minhashes to a matrix (each colum represents a set, each row a different hash function). This matrix is called **signature matrix**.
 
 <span style="color:red">Still, this approximation might be too expensive for its accuracy.</span>
 LHS further optimizes the computation.
