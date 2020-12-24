@@ -52,7 +52,7 @@ Consider a dataset $$\mathcal{D}$$ of $$n$$ points in a high-dim space $$x_i \in
 
 Assumptions:
 - For each data-point $$x_i \in \mathcal{D}$$ there exists a latent point in a lower-dim space $$z_i \in \mathbb{R}^k$$ which generates $$x_i$$.
-- There exists a **linear mapping** (`decoder`) $$W \in \mathbb{R}^{d \times k}$$ s.t. $$z_i = W x_i \space \forall (z_i, x_i)$$
+- There exists a **linear mapping** (`decoder`) $$W \in \mathbb{R}^{d \times k}$$ s.t. $$z_i = W^T x_i \space \forall (z_i, x_i)$$
 - $$W$$ has orthonormal columns (i.e. $$W^T W = I_{k \times k}$$, notice that usually $$W W^T \neq I_{d \times d}$$).
 
 {% include annotation.html %}
