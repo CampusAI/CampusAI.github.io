@@ -42,6 +42,13 @@ title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
 
+## Pay attention!
+
+{% include paper-card.html
+title="Attention Basics"
+subtitle="Attention vs Memory"
+url="/ml/attention"%}
+
 ## Massive Dataset Mining
 
 {% include paper-card.html
