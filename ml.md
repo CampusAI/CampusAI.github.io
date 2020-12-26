@@ -29,7 +29,7 @@ url="/ml/generative_models"%}
 
 {% include paper-card.html
 title="LVM: Expectation Maximization (EM) & Variational Inference (VI)"
-subtitle="Latent Variable Models, Expectation Maximization, Variational Inference, Amortized Variational Inference, Reparametrization Trick"
+subtitle="Latent Variable Models, EM, VI, Amortized VI, Reparametrization Trick, Mean Field VI"
 url="/ml/variational_inference"%}
 
 {% include paper-card.html
