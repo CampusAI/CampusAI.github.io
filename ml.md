@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Machine Learning Theory
+title: Machine Learning
 permalink: /ml/
 ---
 
@@ -45,7 +45,7 @@ url="/ml/flow_models"%}
 ## Big Data Mining
 
 {% include paper-card.html
-title="Similar items"
+title="Similar Items"
 subtitle="Shingling, Minhashing, LSH"
 url="/ml/similar_items"%}
 

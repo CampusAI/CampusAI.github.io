@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Reinforcement Learning Theory
+title: Reinforcement Learning
 permalink: /theory/
 ---
 
