@@ -42,7 +42,7 @@ title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
 
-## Big Data Mining
+## Massive Dataset Mining
 
 {% include paper-card.html
 title="Similar Items"
