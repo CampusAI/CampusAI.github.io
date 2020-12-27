@@ -15,5 +15,22 @@ If considering to use the text please cite the original author/s of the lecture/
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
 {% include start-row.html %}
+In this post we discuss techniques for extracting information from Data Streams. When dealing with Data Streams we make the following assumptions:
+- The data arrives in one or multiple streams and must be processed immediately.
+- The size of the entire stream is too big to be stored in memory or is infinite.
+- The distribution of the data may be non-stationary.
+There are several questions (in this case called **queries**) that we may want to answer by extracting information from the stream(s).
+These are generally divided in:
+- **Sampling data**
+- **Queries on sliding windows**
+- **Filtering**
+- **Counting distinct elements**
+- **Estimating moments**
+- **Finding frequent items**
 
+## Sampling Data
+In this section we make the assumption that data comes in the form of tuples $$(k, x_1, x_2, ..., x_n)$$ where $$k \in K$$ is a key and $$\{x_i\}$$ are the attributes.
+One such example may be data coming from a search engine in the form (username, query, date, location, ...) and we may be interested in estimating the number of repeated queries from the same user in a day. 
+### Fixed proportion sampling
+We assume that we can only store a portion $$p = a/b$$, $$p \in [0, 1]$$ of the queries in memory. We can then, for each query, hash its key with an hash function $$h: K \rightarrow \{1, ..., b\}$$ and store it in memory if $$h(k) \le a$$. If our hash function $$h$$ distributes the set of keys $$K$$ uniformly in $$\{1, ..., b\}$$ then we are approximately keeping a proportion $$a/b = p$$ of the incoming data. 
 {% include end-row.html %}
