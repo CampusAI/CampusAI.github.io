@@ -19,18 +19,22 @@ In this post we discuss techniques for extracting information from Data Streams.
 - The data arrives in one or multiple streams and must be processed immediately.
 - The size of the entire stream is too big to be stored in memory or is infinite.
 - The distribution of the data may be non-stationary.
+
 There are several questions (in this case called **queries**) that we may want to answer by extracting information from the stream(s).
 These are generally divided in:
-- **Sampling data**
+- **Sampling**
 - **Queries on sliding windows**
 - **Filtering**
 - **Counting distinct elements**
 - **Estimating moments**
 - **Finding frequent items**
 
-## Sampling Data
+## Sampling
 In this section we make the assumption that data comes in the form of tuples $$(k, x_1, x_2, ..., x_n)$$ where $$k \in K$$ is a key and $$\{x_i\}$$ are the attributes.
-One such example may be data coming from a search engine in the form (username, query, date, location, ...) and we may be interested in estimating the number of repeated queries from the same user in a day. 
+One such example may be data coming from a search engine in the form (*username*, query, date, location, ...) where *username* is key. Due to the assumptions above we cannot store the entire stream, but we may be interested in storing only a sample of it. Depending on whether we know the stream size in advance, we can do so with **Fixed proportion sampling** or **Fixed size sampling**.
+
 ### Fixed proportion sampling
-We assume that we can only store a portion $$p = a/b$$, $$p \in [0, 1]$$ of the queries in memory. We can then, for each query, hash its key with an hash function $$h: K \rightarrow \{1, ..., b\}$$ and store it in memory if $$h(k) \le a$$. If our hash function $$h$$ distributes the set of keys $$K$$ uniformly in $$\{1, ..., b\}$$ then we are approximately keeping a proportion $$a/b = p$$ of the incoming data. 
+Assume a memory constraint of $$M$$ tuples and a known stream size of $$N$$. The goal is to store the proportion $$p = M/N$$ of incoming tuples in such a way that each key has the same probability of being stored. 
+We can then, for each tuple, hash its key with an hash function $$h: K \rightarrow \{1, ..., N\}$$ and store the tuple in memory if $$h(k) \le M$$.
+If our hash function $$h$$ distributes the set of keys $$K$$ uniformly in $$\{1, ..., N\}$$ then this method approximately keeps a proportion $$p = M/N$$ of the incoming keys.
 {% include end-row.html %}
