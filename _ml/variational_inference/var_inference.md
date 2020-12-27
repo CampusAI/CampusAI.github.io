@@ -606,4 +606,19 @@ If we attempt to maximize the ELBO we get that:
 q (Z_i) \propto E_{Z, \Theta - Z_i} \left[ \log p(X, Z, \Theta) \right]
 \end{equation}
 
+<br>
+
+------------
+
+Cited as:
+```
+@article{campusai2020vi,
+title = "From Expectation Maximization to Variational Inference",
+author = "Canal, Oleguer* and Taschin, Federico*",
+journal = "https://campusai.github.io/",
+year = "2020",
+url = "https://campusai.github.io/ml/variational_inference"
+}
+``` 
+
 {% include end-row.html %}
