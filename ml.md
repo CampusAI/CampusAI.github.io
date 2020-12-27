@@ -28,7 +28,7 @@ subtitle="Basics, Discriminative vs Generative, Use-cases, Types"
 url="/ml/generative_models"%}
 
 {% include paper-card.html
-title="LVM: Expectation Maximization (EM) & Variational Inference (VI)"
+title="From Expectation Maximization to Variational Inference"
 subtitle="Latent Variable Models, EM, VI, Amortized VI, Reparametrization Trick, Mean Field VI"
 url="/ml/variational_inference"%}
 

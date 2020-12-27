@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "LVM: EM & VI"
+title: "From Expectation Maximization to Variational Inference"
 permalink: /ml/variational_inference
 lecture-author: Sergey Levine
 lecture-date: 2019
