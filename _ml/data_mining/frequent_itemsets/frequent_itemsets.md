@@ -44,7 +44,7 @@ Sometimes we work with the **relative support**:
 \textrm{rel_support} (I) = \frac{\textrm{support} (I)}{\vert \textrm{baskets} \vert}
 \end{equation}
 
-Another environment where this setup might be useful is considering documents as baskets and words as items. 
+Another environment where this setup might be useful: documents as baskets and words as items.
 In this case, if a set of items is frequent, we have that a set of words appears in a lot of documents.
 This is specially interesting if the words are reasonably rare, which usually indicates that there is some connection between those concepts.
 
@@ -62,10 +62,11 @@ Online stores can adapt to each customer and use different techniques.
 
 **Association rules** essentially say:
 _If a basket contains the set of items $$X$$, then it will probably contain the set $$Y$$_.
+Where $$X \cap Y = \emptyset$$
 It is written as:
 
 \begin{equation}
-X \rightarrow Y \space \space \textrm{s.t.} \space \space X \cap Y = \emptyset
+X \rightarrow Y
 \end{equation}
 
 Its **support** is defined as:
@@ -82,7 +83,7 @@ And its **confidence** as:
 
 ### How to find association rules
 
-Usually one wants to know all association rules with support $$\geq s$$, and confidence $$geq c$$.
+Usually one wants to know all association rules with support $$\geq s$$, and confidence $$\geq c$$.
 Lets see how can we do associations of the type $$\{i_1, ..., i_k\} \rightarrow j$$
 
 <blockquote markdown="1">
@@ -92,14 +93,67 @@ Lets see how can we do associations of the type $$\{i_1, ..., i_k\} \rightarrow 
 3. If $$\textrm{support} (\{i_1, ... , i_k\}) \geq c \cdot s$$, see which subsets $$I_j = \{i_1, ... , i_k\} \setminus i_j$$ have support of at least $$s$$. We then know that $$I_j \rightarrow i_j$$ has support $$s$$ and confidence $$c$$.
 </blockquote>
 
-### Computational model
+## Finding frequent pairs
 
-We assume the data is stored as an array of baskets, each of which containing an array of coded items.
-Our main concern will be to 
+**Computational model**: We assume the data is stored as an array of baskets, each of which containing an array of coded items.
+Our main concerns will be to minimize the number of disk I/O's.
+Notice our RAM is the critical limiting resource.
 
-## fjfdkdfk
+The hardest problem is to find an efficient way of getting **frequent pairs** (frequent itemsets of larger size are rare).
+Furthermore, most techniques that work for 2 can be used to find larger itemsets.
 
-dlcsdsdvfkllfkdv
+{% include end-row.html %}
+{% include start-row.html %}
 
+<blockquote markdown="1">
+**Naive Algorithm:**
+1. Read data file once
+2. For each basket, count its $$\binom{n}{2}$$ pairs by running two nested loops on its items.
+</blockquote>
+
+<span style="color:red">If using a triangular matrix to store data, this algorithm only works if $$\vert items \vert^2$$ does not exceed main memory.</span> 
+
+While this approach works, its far from being efficient.
+In next section, we explain the a-priori algorithm, which introduces a key idea to reduce memory and speed up the computation.
+
+{% include annotation.html %}
+Notice we can store the element count in a triangular matrix, or, more efficiently, use some [sparse matrix](https://en.wikipedia.org/wiki/Sparse_matrix) data structure.
+{% include end-row.html %}
+{% include start-row.html %}
+
+
+## A priori algorithm
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+This algorithm efficiently finds association rules relying on a simple idea:
+**The monotonicity of "frequent"**.
+<!-- An itemset cannot be frequent unless all its subsets are frequent. -->
+If a set of items has support $$s$$, all its subsets have suport at least $$s$$.
+
+A-priori algorithm performs k-passes on the dataset (k being the size of the itemset to detect).
+
+{% include annotation.html %}
+For instance, for frequent pairs: if item $$i$$ does not appear in $$s$$ baskets, then no pair including i can appear in $$s$$ baskets.
+{% include end-row.html %}
+{% include start-row.html %}
+
+<blockquote markdown="1">
+**Algorithm:**
+
+- **Pass 1:** Read baskets and count in main memory the occurrences of each item
+- Keep only the frequent ones. (Support higher than s)
+
+- **Pass 2:** Read baskets again and count only pairs both of which were found in pass 1
+- Keep only the frequent ones. (Support higher than s)
+
+- **Pass 3:** Read baskets again and count only triplets such that its pairs are frequent in pass 2.
+
+- (...) Keep doing passes until no frequent itemset is found.
+</blockquote>
+
+There exist several developments on this algorithm.
+Take a look at this [improvements of a-priori algorithm lecture](https://www.youtube.com/watch?v=AGAkNiQnbjY&ab_channel=MiningMassiveDatasets) and this [approximate algorithms one](https://www.youtube.com/watch?v=b-guME_xZiw&ab_channel=MiningMassiveDatasets).
 
 {% include end-row.html %}
