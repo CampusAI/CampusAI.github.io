@@ -8,18 +8,6 @@ permalink: /ml/
 
 <!-- ## Unsupervised Learning -->
 
-## Dimensionality reduction
-
-{% include paper-card.html
-title="Dim reduction basics"
-subtitle="The curse of dimensionality, SVD"
-url="/ml/dim_reduction_basics"%}
-
-{% include paper-card.html
-title="Dim reduction algorithms"
-subtitle="PCA, KPCA, MDS, Isomap, AutoEncoders"
-url="/ml/dim_reduction_algos"%}
-
 ## Generative Models
 
 {% include paper-card.html
@@ -28,7 +16,7 @@ subtitle="Basics, Discriminative vs Generative, Use-cases, Types"
 url="/ml/generative_models"%}
 
 {% include paper-card.html
-title="LVM: Expectation Maximization (EM) & Variational Inference (VI)"
+title="From Expectation Maximization to Variational Inference"
 subtitle="Latent Variable Models, EM, VI, Amortized VI, Reparametrization Trick, Mean Field VI"
 url="/ml/variational_inference"%}
 
@@ -49,12 +37,31 @@ title="Attention Basics"
 subtitle="Attention vs Memory"
 url="/ml/attention"%}
 
+
+## Dimensionality reduction
+
+{% include paper-card.html
+title="Dim reduction basics"
+subtitle="The curse of dimensionality, SVD"
+url="/ml/dim_reduction_basics"%}
+
+{% include paper-card.html
+title="Dim reduction algorithms"
+subtitle="PCA, KPCA, MDS, Isomap, AutoEncoders"
+url="/ml/dim_reduction_algos"%}
+
+
 ## Massive Dataset Mining
 
 {% include paper-card.html
 title="Similar Items"
 subtitle="Shingling, Minhashing, LSH"
 url="/ml/similar_items"%}
+
+{% include paper-card.html
+title="Frequent Itemsets"
+subtitle="Market-Basket Model, Association Rules, A-Priori Algorithm"
+url="/ml/frequent_itemsets"%}
 
 ## Annex
 

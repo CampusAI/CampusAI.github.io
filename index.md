@@ -10,7 +10,7 @@ index: false
 
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
-brief="Dimensionality reduction;Generative Models;Big Data Mining"
+brief="Generative Models;Dimensionality reduction;Mining massive datasets"
 url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"
