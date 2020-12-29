@@ -55,6 +55,11 @@ title="Frequent Itemsets"
 subtitle="Market-Basket Model, Association Rules, A-Priori Algorithm"
 url="/ml/frequent_itemsets"%}
 
+{% include paper-card.html
+title="Mining Graphs"
+subtitle="?"
+url="/ml/graphs"%}
+
 ## Annex
 
 {% include paper-card.html
