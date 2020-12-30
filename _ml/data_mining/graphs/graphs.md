@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Mining Graphs"
-permalink: /ml/graphs
+permalink: /ml/graphs_basics
 content-origin: mmds.org, KTH ID2222
 post-author: Oleguer Canal
 ---
@@ -16,7 +16,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 {% include start-row.html %}
 
-Network mining comes from the realization that sometimes it is more useful to look at the relation between entities than the entities themselves.
+_"Sometimes it is more useful to look at the relation between entities than the entities themselves"_.
 Some examples of big networks worth studying are: world-wide-web, social networks, roads, brain...
 
 ## Basics of Graph theory
@@ -154,24 +154,9 @@ Other common metrics are: MSE between ordered indexes
 
 {% include annotation.html %}
 We can use this metric to see how our graph's clustering compares to a random graph with connectivity probability: $$p = \frac{E}{\binom{N}{2}}$$.
-Interestingly, [human social networks are heavily clustered compared to random ones, with similar average degree](http://erichorvitz.com/msn-paper.pdf). Furthermore they have a very small diameter cosnidering how big the main component is.
 {% include end-row.html %}
 {% include start-row.html %}
 
 - **Degree distribution**: Sometimes it is useful to plot a histogram of node degree frequencies. Often resulting in a [power-law distribution](https://en.wikipedia.org/wiki/Power_law).
-
-## Graph Models
-
-### Random Graphs
-
-- **$$G(n, m)$$ model**: Start with $$n$$ isolated vertices and place m edges at random between them.
-
-- **Erdos-Renyi random graph: $$G(n, p)$$**: Start with $$n$$ isolated vertices and connect each pair of nodes with a probability $$p$$. Notice this family is bigger than the previous one. Interestingly, **graph properties** such as diameter or probability of a giant component vs **$$p$$** present a threshold phenomena around $$p \simeq \frac{1}{N}$$. While this model mathces the real <span style="color:green">average path length of $$O(\log n)$$</span> and <span style="color:green">the existence of a giant connected component</span>, the <span style="color:red">degree distribution follows a Gaussian</span> (instead of a power-law one) and the <span style="color:red">average clustering coef. is much smaller</span>.
-
-- **Preferential attachment Model**: Start with 2 connected nodes. Add a new node $$v$$. Create a link between $$v$$ and one of the existing nodes with probability proportional to the degree
-
-<span style="color:red"></span>
-
-## Graph Algorithms
 
 {% include end-row.html %}

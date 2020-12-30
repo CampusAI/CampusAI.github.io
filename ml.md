@@ -56,9 +56,25 @@ subtitle="Market-Basket Model, Association Rules, A-Priori Algorithm"
 url="/ml/frequent_itemsets"%}
 
 {% include paper-card.html
-title="Mining Graphs"
+title="Graphs: Basics"
+subtitle="Definitions, Paths, Centrality Measures"
+url="/ml/graphs_basics"%}
+
+{% include paper-card.html
+title="Graphs: Models"
+subtitle="Fixed edges, Erdos-Renyi, Preferential Attachment, Configuration, Watts-Strogatz"
+url="/ml/graphs_models"%}
+
+
+{% include paper-card.html
+title="Graphs: Walks"
 subtitle="?"
-url="/ml/graphs"%}
+url="/ml/graphs_walks"%}
+
+{% include paper-card.html
+title="Graphs: Spectral Analysis"
+subtitle="?"
+url="/ml/graphs_walks"%}
 
 ## Annex
 
