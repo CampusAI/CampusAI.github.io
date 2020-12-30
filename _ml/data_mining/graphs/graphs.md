@@ -42,7 +42,7 @@ Check out one of the most famous hoaxes which tricked experts into awarding a gr
 {% include start-row.html %}
 
 <!-- 
-#### Types of graphs
+### Types of graphs
 
 - **Undirected/Directed graph**: Edges equally connect two nodes/Edges point from one node to the other.
 
@@ -54,7 +54,7 @@ Check out one of the most famous hoaxes which tricked experts into awarding a gr
 
 <!-- - **Isomorphic graphs**: Same graph represented in different ways. -->
 
-#### Definitions
+### Definitions
 
 <!-- - **Neighbors**: Two nodes who share an edge. -->
 
@@ -74,7 +74,7 @@ Check out one of the most famous hoaxes which tricked experts into awarding a gr
 - **Adjacency Matrix**: Matrix representing the connections between nodes: $$A_{ij} = 1_{\textrm{exists edge } n_i \textrm{ to } n_j}$$.
 
 
-#### Paths
+### Paths
 
 - **Path**: Sequence of nodes such that each consecutive pair is in edges.
 
@@ -91,7 +91,9 @@ Notice you can get in and out degree of a node by respectively summing the row a
 
 <!-- - **Cycle**: Closed path with at least 3 edges. -->
 
-#### Centrality Measures
+### Centrality Measures
+
+Depending on our problem definition we can choose between different centrality measures:
 
 - **Degree centrality**: $$c_D (i) := k_i$$. Takes the degree of a node as a measure of its centrality. <span style="color:red">Depends a lot on the size of the graph, just this number alone is not enough.</span>
 
@@ -99,7 +101,7 @@ Notice you can get in and out degree of a node by respectively summing the row a
 
 - **Closeness centrality**: $$c_C (i) = \frac{1}{\sum_j d(i, j)}$$. _"How close a node is to all others of the network"_.
 
-- **Normalized Closeness centrality**: $$c_C (i) = \frac{n - 1}{\sum_j d_{ij}}$$. _"How close a node is to all others of the network"_. <span style="color:red">Only works for connected components.</span>
+- **Normalized Closeness centrality**: $$c_C (i) = \frac{n - 1}{\sum_j d_{ij}}$$. <span style="color:red">Only works for connected components.</span>
 
 - **Harmonic centrality**: $$c_H (i) = \sum_j \frac{1}{d_{ij}}$$
 
@@ -134,13 +136,41 @@ Notice that by applying this algorithm we will reach an "importance" vector whic
 Therefore the stationary vector $$v$$ will be an eigenvector, in fact, the biggest eigenvalue eigenvector (aka **principal eigenvector**).
 
 {% include annotation.html %}
-This centrality is aka EigenVector centrality.
+This centrality is aka **Eigenvector centrality**.
 
 Similar centrality measures are [Katz centrality](https://en.wikipedia.org/wiki/Katz_centrality)
+
+To compare centrality orders we can use the [Kendall rank correlation coefficient](https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient).
+Other common metrics are: MSE between ordered indexes
 {% include end-row.html %}
 {% include start-row.html %}
 
+### Clustering coefficient
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+- **Local clustering coefficient**: $$c (i) = \frac{e(i)}{\binom{k_i}{2}}$$, where $$e(i)$$ denotes the number of links between neighbors of node $$n_i$$. _"How many friends do your friends have in common"_ or: _"In how many triangles do you participate"_.
+
+{% include annotation.html %}
+We can use this metric to see how our graph's clustering compares to a random graph with connectivity probability: $$p = \frac{E}{\binom{N}{2}}$$.
+Interestingly, [human social networks are heavily clustered compared to random ones, with similar average degree](http://erichorvitz.com/msn-paper.pdf). Furthermore they have a very small diameter cosnidering how big the main component is.
+{% include end-row.html %}
+{% include start-row.html %}
+
+- **Degree distribution**: Sometimes it is useful to plot a histogram of node degree frequencies. Often resulting in a [power-law distribution](https://en.wikipedia.org/wiki/Power_law).
+
 ## Graph Models
+
+### Random Graphs
+
+- **$$G(n, m)$$ model**: Start with $$n$$ isolated vertices and place m edges at random between them.
+
+- **Erdos-Renyi random graph: $$G(n, p)$$**: Start with $$n$$ isolated vertices and connect each pair of nodes with a probability $$p$$. Notice this family is bigger than the previous one. Interestingly, **graph properties** such as diameter or probability of a giant component vs **$$p$$** present a threshold phenomena around $$p \simeq \frac{1}{N}$$. While this model mathces the real <span style="color:green">average path length of $$O(\log n)$$</span> and <span style="color:green">the existence of a giant connected component</span>, the <span style="color:red">degree distribution follows a Gaussian</span> (instead of a power-law one) and the <span style="color:red">average clustering coef. is much smaller</span>.
+
+- **Preferential attachment Model**: Start with 2 connected nodes. Add a new node $$v$$. Create a link between $$v$$ and one of the existing nodes with probability proportional to the degree
+
+<span style="color:red"></span>
 
 ## Graph Algorithms
 

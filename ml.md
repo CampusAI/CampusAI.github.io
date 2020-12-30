@@ -46,7 +46,7 @@ url="/ml/dim_reduction_algos"%}
 ## Massive Dataset Mining
 
 {% include paper-card.html
-title="Similar Items"
+title="Finding Similar Items: When $O(n^2)$ is not fast enough"
 subtitle="Shingling, Minhashing, LSH"
 url="/ml/similar_items"%}
 
