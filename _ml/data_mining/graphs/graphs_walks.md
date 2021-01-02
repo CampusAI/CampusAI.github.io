@@ -83,17 +83,19 @@ Where: $$n = \vert V \vert$$, $$n_s = \vert S \vert$$ and $$c_s$$ is the number 
 
 **Expander graphs**: Are graphs with $$\alpha \geq 1$$.
 - They are sparse, yet very well connected graphs: It is very difficult to disconnect a large number of nodes.
-- Thus they have a **large eigengap**: There is a single connected component, no different communities. At the exrteme, if gap is 0, the graph is already disconnected, so "effort" to disconnect it is 0.
+- Thus they have a **large eigengap**: There is a single connected component, no different communities. At the extreme, if gap is 0, the graph is already disconnected, so "effort" to disconnect it is 0.
 - If d-regular, after a random walk of length $$O(\log (N))$$ the ending node distribution is uniform over all graph nodes.
 - **Fast mixing time**: (rapid convergence of a random walk) $$O(\frac{\log N}{1 - \lambda_2}) \simeq O(\log N)$$. If the graph presents communities the convergence is much slower: chance of changing community and keep walking there.
 
-## Extracting global information from walks
+## Global information from walks
 
 {% include end-row.html %}
 {% include start-row.html %}
 
 Imagine we implement a crawler on the Facebook graph and code it to move around checking properties of the nodes it visits.
-This random walk will be biased
+This "random" walk will present several **biases**:
+- More popular nodes will have a higher chance of getting visited.
+- Age, nationality, activity, privacy awareness... are all correlated with node degree
 
 {% include annotation.html %}
 In a related note:
@@ -101,5 +103,56 @@ Ever wondered why friends have more friends than you do?
 Check out the [friendship paradox](https://en.wikipedia.org/wiki/Friendship_paradox)
 {% include end-row.html %}
 {% include start-row.html %}
+
+
+So, how can we get an unbiased sample?
+
+### Metropolis-Hastings Random Walk (MHRW)
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+<blockquote markdown="1">
+**Algorithm**:
+Start at node $$n$$
+Repeat:
+- Sample neighbor node $$m$$
+- If $$deg(m) \leq deg(n)$$: move to $$m$$
+- If $$deg(m) > deg(n)$$: move to $$m$$ with probability $$p = \frac{deg(n)}{deg(m)}$$, else stay in $$n$$
+</blockquote>
+
+{% include annotation.html %}
+When staying at the same node, you append it again on the visited node list.
+This makes lower-degree nodes be better represented.
+{% include end-row.html %}
+{% include start-row.html %}
+
+This gives you a list $$L$$ of nodes from which we can get less biased properties (we fix the more popular nodes will be visited more times problem).
+Now, if we want to get some global property:
+
+\begin{equation}
+P(\textrm{property}) =
+\frac{
+\sum_{n \in S} I_{\textrm{property}} (n)
+}
+{\sum_{n \in S} 1}
+\end{equation}
+
+
+**Problem**: <span style="color:red">When visiting low-degree nodes with high degree connections, the algorithm can be stuck quite some time.</span>
+
+### Re-Weighted Random Walk (RWRW)
+
+This approach first performs a (biased) random walk and then applies the [Hansen-Hurwitz estimator](https://online.stat.psu.edu/stat506/lesson/3/3.2) to extrapolate to global conclusions:
+
+\begin{equation}
+P(\textrm{property}) =
+\frac{
+\sum_{n \in S} \frac{I_{\textrm{property}} (n)}{k_n}
+}
+{\sum_{n \in S} \frac{1}{k_n}}
+\end{equation}
+
+
 
 {% include end-row.html %}
