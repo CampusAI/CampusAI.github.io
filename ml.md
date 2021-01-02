@@ -76,6 +76,11 @@ title="Graphs: Ranking the WWW"
 subtitle="PageRank, Topic-Specific PageRank, TrustRank, SimRank, Hubs-and-Authorities"
 url="/ml/graphs_ranking"%}
 
+{% include paper-card.html
+title="Graphs: Clustering"
+subtitle=""
+url="/ml/graphs_clustering"%}
+
 ## Annex
 
 {% include paper-card.html
