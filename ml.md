@@ -67,14 +67,14 @@ url="/ml/graphs_models"%}
 
 
 {% include paper-card.html
-title="Graphs: Walks"
-subtitle="?"
+title="Graphs: Walks & Spectral Analysis"
+subtitle="Random Walks, Graph Spectra, Expander Graphs"
 url="/ml/graphs_walks"%}
 
 {% include paper-card.html
-title="Graphs: Spectral Analysis"
-subtitle="?"
-url="/ml/graphs_walks"%}
+title="Graphs: Ranking the WWW"
+subtitle="PageRank, Topic-Specific PageRank, TrustRank, SimRank, Hubs-and-Authorities"
+url="/ml/graphs_ranking"%}
 
 ## Annex
 
