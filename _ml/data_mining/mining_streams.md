@@ -372,5 +372,6 @@ Z = \Big(\sum_{j=1}^{m}2^{-M[j]}\Big)^{-1}
 \begin{equation}
 count = \alpha_m m^2 Z
 \end{equation}
-{% include end-row.html %}
+
 The [HyperLogLog paper](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf) gives a formal explanation of the algorithm. Less formally, if $$n$$ is the unknown cardinality of the stream $$S$$, then in each of the $$m$$ register will end up $$n/m$$ elements. Thus, $$\max_{x \in M[j]} \rho(x)$$ should be close to $$\log_2 (n/m)$$ and the armonic mean is $$mZ$$. Therefore, $$m^2Z$$ should be approximately $$n$$. The term $$\alpha_m$$ corrects for the multiplicative bias in $$m^2Z$$.
+{% include end-row.html %}
