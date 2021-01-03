@@ -53,7 +53,14 @@ url="/ml/similar_items"%}
 {% include paper-card.html
 title="Frequent Itemsets"
 subtitle="Market-Basket Model, Association Rules, A-Priori Algorithm"
-url="/ml/frequent_itemsets"%}
+url="/ml/frequent_itemsets"
+%}
+
+{% include paper-card.html
+title="Mining Streams"
+subtitle="Sampling, Bloom Filtering, Sliding Windows DGIM, Count Distinct Problem, Flajolet-Martin, HyperLogLog"
+url="/ml/mining_streams"
+%}
 
 ## Annex
 
