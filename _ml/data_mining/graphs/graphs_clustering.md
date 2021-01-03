@@ -307,8 +307,88 @@ Then you can run some simple clustering algorithm on this projected space such a
 **How do you select $$k$$?**
 Most suitable number of clusters is given by the largest eigengap $$\max \Delta_k$$ where $$\Delta_k - \vert \lambda_k - \lambda_{k-1}\vert$$
 
-## Overlapping oOmmunity Detection
+## Overlapping Community Detection
+
+Previously we assumed every node belongs to a single cluster.
+Nevertheless, in social networks (for instance) the same node belongs to multiple different communities (university, sports club, neighborhood friends...)
+
+With a good sorting of the adjacency matrix we would get an adjacency matrix like so:
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+{% include figure.html url="/_ml/data_mining/graphs/community_adj_matrix.png" description="Adjacency matrix example of a graph with 2 overlapping communities. Image from KTH ID2222"%}
+
+{% include annotation.html %}
+Check out the paper: [Overlapping Community Detection at Scale: A Nonnegative Matrix Factorization Approach](https://cs.stanford.edu/people/jure/pubs/bigclam-wsdm13.pdf)
+{% include end-row.html %}
+{% include start-row.html %}
+
+### BigCLAM
+
+The main idea is to perform the inverse process of a **Community-Affiliation Graph Model (AGM)** (check out the post on [graph models](/ml/graphs_models) to refresh memory).
+We would like to know the most likely parameters which generated the graph.
+
+Instead of hard-assigning each node to a community, they assign a membership strength $$F_{uA}$$ between node $$u$$ and community $$A$$. If $$F_{uA} = 0$$, then there is no membership.
+Then the probability of connecting two nodes within a community becomes:
+
+\begin{equation}
+p_A (u, v) = 1 - \frac{1}{e^{F_{uA} e^{F_{vA}}}
+\end{equation}
+
+Then the probability of any two nodes being connected:
+
+\begin{equation}
+p (u, v) =
+1 - \prod_C \frac{1}{e^{F_{uC} e^{F_{vC}}} =
+1 - \frac{1}{e^{\sum_C F_{uC} F_{vC}}
+\end{equation}
+
+So if we have the membership strength of each node to a community, we can get the probability of two nodes being connected by computing the dot product between them.
+
+{% include end-row.html %}
+{% include start-row.html %}
+Therefore, given a graph, now our problem becomes finding the $$F$$ matrix (concatenation of $$F_{uC}$$ vectors as columns) which maximizes the likelihood of the seen connections:
+
+\begin{equation}
+\arg \max_F \prod_{(u, v) \in E} p(u, v) \prod_{(u, v \notin E)} (1 - p(u, v))
+\end{equation}
+
+Which we can be solved by applying logarithms and gradient descent with some tricks to optimize the computation (basically pre-computing common parts of the expression).
+
+{% include annotation.html %}
+This is just MLE of the parameters that define the model
+If the connection exists we want its probability to be high, if it does not, to be low.
+{% include end-row.html %}
+{% include start-row.html %}
+
+### JaBeJa
+
+{% include end-row.html %}
+{% include start-row.html %}
+This algorithm is more scalable in the sense that it operates **locally**, so there is no need of shared memory if the graph is distributed (only message passing). 
+
+{% include annotation.html %}
+Check out the [paper](http://publicatio.bibl.u-szeged.hu/5295/1/taas15.pdf)
+{% include end-row.html %}
+{% include start-row.html %}
+
+In summary, every node is assigned a color (class) and we attempt to minimize a cost function evaluating how different each node is from its neighbors.
+
+<blockquote markdown="1">
+**Algorithm**:
+- Assign a color to each node uniformly at random
+
+While Global Energy still decreasing:
+- Select at random 2 nodes
+- If the energy of the system is lowered by swapping their colors do so.
+</blockquote>
 
 
+{% include annotation.html %}
+In practice this is optimized using Simulating Annealing:
+Allowing some sub-optimal permutations at the beginning of the optimization.
+{% include end-row.html %}
+{% include start-row.html %}
 
 {% include end-row.html %}

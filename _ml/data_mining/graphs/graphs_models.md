@@ -107,4 +107,55 @@ Applying this algorithm we obtain that for mid values of $$p$$, the graph has hi
 
 {% include figure.html url="/_ml/data_mining/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
 
+## Community-Affiliation Graph Model (AGM)
+
+{% include end-row.html %}
+{% include start-row.html %}
+Given a set of nodes $$V$$ and communities $$C$$ we first assign each node to one or more communities:
+
+<blockquote markdown="1">
+**Algorithm**:
+
+for each node:
+- Assign one or more memberships to a given community with probability $$p_c$$
+</blockquote>
+
+
+{% include annotation.html %}
+This is for graph with communities, check our [post on graph clustering](/ml/graphs_clustering) for more details
+{% include end-row.html %}
+{% include start-row.html %}
+
+Thus, the model is uniquely defined by parameters: $$B (V, C, M, \{p_c\})$$.
+Where $$M$$ are the memberships and $$p_c$$ the community probabilities.
+Later, we create links within the communities:
+
+
+<blockquote markdown="1">
+**Algorithm**:
+
+for each community $$A$$:
+
+for each pair fo nodes within:
+- Connect them with probability $$p_A$$
+</blockquote>
+
+Notice that the probability of two nodes being connected is:
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+\begin{equation}
+p(u, v) = 1 - \prod_{c \in M_u \cap M_v} (1 - p_c)
+\end{equation}
+
+{% include annotation.html %}
+- The more communities they have in common the larger the probability of being connected.
+<!-- - The bigger the community (larger $$p_c$$), the smaller -->
+- At the end, it is common to connect two random nodes with probability $$\epsilon$$.
+{% include end-row.html %}
+{% include start-row.html %}
+
+
+
 {% include end-row.html %}
