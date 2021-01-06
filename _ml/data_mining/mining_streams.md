@@ -122,7 +122,7 @@ Given $$S$$ set of allowed keys, $$B$$ array of $$N$$ zeros, $$\mathcal{H} = \{h
 2. &nbsp;&nbsp;&nbsp;&nbsp; For each $$h \in \mathcal{H}$$
 3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$B[h(k)] \leftarrow 1$$ 
 4. For each $$t_n$$ with key $$k_n$$ in the stream
-5. &nbsp;&nbsp;&nbsp;&nbsp; valid $$\leftarrow$$ False
+5. &nbsp;&nbsp;&nbsp;&nbsp; valid $$\leftarrow$$ True
 6. &nbsp;&nbsp;&nbsp;&nbsp; For each $$h \in \mathcal{H}$$
 7. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if $$h(k_n) = 0$$ then $$valid \leftarrow False$$
 8. &nbsp;&nbsp;&nbsp;&nbsp; accept $$t_n$$ if $$valid$$
