@@ -16,7 +16,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 {% include start-row.html %}
 
-**Community**: group of nodes with more edges within them than between them and other groups.
+**Community**: group of nodes with more edges within them than with others.
 
 **Notation**:
 - $$S$$: Set of nodes in the considered cluster
@@ -33,7 +33,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 We can measure the clustering quality looking at different metrics depending on what we are interested:
 
 #### Internal Connectivity
-This measures focus on what can we say about the cluster quality looking only at the nodes within the cluster.
+These measures focus on what can we say about the cluster quality looking only at the nodes within the cluster.
 
 {% include annotation.html %}
 For a more complete study check out: [Defining and Evaluating Network Communities based on Ground-truth](https://arxiv.org/pdf/1205.6233.pdf).
@@ -137,19 +137,18 @@ D =
 \end{bmatrix}
 \end{equation}
 
-**Def**: $$W(A, B)$$ Number of edges between $$A, B$$.
+Let $$W(A, B)$$ be the number of edges between $$A, B$$.
 
 {% include annotation.html %}
 Notice this is not unique to graphs:
 you can apply the following algorithms to a set of points from which you define some similarity measure between them and then define an affinity matrix $$A$$ (make sure its symmetric so its positive semi-definite: all eigenvals are real non-negative).
-Sometimes using the whole dense matrix might be too costly $$O(n^2)$$, we can sparse it by thresholding or keeping knn.e might be more informative than others.
 {% include end-row.html %}
 {% include start-row.html %}
 
 We can encode a cluster as a vector $$s = (1, 0, 0, 1, \cdots 0)$$ with a value of $$1$$ at position $$i$$ if node $$n_i$$ is in the cluster.
-Since a node can only be in a single cluster we will have that for any pair of sets $$s_1, s_2$$: $$s_1^T s_2 = 0$$.
+Since a node can only be in a single cluster we will have that for any pair of sets: $$s_1^T s_2 = 0$$.
 
-Then we have that $$A s$$ is the number of connections each node has with members of the set defined by $$s$$.
+Then we have that $$A \cdot s$$ is the number of connections each node has with members of the set defined by $$s$$.
 Thus, $$s_1^T A s_2$$ is the number of connections between $$s_1$$ and $$s_2$$ so:
 
 \begin{equation}
@@ -158,30 +157,21 @@ W(s_1, s_2) = s_1^T A s_2
 
 Furthermore, notice that:
 
-{% include end-row.html %}
-{% include start-row.html %}
-
 \begin{equation}
-W(s_1, V) = s_1^T D s_1
+W(s_1, V) = s_1^T A \cdot 1 = s_1^T D s_1
 \end{equation}
  
 Where $$V$$ represents all the nodes in the graph.
 
-{% include annotation.html %}
-Equivalently: $$W(s_1, V) = s_1^T A 1$$
-Where $$1$$ is a vector of ones.
-{% include end-row.html %}
-{% include start-row.html %}
-
-Finally, we can express"
+Finally, we can express:
 
 \begin{equation}
 W(s_1, \bar s_1) =  W(s_1, V) -  W(s_1, s_1) = s_1 (D - A) s_1
 \end{equation}
 
 $$L = D - A$$ is known as the **Laplacian matrix**.
-Notice all columns and rows add to 0.
-Thus, the vector of 1's is an eigenvector of eigenvalue 0. 
+Notice all columns and rows add to $$0$$.
+Thus, the vector of 1's is an eigenvector of eigenvalue $$0$$. 
 
 {% include annotation.html %}
 Notice the cardinality of the set defined by $$s$$ can be computed as: $$s^T s$$.
@@ -211,8 +201,13 @@ J_{av} =
 \end{equation}
 
 Where we used that $$s_i^T s_i = \Vert s_i \Vert$$, and defined $$y_i := \frac{s_i}{\Vert s_i \Vert}$$ ($$s_i$$ normalized).
-Thus we have a maximization problem with the constrain of $$\Vert y_i \Vert = 1$$, $$y_i^T y_j = \delta_{ij}$$ which we can solve with Lagrange Multipliers and get that: $$\max J_{av} = \sum_i^k \lambda_i$$. $$J_{av}$$ is the sum of the largest eigenvalues $$\lambda_i$$ of $$A$$.
+Thus we have a maximization problem with the constrain of $$\Vert y_i \Vert = 1$$, $$y_i^T y_j = \delta_{ij}$$ which we can solve with Lagrange Multipliers and get that:
 
+\begin{equation}
+\max J_{av} = \sum_i^k \lambda_i
+\end{equation}
+
+$$J_{av}$$ is the sum of the largest eigenvalues $$\lambda_i$$ of $$A$$.
 Thus, the optimal solution will be the **$$k$$-largest eigenvalues** of $$A$$.
 
 ### Minimizing ratio cut (external)
@@ -240,7 +235,7 @@ Thus, we will look for the **$$k$$-smallest eigenvalues** of the Laplacian matri
 But wait! We wanted solutions of $$s_i \in \{0, 1\}$$ and we have solutions of $$y_i \in \mathbb{R}$$!!
 
 {% include annotation.html %}
-This applies to bi-partitioning, further down the post I explain hoe to perform k-way spectral clustering.
+This applies to bi-partitioning, further down the post I explain how to perform k-way spectral clustering.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -251,14 +246,13 @@ With a bit of algebraic manipulation, we can see that:
 y^T L y = \sum_{(i, j) \in E} (y_i - y_j)^2
 \end{equation}
 
-And the minimum value of that expression is the 2^{nd} smallest eigenvalue $$\lambda_2$$, because the minimum eigenvalue is 0 which corresponds to the eigenvector of ones (all the elements in the same set).
+And the minimum value of that expression is the 2^{nd} smallest eigenvalue $$\lambda_2$$, because the minimum eigenvalue is 0 which corresponds to the eigenvector of ones, if we put all the elements in the same set we get a ratio cut of $$0$$.
 
-Therefore, we know that $$y$$ will be a vector whose elements add up to 0 (since it has to be perpendicular to the previous eigenvector of ones).
+Therefore, we know that $$y$$ will be a vector whose elements add up to $$0$$ (since it has to be perpendicular to the previous eigenvector of ones).
 
 We can think of $$y$$ as a vector which assigns positive values to the members of a cluster and negatives to the rest so that the connections between them are minimal as presented in eq \ref{eq:rayleigh}.
 
-### Minimizing ratio cut (internal & external)
-
+### Minimizing conductance (internal & external)
 
 **Objective:** Minimize edges going out of each cluster normalized by the total number of edges connected to the cluster.
 
@@ -296,9 +290,9 @@ Again, we need to find the **$$k$$-largest eigenvectors** of $$D^{-\frac{1}{2}} 
 
 ## k-Way Clustering
 
-**Recursive bi-partitioning**: Recursively apply bi-partitioning in a hierarchical divisive manner. <span style="color:red">Inefficeint and unstable</span>
+- **Recursive bi-partitioning**: Recursively apply bi-partitioning in a hierarchical divisive manner. <span style="color:red">Inefficeint and unstable</span>
 
-**Cluster multiple eigenvectors**: Build a reduced space from multiple eigenvectors. <span style="color:green">More commonly used in recent papers.</span> [paper](https://people.eecs.berkeley.edu/~malik/papers/SM-ncut.pdf)
+- **Cluster multiple eigenvectors**: Build a reduced space from multiple eigenvectors. <span style="color:green">More commonly used in recent papers.</span> [paper](https://people.eecs.berkeley.edu/~malik/papers/SM-ncut.pdf)
 
 Essentially, you pick the k-eigenvectors which better split the graph (depending on what clustering approach you go for) and represent each node as a point in the projected space.
 Naturally, this points will be better clustered together than the ones at the original space.
@@ -310,9 +304,10 @@ Most suitable number of clusters is given by the largest eigengap $$\max \Delta_
 ## Overlapping Community Detection
 
 Previously we assumed every node belongs to a single cluster.
-Nevertheless, in social networks (for instance) the same node belongs to multiple different communities (university, sports club, neighborhood friends...)
+Nevertheless, in social networks (for instance) the same node belongs to multiple different communities.
+People belong to different groups: university, sports club, neighborhood friends...
 
-With a good sorting of the adjacency matrix we would get an adjacency matrix like so:
+On a 2-community graph, with a good sorting of the adjacency matrix we would get something like so:
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -366,14 +361,15 @@ If the connection exists we want its probability to be high, if it does not, to 
 
 {% include end-row.html %}
 {% include start-row.html %}
-This algorithm is more scalable in the sense that it operates **locally**, so there is no need of shared memory if the graph is distributed (only message passing). 
+This algorithm is more scalable in the sense that it operates **locally**, so there is no need of shared memory if the graph is distributed. (only message passing)
 
 {% include annotation.html %}
-Check out the [paper](http://publicatio.bibl.u-szeged.hu/5295/1/taas15.pdf)
+Check out the paper [A Distributed Algorithm For Large-Scale Graph Partitioning](http://publicatio.bibl.u-szeged.hu/5295/1/taas15.pdf)
 {% include end-row.html %}
 {% include start-row.html %}
 
 In summary, every node is assigned a color (class) and we attempt to minimize a cost function evaluating how different each node is from its neighbors.
+This cost function checks how many neighbors of a node have its same color.
 
 <blockquote markdown="1">
 **Algorithm**:

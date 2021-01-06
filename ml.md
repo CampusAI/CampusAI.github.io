@@ -78,7 +78,7 @@ url="/ml/graphs_ranking"%}
 
 {% include paper-card.html
 title="Graphs: Clustering"
-subtitle=""
+subtitle="Connectivity Measures, Spectral Clustering, Overlapping Community Detection"
 url="/ml/graphs_clustering"%}
 
 ## Annex

@@ -20,7 +20,7 @@ In this section we'll focus on different ways of generating graphs and the prope
 In particular, we will be interested in methods with properties which resemble those by [social networks](http://erichorvitz.com/msn-paper.pdf).
 Mainly, the following characteristics:
 
-- **Degree distribution**: Power-law distribution.
+- **Degree distribution**: [Power-law](https://en.wikipedia.org/wiki/Power_law) distribution.
 - **Avg. path length**: $$O(\log N)$$
 - **Avg. clustering coef.**: $$\simeq 10\%$$
 - **Existence of a giant connected component**: Yes
@@ -106,8 +106,10 @@ The **Barbasi-Albert** model addresses this issue by allowing up to $$m$$ connec
 </blockquote>
 
 Usually for $$p \simeq \frac{K}{N}$$ we obtain the desired properties of:
-- **High clustering coefficient**: Achieved by the underlying lattice structure.
-- **Low average path length**: Achieved by the random re-wires.
+- <span style="color:green">**High clustering coefficient**</span>: Achieved by the underlying lattice structure.
+- <span style="color:green">**Low average path length**</span>: Achieved by the random re-wires.
+
+Nevertheless, <span style="color:red">the degree distribution is **not power law**</span>, thus resulting in unrealistic distributions.
 
 {% include figure.html url="/_ml/data_mining/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
 
