@@ -21,31 +21,30 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 {% include end-row.html %}
 {% include start-row.html %}
 
-**Idea**: Every page has a weight (or rank) and it distributes it evenly among all the outgoing links. So each page importance is the sum of the votes on its in-links. Notice the similarity with **random walks** and the **importance centrality**.
+**Idea**: Every page has a weight (or rank) and it distributes it evenly among all the outgoing links. So each page importance is the sum of the votes on its in-links.
 
-- How to compute it? Using power iteration.
+Notice that this is a directed-graph variant of the **importance centrality** we presented in the [Graph Basics post](/ml/graphs_basics).
+Similarly, for large sparse matrix the way to compute this ranking (or centrality) is through power iteration.
 
 ### Computational problems
 
 - <span style="color:red">WWW is **not strongly connected**: It has sinks</span>
 - <span style="color:red">WWW is **not aperiodic**: It has loops</span>
 
-<span style="color:green">**Google solution:**</span> Convert the graph into a weighted graph connecting weekly all nodes with each other and strongly connecting the real connections. This introduces a **teleportation component**, with a small probability a random walker might go to any node in the graph. I.e. modify the matrix such that:
+<span style="color:green">**Google solution:**</span> Convert the graph into a weighted graph connecting weekly all nodes with each other and strongly connecting the real connections. This introduces a **teleportation component**: with a small probability a random walker might go to any node in the graph.
+In matrix form:
 
 \begin{equation}
 M_{\textrm{PageRank}} := 
 \beta
-\begin{bmatrix}
-0 & \cdots & a_{1n} \newline
-\vdots & \space & \vdots \newline
-a_{n1} & \cdots & 0
-\end{bmatrix}
+A
 +
 (1 - \beta)
 \begin{bmatrix}
-0 & \cdots & \frac{1}{n} \newline
-\vdots & \space & \vdots \newline
-\frac{1}{n} & \cdots & 0
+0 & \frac{1}{n} & \cdots & \frac{1}{n} \newline
+\frac{1}{n} & 0 & \cdots & \frac{1}{n} \newline
+\vdots & \vdots & \space & \vdots \newline
+\frac{1}{n}& \frac{1}{n} & \cdots & 0
 \end{bmatrix}
 \end{equation}
 
@@ -97,6 +96,8 @@ We can then threshold them by some value and mark all those below the value as s
 
 <span style="color:green">**Solution:**</span> Lets try to see what proportion of a page's PageRank comes from spam pages.
 
+{% include end-row.html %}
+{% include start-row.html %}
 <blockquote markdown="1">
 **Algorithm**:
 For every page:
@@ -105,6 +106,11 @@ For every page:
 - $$r_p^- = r_p - r_p^+$$ (compute what fraction of the page comes from spam pages)
 - $$p = \frac{r_p^-}{r_p}$$ (compute relative spam mass)
 </blockquote>
+
+{% include annotation.html %}
+$$\textrm{SPAM MASS} = \frac{PR(p) - TPR(p)}{PR(p)}$$
+{% include end-row.html %}
+{% include start-row.html %}
 
 Notice that $$p$$ is relative, so identifying spam pages becomes easier.
 
@@ -141,7 +147,7 @@ For instance, imagine you have a 2-partite graph with a set of images connected 
 
 Based on the connections between pictures and labels with SimRank we can get the most similar pictures to any given one: the ones more visited by random walks from $$u$$.
 
-**Problem**: <span style="color:red">**Expensive**: you need to run the algorithm for each node you want to find similarities to.</span> Nevertheless it works well for sub-www problems.
+**Problem**: <span style="color:red">**Expensive**: you need to run the algorithm for each node you want to find similarities to.</span> Nevertheless it works well for sub-www sized problems.
 
 {% include annotation.html %}
 Interestingly, this was the algorithm used by [Pinterest](https://en.wikipedia.org/wiki/Pinterest) for content recommendation.
@@ -150,7 +156,7 @@ Interestingly, this was the algorithm used by [Pinterest](https://en.wikipedia.o
 
 ## Hubs-and-Authorities
 
-Instead of measuring a single value as PageRank, [Hubs and Authorities](https://en.wikipedia.org/wiki/HITS_algorithm) (aka HITS Hypertext-Induced Topic Selection) combines two properties of pages:
+Instead of measuring a single value as PageRank, [Hubs and Authorities](https://en.wikipedia.org/wiki/HITS_algorithm) (aka **HITS** Hypertext-Induced Topic Selection) combines two properties of pages:
 
 - **Hubs** $$h = (h_1, \cdots, h_n)$$: Quality of a page as a container of other pages. _"How many good pages you point to."_
 - **Authorities** $$a = (a_1, ..., a_n)$$: Quantity of endorsements a page gets. _"How many good pages point to you"_ (Similar to PageRank)

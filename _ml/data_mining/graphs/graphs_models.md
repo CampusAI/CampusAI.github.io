@@ -16,12 +16,13 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 {% include start-row.html %}
 
-In this section we'll focus on ways to generate graph with properties which resemble those by [social networks](http://erichorvitz.com/msn-paper.pdf).
-In particular, we'll check for the following characteristics:
+In this section we'll focus on different ways of generating graphs and the properties that arise.
+In particular, we will be interested in methods with properties which resemble those by [social networks](http://erichorvitz.com/msn-paper.pdf).
+Mainly, the following characteristics:
 
 - **Degree distribution**: Power-law distribution.
 - **Avg. path length**: $$O(\log N)$$
-- **Avg. clustering coef**: $$\simeq 10\%$$
+- **Avg. clustering coef.**: $$\simeq 10\%$$
 - **Existence of a giant connected component**: Yes
 
 ## Fixed edges model: $$G(n, m)$$
@@ -78,12 +79,13 @@ Notice there will never be triangles since we do not add links to the rest of th
 The **Barbasi-Albert** model addresses this issue by allowing up to $$m$$ connections for each added node.
 
 - **Degree distribution**: <span style="color:green">Power-law distribution</span>
+- **Avg. path length**: <span style="color:green">$$O(\log N)$$</span>
+- **Avg. clustering coef**: <span style="color:red">$$\simeq 0\%$$</span>
+- **Existence of a giant connected component**: <span style="color:green">Yes</span>
 
 ## Configuration Model
 
-**Objective**: Given a degree sequence $$k_1, ..., k_N$$, build a graph which approximates it.
-
-This algorithm gives a "close" solution:
+**Objective**: Given a degree sequence $$k_1, ..., k_N$$, build a graph with an approximate sequence:
 
 <blockquote markdown="1">
 **Algorithm**:
@@ -103,7 +105,9 @@ This algorithm gives a "close" solution:
 2. For each node, with probability $$p$$ re-wire a connecting edge.
 </blockquote>
 
-Applying this algorithm we obtain that for mid values of $$p$$, the graph has high clustering and low average path length:
+Usually for $$p \simeq \frac{K}{N}$$ we obtain the desired properties of:
+- **High clustering coefficient**: Achieved by the underlying lattice structure.
+- **Low average path length**: Achieved by the random re-wires.
 
 {% include figure.html url="/_ml/data_mining/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
 

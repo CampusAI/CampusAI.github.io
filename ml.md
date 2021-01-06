@@ -57,19 +57,19 @@ url="/ml/frequent_itemsets"%}
 
 {% include paper-card.html
 title="Graphs: Basics"
-subtitle="Definitions, Paths, Centrality Measures"
+subtitle="Basic Definitions, Centrality Measures, Clustering Coefficient"
 url="/ml/graphs_basics"%}
 
 {% include paper-card.html
 title="Graphs: Models"
-subtitle="Fixed edges, Erdos-Renyi, Preferential Attachment, Configuration, Watts-Strogatz"
+subtitle="Fixed edges, Erdos-Renyi, Preferential Attachment, Configuration, Watts-Strogatz, Community-Affiliation"
 url="/ml/graphs_models"%}
 
-
+<!-- 
 {% include paper-card.html
 title="Graphs: Walks & Spectral Analysis"
 subtitle="Random Walks, Graph Spectra, Expander Graphs"
-url="/ml/graphs_walks"%}
+url="/ml/graphs_walks"%} -->
 
 {% include paper-card.html
 title="Graphs: Ranking the WWW"
