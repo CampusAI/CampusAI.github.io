@@ -85,7 +85,14 @@ The **Barbasi-Albert** model addresses this issue by allowing up to $$m$$ connec
 
 ## Configuration Model
 
+{% include end-row.html %}
+{% include start-row.html %}
 **Objective**: Given a degree sequence $$k_1, ..., k_N$$, build a graph with an approximate sequence:
+
+{% include annotation.html %}
+Check out the [soft configuration model](https://en.wikipedia.org/wiki/Soft_configuration_model) for a version of this algorithm within the maximum-entropy framework.
+{% include end-row.html %}
+{% include start-row.html %}
 
 <blockquote markdown="1">
 **Algorithm**:
@@ -94,6 +101,11 @@ The **Barbasi-Albert** model addresses this issue by allowing up to $$m$$ connec
 </blockquote>
 
 {% include figure.html url="/_ml/data_mining/graphs/conf_model.png" description="Illustration of the graph construction. Image from mmd.org"%}
+
+- **Degree distribution**: <span style="color:green">Any distribution! :)</span>
+- **Avg. path length**: <span style="color:green">$$O(\log N)$$</span>
+- **Avg. clustering coef**: <span style="color:red">$$\simeq 0\%$$</span>
+- **Existence of a giant connected component**: If the second moment minus twice the first moment of the inputed distribution is greater than zero.
 
 ## Watts-Strogatz Model (Small-World Model)
 
@@ -105,13 +117,13 @@ The **Barbasi-Albert** model addresses this issue by allowing up to $$m$$ connec
 2. For each node, with probability $$p$$ re-wire a connecting edge.
 </blockquote>
 
+{% include figure.html url="/_ml/data_mining/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
+
 Usually for $$p \simeq \frac{K}{N}$$ we obtain the desired properties of:
 - <span style="color:green">**High clustering coefficient**</span>: Achieved by the underlying lattice structure.
 - <span style="color:green">**Low average path length**</span>: Achieved by the random re-wires.
 
 Nevertheless, <span style="color:red">the degree distribution is **not power law**</span>, thus resulting in unrealistic distributions.
-
-{% include figure.html url="/_ml/data_mining/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
 
 ## Community-Affiliation Graph Model (AGM)
 

@@ -26,7 +26,7 @@ Instead of starting with a vector of ones, we start with a 1-hot encoding of the
 {% include end-row.html %}
 {% include start-row.html %}
 
-**Convergence conditions:** For any **connected**, **non-bipartite**, and **bidirectional** graph, the random walk (probability of being in each node) converges to a unique stationary distribution.
+**Unique Convergence conditions:** For any **connected**, **non-bipartite**, and **bidirectional** graph, the random walk (probability of being in each node) converges to a unique stationary distribution.
 Which in fact, will be the degree of each node (normalized).
 - **Connected** because otherwise its not unique (depends on what cluster you start walking from)
 - **Non-bipartite** because otherwise the random walk oscillates between the groups.
