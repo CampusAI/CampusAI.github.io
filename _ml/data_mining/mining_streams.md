@@ -343,7 +343,7 @@ To see why it works, we observe that:
 3. The latter can be written as $$(1 - 2^{-r})^{2^r(m2^{-r})} \approx e^{-\frac{m}{2^r}}$$
     - If $$m \ll 2^r$$ then $$e^{-\frac{m}{2^r}} \rightarrow 1$$
     - If $$m \gg 2^r$$ then $$e^{-\frac{m}{2^r}} \rightarrow 0$$.
-Then, $$2^r$$ will almost always be around to $$m$$.
+4. Then, $$2^r$$ will almost always be around to $$m$$.
 
 The Flajolet-Martin algorithm, however, presents some issues. The expected value of the solution $$\mathbb{E}[2^R]$$ is infinite, since when the probability of $$R$$ trailing zeros halves, the value doubles. The solution has high variance, and for every bit "off" the value $$2^R$$ doubles. A way to mitigate this behavior is to use several hash functions and compute the mean or the median of the estimated values.
 
