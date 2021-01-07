@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Graph Models"
-permalink: /ml/graphs_models
-content-origin: mmds.org, KTH ID2222
+permalink: /ds/graphs_models
+content-origin: mmds.org
 post-author: Oleguer Canal
 ---
 <!--
@@ -100,7 +100,7 @@ Check out the [soft configuration model](https://en.wikipedia.org/wiki/Soft_conf
 2. Randomly connect the spokes between nodes.
 </blockquote>
 
-{% include figure.html url="/_ml/data_mining/graphs/conf_model.png" description="Illustration of the graph construction. Image from mmd.org"%}
+{% include figure.html url="/_ds/graphs/conf_model.png" description="Illustration of the graph construction. Image from mmd.org"%}
 
 - **Degree distribution**: <span style="color:green">Any distribution! :)</span>
 - **Avg. path length**: <span style="color:green">$$O(\log N)$$</span>
@@ -117,7 +117,7 @@ Check out the [soft configuration model](https://en.wikipedia.org/wiki/Soft_conf
 2. For each node, with probability $$p$$ re-wire a connecting edge.
 </blockquote>
 
-{% include figure.html url="/_ml/data_mining/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
+{% include figure.html url="/_ds/graphs/small_world.png" description="Illustration of the graph construction. Image from mmd.org"%}
 
 Usually for $$p \simeq \frac{K}{N}$$ we obtain the desired properties of:
 - <span style="color:green">**High clustering coefficient**</span>: Achieved by the underlying lattice structure.
@@ -140,7 +140,7 @@ for each node:
 
 
 {% include annotation.html %}
-This is for graph with communities, check our [post on graph clustering](/ml/graphs_clustering) for more details
+This is for graph with communities, check our [post on graph clustering](/ds/graphs_clustering) for more details
 {% include end-row.html %}
 {% include start-row.html %}
 

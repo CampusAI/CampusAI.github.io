@@ -8,9 +8,14 @@ index: false
 <!-- CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focused on Reinforcement Learning. -->
 <!-- ## Content -->
 
+{% include bulletpoint-card.html title="Data Science (DS)"
+subtitle="Approximation techniques for huge datasets."
+brief="Dimensionality reduction;Mining Massive Datasets;Mining Graphs"
+url="/ds/" type="bulletlist" %}
+
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
-brief="Generative Models;Dimensionality reduction;Mining massive datasets"
+brief="ML Probability Theory Basics;Generative Models;Attention (Comming Soon);"
 url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"

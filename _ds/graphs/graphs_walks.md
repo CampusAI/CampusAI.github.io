@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Walking on Graphs"
-permalink: /ml/graphs_walks
-content-origin: mmds.org, KTH ID2222
+permalink: /ds/graphs_walks
+content-origin: mmds.org
 post-author: Oleguer Canal
 ---
 <!--

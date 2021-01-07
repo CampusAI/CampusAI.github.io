@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Graph Clustering"
-permalink: /ml/graphs_clustering
-content-origin: mmds.org, KTH ID2222
+permalink: /ds/graphs_clustering
+content-origin: mmds.org
 post-author: Oleguer Canal
 ---
 <!--
@@ -312,7 +312,7 @@ On a 2-community graph, with a good sorting of the adjacency matrix we would get
 {% include end-row.html %}
 {% include start-row.html %}
 
-{% include figure.html url="/_ml/data_mining/graphs/community_adj_matrix.png" description="Adjacency matrix example of a graph with 2 overlapping communities. Image from KTH ID2222"%}
+{% include figure.html url="/_ds/graphs/community_adj_matrix.png" description="Adjacency matrix example of a graph with 2 overlapping communities. Image from KTH ID2222"%}
 
 {% include annotation.html %}
 Check out the paper: [Overlapping Community Detection at Scale: A Nonnegative Matrix Factorization Approach](https://cs.stanford.edu/people/jure/pubs/bigclam-wsdm13.pdf)
@@ -321,7 +321,7 @@ Check out the paper: [Overlapping Community Detection at Scale: A Nonnegative Ma
 
 ### BigCLAM
 
-The main idea is to perform the inverse process of a **Community-Affiliation Graph Model (AGM)** (check out the post on [graph models](/ml/graphs_models) to refresh memory).
+The main idea is to perform the inverse process of a **Community-Affiliation Graph Model (AGM)** (check out the post on [graph models](/ds/graphs_models) to refresh memory).
 We would like to know the most likely parameters which generated the graph.
 
 Instead of hard-assigning each node to a community, they assign a membership strength $$F_{uA}$$ between node $$u$$ and community $$A$$. If $$F_{uA} = 0$$, then there is no membership.

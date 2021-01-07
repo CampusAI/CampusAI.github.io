@@ -1,7 +1,7 @@
 ---
 layout: article
-title: "Dimensionality Reduction"
-permalink: /ml/dim_reduction_basics
+title: "Dimensionality reduction: Algebraic Background"
+permalink: /ds/dim_reduction_basics
 content-origin: KTH DD2434, gregorygundersen.com
 post-author: Oleguer Canal
 ---
@@ -120,7 +120,7 @@ Is the closest projection of $$A$$ into the space of matrices of rank-k w.r.t th
 This is all SVD dim-reduction does: Keep the k biggest singular values of the SVD and discard the rest.
 We are approximating $$A$$ by only using the information of the gray areas of the SVD in this image:
 
-{% include figure.html url="/_ml/dim_reduction/SVD.png"
+{% include figure.html url="/_ds/dim_reduction/SVD.png"
 description="Figure 1: Matrix approximation by selecting the first k singular values (gray area). Instead of representing $A$ by all its $m \times n$ values we can approximate it with $m \times k + k + k \times n \ll m \times n$. Figure from http://ezcodesample.com/."
 %}
 
@@ -140,7 +140,7 @@ For instance: If $$A \in \mathbb{R}^{3 \times 2}$$,
 SVD pairs: $$v_1 \rightarrow u_1, v_2 \rightarrow u_2$$.
 Such that **EVERY** point $$p = (p_1 , p_2)_{\mathcal{B}_\mathcal{V}}$$ gets mapped to $$q = (\sigma_1 \cdot p_1 , \sigma_2 \cdot p_2, 0)_{\mathcal{B}_\mathcal{U}}$$:
 
-{% include figure.html url="/_ml/dim_reduction/svd_interpretation.png"
+{% include figure.html url="/_ds/dim_reduction/svd_interpretation.png"
 description="Figure 2: Representation of A mapping SVD. Left singular vectors in the 2-d space are mapped to right singular vectors in 3-d space. In this case $\sigma_1 \gg \sigma_2$. Figure by CampusAI."
 %}
 
@@ -151,7 +151,7 @@ As we saw, SVD matrix approximation ignores the dimensions where the dilation is
 In the image, $$\sigma_2$$ is much smaller than $$\sigma_1$$, if we remove the second dimension our mapping approximation will lie in a line.
 The purple point will then be on the $$u_1$$ direction.
 
-{% include figure.html url="/_ml/dim_reduction/svd_compression.png"
+{% include figure.html url="/_ds/dim_reduction/svd_compression.png"
 description="Figure 3: Effect of removing the second dimension. Notice that the purple point is relatively close to the `real` position. Figure by CampusAI."
 %}
 
@@ -183,7 +183,7 @@ I oversimplified this section for readers to just get the general idea, if inter
 {% include end-row.html %}
 {% include start-row.html %}
 
-{% include figure.html url="/_ml/dim_reduction/A_as_table.png"
+{% include figure.html url="/_ds/dim_reduction/A_as_table.png"
 description="Figure 4: Movie ratings examples. Figure from jeremykun.com."
 %}
 
@@ -238,6 +238,6 @@ If $$A \in \mathbb{R}^{n \times n}$$ is symmetric with non-negative eigenvalues,
 
 <!-- http://gregorygundersen.com/blog/2018/12/20/svd-proof/  -->
 
-To see how these ideas are applied to different dim reduction problems, check out our following post on the main [Dim reduction algorithms](/ml/dim_reduction_algos).
+To see how these ideas are applied to different dim reduction problems, check out our following post on the main [Dim reduction algorithms](/ds/dim_reduction_algos).
 
 {% include end-row.html %}

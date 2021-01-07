@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Frequent Itemsets"
-permalink: /ml/frequent_itemsets
+permalink: /ds/frequent_itemsets
 content-origin: mmds.org, KTH ID2222
 post-author: Oleguer Canal
 ---

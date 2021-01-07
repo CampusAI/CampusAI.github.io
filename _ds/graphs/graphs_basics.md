@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Graph Basics"
-permalink: /ml/graphs_basics
-content-origin: mmds.org, KTH ID2222
+permalink: /ds/graphs_basics
+content-origin: mmds.org
 post-author: Oleguer Canal
 ---
 <!--

@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Mining Data Streams"
-permalink: /ml/mining_streams
-content-origin: Mining of Massive Datasets, www.mmds.org
+permalink: /ds/mining_streams
+content-origin: mmds.org
 post-author: Federico Taschin
 ---
 <!--
@@ -49,7 +49,7 @@ Given $$N$$ unique keys, $$S$$ empty set, $$s$$ maximum number of unique keys to
 </blockquote>
 
 {%
-include figure.html url="/_ml/data_mining/prop_sampling.png"
+include figure.html url="/_ds/streams/prop_sampling.png"
 description="The hash function h uniformly maps keys into buckets. Tuples whose key falls in green buckets (M) are kept, others are discarded."
 %}
 
@@ -154,10 +154,10 @@ p^* = e^{-\frac{N}{m}(\ln 2)^2}
 \end{equation}
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/data_mining/bloom.png"
+{% include figure.html url="/_ds/streams/bloom.png"
 description="A key is mapped to buckets in the array by several hash functions."
 %}
-{% include figure.html url="/_ml/data_mining/bloom_ex.png"
+{% include figure.html url="/_ds/streams/bloom_ex.png"
 description="Example of false positive probability vs number of hash functions for N = 8 billion and m = 1 billion. Picture from Mining Streams lecture of [Mining of Massive Datasets](www.mmds.org)."
 %}
 {% include end-row.html %} 
@@ -168,7 +168,7 @@ A interesting type of queries is that of extracting information from a **window*
 
 More formally, given a stream of bits $$\{b_i\}_{i=1}^{\infty}$$ and being $$T$$ the index of the last bit received, we want to compute $$S = \sum_{t=T-k}^T b_t$$ for any value of $$k \le N$$ with $$N$$ being the maximum window size. In other words, we want to efficiently be able to answer thw question "*How many of the last k bits were 1s?*".
 
-{% include figure.html url="/_ml/data_mining/buckets.png" %}
+{% include figure.html url="/_ds/streams/buckets.png" %}
 
 ### DGIM Method
 The [DGIM Method](http://www-cs-students.stanford.edu/~datar/papers/sicomp_streams.pdf) relies on creating buckets with a fixed number of ones that grow exponentially, uses $$\mathcal{O}(\log N)$$ bits and computes the number of 1s with at most 50% error, which can be reduced without changing the asymptotic memory complexity.
@@ -184,7 +184,7 @@ The algorithm works following some simple rules:
 - All ones belong to a bucket.
 - The right end of a bucket always corresponds to a position with a 1. 
 
-{% include figure.html url="/_ml/data_mining/dgim_buckets.png"
+{% include figure.html url="/_ds/streams/dgim_buckets.png"
 description="Example of DGIM bucketization. As we go back in time (left) buckets contain an increasing number of 1s that is power of 2." %}
 
 Since each timestamp $$t$$ is $$N$$ at most, we use $$\mathcal{O}(\log N)$$ bits to store it. We can store the number of ones $$n = 2^j$$ by coding $$j$$ in binary. Since $$j$$ is at most $$\log_2 N$$, we store each value $$n$$ with $$\mathcal{O}(\log \log N)$$ bits. The total number of buckets is $$\mathcal{O}(\log N)$$ and the memory complexity of **DGIM** is therefore $$\mathcal{O}(\log^2 N)$$.
@@ -232,7 +232,7 @@ Given $$Q$$ queue of $$K$$ buckets
 </blockquote>
 
 <br>
-{% include figure.html url="/_ml/data_mining/dgim_insert.png" 
+{% include figure.html url="/_ds/streams/dgim_insert.png" 
 description="Example of DGIM insertion. Two new bits, 0 and 1, arrive. A new bucket is created for 1, leading to three buckets of size one. Then, the earliest two buckets of size one are merged into a bucket of size two, which leads to three buckets of size two. The earliest buckets of size two are merged into size four. Then, the earliest bucket is dropped as its timestamp is older than the last $$N$$ elements." %}
 
 {% include annotation.html %}
@@ -245,7 +245,7 @@ description="Example of DGIM insertion. Two new bits, 0 and 1, arrive. A new buc
 #### Note about time-stamps
 To avoid the time-stamp $$t$$ growing unbounded, in line 5 of **DGIM** we set $$t \leftarrow t \mod N$$. For this reason, timestamps of buckets will not be monotonically increasing, as can be seen in the figure below. Any bit outside a window of length $$N$$ will have a timestamp less or equal than the current timestamp $$t$$ modulo $$N$$. Therefore, the condition for dropping a bucket $$B$$ is $$B.t \le (t \mod N)$$, performed in line 9 of **DGIM**.
 
-{% include figure.html url="/_ml/data_mining/dgim_dropping.png"
+{% include figure.html url="/_ds/streams/dgim_dropping.png"
 description="Insertion of new bits and dropping of the oldest bucket for a window $$N=16$$. Time-stamp of each bit is shown. Note that the latest timestamp of the dropped bucket is equal to the timestamp of the latest bit."
 %}
 
@@ -334,7 +334,7 @@ The amount of memory used by the algorithm is therefore $$L$$ bits. The complexi
 
 <br>
 {% include annotation.html %}
-{% include figure.html url="/_ml/data_mining/flajolet.png" description="Example of reading elements from stream in the Flajolet-Martin algorithm." %}
+{% include figure.html url="/_ds/streams/flajolet.png" description="Example of reading elements from stream in the Flajolet-Martin algorithm." %}
 {% include end-row.html %}
 {% include start-row.html %}
 To see why it works, we observe that:

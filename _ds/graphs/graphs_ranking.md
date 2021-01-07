@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Ranking the WWW"
-permalink: /ml/graphs_ranking
-content-origin: mmds.org, KTH ID2222
+permalink: /ds/graphs_ranking
+content-origin: mmds.org
 post-author: Oleguer Canal
 ---
 <!--
@@ -23,7 +23,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 **Idea**: Every page has a weight (or rank) and it distributes it evenly among all the outgoing links. So each page importance is the sum of the votes on its in-links.
 
-Notice that this is a directed-graph variant of the **importance centrality** we presented in the [Graph Basics post](/ml/graphs_basics).
+Notice that this is a directed-graph variant of the **importance centrality** we presented in the [Graph Basics post](/ds/graphs_basics).
 Similarly, for large sparse matrix the way to compute this ranking (or centrality) is through power iteration.
 
 ### Computational problems
@@ -143,7 +143,7 @@ Essentially it is a Topic-Specific PageRank using as a **teleport set** $$S = \{
 It was initially proposed for k-partite graphs were k different types of entities point between each other (but not within).
 For instance, imagine you have a 2-partite graph with a set of images connected with a set of tags:
 
-{% include figure.html url="/_ml/data_mining/graphs/simrank.png" description="2-partite graph example of pictures and tags. Image from KTH ID2222"%}
+{% include figure.html url="/_ds/graphs/simrank.png" description="2-partite graph example of pictures and tags. Image from KTH ID2222"%}
 
 Based on the connections between pictures and labels with SimRank we can get the most similar pictures to any given one: the ones more visited by random walks from $$u$$.
 

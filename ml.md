@@ -30,63 +30,6 @@ title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
 
-## Dimensionality reduction
-
-{% include paper-card.html
-title="Dim reduction basics"
-subtitle="The curse of dimensionality, SVD"
-url="/ml/dim_reduction_basics"%}
-
-{% include paper-card.html
-title="Dim reduction algorithms"
-subtitle="PCA, KPCA, MDS, Isomap, AutoEncoders"
-url="/ml/dim_reduction_algos"%}
-
-
-## Massive Dataset Mining
-
-{% include paper-card.html
-title="Finding Similar Items: When $O(n^2)$ is not fast enough"
-subtitle="Shingling, Minhashing, LSH"
-url="/ml/similar_items"%}
-
-{% include paper-card.html
-title="Frequent Itemsets"
-subtitle="Market-Basket Model, Association Rules, A-Priori Algorithm"
-url="/ml/frequent_itemsets"
-%}
-
-{% include paper-card.html
-title="Mining Streams"
-subtitle="Sampling, Bloom Filtering, Sliding Windows DGIM, Count Distinct Problem, Flajolet-Martin, HyperLogLog"
-url="/ml/mining_streams"
-%}
-
-{% include paper-card.html
-title="Graphs: Basics"
-subtitle="Basic Definitions, Centrality Measures, Clustering Coefficient"
-url="/ml/graphs_basics"%}
-
-{% include paper-card.html
-title="Graphs: Models"
-subtitle="Fixed edges, Erdos-Renyi, Preferential Attachment, Configuration, Watts-Strogatz, Community-Affiliation"
-url="/ml/graphs_models"%}
-
-<!-- 
-{% include paper-card.html
-title="Graphs: Walks & Spectral Analysis"
-subtitle="Random Walks, Graph Spectra, Expander Graphs"
-url="/ml/graphs_walks"%} -->
-
-{% include paper-card.html
-title="Graphs: Ranking the WWW"
-subtitle="PageRank, Topic-Specific PageRank, TrustRank, SimRank, Hubs-and-Authorities"
-url="/ml/graphs_ranking"%}
-
-{% include paper-card.html
-title="Graphs: Clustering"
-subtitle="Connectivity Measures, Spectral Clustering, Overlapping Community Detection"
-url="/ml/graphs_clustering"%}
 
 ## Annex
 
