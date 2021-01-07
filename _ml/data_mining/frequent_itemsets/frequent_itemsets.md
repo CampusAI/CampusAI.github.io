@@ -75,11 +75,22 @@ Its **support** is defined as:
 \textrm{support}(X \rightarrow Y) = \textrm{support}(X)
 \end{equation}
 
-And its **confidence** as:
+Its **confidence** as:
 
 \begin{equation}
 \textrm{conf}(X \rightarrow Y) = \frac{\textrm{support}(X \cup Y)}{\textrm{support}(X)}
 \end{equation}
+
+And its **interest** as:
+
+\begin{equation}
+\textrm{interest}(X \rightarrow Y) = \textrm{conf}(X \rightarrow Y) - \textrm{rel_support} (Y)
+\end{equation}
+
+Cases:
+- $$\textrm{interest}(X \rightarrow Y) \simeq 1$$: <span style="color:green">**Interesting!**</span> $$Y$$ appears only with $$X$$.
+- $$\textrm{interest}(X \rightarrow Y) \simeq 0$$: <span style="color:red">**Not interesting**</span> Either there is low confidence or $$Y$$ appears everywhere.
+- $$\textrm{interest}(X \rightarrow Y) \simeq -1$$:  <span style="color:green">**Interesting!**</span> $$Y$$ and $$X$$ never appear together. (e.g. Nobody buys both Cocacola & Pepsi)
 
 ### How to find association rules
 
