@@ -8,20 +8,20 @@ index: false
 <!-- CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focused on Reinforcement Learning. -->
 <!-- ## Content -->
 
+{% include bulletpoint-card.html title="Data Science (DS)"
+subtitle="Approximation techniques for huge datasets."
+brief="Dimensionality reduction;Mining Massive Datasets;Mining Graphs"
+url="/ds/" type="bulletlist" %}
+
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
-brief="Generative Models;Dimensionality reduction;Mining massive datasets"
+brief="ML Probability Theory Basics;Generative Models;Attention (Comming Soon);Paper reviews"
 url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"
 subtitle="Annotations on main RL fields of study."
-brief="RL Basics;Model-Free RL;Model-Based RL;Advanced topics;Open problems"
+brief="RL Basics;Model-Free RL;Model-Based RL;Advanced topics;Open problems;Paper reviews"
 url="/theory/" type="bulletlist" %}
-
-{% include bulletpoint-card.html title="Papers"
-subtitle="Summaries of recent/influential/interesting research developments."
-brief="Uncertainty estimation;ANN explainability;Generative models;Beyond standard labels;RL algorithms"
-url="/papers/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Experiments"
 subtitle="Some of our own projects and the takeaways of what we learned."

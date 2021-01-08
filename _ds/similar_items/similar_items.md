@@ -1,8 +1,8 @@
 ---
 layout: article
 title: "Similar Items"
-permalink: /ml/similar_items
-content-origin: mmds.org, KTH ID2222
+permalink: /ds/similar_items
+content-origin: mmds.org
 post-author: Oleguer Canal
 ---
 <!--
@@ -134,12 +134,12 @@ The algorithm in the minhash setup is very simple:
 </blockquote>
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/data_mining/similar_items/lsh_intuition.png" description="Hashing vs LSH. LSH hashes similar points to the same bucket with high probability." zoom="1.0"%}
+{% include figure.html url="/_ds/similar_items/lsh_intuition.png" description="Hashing vs LSH. LSH hashes similar points to the same bucket with high probability." zoom="1.0"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
 
-{% include figure.html url="/_ml/data_mining/similar_items/lsh.png" description="Figure 1: Split of the signature matrix into $b$ bands of $r$ rows each. Collisions will be checked from the hashing of $r$ rows in each band. (Image from mmds.org)" zoom="1.0"%}
+{% include figure.html url="/_ds/similar_items/lsh.png" description="Figure 1: Split of the signature matrix into $b$ bands of $r$ rows each. Collisions will be checked from the hashing of $r$ rows in each band. (Image from mmds.org)" zoom="1.0"%}
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -186,7 +186,7 @@ In rare cases there will be similar sets whose similarity is not checked but it 
 {% include end-row.html %}
 {% include start-row.html %}
 
-{% include figure.html url="/_ml/data_mining/similar_items/br.png" description="Figure 2: Candidate pair probability (y) vs proportion of same minhashes (x) for different $b$ and $r$ ($r = n$) params. Note that given the desired similarity threshold, we can pick the closest $b$. (Image from Hubert Bryłkowski LSH post)" zoom="1.0"%}
+{% include figure.html url="/_ds/similar_items/br.png" description="Figure 2: Candidate pair probability (y) vs proportion of same minhashes (x) for different $b$ and $r$ ($r = n$) params. Note that given the desired similarity threshold, we can pick the closest $b$. (Image from Hubert Bryłkowski LSH post)" zoom="1.0"%}
 
 
 {% include end-row.html %}
