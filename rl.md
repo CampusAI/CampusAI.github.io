@@ -29,9 +29,9 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Introduction" brief="Supervised vs Unsupervised vs Reinforcement;Ways to learn;How to build intelligent machines;State of the art" img="/_rl/lecture_1/icon.jpg" url="/lectures/lecture1" type="bulletlist" %}
 
-{% include card.html title="Reinforcement Learning Overview" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist" %}
+{% include card.html title="Reinforcement Learning Overview" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist"%}
 
-{% include card.html title="Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_rl/lecture_2/icon.png" url="/lectures/lecture2" type="bulletlist" %}
+{% include card.html title="Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_rl/lecture_2/icon.png" url="/lectures/lecture2" type="bulletlist" star="yes"%}
 
 <br>
 <br>

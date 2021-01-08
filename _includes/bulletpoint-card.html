@@ -34,32 +34,30 @@
   <a href="{{include.url}}" style="text-decoration:none;color:inherit;">
     <div class="row no-gutters">
   
-     <div class="col-0 col-md-0"></div>
-
+     <!-- <div class="col-0 col-md-0"></div> -->
   
-      <div class="col-md-10">
+      <div class="col-md-8">
         <div class="card-body" style="padding-bottom: 0rem;">
-    <h5 class="card-title">{{include.title}}</h5>
-    <div class="card-text">	
+          <h5 class="card-title">{{include.title}}</h5>
+          <div class="card-text">	
+            <h6 class="card-subtitle mb-2 text-muted">{{include.subtitle}}</h6>
 
-      <h6 class="card-subtitle mb-2 text-muted">{{include.subtitle}}</h6>
-
-      {% if include.type == "bulletlist" %}
-              <ul>
-                  {% assign bullets = include.brief | split: ";" %}
-            {% for bullet in bullets %}
-                <li> {{bullet}} </li>
-            {% endfor %}
-              </ul>
-    {% elsif include.type == "description" %}
-              {% assign lines = include.brief | split: ";" %}
-        {% for line in lines %}
-            {{line}}<br>
-        {% endfor %}
-    {% else %}
-        ERROR: card type attribute is not set
-    {% endif %}
-    </div>
+            {% if include.type == "bulletlist" %}
+                    <ul>
+                        {% assign bullets = include.brief | split: ";" %}
+                  {% for bullet in bullets %}
+                      <li> {{bullet}} </li>
+                  {% endfor %}
+                    </ul>
+          {% elsif include.type == "description" %}
+                    {% assign lines = include.brief | split: ";" %}
+              {% for line in lines %}
+                  {{line}}<br>
+              {% endfor %}
+          {% else %}
+              ERROR: card type attribute is not set
+          {% endif %}
+          </div>
         </div>
       </div>
     </div>

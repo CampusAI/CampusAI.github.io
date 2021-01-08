@@ -18,7 +18,8 @@ url="/ml/generative_models"%}
 {% include paper-card.html
 title="From Expectation Maximization to Variational Inference"
 subtitle="Latent Variable Models, EM, VI, Amortized VI, Reparametrization Trick, Mean Field VI"
-url="/ml/variational_inference"%}
+url="/ml/variational_inference"
+star="yes"%}
 
 {% include paper-card.html
 title="Autoregressive models (AR)"
@@ -30,8 +31,9 @@ title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
 
-## Paper reviews
+<br>
 
+## Paper reviews
 
 ### Uncertainty Estimation
 
@@ -59,6 +61,7 @@ subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew
 {% include paper-card.html title="Ensemble Distribution Distillation"
 url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
+star="yes"
 %}
 
 <br>
