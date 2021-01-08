@@ -83,6 +83,27 @@ img="/_rl/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"%}
 <!-- {% include card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
 <br>
+## Paper reviews
+
+{% include paper-card.html title="Soft Actor-Critic (SAC)"
+subtitle="T. Haarnoja, A. Zhou, P. Abbeel, S. Levine, 2018" url="/papers/Soft-Actor-Critic"   %}
+<!-- This paper approaches the high sample complexity of on-policy RL and the brittle convergence of off-policy RL by introducing Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor. -->
+
+{% include paper-card.html title="Hierarchical Reinforcement Learning with MAXQ Value Function Decomposition"
+url="/papers/HRL-with-MAXQ-decomposition"  subtitle="Thomas G. Dietterich, 2000"  %}
+<!-- This paper presents MAXQ decomposition: a method to decompose the Value Function for a given hierarchical policy in a recursive fashion. -->
+
+{% include paper-card.html title="The Option-Critic Architecture"
+subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016"
+url="/papers/the-option-critic-architecture" %}
+<!-- The Options framework provides theoretical grounds for temporal abstraction in Reinforcement Learning. Each Option can be considered as a macro-action with its policy and termination condition, leading to two levels of policies: one policy over options and several intra-option policies. This paper presents the Option-Critic Architecture."
+url="/papers/the-option-critic-architecture -->
+
+{% include paper-card.html title="Neural Network Surgery with Sets"
+url="/papers/NN_surgery_sets" subtitle="Jonathan Raiman, Susan Zhang, Christy Dennison, 2019"   %}
+
+
+<br>
 ## Annex
 
 This section contains both basic RL knowledge assumed to be known in the previous course and some demonstrations which we found interesting to add as an annex.
