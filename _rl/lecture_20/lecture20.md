@@ -2,8 +2,8 @@
 layout: lecture
 title: "Meta-Reinforcement Learning"
 permalink: /lectures/lecture20
-lecture-author: Kate Rakelly
-lecture-date: 2019
+lecture-author: Kate Rakelly, Sergey Levine
+lecture-date: 2019-2020
 post-author: Oleguer Canal
 slides-link: http://rail.eecs.berkeley.edu/deeprlcourse/static/slides/lec-20.pdf
 video-link: https://www.youtube.com/watch?v=4qH_h5_V3O4&list=PLkFD6_40KJIwhWJpGazJ9VSj9CFMkb79A&index=20&t=7s
@@ -17,30 +17,100 @@ Please note there might be mistakes. We would be grateful to receive (constructi
 If considering to use the text please cite the original author/s of the lecture/paper.
 Furthermore, please acknowledge our work by adding a link to our website: https://campusai.github.io/ and citing our names: Oleguer Canal and Federico Taschin.
 -->
+{% include start-row.html %}
 
-### Regular RL
-Learn an optimal policy (optimal action given a state) for a single task. I.e.
+### So far we've seen:
+
+- **Standard RL**: Learn an optimal policy (optimal action given a state) for a single task. I.e.
 fit network parameters for a given MDP:
 
+{% include end-row.html %}
+{% include start-row.html %}
+
+- **Forward Transfer**: Train on one task, transfer to a new one.
+
+- **Multi-task learning**: Train on multiple tasks, transfer to a new one.
+
+{% include annotation.html %}
+The more varied the training, the more likely the transfer is to succeed.
+{% include end-row.html %}
+{% include start-row.html %}
+
+These methods transfer knowledge either re-using a **model** of the environment (as we saw in model-based RL) or through a **policy** (requiring fine-tunning).
+What about transferring knowledge through **learning methods** though?
+
+### Introducing: Meta-Learning
+**Meta-learning** refers to a *learning to learn* framework that leverages past knowledge to solve novel tasks more efficiently.
+
+In *generic* **supervised setting** we have a single dataset $$\mathcal{D} = \left\{ \mathcal{D}^{tr}, \mathcal{D}^{test}\right\}$$: 
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{equation}
-\theta^\star = \arg \max_\theta E_{\pi_\theta (\tau)} \[ R( \tau ) \]
+\theta^\star = \arg \min_{\theta} \mathcal{L} (\theta, \mathcal{D}^{tr}) =: f_{\text{learn}} (\mathcal{D}^{tr})
 \end{equation}
 
-### Meta-RL
-Learn adaptation procedure.
-If we have a set of $$MDPs = \{ MDP_1, ... MDP_n \}$$ that share some common structure, we can learn some common parameters $$\theta$$.\\
+{% include annotation.html %}
+We can think of supervised training as a function $f_{\text{learn}} (\mathcal{D}^{tr})$ that, given a dataset, returns the parameters which minimize the functional form we assumed for our model on the **train** set.
+{% include end-row.html %}
+{% include start-row.html %}
+
+In *generic* **supervised meta-learning setting** we have a set of datasets: $$\mathcal{D}_1, ..., \mathcal{D}_n$$
+
+\begin{equation}
+\theta^\star = \arg \min_{\theta} \sum_i \mathcal{L} (\phi_i, \mathcal{D}^{test}_i)
+\end{equation}
+
+Where
+
+\begin{equation}
+\phi_i = f_{\theta} ( \mathcal{D}^{tr}_i )
+\end{equation}
+
+So a meta-learner attempts to find the lowest average **test** loss over all the different datasets (tasks) wrt **post-adaptation parameters** $$\phi_i$$ obtained by running the **learning adaptation procedure** $$f_{\theta}$$.
+So, in essence, we are learning $$f_\theta$$, which is a way to learn parameters 
+
+A common way to implement it, is by using RNNs:
+
+{% include figure.html url="/_rl/lecture_20/rnn_metalearning.png" description="Implementation of meta-learning using a RNN approach."%}
+
+If we try to express it as in the previous equations:
+the **parameter vector** produced by the adaptation process is the concatenation of the **hidden state** after seeing the dataset and the meta-learned weights
+
+{% include figure.html url="/_rl/lecture_20/rnn_metalearning_2.png" description="Main parameters of RNN as meta-learning technique."%}
+
+$$\phi_i = \left[ h_i, \phi_p \right]$$
+
+## Meta-Reinforcement Learning
+
+**Why is it a good idea?** Using its past experience, a meta-learned learner can:
+- Explore more intelligently
+- Avoid trying useless actions
+- Acquire the right features more quickly
+
+
+Remember in **standard RL** for an MDP: $$\mathcal{M} = \{ \mathcal{S}, \mathcal{A}, \mathcal{P}, r \}$$ we learn the parameters of a model as:
+
+\begin{equation}
+\theta^\star = \arg \max_\theta E_{\pi_\theta (\tau)} \[ R( \tau ) \] =: f_{\text{RL}} (\mathcal{M})
+\end{equation}
+
+In **Meta-RL**, again we want to learn an adaptation procedure.
+
+If we have a set of MDPs: $$\mathcal{M} = \{ \mathcal{M}_1, ... \mathcal{M}_n \}$$ that share some common structure, we can learn some common parameters $$\theta$$.
 This algorithm step is known as **Meta-training** or **Outer loop**:
 
 \begin{equation}
 \theta^\star = \arg \max_\theta \sum_i E_{\pi_{\phi_i} (\tau)} \[ R( \tau ) \]
 \end{equation}
 
+
 From those, we can fit any individual related task with few samples.
-This means that for $$MDP_i$$, we will derive its optimal policy parameters $$\phi_i$$ from the meta-learned ones.\\
+This means that for $$\mathcal{M}_i$$, we will derive its optimal policy parameters $$\phi_i$$ from the meta-learned ones.
 This algorithm step is known as **Adaptation** or **Inner loop**:
 
 \begin{equation}
-\phi_i = f_\theta (MDP_i)
+\phi_i = f_\theta (\mathcal{M}_i)
 \end{equation}
 
 The adaptation procedure has 2 main goals:
@@ -48,6 +118,8 @@ The adaptation procedure has 2 main goals:
 - **Adaptation**: Use that data to obtain the optimal policy.
 
 **Notice**: The adaptation policy (defined by params $$\theta$$) does not need to be good at any task, only to be easily adaptable to all of them. We can think of $$\theta$$ as a prior we'll use to learn a posterior for each task.
+
+In addition we are assuming 
 
 ## Meta-RL algorithms:
 The most basic algorithm idea we can try is:
@@ -106,3 +178,5 @@ More on: [Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks](htt
 ## Meta-imitation learning
 
 Robot RL example
+
+{% include end-row.html %}
