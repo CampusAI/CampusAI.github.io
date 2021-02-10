@@ -292,7 +292,7 @@ Which means we are finding the parameters $$\theta, \phi$$ (policy and inference
 \end{equation}
 
 Where $$p(z)$$ is the prior we picked for the $$z$$ distribution.
-$$\hat p (z_t \mid s_{1:t}, a_{1:t}, r_{1:t})$$ can be encoded by any architecture but one shown to present good results is **Probabilistic Embeddings for Actorcritic RL** (PEARL) presented in [Efficient Off-Policy Meta-Reinforcement Learning via Probabilistic Context Variables](https://arxiv.org/abs/1903.08254), which is order-agnostic by exploiting the Markov Property.
+$$\hat p (z_t \mid s_{1:t}, a_{1:t}, r_{1:t})$$ can be encoded by any architecture but one shown to present good results is **Probabilistic Embeddings for Actor-Critic RL** (PEARL) presented in [Efficient Off-Policy Meta-Reinforcement Learning via Probabilistic Context Variables](https://arxiv.org/abs/1903.08254), which is order-agnostic by exploiting the Markov Property.
 
 **Problem**: <span style="color:red">This procedure does not resolve in information gathering actions.</span>
 When sampling, you sample from your hypothesis on what the task might be and them attempt to solve that task, but the thing you do to determine what task is, might be different from what you would do for that particular task.
@@ -305,6 +305,81 @@ Nevertheless, in practice, it works pretty good.
 + <span style="color:red">Vulnerable to meta-overfitting</span>
 + <span style="color:red">Challenging to optimize in practice.</span>
 
-<!-- Model- -->
+## Model-Based Meta-RL
+
+Remember *standard* model-based RL:
+
+<blockquote markdown="1">
+Repeat:
+  1. Collect data $$\mathcal{B}$$
+  2. Use data $$\mathcal{B}$$ to get $$\hat p (s_{t+1} \mid s_t, a)$$
+  3. Use $$\hat p (s_{t+1} \mid s_t, a)$$ to plan actions.
+</blockquote>
+
+**Pros/Cons**:
++ <span style="color:green">Requires much less data than model-free.</span>
++ <span style="color:green">Can adapt extremely quickly.</span>
++ <span style="color:red">This is **non-adaptive**: If something changes in the environment this algorithm will not be able to respond!</span>
+
+### Adaptive Model-Based Meta-RL
+
+Let, $$d_\theta (s, a) \rightarrow s^\prime$$ the function which returns the next expected state given a state-action pair $$(s, a)$$.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+<blockquote markdown="1">
+Repeat:
+  1. Take 1 step, get $$\{ s, a, s^\prime \}$$
+  2. Update model parameters according to the seen changes: $$\theta \leftarrow \theta - \alpha \nabla_\theta \Vert d_\theta (s, a) - s^\prime \Vert^2$$
+  3. Use $$d_\theta$$ to select action
+</blockquote>
+
+{% include annotation.html %}
+This way we are accounting for dynamic changes in the environment.
+In fact, the field of **[adaptive control](https://en.wikipedia.org/wiki/Adaptive_control)** is concerned with this problem, using simple linear models instead of neural nets.
+{% include end-row.html %}
+{% include start-row.html %}
+
+For this to work though, you need to train considering these possible changes in dynamics.
+The way it is done is by constructing a meta-training dataset:
+
+\begin{equation}
+\mathcal{D}_{\text{meta-train}} = \{ (\mathcal{D}^{train}_1, \mathcal{D}^{test}_1), ..., \mathcal{D}^{train}_n, \mathcal{D}^{test}_n)\}
+\end{equation}
+
+Where each dataset is a sampled subsequence of a past experience trajectory (assuming they have different dynamics).
+
+\begin{equation}
+\mathcal{D}^{train}_i = \{ ((s^i_1, a^i_1), s^{\prime, i}_1) , ..., ((s^i_k, a^i_k), s^{\prime, i}_k) \}
+\end{equation}
+
+\begin{equation}
+\mathcal{D}^{test}_i = \{ ((s^i_1, a^i_1), s^{\prime, i}_1) , ..., ((s^i_k, a^i_l), s^{\prime, i}_l) \}
+\end{equation}
+
+Intuitively, given a trajectory, we would sample the dataset as so:
+
+{% include figure.html url="/_rl/lecture_20/adaptive.png" description="Illustration of datasets in adaptive model-based meta-rl."%}
+
+More on this idea on: [Learning to Adapt in Dynamic, Real-World Environments Through Meta-Reinforcement Learning](https://arxiv.org/abs/1803.11347)
+
+## Discussion
+
+Now that we know a bit more on Meta-RL research, it would be interesting to see how related it is to how biological beings learn.
+Biological beings seemingly present multiple learning behaviors:
+
+- Highly efficient but (apparently) model-free RL
+- Episodic recall
+- Model-based RL
+- Causal inference
+
+Are all of these really separate brain "algorithms" or could they be emergent phenomena resulting from some meta-RL algorithm?
+The following papers discuss this:
+
+- [Been There, Done That: Meta-Learning with Episodic Recall](https://arxiv.org/abs/1805.09692)
+- [Prefrontal cortex as a meta-reinforcement learning system](https://www.nature.com/articles/s41593-018-0147-8)
+- [Causal Reasoning from Meta-Reinforcement Learning](https://arxiv.org/abs/1901.08162)
+
 
 {% include end-row.html %}
