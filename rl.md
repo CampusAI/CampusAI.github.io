@@ -65,7 +65,6 @@ subtitle:   Leave empty in lectures
 <br>
 ### Advanced Topics
 
-<!-- {% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%} -->
 
 <!-- {% include card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
 
@@ -79,7 +78,7 @@ img="/_rl/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"%}
 
 <!-- {% include card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
 <!-- {% include card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
-<!-- {% include card.html title="Lecture 20: Meta-learning" brief="" img="" url="" %} -->
+{% include card.html title="Meta-RL" brief="Meta-Learning;Recurrent Meta-RL;Gradient-Based Meta-RL (MAML);Meta-RL as a POMDP;Model-Based Meta-RL" img="/_rl/lecture_20/optimization_idea_2.png" url="/lectures/lecture20" type="bulletlist" %}
 <!-- {% include card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
 <br>
