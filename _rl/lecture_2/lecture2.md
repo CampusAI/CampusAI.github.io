@@ -22,7 +22,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 At this point you might be wondering something like: _Wait, if we have demonstrations on how to behave in an environment, can't we just fit a model capable of generalizing (e.g. ANN) to it?_
 That is what **Imitation Learning** tries to achieve, sadly it doesn't work. In this post we explain why.
 
-# Behavioral Cloning (BC)
+## Behavioral Cloning (BC)
 
 **IDEA:** Record a lot of "expert" demonstrations and apply classic **supervised learning** to obtain a model to map observations to actions (policy).
 
@@ -41,21 +41,21 @@ Behavioral cloning is just a fancy way to say "supervised learning".
 {% include start-row.html %}
 
 
-# Why doesn't this work?
+## Why doesn't this work?
 
-## 1. Distributional shift
+### 1. Distributional shift
 
 **Wrong actions change the data distribution:** A small mistake makes the subsequent observation distribution to be different from the training data. This makes the policy to be more prone to error: it has not been trained on this new distribution (as the expert did not commit mistakes). This snowball effect keeps rising the error between trajectories over time:
 
 {% include figure.html url="/_rl/lecture_2/bc_problem.png" description="Representation of the distributional shift problem." %}
 
-### Improvements:
+#### Improvements:
 - Using some application-specific "hacks": [Self-driving car](https://devblogs.nvidia.com/) and [Drone](https://idsia-robotics.github.io/files/publications/RAL16_Giusti.pdf) trained with BC.
 - Adding noise to training trajectory so its more robust against errors.
 - Adding a penalty for deviating (inverse RL idea)
 - **DAgger** algorithm (**D**ataset **Aggre**gation)
 
-#### DAgger algorithm
+##### DAgger algorithm
 
 **Idea:** Collect training data from policy distribution instead of human distribution, using the following algorithm:
 
@@ -67,24 +67,24 @@ Behavioral cloning is just a fancy way to say "supervised learning".
 
 **Problem:** While it addresses the distributional shift problem, it is and unnatural way for humans to provide labels (we expect temporal coherence) $$\Rightarrow$$ Bad labels.
 
-## 2. Non-Markovian behavior
+### 2. Non-Markovian behavior
 Most decision humans take are non-Markovian: If we see the same thing twice we won't act exactly the same (given only the last time-step). What happened in previous time-steps affects our current actions. This makes the training much harder.
 
-### Improvements:
+#### Improvements:
 - We could feed the whole history to the model but the input would be too large to train robustly.
 - We can use a RNN approach to account for the time dependency.
 
-### Problems:
+#### Problems:
 - [Causal Confusion](https://arxiv.org/abs/1905.11979): Training models with history may exacerbate wrong causal relationships.
 
-## 3. Multimodal behavior
+### 3. Multimodal behavior
 
 In a continuous action space, if the parametric distribution chosen for our policy is not multimodal (e.g. a single Gaussian) the Maximum Likelihood Estimation (MLE) of the actions may be a problem:
 
 {% include figure.html url="/_rl/lecture_2/tree.png" description="While both 'go left' and 'go right' actions are ok, the average action is bad." %}
 
 
-### Improvements:
+#### Improvements:
 - **Output a mixture of Gaussians**: $$\pi (a \mid o) = \sum_i w_i \mathcal{N} (\mu_i, \Sigma_i)$$
 - **Latent variable models**: Can be as expressive as we want: We can feed to the network a prior variable sampled from a known distribution. In this case, the policy training is harder but can be done using a technique like:
     - Conditional variational autoencoder
@@ -96,13 +96,13 @@ In a continuous action space, if the parametric distribution chosen for our poli
     3. Feed-forward this sampled value into a new small NN with inputs the $$n-1$$ other actions and outputs the $$n-1$$ other actions again.
     4. Repeat from 2. until all actions are discretized.
 
-# Quantitative analysis
+## Quantitative analysis
 
 Defining the cost function: $$c(s, a) = \delta_{a \neq \pi^*(s)}$$ (1 when the action is different from the expert).
 
 And assuming that the probability of making a mistake on a state sampled from the training distribution is bounded by $$\epsilon$$: $$\space \space \pi_\theta (a \neq \pi^* (s) \mid s) \leq \epsilon \space\space \forall s \sim p_{train}(s)$$ 
 
-#### Case $$p_{train}(s) \simeq p_{\theta}(s)$$:
+##### Case $$p_{train}(s) \simeq p_{\theta}(s)$$:
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -119,7 +119,7 @@ This would be the case if DAgger algorithm correctly applied, where the training
 {% include start-row.html %}
 
 
-#### Case $$p_{train}(s) \neq p_{\theta}(s)$$:
+##### Case $$p_{train}(s) \neq p_{\theta}(s)$$:
 
 We have that: $$p_\theta (s_t) = (1-\epsilon)^t p_{train} (s_t) + (1 - (1 - \epsilon)^t) p_{mistake} (s_t)$$
 
