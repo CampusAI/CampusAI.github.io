@@ -20,7 +20,7 @@ url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"
 subtitle="Annotations on main RL fields of study."
-brief="RL Basics;Model-Free RL;Model-Based RL;Advanced topics;Open problems;Paper reviews"
+brief="RL Basics;Model-Free RL;Model-Based RL;Advanced topics;Paper reviews"
 url="/theory/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Experiments"
