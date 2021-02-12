@@ -388,7 +388,7 @@ The following papers discuss this:
 Cited as:
 ```
 @article{campusai2021mrl,
-title = "Meta-Reinfercement Learning Basics",
+title = "Meta-Reinforcement Learning Basics",
 author = "Canal, Oleguer",
 journal = "https://campusai.github.io/",
 year = "2021",
