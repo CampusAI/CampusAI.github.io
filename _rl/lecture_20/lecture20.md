@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Meta-Reinforcement Learning"
-permalink: /lectures/lecture20
+permalink: /rl/meta-rl
 lecture-author: Kate Rakelly, Sergey Levine
 lecture-date: 2019-2020
 post-author: Oleguer Canal
@@ -381,5 +381,19 @@ The following papers discuss this:
 - [Prefrontal cortex as a meta-reinforcement learning system](https://www.nature.com/articles/s41593-018-0147-8)
 - [Causal Reasoning from Meta-Reinforcement Learning](https://arxiv.org/abs/1901.08162)
 
+
+<br>
+
+------------
+Cited as:
+```
+@article{campusai2021mrl,
+title = "Meta-Reinfercement Learning Basics",
+author = "Canal, Oleguer",
+journal = "https://campusai.github.io/",
+year = "2021",
+url = "https://campusai.github.io/rl/meta-rl"
+}
+``` 
 
 {% include end-row.html %}
