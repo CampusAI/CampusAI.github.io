@@ -347,6 +347,6 @@ PCA is a special case where the ANNs only have 1 dense layer without activation 
 {% include end-row.html %}
 {% include start-row.html %}
 
-We talk more about autoencoders (and their more interesting evolution: variational-autoencoders VAEs) in this [Latent Variable Models post](/ds/variational_inference).
+We talk more about autoencoders (and their more interesting evolution: variational-autoencoders VAEs) in this [Latent Variable Models post](/ml/variational_inference).
 
 {% include end-row.html %}
