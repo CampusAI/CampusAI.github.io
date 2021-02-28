@@ -72,35 +72,14 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_rl/lecture_16/icon.png" url="/lectures/lecture16" type="bulletlist"%}
 
-{% include card.html title="Distributed RL"
-brief="Original DQN;GORILA;A3C;IMPALA;Ape-X;R2D3;QT-Opt;Evolution Strategies;Population-based Training"
-img="/_rl/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"%}
-
 <!-- {% include card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
 <!-- {% include card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
 {% include card.html title="Meta-RL" brief="Meta-Learning;Recurrent Meta-RL;Gradient-Based Meta-RL (MAML);Meta-RL as a POMDP;Model-Based Meta-RL" img="/_rl/lecture_20/optimization_idea_2.png" url="/rl/meta-rl" type="bulletlist" %}
 <!-- {% include card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
-<br>
-## Paper reviews
-
-{% include paper-card.html title="Soft Actor-Critic (SAC)"
-subtitle="T. Haarnoja, A. Zhou, P. Abbeel, S. Levine, 2018" url="/papers/Soft-Actor-Critic"   %}
-<!-- This paper approaches the high sample complexity of on-policy RL and the brittle convergence of off-policy RL by introducing Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor. -->
-
-{% include paper-card.html title="Hierarchical Reinforcement Learning with MAXQ Value Function Decomposition"
-url="/papers/HRL-with-MAXQ-decomposition"  subtitle="Thomas G. Dietterich, 2000"  %}
-<!-- This paper presents MAXQ decomposition: a method to decompose the Value Function for a given hierarchical policy in a recursive fashion. -->
-
-{% include paper-card.html title="The Option-Critic Architecture"
-subtitle="Pierre-Luc Bacon, Jean Harb, Doina Precup, 2016"
-url="/papers/the-option-critic-architecture" %}
-<!-- The Options framework provides theoretical grounds for temporal abstraction in Reinforcement Learning. Each Option can be considered as a macro-action with its policy and termination condition, leading to two levels of policies: one policy over options and several intra-option policies. This paper presents the Option-Critic Architecture."
-url="/papers/the-option-critic-architecture -->
-
-{% include paper-card.html title="Neural Network Surgery with Sets"
-url="/papers/NN_surgery_sets" subtitle="Jonathan Raiman, Susan Zhang, Christy Dennison, 2019"   %}
-
+{% include card.html title="Distributed RL"
+brief="Original DQN;GORILA;A3C;IMPALA;Ape-X;R2D3;QT-Opt;Evolution Strategies;Population-based Training"
+img="/_rl/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"%}
 
 <br>
 ## Annex
