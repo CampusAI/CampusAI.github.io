@@ -15,7 +15,7 @@ url="/ds/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Machine Learning (ML)"
 subtitle="Probabilistic view on general ML topics."
-brief="ML Probability Theory Basics;Generative Models;Attention (Comming Soon);Paper reviews"
+brief="ML Probability Theory Basics;Generative Models;Paper reviews"
 url="/ml/" type="bulletlist" %}
 
 {% include bulletpoint-card.html title="Reinforcement Learning (RL)"

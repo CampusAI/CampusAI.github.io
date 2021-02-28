@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Deep Generative Models"
+title: "Why Generative Models?"
 permalink: /ml/generative_models
 content-origin: Standford CS236, KTH DD2412, lilianweng.github.io
 post-author: Oleguer Canal
