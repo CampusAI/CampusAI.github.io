@@ -16,10 +16,14 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 {% include start-row.html %}
 
+_"Tell me who you go with and I'll tell you who you are"_.
+Sometimes it is more useful to look at the relation between entities than the entities themselves.
+This is the key idea that gave Google search engine a competitive advantage.
+In this post we are going to understand how it works and take a look at related algorithms.
+
 ## PageRank
 
-{% include end-row.html %}
-{% include start-row.html %}
+
 
 **Idea**: Every page has a weight (or rank) and it distributes it evenly among all the outgoing links. So each page importance is the sum of the votes on its in-links.
 
