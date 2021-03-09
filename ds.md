@@ -38,7 +38,7 @@ url="/ds/mining_streams"
 
 ## Graphs
 
-{% include paper-card.html
+<!-- {% include paper-card.html
 title="Graphs: Basics"
 subtitle="Basic Definitions, Centrality Measures, Clustering Coefficient"
 url="/ds/graphs_basics"%}
@@ -46,7 +46,7 @@ url="/ds/graphs_basics"%}
 {% include paper-card.html
 title="Graphs: Models"
 subtitle="Fixed edges, Erdos-Renyi, Preferential Attachment, Configuration, Watts-Strogatz, Community-Affiliation"
-url="/ds/graphs_models"%}
+url="/ds/graphs_models"%} -->
 
 <!-- 
 {% include paper-card.html
