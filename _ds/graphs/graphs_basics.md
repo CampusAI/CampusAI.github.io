@@ -16,8 +16,8 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 -->
 {% include start-row.html %}
 
-_"Tell me who you go with and I'll tell you who you are"_.
-Sometimes it is more useful to look at the relation between entities than the entities themselves
+<!-- _"Tell me who you go with and I'll tell you who you are"_.
+Sometimes it is more useful to look at the relation between entities than the entities themselves -->
 <!-- Some examples of big networks worth studying are: world-wide-web, social networks, roads, brain... -->
 
 
