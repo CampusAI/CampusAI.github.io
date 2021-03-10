@@ -312,10 +312,38 @@ We say that the i-th column of $$psi$$ is a **"successor feature"** for the i-th
 So for any linear combination $$\phi$$, we can get a Q-function by applying the same combination on $$\psi$$.
 
 Notice this works on a value policy $$Q^\pi$$ but it doesn't on the optimal value function $$Q^\star$$.
+Remember that:
 
-How do we learn $$\psi$$:
+\begin{equation}
+Q^\star (s, a) = r (s, a) + \gamma E_{s^\prime \sim p(s^\prime \mid s, a)} \left[ \max_{a^\prime} Q(s^\prime, a^\prime) \right]
+\end{equation}
 
+The $$\max$$ function makes the expression to be NOT linear!
 
+How do we learn this in practice?
+
+<blockquote markdown="1">
+**Simplest use**: Evaluation
+1. Get a small amount of data of the new MDP: $$\{ (s_i, a_i, r_i, s_i^\prime)\}_i$$
+2. Fit $$w$$ such that $$\phi (s_i, a_i) w \simeq r_i$$ (e.g. with linear regression)
+3. Initialize $$Q^\pi (s, a) = \psi (s, a) w$$
+4. Finetune $$\pi$$ and $$Q^\pi$$ with any RL method
+</blockquote>
+
+{% include end-row.html %}
+{% include start-row.html %}
+<blockquote markdown="1">
+**More sophisticated use**:
+0. Train multiple $$\psi^{\pi_i}$$ functions for different $$\pi_i$$
+1. Get a small amount of data of the new MDP: $$\{ (s_i, a_i, r_i, s_i^\prime)\}_i$$
+2. Fit $$w$$ such that $$\phi (s_i, a_i) w \simeq r_i$$ (e.g. with linear regression)
+3. Choose initial policy $$\pi (s) = \arg \max_a \max_i \psi^{\pi_i} (s, a) w$$
+</blockquote>
+
+{% include annotation.html %}
+Notice that if the state or action spaces are continuous this still holds for infinite-dimensional vectors.
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Policy
 While doable with contextual policies, it might be tricky otherwise, since it contains the "least" dynamics information.
