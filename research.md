@@ -70,7 +70,7 @@ subtitle="Wesley J. Maddox, Timur Garipov, Pavel Izmailov, Dmitry Vetrov, Andrew
 {% include paper-card.html title="Ensemble Distribution Distillation"
 url="/papers/ensemble-distribution-distillation"
 subtitle="Andrey Malinin, Bruno Mlodozeniec, Mark Gales, 2019"
-star="yes"
+star="no"
 %}
 
 <br>
