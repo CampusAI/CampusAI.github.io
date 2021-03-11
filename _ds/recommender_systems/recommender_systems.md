@@ -212,10 +212,20 @@ How do you know if your model is any good?
 
 ### Metric-based evaluation
 
-Split the dataset in train/test subsets and compute (for instance) Categorical Cross-Entropy (in classification tasks) or MSE (in regression tasks) on the training set.
-If the result can be binarized, it is also interesting to analyze the confusion matrix metrics associated with our prediction.
-
+- Split the dataset in train/test subsets and compute (for instance) Categorical Cross-Entropy (in classification tasks) or MSE (in regression tasks) on the training set.
+- If the result can be binarized (like/dislike), it is also interesting to analyze the confusion matrix metrics associated with our prediction of the test set: Precision, Accuracy, AUC...
+- In the case of recommender systems which do not output a value, but just a ranked list of items (such as collaborative memory-based ones), we can still check if any of the recommendations is present in a test set.
 
 ### Human-based evaluation
+
+Another interesting metric to consider is **serendipity**: the diversity of the recommendations (how close are all recommendations between themselves).
+- Low serendipity $$\rightarrow$$ all recommended items are very similar, which means our recommender system does not bring enough diversity (aka it creates a **information confinement area**)  
+- High serendipity $$\rightarrow$$ recommended items are very different, meaning that the recommender system does not take the user enough into consideration.
+
+Have you ever noticed that Netflix proposes new recommendations explaining why it things it is a good match?
+It has been shown that humans loose faith in the recommender system if they do not understand where the recommendations come from.
+Thus we also desire models with high **explainability**.
+
+Finally, when introducing changes into the model it is often tested using A/B testing techniques to compare its performance.
 
 {% include end-row.html %}
