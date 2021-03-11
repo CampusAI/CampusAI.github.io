@@ -31,7 +31,7 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Reinforcement Learning Overview" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist"%}
 
-{% include card.html title="Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_rl/lecture_2/icon.png" url="/lectures/lecture2" type="bulletlist" star="yes"%}
+{% include card.html title="Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_rl/lecture_2/icon.png" url="/lectures/lecture2" type="bulletlist" star="no"%}
 
 <br>
 <br>
