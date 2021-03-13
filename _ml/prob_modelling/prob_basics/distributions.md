@@ -18,7 +18,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
-This post is more a memory-refresher list of the most famous probability distributions rather than any  comprehensive or deep explanation on any topic in particular.
+This post is more a memory-refresher list of the most famous probability distributions rather than a comprehensive explanation of anything in particular.
 
 ## Discrete
 
@@ -39,11 +39,14 @@ p(X = x \mid \lambda) =
 \end{cases}
 \end{equation}
 
+<blockquote markdown="1">
+**Moments Example**:
 By means of example, its moments would be computed as:
 
-$$E [X] = \lambda \cdot 1 + (1 - \lambda) \cdot 0 = \lambda$$
+$$E [X] = \sum_x p(x) x = \lambda \cdot 1 + (1 - \lambda) \cdot 0 = \lambda$$
 
 $$V [X] = E [(X - E (X))^2] = E [(X - \lambda)^2] = p(0) (0 - \lambda)^2 + p(1) (1 - \lambda)^2 = \lambda (1 - \lambda)$$
+</blockquote>
 
 #### Categorical
 
@@ -63,23 +66,25 @@ p(X=x \mid \lambda_{i=1:N}) =
 \end{cases}
 \end{equation}
 
-**Categorical Cross-Entropy** is often used as a **loss function** for ML models.
-Remember that the cross-entropy between the data distribution and the approximate one is:
-
-$$\mathcal{H} (P, Q) = E_P [I_Q] = - \sum_{i} p(P=p_i) \log (Q = p_i) = - \sum \lambda_i \log (\hat \lambda_i)$$
-
 {% include end-row.html %}
 {% include start-row.html %}
 
+<blockquote markdown="1">
+**Remember**: Categorical Cross-Entropy is often used as a **loss function** for ML supervised classification tasks, which is:
+
+$$\mathcal{H} (P, Q) = E_P [I_Q] = - \sum_{i} p(P=p_i) \log (Q = p_i) = - \sum \lambda_i \log (\hat \lambda_i)$$
+
 In classification tasks, we see our model prediction as a categorical distribution over all possible classes.
-Usually the labels come as a one-hot encoding so the "real" distribution we want to match has probability $$1$$ in the right label and $$0$$ in the others.
+Usually the labels come as a 1-hot encoding so the "real" distribution we want to match has probability $$1$$ in the right label and $$0$$ in the others.
 Thus, the loss associated with a datapoint becomes: $$- \log (\hat \lambda_i)$$ (negative log of the guessed prob).
+</blockquote>
 
 {% include annotation.html %}
 Remember that the cross-entropy is often used when the data information is fixed, thus the KL divergence:
 $$D_{KL} (P \Vert Q) = E_P [I_Q - I_P] = \mathcal{H} (P, Q) + \underbrace{\mathcal{H} (P)}_{const}$$.
 {% include end-row.html %}
 {% include start-row.html %}
+
 
 #### Binomial
 
@@ -98,6 +103,8 @@ p(X = x \mid \lambda) = {N \choose x} \lambda^x (1 - \lambda)^{n - x}
 
 {% include annotation.html %}
 For large $$n$$ and $$\lambda \simeq \frac{1}{2}$$ it behaves as a **discretization of the Gaussian** distribution.
+
+{% include figure.html url="/_ml/prob_modelling/prob_basics/binomial-distribution.png" description="Binomial PMF" width="60" zoom="1.75"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -130,6 +137,9 @@ Instead of counting successes of a bernoulli event, we count successes of a cate
 
 #### Geometric
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 Counts the number of failures before the first success in a Bernoulli r.v.
 
 \begin{equation}
@@ -140,12 +150,24 @@ x \in \mathbb{N}
 p(X = x \mid \lambda) = (1 - \lambda)^{x-1} \lambda
 \end{equation}
 
+<blockquote markdown="1">
+**Usage example**:
+This distribution is often used to model **life expectancy** of something that has a probability $$\lambda$$ of dying at every time-step.
+For instance, in **RL**: if life expectancy of an agent is $$E[X] = \frac{1}{\lambda}$$, we discount each expected future reward by a factor of $$\lambda$$ to account for the probability of being alive at that point (there are other reasons to discount it such as making infinite episode reward sums finite or account for the fact that most actions do not have long-lasting repercussions).
+</blockquote>
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/geometric-distribution.png" description="Geometric PMF" width="60" zoom="1.75"%}
+{% include end-row.html %}
+{% include start-row.html %}
+
 #### Poison
 
 {% include end-row.html %}
 {% include start-row.html %}
 Counts the number of random independent events happening in a fixed period of time (or space).
-Imagine that on average $$\lambda \in \mathbb{R}$$ events happen within a time period, then we can get the probability of $$x$$ events happening by evaluating the Poisson distribution.
+Imagine that on average $$\lambda \in \mathbb{R}_{> 0}$$ events happen within a time period.
+We can then get the probability of $$x$$ events happening through the Poisson distribution:
 
 \begin{equation}
 x \in \mathbb{N}
@@ -156,13 +178,16 @@ p(X = x \mid \lambda) = \frac{\lambda^x e^{- \lambda}}{x!}
 \end{equation}
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/prob_modelling/prob_basics/poisson-distribution.png" description="Poison PMF" width="50" zoom="2.0"%}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/poisson-distribution.png" description="Poison PMF" width="60" zoom="1.75"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
 ## Continuous
 
 #### Uniform
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 Assigns same likelihood to all values between a range.
 
@@ -174,19 +199,35 @@ x \in [a, b]
 PDF(x, a, b) = \frac{1}{b-a}
 \end{equation}
 
-- Is the distribution which gives the **highest entropy** for $$x \in [a, b]$$ 
+- Is the distribution which gives the **maximum entropy** for $$x \in [a, b]$$ 
 
-
-**MLE**: Given a dataset $$\mathcal{D} = \\{ x_i \\}_{i=1:n}$$ the MLE estimation of its parameters: $$a, b$$ is: $$a = \min_i {x_i}, b = \max_i {x_i}$$. We can easily see it be expressing the likelihood of the dataset:
+<blockquote markdown="1">
+**MLE Example**:
+By means of example, lets see how we would compute the MLE of its parameters given a dataset $$\mathcal{D} = \\{ x_i \\}_{i=1:n}$$.
+If we express the likelihood of the dataset we get that:
 
 \begin{equation}
-\mathcal{L (\mathcal{D}, a, b)} = \frac{1}{b - a}^n
+\mathcal{L (\mathcal{D}, a, b)} = \left(\frac{1}{b - a} \right)^n
 \end{equation}
 
-If we want to maximize the likelihood we need to minimize $$b - a$$ but $$x_i \in [a, b] \forall i$$.
-Thus, the minimum is achieved when we take b as the maximum and a as the minimum.
+If we want to maximize the likelihood, we need to minimize $$b - a$$ but $$x_i \in [a, b] \forall i$$.
+Thus, the minimum is achieved when:
+
+\begin{equation}
+a = \min_i x_i \space \space
+b = \max_i x_i
+\end{equation}
+</blockquote>
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/uniform-distribution.png" description="Uniform PDF" width="60"%}
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Gaussian/Normal
+
+{% include end-row.html %}
+{% include start-row.html %}
 
 \begin{equation}
 x \in \mathbb{R}
@@ -196,15 +237,65 @@ x \in \mathbb{R}
 PDF(x, \mu, \sigma) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \frac{1}{2} \frac{(x - \mu)^2}{\sigma^2}}
 \end{equation}
 
-- Is the distribution which gives the **highest entropy** for a fixed variance $$\sigma^2$$ for $$x \in \mathbb{R}$$.
-- A lot of events in nature seem to follow a normal distribution.
-- The sum of normal r.v.'s is normal
+- Is the distribution which gives the **maximum entropy** for a fixed $$\mu, \sigma^2$$ for $$x \in \mathbb{R}$$.
+- A property which makes the Gaussian distribution extremely analytically tractable is its **closure under linear combinations**: The linear combination of Gaussian r.v.'s is Gaussian.
 
-**Central limit theorem**: The sum of independent samples from any distribution tends to follow a normal distribution (as the number of samples grows).
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/gaussian-distribution.png" description="Gaussian PDF" width="60"%}
+{% include end-row.html %}
+{% include start-row.html %}
 
-<!-- #### Log-Normal
+{% include end-row.html %}
+{% include start-row.html %}
 
-$$X$$ follows a log-normal distribution if $$\log (X)$$ follows a normal distribution. -->
+<blockquote markdown="1">
+**Weak Law of Large Numbers**
+
+The mean of a sequence of i.i.d random variables converges in probability to the expected value of the random variable as the length of that sequence tends to infinity:
+
+\begin{equation}
+\bar X_n \overset{p}{\to} E[X]
+\end{equation}
+</blockquote>
+
+{% include annotation.html %}
+**Converges in probability** means that the probability of the sample's mean being equal to the distribution mean tends to 0 as the sample size grows:
+$$\lim_{n \rightarrow \infty} p(\vert \bar X_n - E[X] \vert > \epsilon) = 0 \space \space \forall \epsilon \in \mathbb{R}_{>0}$$
+{% include end-row.html %}
+{% include start-row.html %}
+
+This is very nice, but it only considers the mean of a SINGLE set of samples of a random variable.
+**But what distribution does this mean follow?**
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+<blockquote markdown="1">
+**Central limit theorem**
+
+The distribution of sample means **of *any* distribution** converges  in distribution to a normal distribution.
+
+\begin{equation}
+  \frac{\bar{X}_n - \mu}{\sigma\sqrt{n}} \xrightarrow{d} N(0,1),
+\end{equation}
+</blockquote>
+
+{% include annotation.html %}
+This only applies to finite-mean and finite-variance distributions, so forget about stuff like [Cauchy distribution](https://en.wikipedia.org/wiki/Cauchy_distribution).
+
+**Converges in distribution** means that the CDF of the set of means converges to the CDF of a Gaussian distribution. 
+{% include end-row.html %}
+{% include start-row.html %}
+
+{% include end-row.html %}
+{% include start-row.html %}
+Combining these two theorems, we can assume that the mean of samples of *any* distribution will follow a normal distribution around the expected value if the sample size is big enough (usually 30 samples is considered *big enough*). 
+
+{% include annotation.html %}
+The central limit theorem gives the impression that *a lot of events in nature seem to follow a normal distribution*.
+Thus, it is very often the case that scientists assume normality on their observations (also because of the [maximum entropy principle](https://en.wikipedia.org/wiki/Principle_of_maximum_entropy))
+{% include end-row.html %}
+{% include start-row.html %}
 
 #### Chi-squared $$\chi^2$$
 
@@ -223,8 +314,8 @@ PDF(x, k) = \frac{1}{\Gamma (k) 2^{\frac{k}{2}}} x^{\frac{k}{2} - 1} e^{- \frac{
 {% include end-row.html %}
 {% include start-row.html %}
 
-Measures the probability of the amount of time between two Poison-type events.
-$$\lambda$$ again is the expected number of events within the 
+Measures the amount of time probability between two Poison-type events.
+$$\lambda$$ again is the expected number of events within the time period.
 
 \begin{equation}
 x \in [0, \infty)
@@ -234,39 +325,48 @@ x \in [0, \infty)
 PDF(x, \lambda) = \lambda e^{- \lambda x}
 \end{equation}
 
-- "*It doesn't have memory*": The occurrence of events are independent.
+- It is often said that "*it doesn't have memory*", meaning that the occurrence of events are independent.
 
 {% include annotation.html %}
-Can be thought of as a continuous version of a Geometric distribution.
+Can be thought of as a continuous version of a **Geometric distribution**.
 "*Number of failures until one success*" is analogous to "*time until event*". 
 {% include end-row.html %}
 {% include start-row.html %}
 
 #### Gamma
 
-The same way the **exponential** distribution predicts the amount of time until the first **Poison** event, **gamma** distribution predicts the time until the k-th Poison event.
+
+The same way the **exponential** distribution predicts the amount of time until the first **Poison** event, the **Gamma** distribution predicts the time until the k-th Poison of event having rate $$\lambda \frac{\text{events}}{\text{timeperiod}}$$.
 
 \begin{equation}
 x \in (0, \infty)
 \end{equation}
 
-Presents two representations. One with shape ("number" of events $$k$$) and scale parameters ($$\theta$$):
+{% include end-row.html %}
+{% include start-row.html %}
+
+Presents two representations. One with shape parameter $$k$$ ("number" of events) and scale parameters $$\theta = \frac{1}{\lambda}$$ (inverse of Poison rate $$\lambda$$):
 
 \begin{equation}
 PDF(x, k, \theta) = \frac{1}{\Gamma (\alpha) \theta^k} x^{k - 1} e^{- \frac{x}{\theta}}
 \end{equation}
 
-And one with shape ($$\alpha = k$$ "number" of events) and rate parameters ($$\beta = \frac{1}{\theta}$$ rate at which Poison events occur $$\lambda$$):
+And one with shape ($$\alpha = k$$ "number" of events) and rate parameters $$\beta = \frac{1}{\theta}$$.
+Notice that this rate is the same as the dictated by the Poison distribution: $$\beta = \lambda$$)
 
 \begin{equation}
 PDF(x, \alpha, \beta) = \frac{\beta^\alpha}{\Gamma (\alpha)} x^{\alpha - 1} e^{- \beta x}
 \end{equation}
 
 
-- It is the distribution which gives a higher entropy for a fixed $$E[X] = k \theta = \frac{\alpha}{\beta} \geq 0$$ for $$x \in (0, \infty)$$
-- Exponential, $$\chi^2$$, and Erlang distributions are particular cases of Gamma distribution.
+- It is the distribution which gives a **maximum entropy** for a fixed $$E[X] = k \theta = \frac{\alpha}{\beta} \geq 0$$ for $$x \in (0, \infty)$$
+- **Exponential** (k=1), **$$\chi^2$$**, and **Erlang** distributions are particular cases of Gamma distribution.
 - It is often used as a conjugate prior of other distributions.
-<!-- -  -->
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/gamma-distribution.png" description="Gamma PDF" width="60"%}
+{% include end-row.html %}
+{% include start-row.html %}
 
 <!-- #### Dirichlet -->
 
