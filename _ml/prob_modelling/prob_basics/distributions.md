@@ -18,6 +18,8 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
+This post is more a memory-refresher list of the most famous probability distributions rather than any  comprehensive or deep explanation on any topic in particular.
+
 ## Discrete
 
 #### Bernoulli
@@ -75,7 +77,7 @@ Thus, the loss associated with a datapoint becomes: $$- \log (\hat \lambda_i)$$ 
 
 {% include annotation.html %}
 Remember that the cross-entropy is often used when the data information is fixed, thus the KL divergence:
-$$D_{KL} (P \Vert Q) = E_P [I_Q - I_P]$$ is $$\mathcal{H} (P, Q) +$$ a constant term.
+$$D_{KL} (P \Vert Q) = E_P [I_Q - I_P] = \mathcal{H} (P, Q) + \underbrace{\mathcal{H} (P)}_{const}$$.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -95,7 +97,7 @@ p(X = x \mid \lambda) = {N \choose x} \lambda^x (1 - \lambda)^{n - x}
 \end{equation}
 
 {% include annotation.html %}
-For large $$n$$ and $$\lambda \simeq \frac{1}{2}$$ it behaves as a *discretization* of the normal distribution.
+For large $$n$$ and $$\lambda \simeq \frac{1}{2}$$ it behaves as a **discretization of the Gaussian** distribution.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -104,7 +106,7 @@ For large $$n$$ and $$\lambda \simeq \frac{1}{2}$$ it behaves as a *discretizati
 {% include end-row.html %}
 {% include start-row.html %}
 
-It models the number of counts of a k-sided die rolled n times.
+Number of counts of a k-sided die rolled n times.
 I.e. $$x_i$$ counts the number of times side $$i$$ appeared when rolling the dice $$n$$ times, thus:
 
 \begin{equation}
@@ -113,14 +115,16 @@ x_{i \in 1:k} \in \\{0:n\\}
 
 Where: $$\sum_{i=1}^k x_i = n$$
 
+{% include end-row.html %}
+{% include start-row.html %}
+
 \begin{equation}
 p(X=\\{x_1, ..., x_k\\} \mid N, \lambda_{i=1:N}) = {N \choose {x_1, ..., x_k}} \lambda_1^{x_1} ... \lambda_k^{x_k}
 \end{equation}
 
-Notice this is a generalization of binomial distribution for categorical variables.
-
 {% include annotation.html %}
-For large $$n$$ and $$\lambda \simeq \frac{1}{2}$$ it behaves as a *discretization* of the normal distribution.
+Notice this is a **generalization of binomial** distribution for categorical variables:
+Instead of counting successes of a bernoulli event, we count successes of a categorical event.
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -138,8 +142,10 @@ p(X = x \mid \lambda) = (1 - \lambda)^{x-1} \lambda
 
 #### Poison
 
+{% include end-row.html %}
+{% include start-row.html %}
 Counts the number of random independent events happening in a fixed period of time (or space).
-Imagine that on average $$\lambda \in \mathbb{R}_{[0, 1]}$$ events happen within a time period, then we can get the probability of $$x$$ events happening by evaluating the Poisson distribution.
+Imagine that on average $$\lambda \in \mathbb{R}$$ events happen within a time period, then we can get the probability of $$x$$ events happening by evaluating the Poisson distribution.
 
 \begin{equation}
 x \in \mathbb{N}
@@ -148,6 +154,11 @@ x \in \mathbb{N}
 \begin{equation}
 p(X = x \mid \lambda) = \frac{\lambda^x e^{- \lambda}}{x!}
 \end{equation}
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/poisson-distribution.png" description="Poison PMF" width="50" zoom="2.0"%}
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Continuous
 
