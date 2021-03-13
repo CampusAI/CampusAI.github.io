@@ -62,7 +62,7 @@ I.e. which achieve a higher likelihood on the distribution assumed (through "exp
 
 {% include annotation.html %}
 In some cases (see [Deep Generative Models](https://campusai.github.io/ml/generative_models)) the assumed functional form of the likelihood is so complex that this optimization cannot be done analytically.
-We then use other optimization techniques (s.a. stochastic gradient ascent).
+We then use other optimization techniques (s.a. gradient-based methods).
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -100,7 +100,7 @@ Information content of distribution Q weighted by distribution P.
 [Generalized metric](https://en.wikipedia.org/wiki/Generalised_metric) to quantify dissimilarity between random variables, probability distributions or samples.
 Some probability divergence metric examples are: [Kullback–Leibler](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence), [Jensen–Shannon](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence) or [Bhattacharyya distance](https://en.wikipedia.org/wiki/Bhattacharyya_distance).
 
-{% include figure.html url="/_ml/prob_modelling/prob_basics/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization. (Image by CampusAI)" zoom="1.5"%}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/distribution_space.svg" description="Figure 1: Representation of probabilistic modelling optimization. (Image by CampusAI)"%}
 
 A lot of ML models attempt to minimize a statistical distance to find the best parameters of a parametrized distribution.
 The ultimate goal is to have a model which behaves as close as possible to the "real" distribution.
@@ -146,7 +146,7 @@ If $$P$$ is the "true" distribution and $$Q$$ our approximation we have 2 types 
 
 - **Reverse KL** (mode-seeking): $$D_{KL} (Q \mid \mid P) = \sum Q \log \frac{Q}{P}$$. Where Q is low, does not matter what P is.
 
-{% include figure.html url="/_ml/prob_modelling/prob_basics/kl_asymmetry.png" description="Figure 2: Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization). (Image from Bishop)" zoom="1.5"%}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/kl_asymmetry.png" description="Figure 2: Possible outcomes trying to match a multimodal Gaussian with a single Gaussian. (a) shows the result of a forward-KL optimization. (b) and (c) possible reverse KL results (depends on initialization). (Image from Bishop)"%}
 
 
 ## Hypothesis Testing

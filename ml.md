@@ -16,9 +16,13 @@ url="/ml/prob_modelling"%}
 
 {% include paper-card.html
 title="Probability Distributions"
-subtitle="Discrete, Continuous"
+subtitle="Bernoulli, Categorical, Binomial, Multinomial, Geometric, Poison, Uniform, Gaussian, Exponential, $\chi^2$, Gamma"
 url="/ml/distributions"%}
 
+{% include paper-card.html
+title="Simple ML models"
+subtitle="kNN, Decision Trees, Naive Bayes, SVM, Logistic Regression, Linear Regression, Hierarchical Clustering, k-means, EM, Spectral Clustering"
+url="/ml/simple_models"%}
 
 
 ## Generative Models
