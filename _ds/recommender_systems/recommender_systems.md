@@ -17,11 +17,11 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
-Recommender system theory answers the following question:
+Recommender system address the following question:
 Given a set of users, items, and their past interactions, how can we recommend the best item for each user?
 
 These past interactions are usually stored in a matrix called the **user-item interaction matrix**.
-It can contain ratings of movies, likes/dislikes of videos, times listened to a song...
+It can contain ratings of movies, likes/dislikes of videos, song reproductions...
 
 {% include figure.html url="/_ds/recommender_systems/user-item-matrix.png" description="Each row contains a different user rating of a movie (cols). (Image from buomsoo-kim.github.io/)"%}
 
@@ -105,7 +105,22 @@ Where:
 {% include end-row.html %}
 {% include start-row.html %}
 
-Comparison with user-user:
+**Other ideas**:
+
+{% include end-row.html %}
+{% include start-row.html %}
+Depending on the nature of the service provided one can better exploit the data and get the similarity between items by alternative means.
+For instance, **Spotify** users organize songs in playlists:
+This aggregations can be understood in different ways:
+- Framing the problem as [frequent itemset detection](/ds/frequent_itemsets): Songs are items and playlists are baskets. We can then run the **A Priori** algorithm to detect songs that are frequently together in lists.
+- Looking from a NLP perspective, we can think of song ids as words and playlists as documents. Then we can train something similar to **word2vec** (or any other word embedding algorithm) and obtain a projection of song_ids into a latent space where similar songs will be close to each other. 
+
+{% include annotation.html %}
+[word2vec](https://en.wikipedia.org/wiki/Word2vec) is essentially implemented as an autoencoder that embeds words into a latent space considering its syntactic similarity.
+{% include end-row.html %}
+{% include start-row.html %}
+
+**Comparison with user-user**:
 - <span style="color:green">Item-item **works better** than user-user, as human's complexity tends to be higher than item's one.</span>
 - <span style="color:green">Item-item has **less variance**: A lot of users have interacted with an item but each user interacts with few items, so item similarities are less sensitive.</span>
 - <span style="color:red">Item-item has **higher bias**: Item similarity is assessed from very different users, so the method is **less personalized**.</span>
@@ -144,7 +159,6 @@ Alternatively, we can see it as an optimization problem, where we look for tha m
 \begin{equation}
 P, Q = \arg \min_{P, Q} \sum_{(i, j) \in \text{RATINGS}} \left[ P_i Q_j^T - M_{ij} \right]^2 + \underbrace{\lambda_p \Vert P_i \Vert^2 + \lambda_q \Vert Q_j \Vert^2}_{regularization} 
 \end{equation}
-
 
 {% include annotation.html %}
 The **regularization** ensures we assign $$0$$ to the unknown interactions.
@@ -194,10 +208,16 @@ In a song recommender system:
 {% include start-row.html %}
 - **User-centered**: For each user we train a model using item features. Same as user-user methods, it is much **more personalized** as it is only trained on items the user has interacted with. However, it is **less robust** as each user hasn't interacted with a lot of items.
 - **Item-centered**: Train a model for each item which once inptued user features, outputs an estimated rating. Same as item-item methods, it is **more robust** (less variance) but **less personalized** (more bias), as some users with similar features can have dissimilar taste.
-- **Combinations**: We can also consider models that process both *user features* and *item features* and guess some affinity.
+- **Combinations**: We can also consider models that process both *user features* and *item features* and guess some affinity. After the success of collaborative filtering and with the rise of ANNs, this approach has been very successful. However, industry hit a plateau where it was hard to achieve a significant advantage until RL approaches came along. 
 
 If looking for simple models we can use **Naive Bayes** or **Logistic regression** for classification scenarios and **linear regression** for regression tasks.
 Or we can learn more complex models using ANNs.
+
+{% include figure.html url="/_ds/recommender_systems/youtube_funel.png" description="Funnel structure of youtube recommender system. First screening is done with basic SQL queries, the second one using an ANN architecture. (Image from Deep Neural Networks for YouTube Recommendations)"%}
+
+While these item features can be hand-crafted by humans, it is interesting to study how they can be automatically extracted using ML techniques.
+For instance, **Spotify** can get characteristics of a song by analyzing its audio file and learning a model that relates songs by these signatures.
+This can be very helpful to solve the cold-start problem as it can be trained in a supervised fashion with past songs whose similarity is known using collaborative filtering techniques.
 
 {% include annotation.html %}
 Item-centered answers the question: *What is the probability of each user to like this item?*, while user-centered methods answer the question: *What is the probability of each item being liked by this user?*.
@@ -207,18 +227,34 @@ Thus, item features tend to be much better than user features.
 {% include end-row.html %}
 {% include start-row.html %}
 
+## Reinforcement Learning approach
+
+Collaborative filtering and content-based methods mainly belong to the supervised learning paradigm.
+SL presents some limitations to solve the recommendation problem:
+- It doesn't consider the **selection bias** the recommender itself introduces.
+- **Myopic recommendation**: Recommender doesn't consider long-term user retention, only provides content immediately interesting to the user without considering exploration.
+
+Framing the problem as an interactive system where the recommender presents some content and users review this content might be better.
+However, it still presents some challenges:
+- Large action space: Millions of items.
+- Expensive exploration: Space is very big.
+- Needs to be off-policy: Most of the data comes from different policies (users). Can be solved using importance sampling.
+- Partial observability: Only part of the state can be inferred.
+- Noisy reward.
+
+RL problem setup:
+- **Agent**: Candidate generator.
+- **States**: User interest profile, context.
+- **Actions**: Nominate from a catalog od millions of videos.
+- **Reward**: User satisfaction and long-term engagement.
+
+{% include figure.html url="/_ds/recommender_systems/rl_recommender.png" description="Visualization of RL setup. They used a policy gradient approach to learn a policy. (Image from Deep Neural Networks for YouTube Recommendations)"%}
+
+
 ## Evaluating Recommender Systems
 How do you know if your model is any good?
-
-### Metric-based evaluation
-
-- Split the dataset in train/test subsets and compute (for instance) Categorical Cross-Entropy (in classification tasks) or MSE (in regression tasks) on the training set.
-- If the result can be binarized (like/dislike), it is also interesting to analyze the confusion matrix metrics associated with our prediction of the test set: Precision, Accuracy, AUC...
-- In the case of recommender systems which do not output a value, but just a ranked list of items (such as collaborative memory-based ones), we can still check if any of the recommendations is present in a test set.
-
-### Human-based evaluation
-
-Another interesting metric to consider is **serendipity**: the diversity of the recommendations (how close are all recommendations between themselves).
+Notice that users will not like a model that proposes things which are too similar to what they already know, there also needs to be some exploration.
+This idea is captured by the **serendipity** metric: the diversity of the recommendations (how close are all recommendations between themselves).
 - Low serendipity $$\rightarrow$$ all recommended items are very similar, which means our recommender system does not bring enough diversity (aka it creates a **information confinement area**)  
 - High serendipity $$\rightarrow$$ recommended items are very different, meaning that the recommender system does not take the user enough into consideration.
 
@@ -226,6 +262,14 @@ Have you ever noticed that Netflix proposes new recommendations explaining why i
 It has been shown that humans loose faith in the recommender system if they do not understand where the recommendations come from.
 Thus we also desire models with high **explainability**.
 
-Finally, when introducing changes into the model it is often tested using A/B testing techniques to compare its performance.
+### Offline evaluation
+Before unleashing our recommender system into the wild, it is interesting to run some of these metrics.
+The main idea is to split the dataset into train and test sets and then analyze:
+- Categorical Cross-Entropy (for instance) in classification tasks or MSE in regression tasks on the test set.
+- If the result can be binarized (like/dislike), it is also interesting to analyze the **confusion matrix metrics** (precision, accuracy, AUC, ...) associated with our prediction of the test set. 
+- In the case of recommender systems which do not output a value, but just a ranked list of items (such as collaborative memory-based ones), we can still check if any of the recommendations are present in a test set.
+
+### Online evaluation
+When introducing changes into the model it is often tested using A/B testing techniques to compare its performance to some past version of the model and see if there is any statistically significant improvement. 
 
 {% include end-row.html %}

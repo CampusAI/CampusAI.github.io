@@ -36,6 +36,12 @@ subtitle="Sampling, Bloom Filtering, Sliding Windows DGIM, Count Distinct Proble
 url="/ds/mining_streams"
 %}
 
+{% include paper-card.html
+title="Recommender Systems"
+subtitle="Collaborative filtering, Content-based"
+url="/ds/recommender_systems"
+%}
+
 ## Graphs
 
 <!-- {% include paper-card.html
