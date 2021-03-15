@@ -98,7 +98,7 @@ Another group of "fun" gradient-free optimizers are the meta-heuristics:
 
 ### 1st-order
 
-They use the gradient of the objective function in order to find the local minima.
+They use the gradient of the objective (wrt the model's weights) function in order to find the local minima.
 Most of the algorithms are based on **gradient descent**: Move in the direction of the steepest gradient. There are some variations to improve performance:
 - **Stochastic Gradient Descent**: Make a gradient step after each input evaluation. Higher fluctuation (Higher variance).
 - **Mini-Batch Gradient Descent**: Compute the gradient after evaluating a small subset of the training data (nicer balance).
@@ -106,7 +106,19 @@ Most of the algorithms are based on **gradient descent**: Move in the direction 
 - **ADAGRAD (ADAptative Gradient)**: Dynamically adjusts the learning rate.
 - **ADAM (ADAptative Model)**: Dynamically adjusts moment as well.
 
-Often, very deep or recurrent networks suffer from vanishing gradient problems:
+{% include end-row.html %}
+{% include start-row.html %}
+Often, very deep or recurrent networks suffer from **vanishing gradient problems**:
+- As the gradient gets back-propagated through the network, it is multiplied by the weight matrices at each step (derivative chain rule).
+- If these weights are smaller than 1, the gradient "vanishes" and doesn't have much impact on updating the network's early layers' weights.
+
+Solutions:
+- Use ReLU
+
+{% include annotation.html %}
+While less frequent, if the weights of the network are bigger than 1, we can have an **exploding gradient problem** (completely analogous).
+{% include end-row.html %}
+{% include start-row.html %}
 
 ### 2nd-order
 
@@ -244,10 +256,52 @@ In this section we will take a look at the most common model criteria
 
 #### Regression
 
-- **MSE**: 
+- **MAE (Mean Absolute Error)**: $$\mathcal{L} = \frac{1}{n} \sum_i \vert y_i - \hat y_i \vert$$
+  - Harder for the optimizer than MSE (non-differentiable)
+  - Goes more easy on outliers than MSE since it does not square them
+
+- **MSE (Mean Squared Error)**: $$\mathcal{L} = \frac{1}{n} \sum_i ( y_i - \hat y_i )^2$$
+  - Used in linear regression
+
+- **MSLE (Mean Squared Logarithmic Error)**: $$\mathcal{L} = \frac{1}{n} \sum_i ( \log (y_i + 1) - \log( \hat y_i + 1) )^2$$
+  - If you do not want to penalize as much bigger differences in larger numbers
+
+#### Classification
+
+- **Cross-Entropy**: $$\mathcal{L} = \frac{1}{n} \sum_i \sum_k y_i^k \log (\hat y_i^k)$$
+  - Measures distance between two distributions (real and guessed).
+  - Special case of KL divergence where data's entropy is assumed to be 0.
+
+- **KL Divergence**: $$\mathcal{L} = \frac{1}{n} \sum_i \sum_k y_i^k \log (\hat y_i^k) - \frac{1}{n} \sum_i \sum_k y_i^k \log (y_i^k)$$
+  - Measures "distance" between two distributions
+
+- **NLL (Negative Log-Likelihood)**: $$\mathcal{L} = \frac{1}{n} \sum_i \log (\hat y_i^{\text{true}})$$
+  - Same as cross-entropy applied to a 1-hot encoding of the classes
+
+- **Cosine similarity**: $$\mathcal{L} = \frac{y}{\Vert y \Vert^2} \frac{\hat y}{\Vert \hat y \Vert^2}$$
+  - Measures the angle between two vectors (ignoring their magnitudes)
+
+- **Hinge Loss**: $$\mathcal{L} =  \frac{1}{n} \sum_i \max ( 0, m - y_i \hat y_i )$$
+  - Where $m$ is a margin value
+  - Is the loss used to optimize SVM
 
 ### Cross-validation
 
+Cross-validation splits the data into n equal chunks and trains n different times the algorithm, each time leaving a chunk for testing.
+Finally, we can get an idea on how good the model performs by averaging the loss functions obtained in every test.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+{% include figure.html url="/_ml/ml_concepts/cross_validation.png" description="Cross validation approach to model testing" width="75" zoom="1.75"%}
+
+{% include annotation.html %}
+If we have as many chunks as datapoints, we call it **leave-one-out cross-validation**.
+{% include end-row.html %}
+{% include start-row.html %}
+
+It is useful to compare the performance of different models being economic on the available data.
+It is also used to optimize hyper-parameters.
 
 ### Binary Confusion Matrix
 
