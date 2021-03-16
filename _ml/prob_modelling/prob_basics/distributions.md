@@ -161,7 +161,7 @@ For instance, in **RL**: if life expectancy of an agent is $$E[X] = \frac{1}{\la
 {% include end-row.html %}
 {% include start-row.html %}
 
-#### Poison
+#### Poisson
 
 {% include end-row.html %}
 {% include start-row.html %}
