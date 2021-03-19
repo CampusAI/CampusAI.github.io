@@ -3,7 +3,6 @@ layout: main_page
 # title: Welcome to CampusAI!
 index: false
 ---
-<div class="container">
 <div class="row" markdown="1">
 <div class="col-12" markdown="1">
 <!-- CampusAI is an artificial intelligence content website with (currently) 35+ articles, mainly focused on Reinforcement Learning. -->
@@ -29,4 +28,3 @@ subtitle="Some of our own projects and summaries of influential papers."
 brief="Own Experiments;Paper Reviews;"
 url="/experiments/" type="bulletlist" %}
 </div>
-</div> <!-- Closing row -->
