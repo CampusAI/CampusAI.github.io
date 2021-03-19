@@ -1,0 +1,30 @@
+---
+layout: default
+---
+<style>
+  .text-justify {
+    text-align: justify;
+  }
+</style>
+
+<div class="container-fluid roboto-regular">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-xl-3 col-lg-2 col-0">
+	</div>
+
+	<div class="col-xl-6 col-lg-8 col-12">
+            <h1>{{ page.title }}</h1>
+	</div>
+    </div>
+
+    <div class="row roboto-regular" id="content-row" markdown="1">
+	<div class="col-xl-3 col-lg-3 col-md-2 order-2 order-md-1" markdown="1">
+		{% include authors.html %}
+	</div>
+	<div class="col-xl-6 col-lg-6 col-md-8 order-1 order-md-2">{{ content }}</div>
+	<div class="col-xl-3 col-lg-3 col-md-2 order-3 order-md-3">
+	<h3> Contact </h3> 
+	For website-related messages such as <b>questions</b>, <b>collaborations</b> or <b>suggestions</b> you can write us <a href="mailto:ai.campus.ai@gmail.com">here</a> or (preferably) directly open an issue to the website's <a href="https://github.com/CampusAI/CampusAI.github.io">repo</a>. Please do not hesitate in providing feedback!
+	</div>
+    </div>
+</div>
