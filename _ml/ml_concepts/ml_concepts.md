@@ -104,7 +104,7 @@ Most of the algorithms are based on **gradient descent**: Move in the direction 
 - **Mini-Batch Gradient Descent**: Compute the gradient after evaluating a small subset of the training data (nicer balance).
 - **Momentum**: Run an exponential moving average to smooth the computed gradient.
 - **ADAGRAD (ADAptative Gradient)**: Dynamically adjusts the learning rate.
-- **ADAM (ADAptative Model)**: Dynamically adjusts moment as well.
+- **ADAM (ADAptative Model)**: Dynamically adjusts momentum.
 
 {% include end-row.html %}
 {% include start-row.html %}
