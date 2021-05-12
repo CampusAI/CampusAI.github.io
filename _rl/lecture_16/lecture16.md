@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Transfer and multi-task RL"
-permalink: /lectures/lecture16
+permalink: /rl/transfer_and_multitask_rl
 lecture-author: Sergey Levine
 lecture-date: 2019
 post-author: Oleguer Canal
@@ -364,5 +364,20 @@ In a setup with $$n$$ robots working on $$m$$ tasks instead of having a single A
 {% include figure.html url="/_rl/lecture_16/modular_ann.png" description="Modular ANN training approach. Different robots learn different tasks in a modular setup. Notice that you only need 2 different modules (robot and task) to learn 4 situations."%}
 
 The performance of this approach depends on how many different values you have of this factors of variation and the information capacity between the modules is not too large (otherwise you need to use some kind of regularization).
+
+<br>
+
+------------
+
+Cited as:
+```
+@article{campusai2020mtrl,
+title = "Transfer and Multi-Task Reinforcement Learning",
+author = "Canal, Oleguer*",
+journal = "https://campusai.github.io/",
+year = "2020",
+url = "https://campusai.github.io//rl/transfer_and_multitask_rl"
+}
+```
 
 {% include end-row.html %}
