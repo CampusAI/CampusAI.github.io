@@ -70,7 +70,7 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_rl/lecture_15/icon.png" url="/lectures/lecture15" type="bulletlist"%}
 
-{% include card.html title="Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_rl/lecture_16/icon.png" url="/lectures/lecture16" type="bulletlist"%}
+{% include card.html title="Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_rl/lecture_16/icon.png" url="/rl/transfer_and_multitask_rl" type="bulletlist"%}
 
 <!-- {% include card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
 <!-- {% include card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
