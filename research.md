@@ -5,7 +5,7 @@ permalink: /experiments/
 index: true
 ---
 
-## Own Experiments
+## Our Experiments
 
 {% include card.html
 title="Self-learned vehicle control using PPO"

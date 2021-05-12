@@ -48,26 +48,44 @@ p(Y | X) = \frac{p(X | Y) p(Y)}{p(X)}
 Naming goes: **Posterior**:  $$P(y \mid x)$$. **Likelihood**:  $$P(x \mid y)$$. **Prior**: $$P(y)$$. **Evidence**: $$P(x)$$.
 
 
-## Maximum likelihood estimation
+## MLE & MAP
 
 {% include end-row.html %}
 {% include start-row.html %}
+Both MLE (Maximum Likelihood Estimation) and MAP (Maximum A Posteriori) are used to estimate parameters in a probabilistic setting.
 
-MLE finds the parameters which better explain the data.
-I.e. which achieve a higher likelihood on the distribution assumed (through "expert" knowledge or distribution tests):
+**MLE** finds the parameters which better explain the data:
+Given a dataset $$\mathcal{D}$$ and some parametrized distribution, MLE finds the parameters which yield the highest likelihood.
 
 \begin{equation}
-\theta^\star = \arg \max_\theta (\mathcal{L} (\mathcal{D}, \theta))
+\theta^\star = \arg \max_\theta \mathcal{L} (\mathcal{D}, \theta) = \arg \max_\theta p(\mathcal{D} \mid \theta)
 \end{equation}
 
 {% include annotation.html %}
-In some cases (see [Deep Generative Models](https://campusai.github.io/ml/generative_models)) the assumed functional form of the likelihood is so complex that this optimization cannot be done analytically.
+- Most ML models optimize its parameters within the MLE paradigm, as no assumptions are made on their prior distribution.
+- In most cases (see [Deep Generative Models](https://campusai.github.io/ml/generative_models)) the assumed functional form of the likelihood is so complex that this optimization cannot be done analytically.
 We then use other optimization techniques (s.a. gradient-based methods).
 {% include end-row.html %}
 {% include start-row.html %}
 
+**MAP** works within the Bayesian framework and, instead of maximizing the likelihood, maximizes the posterior.
+It finds the best parameters according to the data.
+For this, we need to assume some prior distribution over the parameters $p(\theta)$.
 
+{% include end-row.html %}
+{% include start-row.html %}
 
+\begin{equation}
+\theta^\star = \arg \max_\theta p(\theta \mid \mathcal{D}) =
+\arg \max_\theta \frac{p(\mathcal{D} \mid \theta) p(\theta)}{ p(\mathcal{D})} \propto
+\arg \max_\theta p(\mathcal{D} \mid \theta) p(\theta)
+\end{equation}
+
+{% include annotation.html %}
+The probability of the observed data is independent from the model parameters.
+Thus, we do not need to consider it for the MAP computation.
+{% include end-row.html %}
+{% include start-row.html %}
 
 ## Information Theory Basics
 

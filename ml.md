@@ -20,6 +20,11 @@ subtitle="Bernoulli, Categorical, Binomial, Multinomial, Geometric, Poison, Unif
 url="/ml/distributions"%}
 
 {% include paper-card.html
+title="ML Essentials"
+subtitle="Basics, Regularization, Ensemble Methods, Error measures"
+url="/ml/ml_concepts"%}
+
+{% include paper-card.html
 title="Simple ML models"
 subtitle="kNN, Decision Trees, Naive Bayes, SVM, Logistic Regression, Linear Regression, Hierarchical Clustering, k-means, EM, Spectral Clustering"
 url="/ml/simple_models"%}

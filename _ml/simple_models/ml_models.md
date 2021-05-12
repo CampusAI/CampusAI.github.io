@@ -188,7 +188,7 @@ We already saw this idea in [dimensionality reduction algorithms](https://campus
 \hat p (\vec{x}) = \frac{e^{< \vec{w}, \vec{x} >}}{e^{< \vec{w}, \vec{x} >} + 1}
 \end{equation}
 
-It uses **maximum likelihood estimation (MLE)** to learn the parameters $$\vec{w}$$.
+It uses **maximum likelihood estimation (MLE)** to learn the parameters $$\vec{w}$$ using a **binary cross-entropy** loss.
 
 <blockquote markdown="1">
 Schematically, it is very similar to a **SVM**:
@@ -242,7 +242,7 @@ You can add a bias term by letting the first column of $X$ be made of $1$'s.
 {% include end-row.html %}
 {% include start-row.html %}
 
-This leaves us with an overdetermined system of equations whose solution can be approximated using the **least squares method**:
+This leaves us with an overdetermined system of equations whose solution can be approximated using the **least squares method** (which minimizes the **mean squared error** loss):
 
 \begin{equation}
 W = Y X^T (X X^T)^{-1} 
