@@ -84,7 +84,7 @@ A set of different trees are trained with different subsets of **data** (similar
 {% include start-row.html %}
 
 \begin{equation}
-p(\vec{x}) = p(x^1, ..., x^d) \simeq p(x^1) ... p(x^d)
+p(\vec{x}) = p(x^1, ..., x^d | C) \simeq p(x^1 | C) ... p(x^d | C)
 \end{equation}
 
 {% include end-row.html %}
@@ -141,7 +141,7 @@ Often cross-validation is used to select the support vectors which yield better 
 Schematically, SVM has this form:
 
 \begin{equation}
-\vec{x} \rightarrow  \text{Linear function} < \vec{x}, \vec{w} > \rightarrow
+\vec{x} \rightarrow  \text{Linear function}: \space \vec{w}^T \cdot \vec{x} \rightarrow
 \begin{cases}
 if \geq 1 \rightarrow \text{class 1} \newline
 if \leq -1 \rightarrow  \text{class -1}
@@ -185,7 +185,7 @@ We already saw this idea in [dimensionality reduction algorithms](https://campus
 **Method**: Apply a linear transformation to the input (parametrized by $$w$$) followed by a sigmoid function $$f(x) = \frac{e^x}{e^x + 1}$$:
 
 \begin{equation}
-\hat p (\vec{x}) = \frac{e^{< \vec{w}, \vec{x} >}}{e^{< \vec{w}, \vec{x} >} + 1}
+\hat p (\vec{x}) = \frac{e^{\vec{w}^T \cdot \vec{x}}}{e^{\vec{w}^T \cdot \vec{x}} + 1}
 \end{equation}
 
 It uses **maximum likelihood estimation (MLE)** to learn the parameters $$\vec{w}$$ using a **binary cross-entropy** loss.
@@ -194,7 +194,7 @@ It uses **maximum likelihood estimation (MLE)** to learn the parameters $$\vec{w
 Schematically, it is very similar to a **SVM**:
 
 \begin{equation}
-\vec{x} \rightarrow  \text{Linear function} < \vec{x}, \vec{w} > \rightarrow \text{SIGMOID} \rightarrow 
+\vec{x} \rightarrow  \text{Linear function}: \space \vec{w}^T \cdot \vec{x} \rightarrow \text{SIGMOID} \rightarrow 
 \begin{cases}
 if \geq 0.5 \rightarrow \text{class 1} \newline
 if \leq 0.5 \rightarrow  \text{class 0}
@@ -259,6 +259,7 @@ Schematically:
 **Pos/Cons:**
 - <span style="color:green">Works well with small datasets.</span>
 - <span style="color:red">Linear.</span>
+- - <span style="color:red">Inverse of a matrix is expensive: $$O(n^a)$$ with $$a > 2.3$$</span>
 - <span style="color:red">Susceptible to outliers and high correlations in predictors.</span>
 
 {% include annotation.html %}

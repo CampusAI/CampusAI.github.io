@@ -33,7 +33,7 @@ Thus, it is written as schematic notes avoiding formal definitions.
 
 - **Expectation**: Weighted average of the distribution (aka center of mass).
   - In discrete rv: $$E [X] = \sum p(x) x$$ 
-  - In continuous rv: $$E [X] = \int p(x) x $$ 
+  - In continuous rv: $$E [X] = \int p(x) x dx$$ 
 
 - **Variance**: Expectation of the squared deviation of a rv: $$V(X) = E[(X - E[X])^2]$$
 
@@ -45,7 +45,7 @@ Thus, it is written as schematic notes avoiding formal definitions.
 p(Y | X) = \frac{p(X | Y) p(Y)}{p(X)}
 \end{equation}
 
-Naming goes: **Posterior**:  $$P(y \mid x)$$. **Likelihood**:  $$P(x \mid y)$$. **Prior**: $$P(y)$$. **Evidence**: $$P(x)$$.
+Naming goes: **Posterior**:  $$p(y \mid x)$$. **Likelihood**:  $$p(x \mid y)$$. **Prior**: $$p(y)$$. **Evidence**: $$p(x)$$.
 
 
 ## MLE & MAP
@@ -60,6 +60,8 @@ Given a dataset $$\mathcal{D}$$ and some parametrized distribution, MLE finds th
 \begin{equation}
 \theta^\star = \arg \max_\theta \mathcal{L} (\mathcal{D}, \theta) = \arg \max_\theta p(\mathcal{D} \mid \theta)
 \end{equation}
+
+Remember that *likelihood* (as presented in the Bayes theorem) refers to the probability of having obtained the data we obtained, assuming it comes from a distribution with parameters $$\theta$$.
 
 {% include annotation.html %}
 - Most ML models optimize its parameters within the MLE paradigm, as no assumptions are made on their prior distribution.
