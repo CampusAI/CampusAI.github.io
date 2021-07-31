@@ -74,8 +74,14 @@ p(X=x \mid \lambda_{i=1:N}) =
 
 $$\mathcal{H} (P, Q) = E_P [I_Q] = - \sum_{i} p(P=p_i) \log (Q = p_i) = - \sum \lambda_i \log (\hat \lambda_i)$$
 
-In classification tasks, we see our model prediction as a categorical distribution over all possible classes.
-Usually the labels come as a 1-hot encoding so the "real" distribution we want to match has probability $$1$$ in the right label and $$0$$ in the others.
+In classification tasks, we see our model prediction as a categorical distribution:
+for a given input, a certain probability is assigned to each class.
+In this context:
+
+- **$$P$$** is the "real" categorical distribution of the data. Usually the labels come as a **1-hot encoding**: so the "real" distribution we want to match has probability $$1$$ in the correct label and $$0$$ in the others. $$\hat \lambda_i$$ indicates whether class $$i$$ is the correct one for a given input.
+
+- **$$Q$$** on the other hand, is the guess done by our model, with each $$\lambda_i$$ being the probability of classifying the input into class $$i$$.
+
 Thus, the loss associated with a datapoint becomes: $$- \log (\hat \lambda_i)$$ (negative log of the guessed prob).
 </blockquote>
 
@@ -165,9 +171,10 @@ For instance, in **RL**: if life expectancy of an agent is $$E[X] = \frac{1}{\la
 
 {% include end-row.html %}
 {% include start-row.html %}
-Counts the number of random independent events happening in a fixed period of time (or space).
-Imagine that on average $$\lambda \in \mathbb{R}_{> 0}$$ events happen within a time period.
-We can then get the probability of $$x$$ events happening through the Poisson distribution:
+Counts the number of random independent events happening in a fixed period of time (or space):
+
+Imagine that on average $$\lambda \in \mathbb{R}_{> 0}$$ events happen within a time period (aka **Poison process**).
+We can then get the probability of $$x$$ events happening in this time-period using the Poisson distribution:
 
 \begin{equation}
 x \in \mathbb{N}
@@ -314,7 +321,7 @@ PDF(x, k) = \frac{1}{\Gamma (k) 2^{\frac{k}{2}}} x^{\frac{k}{2} - 1} e^{- \frac{
 {% include end-row.html %}
 {% include start-row.html %}
 
-Measures the amount of time probability between two Poison-type events.
+Represents the distribution probability of the amount of time between two Poison-type events.
 $$\lambda$$ again is the expected number of events within the time period.
 
 \begin{equation}
@@ -325,7 +332,18 @@ x \in [0, \infty)
 PDF(x, \lambda) = \lambda e^{- \lambda x}
 \end{equation}
 
-- It is often said that "*it doesn't have memory*", meaning that the occurrence of events are independent.
+<blockquote markdown="1">
+It is often said that "*it doesn't have memory*, this happens because the occurrence of events are independent from each other. The way I picture it is with this process: 
+1. Throw $$\lambda$$ darts into a 1-dimensional target of fixed length
+2. Walk through the target from side to side.
+
+The probability distribution of time to the next dart is exponential and it doesn't matter that you just saw one, the probability of seeing another one is completely unrelated:
+
+\begin{equation}
+p(x > s + t \mid x > s) = p(x > t)
+\end{equation}
+
+</blockquote>
 
 {% include annotation.html %}
 Can be thought of as a continuous version of a **Geometric distribution**.
