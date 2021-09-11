@@ -29,9 +29,9 @@ subtitle:   Leave empty in lectures
 
 {% include card.html title="Introduction" brief="Supervised vs Unsupervised vs Reinforcement;Ways to learn;How to build intelligent machines;State of the art" img="/_rl/lecture_1/icon.jpg" url="/lectures/lecture1" type="bulletlist" %}
 
-{% include card.html title="Reinforcement Learning Overview" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist" %}
+{% include card.html title="Reinforcement Learning Overview" brief="Markov Decision Process;The goal of RL;RL algorithms" img="/_rl/lecture_4/icon.png" url="/lectures/lecture4" type="bulletlist"%}
 
-{% include card.html title="Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_rl/lecture_2/icon.png" url="/lectures/lecture2" type="bulletlist" %}
+{% include card.html title="Imitation Learning" brief="Behavioral Cloning;Why doesn't it work" img="/_rl/lecture_2/icon.png" url="/lectures/lecture2" type="bulletlist" star="no"%}
 
 <br>
 <br>
@@ -65,22 +65,21 @@ subtitle:   Leave empty in lectures
 <br>
 ### Advanced Topics
 
-<!-- {% include card.html title="Lecture 13: Variational Inference and Generative Models" brief="Latent Variable Models;Variational Inference;Amortized Variational Inference;Reparametrization Trick;" img="/_rl/lecture_13/icon.png" url="/lectures/lecture13" type="bulletlist"%} -->
 
 <!-- {% include card.html title="Lecture 14: Control as inference" brief="" img="" url="" %} -->
 
 {% include card.html title="Inverse Reinforcement Learning" brief="Underspecification problem;Feature Matching IRL;Maximum Entropy IRL" img="/_rl/lecture_15/icon.png" url="/lectures/lecture15" type="bulletlist"%}
 
-{% include card.html title="Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_rl/lecture_16/icon.png" url="/lectures/lecture16" type="bulletlist"%}
+{% include card.html title="Transfer and Multi-task Learning" brief="Forward Transfer;Multi-task Transfer" img="/_rl/lecture_16/icon.png" url="/rl/transfer_and_multitask_rl" type="bulletlist"%}
+
+<!-- {% include card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
+<!-- {% include card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
+{% include card.html title="Meta-RL" brief="Meta-Learning;Recurrent Meta-RL;Gradient-Based Meta-RL (MAML);Meta-RL as a POMDP;Model-Based Meta-RL" img="/_rl/lecture_20/optimization_idea_2.png" url="/rl/meta-rl" type="bulletlist" %}
+<!-- {% include card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
 {% include card.html title="Distributed RL"
 brief="Original DQN;GORILA;A3C;IMPALA;Ape-X;R2D3;QT-Opt;Evolution Strategies;Population-based Training"
 img="/_rl/lecture_17/icon.png" url="/lectures/lecture17" type="bulletlist"%}
-
-<!-- {% include card.html title="Lecture 18: Exploration (Part 1)" brief="" img="" url="" %} -->
-<!-- {% include card.html title="Lecture 19: Exploration (Part 2)" brief="" img="" url="" %} -->
-<!-- {% include card.html title="Lecture 20: Meta-learning" brief="" img="" url="" %} -->
-<!-- {% include card.html title="Lecture 21: Information Theory, Open Problems" brief="" img="" url="" %} -->
 
 <br>
 ## Annex

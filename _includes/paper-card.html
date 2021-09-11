@@ -29,11 +29,20 @@
 </style>
 
 
-<div class="card" style="width: 100%; margin-bottom: 1rem;">
+<div class="card mb-3" style="max-width: 1080px;">
 <a href="{{include.url}}" style="text-decoration:none;color:inherit;"> 
-  <div class="card-body" style="padding: 0.5rem">
-    <h5 class="card-title">{{include.title}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{include.subtitle}}</h6>
+  <div class="row no-gutters">
+    <div class="col-md-11 my-auto">
+      <div class="card-body" style="padding: 0.5rem">
+        <h5 class="card-title">{{include.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{include.subtitle}}</h6>
+      </div>
+    </div>
+    {% if include.star == "yes" %}
+    <div class="col-md-1 my-auto">
+      <img src="/assets/images/star.png" class="card-img" style="width: 30%">
+    </div>
+    {% endif %}
   </div>
 </a>
 </div>

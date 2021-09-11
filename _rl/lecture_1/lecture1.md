@@ -58,8 +58,8 @@ Inventory management:
 - **Unsupervised Learning**: Observe the environment and extract features.
 
 #### From other tasks:
-- **Transfer Learning**: Share knowledge between different tasks [Lecture 16](/lectures/lecture16)
-- **Meta-learning**: Learning to learn: Use past learned tasks to optimize the learning process. [Lecture 20](/lectures/lecture20)
+- **Transfer Learning**: Share knowledge between different tasks [Lecture 16](/rl/transfer_and_multitask_rl)
+- **Meta-learning**: Learning to learn: Use past learned tasks to optimize the learning process. [Lecture 20](/rl/meta-rl)
 
 ## How to build intelligent machines:
 

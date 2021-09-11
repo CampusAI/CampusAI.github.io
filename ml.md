@@ -7,6 +7,28 @@ permalink: /ml/
 <!-- This page contains explanations of diverse ML topics we found interesting. -->
 
 <!-- ## Unsupervised Learning -->
+## Basics
+
+{% include paper-card.html
+title="Probability Basics for ML"
+subtitle="Definitions, MLE, Information theory, Statistical distances"
+url="/ml/prob_modelling"%}
+
+{% include paper-card.html
+title="Probability Distributions"
+subtitle="Bernoulli, Categorical, Binomial, Multinomial, Geometric, Poison, Uniform, Gaussian, Exponential, $\chi^2$, Gamma"
+url="/ml/distributions"%}
+
+{% include paper-card.html
+title="ML Essentials"
+subtitle="Basics, Regularization, Ensemble Methods, Error measures"
+url="/ml/ml_concepts"%}
+
+{% include paper-card.html
+title="Simple ML models"
+subtitle="kNN, Decision Trees, Naive Bayes, SVM, Logistic Regression, Linear Regression, Hierarchical Clustering, k-means, EM, Spectral Clustering"
+url="/ml/simple_models"%}
+
 
 ## Generative Models
 
@@ -18,7 +40,8 @@ url="/ml/generative_models"%}
 {% include paper-card.html
 title="From Expectation Maximization to Variational Inference"
 subtitle="Latent Variable Models, EM, VI, Amortized VI, Reparametrization Trick, Mean Field VI"
-url="/ml/variational_inference"%}
+url="/ml/variational_inference"
+star="no"%}
 
 {% include paper-card.html
 title="Autoregressive models (AR)"
@@ -37,37 +60,6 @@ title="Attention Basics"
 subtitle="Attention vs Memory"
 url="/ml/attention"%}
 
-
-## Dimensionality reduction
-
-{% include paper-card.html
-title="Dim reduction basics"
-subtitle="The curse of dimensionality, SVD"
-url="/ml/dim_reduction_basics"%}
-
-{% include paper-card.html
-title="Dim reduction algorithms"
-subtitle="PCA, KPCA, MDS, Isomap, AutoEncoders"
-url="/ml/dim_reduction_algos"%}
-
-
-## Massive Dataset Mining
-
-{% include paper-card.html
-title="Similar Items"
-subtitle="Shingling, Minhashing, LSH"
-url="/ml/similar_items"%}
-
-{% include paper-card.html
-title="Frequent Itemsets"
-subtitle="Market-Basket Model, Association Rules, A-Priori Algorithm"
-url="/ml/frequent_itemsets"%}
-
 ## Annex
-
-{% include paper-card.html
-title="Probability Basics"
-subtitle="Information theory, Statistical distances"
-url="/ml/prob_modelling"%}
 
 {% include paper-card.html title="Variational Inference Annex" subtitle="" url="/lectures/variational_inference_annex"   %}

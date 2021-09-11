@@ -1,7 +1,7 @@
 ---
 layout: article
-title: "Dimensionality Reduction"
-permalink: /ml/dim_reduction_algos
+title: "Dimensionality reduction: Algorithms"
+permalink: /ds/dim_reduction_algos
 content-origin: KTH DD2434, gregorygundersen.com
 post-author: Oleguer Canal
 ---
@@ -17,7 +17,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
-I highly recommend to read the previous post: [Dim reduction basics](/ml/dim_reduction_basics) to get familiar with SVD.
+I highly recommend to read the previous post: [Dim reduction basics](/ds/dim_reduction_basics) to get familiar with SVD.
 So, how can we cope with high-dim data?
 
 - Quantify **relevance of dimensions** and (possibly) eliminate some. This is commonly used in supervised learning, where we pay more attention to the variables which are more highly correlated to the target.
@@ -138,7 +138,7 @@ The directions in which there is a larger spread of data (thus being similar to 
 Therefore, if most data-points (vectors) lay in a line the largest elongation will be along that direction.
 In the picture, $$A \in \mathbb{R}^{2 \times n}: \mathbb{R}^n \rightarrow \mathbb{R}^2$$ has larger elongation along the pink marks axis.
 
-{% include figure.html url="/_ml/dim_reduction/pca.gif"
+{% include figure.html url="/_ds/dim_reduction/pca.gif"
 description="Figure 5: 2D points linear projection into 1D space. Notice that the axis of higher variance (first left singular vector) provides the most informative projection. Figure from https://builtin.com/ (Zakaria Jaadi)"
 %}
 
@@ -161,7 +161,7 @@ It is often the case that for some dataset, a linear projection is not enough.
 Consider this example of a 2D surface embedded into a 3D space.
 No matter how you orient the projection plane (if $$k=2$$), the projection will not be good:
 
-{% include figure.html url="/_ml/dim_reduction/kernel_pca.png"
+{% include figure.html url="/_ds/dim_reduction/kernel_pca.png"
 description="Figure 6: PCA of s-shaped surface into a 2D space. Figure from David Thompon Carltech kernel-PCA lecture."
 %}
 
@@ -316,7 +316,7 @@ The main algorithm then becomes:
 
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/dim_reduction/geodessic_distance.jpeg" description="Euclidean vs Geodessic distances. Image from A. Yamin et al., Comparison Of Brain Connectomes Using Geodesic Distance On Manifold: A Twins Study"%}
+{% include figure.html url="/_ds/dim_reduction/geodessic_distance.jpeg" description="Euclidean vs Geodessic distances. Image from A. Yamin et al., Comparison Of Brain Connectomes Using Geodesic Distance On Manifold: A Twins Study"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -337,7 +337,7 @@ For instance, if we want to minimize the MSE between each input and its reconstr
 
 Where `enc` and `dec` are ANNs which can be trained with gradient descend.
 
-{% include figure.html url="/_ml/dim_reduction/autoencoder.png"
+{% include figure.html url="/_ds/dim_reduction/autoencoder.png"
 description="Figure 7: Standard autoencoder architecture. First half of the neural networks works as a data compression encoder, second half reconstructs the input to its decompressed form. Figure from compthree blog"
 %}
 

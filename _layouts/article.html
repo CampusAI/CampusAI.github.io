@@ -15,6 +15,9 @@ layout: default
       <div class="row" style="padding-top: 20px;">
           <div class="col-xl-3 col-0"> <!-- sidebar -->
               {% if page.index != false %}
+              <br>
+              <br>
+              <br>
 	          {% include sidebar.html %}
 	      {% endif %}
           </div>
@@ -40,7 +43,10 @@ layout: default
     <div class="row" id="content-row">
         <div class="col-auto">
            {{content}}
+	   {% include start-row.html %}
+	   {% include disqus.html %}
+	   {% include end-row.html %}
         </div>
-    </div>
+    </div> 
   
   </div> <!-- End of container -->
