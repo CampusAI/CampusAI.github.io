@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Attention"
+title: "Attention basics"
 permalink: /ml/attention
 content-origin: Alex Graves Attention and Memory in Deep Learning lecture, lilianweng.github.io
 post-author: Oleguer Canal
@@ -23,29 +23,74 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 ## Implicit attention is not enough!
 
-Common ANNs already encode some sort of attention: they learn on what to focus on given some inputs.
+Common ANNs already encode some sort of **implicit attention**: they learn on what to focus on, given some inputs.
 
-- **Feed-forward networks:** A very visual example can be seen in our [GLOW post](/papers/Grad-CAM), a method to highlight the most relevant areas of an image to its classification.
-To see how important each input field is wrt to each label, we can compute the Jacobian of the ANN: $$\frac{\partial label}{\partial input}$$
+- **Feed-forward networks:** A very visual example can be seen in our [GLOW post](/papers/Grad-CAM): a method to highlight the most relevant areas of an image for a particular label.
+This is done computing the Jacobian of the ANN wrt each input pixel: $$\frac{\partial label}{\partial input}$$ (i.e. how much of an impact has each pixel to the label).
 
 {% include end-row.html %}
 {% include start-row.html %}
-- **Recurrent networks:** Similarly, we can see seq2seq RNNs' most sensitive input signal by analyzing their **Sequential Jacobian**: $$J_k^t = \left( \frac{\partial y_k^t}{\partial x^1}, \frac{\partial y_k^t}{\partial x^2}, ... \right)$$. For each  label, it gives us how "relevant" each sequence input is.
+- **Recurrent networks:** Similarly, we can see seq2seq RNNs' most sensitive input signal by analyzing their **Sequential Jacobian**: $$J_k^t = \left( \frac{\partial y_k^t}{\partial x^1}, \frac{\partial y_k^t}{\partial x^2}, ... \right)$$. For each output (at a particular time), it gives us how "relevant" each element of the inputted sequence is.
 
 Despite the merit of these results, designing an architecture with attention mechanisms has notable advantages:
 - Higher computational **efficiency**
 - Greater **scalability**: Usually size of the input does not affect the size of the architecture.
 - **Sequential processing** of static data: We can just remember the important information of previous data.
-- Easier **interpretation**: As they are specifically designed for the purpose of attention.
+- **Easier interpretation**: As they are specifically designed for the purpose of attention.
 
 {% include annotation.html %}
-[Neural Machine Translation in Real time](https://arxiv.org/abs/1610.10099) paper shows how a deep-enough seq2seq RNN without any explicit attention mechanism is able to efficiently learn the different word orderings.
+[Neural Machine Translation in Real time](https://arxiv.org/abs/1610.10099) paper shows how a deep-enough seq2seq RNN without any explicit attention mechanism is able to efficiently learn the different word orderings in different languages.
 {% include end-row.html %}
 {% include start-row.html %}
 
 ## Neural Attention Models
 
-ddsd
+### Hard attention
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+The model operates sequentially is composed by two components:
+- An **attention model**: Which takes the data input and outputs a fixed-size "glimpse" (parts of the input).
+- The **network** itself: Which takes this "glimpse" and outputs both the desired output and an extra vector used in the attention model
+
+Usually, the **attention model** works by giving a probability distribution over "glimpses" $$g$$ of the original data $$x$$ given some set of attention outputs $$a$$.
+
+<blockquote markdown="1">
+**For instance:** If the input is an image, the glimpses can be different tiles of a partition of it.
+
+{% include figure.html url="/_ml/attention/glimpse_distribution.png" description="Glimpse example of an image input. (Image from DeepMind)" width="30" zoom="1.0"%}
+
+**Notice** that this is just an example, good-performing models have much more complex glimpse systems. For instance, combining resizings of different resolutions of different parts of the image.
+</blockquote>
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/attention/neural_attention_models.png" description="Neural Attention Model architecture. (Image from DeepMind)" width="40" zoom="1.0"%}
+{% include end-row.html %}
+{% include start-row.html %}
+
+So, given an attention vector $$a$$, we have a probability distribution
+
+\begin{equation}
+P(g_k \mid a)
+\end{equation}
+
+Thinking in reinforcement learning terms, this can be understood as a **stochastic policy** $$\pi_a$$: the attention model needs to choose which glimpse to provide to the network.
+
+However, this is a **hard decision**: we no longer have a gradient over the input, we must choose a particular "glimpse".
+Luckily, to train this "policy" $$\pi$$, we can rely on [policy-gradient](/lectures/lecture5) RL techniques such as the REINFORCE algorithm using the loss of the main network as a reward signal.
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+This results in a high **scalable** solution: The model changes focus on different parts of images of different sizes by changing the area of interest while deciding what to output. (mimicking the movement of a human eye over an image)
+
+{% include annotation.html %}
+More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-visual-attention)
+{% include end-row.html %}
+{% include start-row.html %}
+
+### Soft attention
 
 ## dskjsjkdfjs
 
