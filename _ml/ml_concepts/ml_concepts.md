@@ -54,6 +54,7 @@ More on our [Why generative models? post](/ml/generative_models)
   - **Bias** is introduced by our choices on the model's functional form. Wrong (or too-simple) assumptions often lead to under-fitting.
   - **Variance** error is the opposite: it appears when the model is too susceptible to the data. For instance, over-parametrized models tend to over-fit to the training data and perform poorly on test data.
 
+
 - **Generalization**: Ability of a model to perform well on untrained data.
 
 {% include annotation.html %}

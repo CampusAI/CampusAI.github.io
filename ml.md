@@ -25,9 +25,14 @@ subtitle="Basics, Regularization, Ensemble Methods, Error measures"
 url="/ml/ml_concepts"%}
 
 {% include paper-card.html
-title="Simple ML models"
+title="Simple ML Models"
 subtitle="kNN, Decision Trees, Naive Bayes, SVM, Logistic Regression, Linear Regression, Hierarchical Clustering, k-means, EM, Spectral Clustering"
 url="/ml/simple_models"%}
+
+{% include paper-card.html
+title="ML System Design"
+subtitle=""
+url="/ml/ml_in production"%}
 
 
 ## Generative Models
