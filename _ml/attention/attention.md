@@ -45,7 +45,7 @@ Despite the merit of these results, designing an architecture with attention mec
 
 ## Neural Attention Models
 
-### Hard attention
+### Hard (non-differentiable) attention
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -77,11 +77,13 @@ P(g_k \mid a)
 
 Thinking in reinforcement learning terms, this can be understood as a **stochastic policy** $$\pi_a$$: the attention model needs to choose which glimpse to provide to the network.
 
-However, this is a **hard decision**: we no longer have a gradient over the input, we must choose a particular "glimpse".
-Luckily, to train this "policy" $$\pi$$, we can rely on [policy-gradient](/lectures/lecture5) RL techniques such as the REINFORCE algorithm using the loss of the main network as a reward signal.
+However, this is a **hard decision**: we no longer have a gradient over the input, we must choose a particular "glimpse" (take a sample of the distribution).
+Luckily, to train this "policy" $$\pi$$, we can rely on [policy-gradient](/lectures/lecture5) RL techniques such as the REINFORCE algorithm (using the loss of the main network as a reward signal).
 
 {% include end-row.html %}
 {% include start-row.html %}
+
+{% include figure.html url="/_ml/attention/hard_attention.gif" description="Cluttered MINST classification using hard attention: The network gets inputed glimpses which it chooses.  (Image from [Aryan Mobiny](https://github.com/amobiny/Recurrent_Attention_Model))" width="60" zoom="1.0"%}
 
 This results in a high **scalable** solution: The model changes focus on different parts of images of different sizes by changing the area of interest while deciding what to output. (mimicking the movement of a human eye over an image)
 
@@ -90,7 +92,43 @@ More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-vis
 {% include end-row.html %}
 {% include start-row.html %}
 
-### Soft attention
+### Soft (differentiable) attention
+
+Soft attention methods do not give explicit attention but allow end-to-end backprop training.
+
+The most basic application would be to take the **expectation** (instead of a sample) of the "glimpse" distribution $$P(g_k \mid a)$$ presented before:
+
+{% include end-row.html %}
+{% include start-row.html %}
+\begin{equation}
+g = \sum_{g^\prime \in X} g^\prime \cdot P (g^\prime \mid a)
+\end{equation}
+
+{% include annotation.html %}
+This is differentiable wrt $$a$$ [if $$P(g \mid a)$$ is]
+{% include end-row.html %}
+{% include start-row.html %}
+
+**Attention weights**:
+Notice that we don't really need a distribution though.
+A set of weights $$w_i$$ over the "glimpses" can be used to define an **attention readout** $$v$$ from some values $$v_i$$:
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+\begin{equation}
+v = \sum_i w_i v_i
+\end{equation}
+
+Notice the similarity between this, and linear layer weights.
+However, the attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**).
+In contrast to common ANN weights, which change "slowerly" with gradient steps and do NOT directly depend on the input data.
+
+{% include annotation.html %}
+Not needed but usually, it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] \forall i$$
+{% include end-row.html %}
+{% include start-row.html %}
+
 
 ## dskjsjkdfjs
 
