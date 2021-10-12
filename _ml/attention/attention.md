@@ -50,11 +50,16 @@ Despite the merit of these results, designing an architecture with attention mec
 {% include end-row.html %}
 {% include start-row.html %}
 
-The model operates sequentially is composed by two components:
-- An **attention model**: Which takes the data input and outputs a fixed-size "glimpse" (parts of the input).
-- The **network** itself: Which takes this "glimpse" and outputs both the desired output and an extra vector used in the attention model
+The model operates sequentially and is composed by two components:
 
-Usually, the **attention model** works by giving a probability distribution over "glimpses" $$g$$ of the original data $$x$$ given some set of attention outputs $$a$$.
+- An **attention model**:
+  - Input: Original data, information vector
+  - Output: Fixed-size "glimpse" (representation of a partition of the input / part of the input).
+- The **network** itself:
+  - Input: Data "glimpse"
+  - Output: Both the desired output and an extra vector used in the attention model
+
+Usually, the **attention model** works by giving a probability distribution over "glimpses" $$g$$ of the original data $$x$$ given some set of attention outputs $$\vec{a}$$.
 
 <blockquote markdown="1">
 **For instance:** If the input is an image, the glimpses can be different tiles of a partition of it.
@@ -69,10 +74,10 @@ Usually, the **attention model** works by giving a probability distribution over
 {% include end-row.html %}
 {% include start-row.html %}
 
-So, given an attention vector $$a$$, we have a probability distribution
+So, given an attention vector $$\vec{a}$$, we have a probability distribution
 
 \begin{equation}
-P(g_k \mid a)
+P(g_k \mid \vec{a})
 \end{equation}
 
 Thinking in reinforcement learning terms, this can be understood as a **stochastic policy** $$\pi_a$$: the attention model needs to choose which glimpse to provide to the network.
@@ -96,38 +101,55 @@ More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-vis
 
 Soft attention methods do not give explicit attention but allow end-to-end backprop training.
 
-The most basic application would be to take the **expectation** (instead of a sample) of the "glimpse" distribution $$P(g_k \mid a)$$ presented before:
+The most basic approach would be to take the **expectation** (instead of a sample) of the "glimpse" distribution $$P(g_k \mid a)$$ presented before:
 
 {% include end-row.html %}
 {% include start-row.html %}
 \begin{equation}
-g = \sum_{g^\prime \in X} g^\prime \cdot P (g^\prime \mid a)
+g = \sum_{g^\prime \in X} g^\prime \cdot P (g^\prime \mid \vec{a})
 \end{equation}
 
 {% include annotation.html %}
-This is differentiable wrt $$a$$ [if $$P(g \mid a)$$ is]
+This is differentiable wrt $$\vec{a}$$ [if $$P(g \mid \vec{a})$$ is]
 {% include end-row.html %}
 {% include start-row.html %}
 
 **Attention weights**:
 Notice that we don't really need a distribution though.
-A set of weights $$w_i$$ over the "glimpses" can be used to define an **attention readout** $$v$$ from some values $$v_i$$:
+A set of weights $$\{ w_i \}_i$$ over the "glimpses" can be used to define an **attention readout** $$\vec{v}$$ from some representation (meaningful embedding) of the "glimpses" $$\vec{v_i}$$:
 
 {% include end-row.html %}
 {% include start-row.html %}
 
 \begin{equation}
-v = \sum_i w_i v_i
+\vec{v} = \sum_i w_i \vec{v_i}
 \end{equation}
 
-Notice the similarity between this, and linear layer weights.
-However, the attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**).
-In contrast to common ANN weights, which change "slowerly" with gradient steps and do NOT directly depend on the input data.
-
 {% include annotation.html %}
-Not needed but usually, it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] \forall i$$
+Not needed, but usually it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] \forall i$$
 {% include end-row.html %}
 {% include start-row.html %}
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+Now you might be thinking something like: *"Wait, this is very similar to linear layer weights..." And they are similar! However:
+
+- Attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**)
+- Common ANN weights do NOT directly depend on the input data at inference time. They change "slowerly" with gradient steps in training time.
+
+{% include annotation.html %}
+For instance, we can think of Conv1D's layer operation as applying a set of weights on a set of "glimpses" of the input vector:
+
+{% include figure.html url="/_ml/attention/conv1d.gif" description="Conv1d mechanism. (Image from [krzjoa](https://krzjoa.github.io/))" width="80" zoom="1.0"%}
+
+However, the kernel is fixed (both values and size) regardless fo the input!
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+
+
 
 
 ## dskjsjkdfjs
