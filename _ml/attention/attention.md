@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Attention basics"
+title: "Neural Attention Models"
 permalink: /ml/attention
 content-origin: Alex Graves Attention and Memory in Deep Learning lecture, lilianweng.github.io
 post-author: Oleguer Canal
@@ -21,7 +21,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 **Attention** is the ability to focus on what is important for the desired task. Contrary to memory, its not about retaining as much as possible, but to discard what is not needed.
 </blockquote>
 
-## Implicit attention is not enough!
+### Implicit attention is not enough!
 
 Common ANNs already encode some sort of **implicit attention**: they learn on what to focus on, given some inputs.
 
@@ -43,9 +43,7 @@ Despite the merit of these results, designing an architecture with attention mec
 {% include end-row.html %}
 {% include start-row.html %}
 
-## Neural Attention Models
-
-### Hard (non-differentiable) attention
+## Hard (non-differentiable) attention
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -97,7 +95,7 @@ More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-vis
 {% include end-row.html %}
 {% include start-row.html %}
 
-### Soft (differentiable) attention
+## Soft (differentiable) attention
 
 Soft attention methods do not give explicit attention but allow end-to-end backprop training.
 
@@ -116,7 +114,7 @@ This is differentiable wrt $$\vec{a}$$ [if $$P(g \mid \vec{a})$$ is]
 
 **Attention weights**:
 Notice that we don't really need a distribution though.
-A set of weights $$\{ w_i \}_i$$ over the "glimpses" can be used to define an **attention readout** $$\vec{v}$$ from some representation (meaningful embedding) of the "glimpses" $$\vec{v_i}$$:
+A set of weights $$\{ w_i \}_i$$ over the "glimpses" $$\{ g_i \}_i$$ can be used to define an **attention readout** $$\vec{v}$$ from some representation (meaningful embedding) of the "glimpses" $$\{ \vec{v_i} \}_i$$:
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -133,7 +131,7 @@ Not needed, but usually it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] 
 {% include end-row.html %}
 {% include start-row.html %}
 
-Now you might be thinking something like: *"Wait, this is very similar to linear layer weights..." And they are similar! However:
+Now you might be thinking something like: *"Wait, this is very similar to linear layer weights..."* And they are similar! However:
 
 - Attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**)
 - Common ANN weights do NOT directly depend on the input data at inference time. They change "slowerly" with gradient steps in training time.
@@ -144,17 +142,71 @@ For instance, we can think of Conv1D's layer operation as applying a set of weig
 {% include figure.html url="/_ml/attention/conv1d.gif" description="Conv1d mechanism. (Image from [krzjoa](https://krzjoa.github.io/))" width="80" zoom="1.0"%}
 
 However, the kernel is fixed (both values and size) regardless fo the input!
-
+The same operation is applied to all the glimpses.
+Attention weights, however, would linearly combine all the glimpses of the vector to produce an output. 
 {% include end-row.html %}
 {% include start-row.html %}
 
 
 
+## Associative Attention
 
+{% include end-row.html %}
+{% include start-row.html %}
 
-## dskjsjkdfjs
+Until now, all the attention mechanisms described focus on **where** to attend in the input (location-based attention).
+Instead of choosing where to look, **associative attention** (aka content-based attention) attends to the content it wants to look at.
+Thus, the attention parameter created by the network does not request position but content.
 
-dededes
+{% include annotation.html %}
+Associative attention is currently one of the most commonly used attention mechanisms
+{% include end-row.html %}
+{% include start-row.html %}
 
+In associative attention, the attention parameter created by the network is a **key vector** $$\vec{k}$$ which is compared to all the elements in the input data $$\{ \vec{x_i} \}_i$$ using some similarity function $$S(\cdot, \cdot)$$  . This gives a set of attention weights $$\{ \vec{w_i} \}_i$$ computed as:
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+\begin{equation}
+w_i = \text{SOFTMAX} (S(\vec{k}, \vec{x_i}))
+\end{equation}
+
+Then, the input to the network (aka attention readout) becomes the weighted average of all the "glimpses" by their associated weight:
+
+{% include annotation.html %}
+$$S(\cdot, \cdot)$$ can either be fixed (e.g. dot product, cosine similarity...) or learned (e.g. MLP, Linear Operator...)
+{% include end-row.html %}
+{% include start-row.html %}
+
+\begin{equation}
+\text{INPUT} = \sum_i w_i x_i
+\end{equation}
+
+{% include annotation.html %}
+Basically you are averaging the input partitions by _"how much you care"_ about that partition at that particular point.
+{% include end-row.html %}
+{% include start-row.html %}
+
+{% include end-row.html %}
+{% include start-row.html %}
+
+Often, instead of using the "glimpse" $$\{ x_i \}_i$$ itself, each "glimpse" is expressed by a key-value pair: $$\{k_i, v_i\}$$.
+Where $$k_i$$ is used to define the attention weights, and $$v_i$$ to define the value readout:
+
+\begin{equation}
+w_i = \text{SOFTMAX} (S(\vec{k}, \vec{k_i}))
+\end{equation}
+
+\begin{equation}
+\text{INPUT} = \sum_i w_i v_i
+\end{equation}
+
+{% include annotation.html %}
+This is useful to achieve a separation between what is used to lookup the data and what you actually get back when reading it out.
+{% include end-row.html %}
+{% include start-row.html %}
+
+## Introspective attention
 
 {% include end-row.html %}
