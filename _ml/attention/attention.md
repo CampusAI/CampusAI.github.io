@@ -18,9 +18,9 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 {% include start-row.html %}
 
 _Ok, I've dragged it enough... Time has come to see whats behind all this transformer hype :)
-This first post explores the concept of attention in ANNs.
+This post explores the concept of attention in ANNs.
 In later ones, we'll see how we can leverage these ideas in common ML tasks.
-Let me start with a definition:_
+But first, lets start with a definition:_
 
 <blockquote markdown="1">
 **Attention** is the ability to focus on what is important for the desired task. Contrary to memory, its not about retaining as much as possible, but to discard what is not needed.
@@ -58,25 +58,26 @@ Sounds like a good deal! So let's see how we can design models which explicitly 
 {% include start-row.html %}
 
 To understand how most attention-based models operate, it is key to first understand the concept of glimpses.
+
+<blockquote markdown="1">
 **Glimpses** are representations of partitions of the input data.
 For instance the glimpses of a:
 - **Text input** might be an array of 1-hot encoding of its letters or an array of its word embeddings.
 - **Sound input** might be a wave representation of the sound at fixed periods of time.
 - **Image input** might be different tiles of partitions of the image (see left-side note).
 - **Video input** might be the different images which compose the video.
+</blockquote>
 
 Attention-based models are composed by 2 modules which operate in a cyclic fashion (even for static data):
 - An **attention mechanism**: Chooses which glimpses (or what glimpse combination) to input to the ANN.
 - The **main ANN**: Produces the desired output and provides feedback to the attention mechanism.
 
-<blockquote markdown="1">
 The iteration loop looks as follows:
 1. The network provides some _"attention vector"_ to the attention mechanism.
 2. The attention mechanism "chooses" what to input to the network (which is dependent on this _"attention vector"_).
 3. The network processes the input, generates an output (and/or hidden state).
 4. Go back to 1.
 {% include figure.html url="/_ml/attention/neural_attention_models.png" description="Neural Attention Model architecture. (Image from DeepMind)" width="40" zoom="1.0"%}
-</blockquote>
 
 Thus, what defines an attention mechanism **is the way the glimpses of original data are chosen/combined according to the _"attention vector"_**.
 There are a lot of ways to do that, so in this post we'll focus on some of the most influential works.
@@ -117,7 +118,8 @@ Luckily, to train this "policy" $$\pi$$, we can rely on [policy-gradient](/lectu
 
 {% include figure.html url="/_ml/attention/hard_attention.gif" description="Cluttered MINST classification using hard attention: The network gets inputed glimpses which it chooses.  (Image from [Aryan Mobiny](https://github.com/amobiny/Recurrent_Attention_Model))" width="60" zoom="1.0"%}
 
-This results in a high **scalable** solution: The model changes focus on different parts of images of different sizes by changing the area of interest while deciding what to output. (mimicking the movement of a human eye over an image)
+This results in a high **scalable** solution:
+The model changes focus on different parts of images while deciding what to output. (mimicking the movement of a human eye over an image)
 
 {% include annotation.html %}
 More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-visual-attention)
@@ -127,7 +129,7 @@ More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-vis
 ### Soft Attention
 
 Soft attention methods (aka differentiable attention methods)
-allow end-to-end backprop training by not giving explicit attention to a single glimpse $$g$$.
+allow end-to-end backprop training by smoothly combining all glimpses $$\{ g_i \}_i$$.
 A common approach is to take the **expectation** (instead of a sample) of the glimpse distribution $$P(g_k \mid a)$$ presented before:
 
 {% include end-row.html %}
@@ -141,17 +143,23 @@ This is differentiable wrt $$\vec{a}$$ [if $$P(g \mid \vec{a})$$ is]
 {% include end-row.html %}
 {% include start-row.html %}
 
-**Attention weights**:
-Notice that we don't really need a distribution though.
-A set of weights $$\{ w_i \}_i$$ over the glimpses $$\{ g_i \}_i$$ can be used to define an **attention readout** $$\vec{v}$$ from some representation (meaningful embedding) of the glimpses $$\{ \vec{v_i} \}_i$$:
+This might sound fancy but it is super simple:
+_we are only linearly combining all of the glimpses weighting each one by some factor._
+In fact, notice that we don't even need to define a distribution, we can substitute these "probabilities" by a set of weights $$\{ w_i \}_i$$.
+These are known as attention weights and play a key role in a lot of attention mechanisms:
 
 {% include end-row.html %}
 {% include start-row.html %}
+
+<blockquote markdown="1">
+**Attention weights**:
+A set of weights $$\{ w_i \}_i$$ over the glimpses $$\{ g_i \}_i$$ can be used to define an **attention readout** $$\vec{v}$$ from some representation (meaningful embedding) of the glimpses $$\{ \vec{v_i} \}_i$$:
 
 \begin{equation}
 \vec{v} = \sum_i w_i \vec{v_i}
 \end{equation}
 
+</blockquote>
 {% include annotation.html %}
 Not needed, but usually it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] \forall i$$
 {% include end-row.html %}
@@ -160,8 +168,12 @@ Not needed, but usually it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] 
 {% include end-row.html %}
 {% include start-row.html %}
 
-Now you might be thinking something like: *"Wait, this is very similar to linear layer weights..."* And they are similar! However:
+Now you might be thinking something like:
+*"Wait, how is that different from linear layer weights..."*
+Another good question!
+They are quite similar, however:
 
+- Attention-based models operate in a cyclic fashion on a given input (unlike standard linear layer weights which all the data does a single forward pass)
 - Attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**)
 - Common ANN weights do NOT directly depend on the input data at inference time. They change "slowerly" with gradient steps in training time.
 

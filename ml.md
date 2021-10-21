@@ -57,7 +57,7 @@ url="/ml/flow_models"%}
 
 {% include paper-card.html
 title="Attention Basics"
-subtitle="Attention vs Memory"
+subtitle="Hard Attention, Soft Attention, Associative Attention, Introspective Attention"
 url="/ml/attention"%}
 
 ## Annex
