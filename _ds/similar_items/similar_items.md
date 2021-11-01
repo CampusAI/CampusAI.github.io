@@ -17,7 +17,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 {% include start-row.html %}
 
 In this post we will present a common approach to finding near-duplicate "documents" (e.g. articles, websites...) within a massive set (e.g. the world-wide-web).
-<!-- This can be used to detect related documents, or plagiarism.
+Where a simple pair-wise $$O(n^2)$$ comparison of all documents content is not feasible.
 If the "documents" are websites it can also be used as a way to detect mirrors (e.g. search engines do not want to show the same site twice). -->
 
 ## Problem definition

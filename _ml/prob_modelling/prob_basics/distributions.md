@@ -322,6 +322,7 @@ PDF(x, k) = \frac{1}{\Gamma (k) 2^{\frac{k}{2}}} x^{\frac{k}{2} - 1} e^{- \frac{
 {% include start-row.html %}
 
 Represents the distribution probability of the amount of time between two Poison-type events.
+Measures the amount of time probability between two Poisson-type events.
 $$\lambda$$ again is the expected number of events within the time period.
 
 \begin{equation}
