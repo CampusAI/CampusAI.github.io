@@ -17,6 +17,7 @@ Furthermore, please acknowledge our work by adding a link to our website: https:
 
 {% include start-row.html %}
 
+
 _Ok, I've dragged it enough... Time has come to see whats behind all this transformer hype :)
 This post explores the concept of attention in ANNs.
 In later ones, we'll see how we can leverage these ideas in common ML tasks.
@@ -31,6 +32,11 @@ But first, lets start with a definition:_
 But wait, aren't regular ANNs already acquiring some sense of attention?
 Good question! And yes: provided some inputs, common ANNs learn on what to focus on.
 This is known as **implicit attention** and some examples are:
+
+{% include annotation.html %}
+{% include figure.html url="/_ml/attention/yoda.jpg" description="Wise words from master Yoda" width="80" zoom="1.0"%}
+{% include end-row.html %}
+{% include start-row.html %}
 
 - **Feed-forward networks:** A very visual example can be seen in our [GLOW post](/papers/Grad-CAM): a method to highlight the most relevant areas of an image for a particular label.
 This is done computing the Jacobian of the ANN wrt each input pixel: $$\frac{\partial label}{\partial input}$$ (i.e. how much of an impact has each pixel to the label).
@@ -61,7 +67,7 @@ To understand how most attention-based models operate, it is key to first unders
 
 <blockquote markdown="1">
 **Glimpses** are representations of partitions of the input data.
-For instance the glimpses of a:
+For instance, glimpses of a:
 - **Text input** might be an array of 1-hot encoding of its letters or an array of its word embeddings.
 - **Sound input** might be a wave representation of the sound at fixed periods of time.
 - **Image input** might be different tiles of partitions of the image (see left-side note).
@@ -94,7 +100,8 @@ There are a lot of ways to do that, so in this post we'll focus on some of the m
 {% include end-row.html %}
 {% include start-row.html %}
 The hard attention mechanism (aka non-differentiable attention) is characterized by providing a single glimpse $$g$$ to the network at each iteration.
-Internally, it works by building a probability distribution over glimpses $$\{ g_k \}_k$$ of the original data $$x$$ given some set of attention outputs $$\vec{a}$$:
+Internally, it works by building a probability distribution over glimpses $$\{ g_k \}_k$$ of the original data $$x$$ given some set of attention outputs $$\vec{a}$$
+(ANN's _"attention vector"_):
 
 \begin{equation}
 P(g_k \mid \vec{a})
@@ -126,6 +133,8 @@ More on [Recurrent Visual Attention](https://github.com/kevinzakka/recurrent-vis
 {% include end-row.html %}
 {% include start-row.html %}
 
+<br>
+
 ### Soft Attention
 
 Soft attention methods (aka differentiable attention methods)
@@ -146,14 +155,14 @@ This is differentiable wrt $$\vec{a}$$ [if $$P(g \mid \vec{a})$$ is]
 This might sound fancy but it is super simple:
 _we are only linearly combining all of the glimpses weighting each one by some factor._
 In fact, notice that we don't even need to define a distribution, we can substitute these "probabilities" by a set of weights $$\{ w_i \}_i$$.
-These are known as attention weights and play a key role in a lot of attention mechanisms:
+These are known as attention weights and play a key role in most attention mechanisms:
 
 {% include end-row.html %}
 {% include start-row.html %}
 
 <blockquote markdown="1">
 **Attention weights**:
-A set of weights $$\{ w_i \}_i$$ over the glimpses $$\{ g_i \}_i$$ can be used to define an **attention readout** $$\vec{v}$$ from some representation (meaningful embedding) of the glimpses $$\{ \vec{v_i} \}_i$$:
+Set of weights $$\{ w_i \}_i$$, one for each glimpse $$\{ g_i \}_i$$ that can be used to define an **attention readout** $$\vec{v}$$ (network input) from some representation (meaningful embedding) of the glimpses $$\{ \vec{v_i} \}_i$$:
 
 \begin{equation}
 \vec{v} = \sum_i w_i \vec{v_i}
@@ -169,38 +178,32 @@ Not needed, but usually it is nice that $$\sum_i w_i = 1$$ and $$w_i \in [0, 1] 
 {% include start-row.html %}
 
 Now you might be thinking something like:
-*"Wait, how is that different from linear layer weights..."*
+*"Wait, how is that different from linear layer weights? After all, aren't we also multiplying our input by a set of weights?"*
 Another good question!
-They are quite similar, however:
+They are quite similar, remember however the cyclic nature of attention-based methods:
 
-- Attention-based models operate in a cyclic fashion on a given input (unlike standard linear layer weights which all the data does a single forward pass)
-- Attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**)
-- Common ANN weights do NOT directly depend on the input data at inference time. They change "slowerly" with gradient steps in training time.
+- Attention-based models operate in a iterative fashion on a given input
+  - Unlike standard linear layer weights which all the data does a single forward pass
+  - Unlike in standard RNNs where the time-dependent data is processed sequentially.
+- Attention weights change dynamically with the input sequence (they are data-dependent, aka **fast weights**). The network "chooses" how to set this weights depending on what it has seen.
+- Common ANN weights do NOT directly depend on the input data at inference time. They change "slowerly" with gradient steps during training time.
+
+<br>
+
+### Associative Attention
+
+Until now, the attention mechanisms described focus on **where** to attend in the input (location-based attention).
+Instead of choosing where to look, **associative attention** (aka content-based attention) attends to what content it wants to look at.
+Thus, instead of querying positional information, the attention parameter created by the network, requests certain features of the glimpses.
 
 {% include annotation.html %}
 For instance, we can think of Conv1D's layer operation as applying a set of weights on a set of glimpses of the input vector:
 
 {% include figure.html url="/_ml/attention/conv1d.gif" description="Conv1d mechanism. (Image from [krzjoa](https://krzjoa.github.io/))" width="80" zoom="1.0"%}
 
-However, the kernel is fixed (both values and size) regardless fo the input!
+However, the kernel is fixed (both in terms of size and its values) regardless fo the input!
 The same operation is applied to all the glimpses.
 Attention weights, however, would linearly combine all the glimpses of the vector to produce an output. 
-{% include end-row.html %}
-{% include start-row.html %}
-
-
-
-### Associative Attention
-
-{% include end-row.html %}
-{% include start-row.html %}
-
-Until now, all the attention mechanisms described focus on **where** to attend in the input (location-based attention).
-Instead of choosing where to look, **associative attention** (aka content-based attention) attends to the content it wants to look at.
-Thus, the attention parameter created by the network does not request position but content.
-
-{% include annotation.html %}
-Associative attention is currently one of the most commonly used attention mechanisms
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -210,10 +213,11 @@ In associative attention, the attention parameter created by the network is a **
 {% include start-row.html %}
 
 \begin{equation}
-w_i = \text{SOFTMAX} (S(\vec{k}, \vec{x_i}))
+w_i = \text{SOFTMAX} (S(\vec{k}, \vec{x_i})) =
+\frac{\text{exp} S(\vec{k}, \vec{x_i})}{\sum_j \text{exp} S(\vec{k}, \vec{x_j})}
 \end{equation}
 
-Then, the input to the network (aka attention readout) becomes the weighted average of all the glimpses by their associated weight:
+Then, the **attention readout** $$\vec{v}$$ (what is inputed to the network) becomes the weighted average of all the glimpses by their associated weight:
 
 {% include annotation.html %}
 $$S(\cdot, \cdot)$$ can either be fixed (e.g. dot product, cosine similarity...) or learned (e.g. MLP, Linear Operator...)
@@ -221,7 +225,7 @@ $$S(\cdot, \cdot)$$ can either be fixed (e.g. dot product, cosine similarity...)
 {% include start-row.html %}
 
 \begin{equation}
-\text{INPUT} = \sum_i w_i x_i
+\vec{v} = \sum_i w_i x_i
 \end{equation}
 
 {% include annotation.html %}
@@ -240,7 +244,7 @@ w_i = \text{SOFTMAX} (S(\vec{k}, \vec{k_i}))
 \end{equation}
 
 \begin{equation}
-\text{INPUT} = \sum_i w_i v_i
+\vec{v} = \sum_i w_i v_i
 \end{equation}
 
 {% include annotation.html %}
@@ -248,7 +252,10 @@ This is useful to achieve a separation between what is used to lookup the data a
 {% include end-row.html %}
 {% include start-row.html %}
 
-### Introspective attention
+Therefore, one needs to learn a mapping from each glimpse representation $$\vec{x_i}$$ to its associated key vector $$\vec{k_i}$$ and value $$\vec{v_i}$$.
+This is often done through common ANN architectures.
+
+### Introspective Attention
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -262,10 +269,14 @@ Pick up thoughts or memories.
 {% include end-row.html %}
 {% include start-row.html %}
 
-Left out: [Differentiable Visual Attention](https://arxiv.org/abs/1502.04623)
+### Self-Attention
+
+**Transformer** networks are a type of ANN which have gained a lot of attention recently (pun untended).
+They were introduced in the paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762) and live up to their word:
+They bring attention to the logical extreme, by getting rid of everything else commonly used (e.g. recurrent state of RNNs, convolutions, explicit memory...).
 
 ## Summary
 
 
-
+Left out: [Differentiable Visual Attention](https://arxiv.org/abs/1502.04623)
 {% include end-row.html %}
