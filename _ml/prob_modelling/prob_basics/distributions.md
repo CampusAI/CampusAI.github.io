@@ -167,7 +167,7 @@ For instance, in **RL**: if life expectancy of an agent is $$E[X] = \frac{1}{\la
 {% include end-row.html %}
 {% include start-row.html %}
 
-#### Poison
+#### Poisson
 
 {% include end-row.html %}
 {% include start-row.html %}
@@ -185,7 +185,7 @@ p(X = x \mid \lambda) = \frac{\lambda^x e^{- \lambda}}{x!}
 \end{equation}
 
 {% include annotation.html %}
-{% include figure.html url="/_ml/prob_modelling/prob_basics/poisson-distribution.png" description="Poison PMF" width="60" zoom="1.75"%}
+{% include figure.html url="/_ml/prob_modelling/prob_basics/poisson-distribution.png" description="Poisson PMF" width="60" zoom="1.75"%}
 {% include end-row.html %}
 {% include start-row.html %}
 
@@ -321,7 +321,11 @@ PDF(x, k) = \frac{1}{\Gamma (k) 2^{\frac{k}{2}}} x^{\frac{k}{2} - 1} e^{- \frac{
 {% include end-row.html %}
 {% include start-row.html %}
 
+<<<<<<< HEAD
 Represents the distribution probability of the amount of time between two Poison-type events.
+=======
+Measures the amount of time probability between two Poisson-type events.
+>>>>>>> master
 $$\lambda$$ again is the expected number of events within the time period.
 
 \begin{equation}
@@ -354,7 +358,7 @@ Can be thought of as a continuous version of a **Geometric distribution**.
 #### Gamma
 
 
-The same way the **exponential** distribution predicts the amount of time until the first **Poison** event, the **Gamma** distribution predicts the time until the k-th Poison of event having rate $$\lambda \frac{\text{events}}{\text{timeperiod}}$$.
+The same way the **exponential** distribution predicts the amount of time until the first **Poisson** event, the **Gamma** distribution predicts the time until the k-th Poisson of event having rate $$\lambda \frac{\text{events}}{\text{timeperiod}}$$.
 
 \begin{equation}
 x \in (0, \infty)
@@ -363,14 +367,14 @@ x \in (0, \infty)
 {% include end-row.html %}
 {% include start-row.html %}
 
-Presents two representations. One with shape parameter $$k$$ ("number" of events) and scale parameters $$\theta = \frac{1}{\lambda}$$ (inverse of Poison rate $$\lambda$$):
+Presents two representations. One with shape parameter $$k$$ ("number" of events) and scale parameters $$\theta = \frac{1}{\lambda}$$ (inverse of Poisson rate $$\lambda$$):
 
 \begin{equation}
 PDF(x, k, \theta) = \frac{1}{\Gamma (\alpha) \theta^k} x^{k - 1} e^{- \frac{x}{\theta}}
 \end{equation}
 
 And one with shape ($$\alpha = k$$ "number" of events) and rate parameters $$\beta = \frac{1}{\theta}$$.
-Notice that this rate is the same as the dictated by the Poison distribution: $$\beta = \lambda$$)
+Notice that this rate is the same as the dictated by the Poisson distribution: $$\beta = \lambda$$)
 
 \begin{equation}
 PDF(x, \alpha, \beta) = \frac{\beta^\alpha}{\Gamma (\alpha)} x^{\alpha - 1} e^{- \beta x}
