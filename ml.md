@@ -52,13 +52,13 @@ url="/ml/autoregressive_models"%}
 title="Normalizing flows"
 subtitle="Basics, Pro/Cons, Relevant Papers"
 url="/ml/flow_models"%}
-
+<!-- 
 ## Pay attention!
 
 {% include paper-card.html
 title="Attention Basics"
 subtitle="Hard Attention, Soft Attention, Associative Attention, Introspective Attention"
-url="/ml/attention"%}
+url="/ml/attention"%} -->
 
 ## Annex
 
